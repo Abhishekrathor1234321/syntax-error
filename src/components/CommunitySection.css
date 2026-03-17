@@ -1,6 +1,5 @@
-
 .community{
-padding:80px 40px;
+padding:80px 20px;
 background:#0b1220;
 color:white;
 text-align:center;
@@ -66,4 +65,22 @@ margin:0;
 .testimonial span{
 color:#22c55e;
 font-size:14px;
+}
+
+@media(max-width:768px){
+.stats{
+grid-template-columns:repeat(2,1fr);
+}
+.testimonials{
+grid-template-columns:1fr;
+}
+.community{
+padding:80px 16px;
+}
+}
+
+@media(max-width:480px){
+.stats{
+grid-template-columns:repeat(2,1fr);
+}
 }
