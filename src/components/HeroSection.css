@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 80px 20px 40px 20px;
+  padding: 20px 20px 40px 20px;
 }
 
 .hero-content {
@@ -78,11 +78,12 @@
 }
 
 @media(max-width: 600px) {
+  .hero {
+    padding: 70px 16px 40px 16px;
+    min-height: auto;
+  }
   .hero h1 {
     font-size: 32px;
-  }
-  .hero {
-    padding: 80px 16px 40px 16px;
   }
   .code-box {
     font-size: 12px;
