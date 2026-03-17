@@ -11,6 +11,7 @@ import PrivacyPolicy from "./components/Page/PrivacyPolicy";
 import TermsConditions from "./components/Page/TermsConditions";
 import SupportPage from "./components/Page/SupportPage";
 import "./App.css";
+import PracticePage from "./components/Page/PracticePage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/notes" element={<NotesPage />} />
         <Route path="/roadmap" element={<RoadmapPage />} />
         <Route path="/courses" element={<CoursesPage />} />
+         <Route path="/practice" element={<PracticePage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsConditions />} />
         <Route path="/support" element={<SupportPage />} />
