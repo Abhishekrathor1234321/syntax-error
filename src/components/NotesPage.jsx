@@ -10,11 +10,11 @@ const notesData = [
   { title: "Bootstrap Handwritten Notes", category: "Web Dev", desc: "Grid system, components and responsive utilities.", pdf: "notes/Boostrap.pdf" },
  
  { title: "Python Handwritten Notes", category: "Python", desc: "OOP, loops, functions, libraries and core concepts.", pdf: "" },
- { title: "Python with DSA Handwritten Notes", category: "Python", desc: "DSA concepts implemented in Python — arrays, trees, graphs, DP and more.", pdf: "notes/Python with DSA.pdf" },
+ { title: "Python with DSA Handwritten Notes", category: "Python", desc: "DSA concepts implemented in Python — arrays, trees, graphs, DP and more.", pdf: "notes/DSA with python.pdf" },
 { title: "Python Interview Questions", category: "Python", desc: "Most asked Python interview questions with best answers.", pdf: "" },
   { title: "SQL Mastery Notes", category: "Database", desc: "Joins, queries and indexing.", pdf: "/notes/SQL interview questions.pdf" },
   { title: "Java OOP Complete Guide", category: "Java", desc: "OOP, Inheritance, polymorphism and abstraction.", pdf: "" },
- { title: "MERN Stack Handwritten Notes", category: "Web Dev", desc: "MongoDB, Express, React, Node.js — complete full stack guide.", pdf: "notes/MERN stack(handwritten notes).pdf" },
+ { title: "MERN Stack Handwritten Notes", category: "Web Dev", desc: "MongoDB, Express, React, Node.js — complete full stack guide.", pdf: "notes/MERN stack.pdf" },
   
   { title: "Git & GitHub Handbook", category: "Git", desc: "Branching strategies and workflows.", pdf: "" },
  { title: "C Handwritten Notes", category: "C", desc: "Pointers, arrays, strings, memory management and more.", pdf: "" },
