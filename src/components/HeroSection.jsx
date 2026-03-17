@@ -1,4 +1,5 @@
 import React from "react";
+import "./HeroSection.css";
 
 function HeroSection() {
 return ( <section id="home" className="hero" style={{ paddingTop: "80px" }}>
