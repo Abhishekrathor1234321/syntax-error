@@ -73,9 +73,9 @@ function NotesPage() {
 
             {note.pdf ? (
               <div style={{ display: "flex", gap: "8px", marginTop: "10px" }}>
-                <a href={note.pdf} target="_blank" rel="noreferrer" className="pdf-btn">
+                {/* <a href={note.pdf} target="_blank" rel="noreferrer" className="pdf-btn">
                   👁️ View
-                </a>
+                </a> */}
                 <a href={note.pdf} download className="pdf-download-btn">
                   ⬇️ Download
                 </a>
