@@ -1,0 +1,168 @@
+body{
+margin:0;
+font-family:Arial;
+background:#0b1220;
+color:white;
+}
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 60px;
+border-bottom:1px solid #1f2937;
+}
+
+.logo{
+  display:flex;
+  align-items:center;   /* vertical center */
+  gap:10px;
+}
+
+.logo img{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+.logo p{
+  margin:0;             /* default margin हटाओ */
+  font-weight:bold;
+  font-size:18px;
+  color:floralwhite;
+}
+
+.nav-links{
+list-style:none;
+display:flex;
+gap:30px;
+}
+
+.nav-links li{
+cursor:pointer;
+color:#cbd5e1;
+}
+
+.hero{
+display:flex;
+justify-content:center;
+align-items:center;
+height:85vh;
+text-align:center;
+}
+
+.hero-content{
+max-width:800px;
+}
+
+.insta{
+display:inline-block;
+border:1px solid #1f2937;
+padding:6px 15px;
+border-radius:20px;
+color:#22c55e;
+margin-bottom:20px;
+}
+
+h1{
+font-size:60px;
+margin-bottom:20px;
+}
+
+.green{
+color:#22c55e;
+}
+
+.yellow{
+color:#facc15;
+}
+
+p{
+color:#94a3b8;
+font-size:18px;
+margin-bottom:30px;
+}
+
+.buttons{
+display:flex;
+gap:20px;
+
+justify-content:center;
+}
+
+.insta-btn{
+background:#22c55e;
+border:none;
+padding:12px 20px;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.explore-btn{
+background:transparent;
+border:1px solid #334155;
+color:white;
+padding:12px 20px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.code-box{
+margin-top:40px;
+background:#111827;
+padding:20px;
+border-radius:10px;
+font-family:monospace;
+color:#22c55e;
+}
+
+.insta-btn{
+ color:black !important;
+}
+
+
+.insta-counter{
+  text-align:center;
+  background:#111827;
+  border:1px solid #1f2937;
+  padding:25px;
+  border-radius:10px;
+  width:200px;
+}
+
+.insta-counter h2{
+  color:#22c55e;
+  font-size:28px;
+}
+
+.insta-counter p{
+  color:#94a3b8;
+}
+html{
+  scroll-behavior:smooth;
+}
+
+.app.dark{
+background:#020617;
+color:white;
+}
+
+.app.light{
+background:#f8fafc;
+color:black;
+}
+
+.theme-btn{
+background:#22c55e;
+border:none;
+padding:8px 14px;
+border-radius:6px;
+cursor:pointer;
+font-weight:600;
+}
+
+.theme-btn:hover{
+opacity:0.8;
+}
