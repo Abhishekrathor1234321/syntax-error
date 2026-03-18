@@ -352,6 +352,19 @@ const PracticePage = () => {
               ))}
             </div>
 
+
+            {/* Copy Button */}
+<div style={{ padding: "8px 24px", display: "flex", justifyContent: "flex-end", background: "#0d1117" }}>
+  <button
+    onClick={() => {
+      navigator.clipboard.writeText(solutions[selectedQ.id][activeTab]);
+    }}
+    style={{ background: "#1f2937", border: "1px solid #374151", color: "#94a3b8", padding: "4px 12px", borderRadius: "6px", cursor: "pointer", fontSize: "12px" }}
+  >
+    Copy
+  </button>
+</div>
+
             {/* Code Block */}
             <div style={{ flex: 1, overflowY: "auto", padding: "20px 24px", background: "#0d1117" }}>
               <pre style={{ margin: 0, fontFamily: "monospace", fontSize: "13px", color: "#e2e8f0", whiteSpace: "pre-wrap", lineHeight: "1.7" }}>
