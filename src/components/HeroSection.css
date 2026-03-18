@@ -22,6 +22,7 @@
   border-radius: 20px;
   font-size: 14px;
   margin-bottom: 20px;
+   margin-top: 40px;
 }
 
 .hero h1 {
@@ -89,4 +90,18 @@
     font-size: 12px;
     overflow-x: auto;
   }
+}
+.visitor-counter {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #a0aec0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 16px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.visitor-counter strong {
+  color: #68d391;
 }

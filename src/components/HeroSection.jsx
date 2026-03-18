@@ -1,62 +1,80 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./HeroSection.css";
 
 function HeroSection() {
-return ( <section id="home" className="hero" style={{ paddingTop: "80px" }}>
+  const [visitors, setVisitors] = useState(null);
 
+  useEffect(() => {
+    const BIN_ID = "69ba7e96aa77b81da9f60d5e";
+    const API_KEY = "$2a$10$7CdozMPvGNtdCwJZnbHIWO/5oAsWiiE.nSyBrpqMYbPcayL3SDRue";
 
-  <div className="hero-content">
+    fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+      headers: { "X-Master-Key": API_KEY },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const newCount = (data.record.visits || 0) + 1;
+        setVisitors(newCount);
 
-    <div className="insta">@code.abhii07</div>
+        fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Master-Key": API_KEY,
+          },
+          body: JSON.stringify({ visits: newCount }),
+        });
+      })
+      .catch(() => setVisitors(null));
+  }, []);
 
-    <h1>
-      Learn to <span className="green">Code</span>, <br />
-      Build Your <span className="yellow">Future</span>
-    </h1>
+  return (
+    <section id="home" className="hero" style={{ paddingTop: "80px" }}>
+      <div className="hero-content">
+        <div className="insta">@code.abhii07</div>
+        <h1>
+          Learn to <span className="green">Code</span>, <br />
+          Build Your <span className="yellow">Future</span>
+        </h1>
+        <p>
+          Your go-to community for programming notes, career roadmaps,
+          job updates, and curated courses. Level up your dev skills.
+        </p>
+        <div className="buttons">
+          <a
+            href="https://www.instagram.com/code.abhii07?igsh=ZW9wMzFsc3N1ZmUx"
+            target="_blank"
+            rel="noreferrer"
+            className="insta-btn"
+          >
+            Follow on Instagram
+          </a>
+          <a
+            href="https://whatsapp.com/channel/0029VazMK0J30LKTGQxCyi40"
+            target="_blank"
+            rel="noreferrer"
+            className="explore-btn"
+          >
+            WhatsApp Community →
+          </a>
+        </div>
 
-    <p>
-      Your go-to community for programming notes, career roadmaps,
-      job updates, and curated courses. Level up your dev skills.
-    </p>
+        {visitors !== null && (
+          <div className="visitor-counter">
+            👥 Total Visitors: <strong>{visitors.toLocaleString()}</strong>
+          </div>
+        )}
 
-    <div className="buttons">
-
-      <a
-        href="https://www.instagram.com/code.abhii07?igsh=ZW9wMzFsc3N1ZmUx"
-        target="_blank"
-        rel="noreferrer"
-        className="insta-btn"
-      >
-        Follow on Instagram
-      </a>
-  
-
-  <a
-       href="https://whatsapp.com/channel/0029VazMK0J30LKTGQxCyi40"
-  target="_blank"
-  rel="noreferrer"
-  className="explore-btn"
->
-  WhatsApp Community →
-</a>
-    </div>
-
-    <div className="code-box">
-
-
-{`const developer = {
+        <div className="code-box">
+          {`const developer = {
   passion: "infinite",
   learning: true,
   community: "SYNTAX ERROR"
-};`} </div>
-
-
-  </div>
-
-</section>
-
-
-);
+};`}
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export default HeroSection;
