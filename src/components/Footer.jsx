@@ -14,21 +14,31 @@ function Footer() {
     <footer className="footer">
       <div className="footer-container">
 
-       {/* LOGO */}
-<div className="footer-logo">
-  <h2>SYNTAX ERROR</h2>
-  <p>Learn coding, crack interviews and build your future.</p>
+        {/* LOGO */}
+        <div className="footer-logo">
+          <h2>SYNTAX ERROR</h2>
+          <p>Learn coding, crack interviews and build your future.</p>
 
-  {/* Instagram - logo ke neeche */}
-  <a
-    href="https://www.instagram.com/code.abhii07?igsh=ZW9wMzFsc3N1ZmUx"
-    target="_blank"
-    rel="noreferrer"
-    className="footer-instagram"
-  >
-    📸 Follow on Instagram
-  </a>
-</div>
+          {/* Social Links */}
+          <div className="footer-socials">
+            <a
+              href="https://www.instagram.com/code.abhii07?igsh=ZW9wMzFsc3N1ZmUx"
+              target="_blank"
+              rel="noreferrer"
+              className="footer-social-btn instagram"
+            >
+              📸 Instagram
+            </a>
+            <a
+              href="https://t.me/syntax_errore"
+              target="_blank"
+              rel="noreferrer"
+              className="footer-social-btn telegram"
+            >
+              ✈️ Telegram
+            </a>
+          </div>
+        </div>
 
         {/* QUICK LINKS */}
         <div className="footer-links">
@@ -54,22 +64,19 @@ function Footer() {
         </div>
 
         {/* LEGAL */}
-<div className="footer-links">
-  <h3>SYNTAX ERROR</h3>
-  <ul>
-    <li><button onClick={() => goTo("/privacy-policy")}>Privacy Policy</button></li>
-    <li><button onClick={() => goTo("/terms")}>Terms & Conditions</button></li>
-     <li><button onClick={() => goTo("/support")}>Support</button></li>
-    <li>
-      <a href="mailto:syntaxerrorxabhishek@gmail.com" className="footer-mail">
-         Contact Us
-      </a>
-    </li>
-    
-  </ul>
-</div>
-
-       
+        <div className="footer-links">
+          <h3>SYNTAX ERROR</h3>
+          <ul>
+            <li><button onClick={() => goTo("/privacy-policy")}>Privacy Policy</button></li>
+            <li><button onClick={() => goTo("/terms")}>Terms & Conditions</button></li>
+            <li><button onClick={() => goTo("/support")}>Support</button></li>
+            <li>
+              <a href="mailto:syntaxerrorxabhishek@gmail.com" className="footer-mail">
+                Contact Us
+              </a>
+            </li>
+          </ul>
+        </div>
 
       </div>
 
