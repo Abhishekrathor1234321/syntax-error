@@ -84,6 +84,10 @@ const questions = [
   { id: 77, title: "Missing Number", leetcode: 268, topic: "Bit Manipulation", difficulty: "Easy" },
 ];
 
+const easyTotal = questions.filter(q => q.difficulty === "Easy").length;
+const medTotal = questions.filter(q => q.difficulty === "Medium").length;
+const hardTotal = questions.filter(q => q.difficulty === "Hard").length;
+
 const topicOrder = [...new Set(questions.map((q) => q.topic))];
 const STORAGE_KEY = "syntax-error-practice-progress";
 
@@ -177,32 +181,49 @@ const PracticePage = () => {
             <p style={{ fontFamily: "monospace", fontSize: "11px", color: "#22c55e", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "4px" }}>
               DSA TRACKER • <span style={{ color: "#94a3b8" }}>{questions.length} Problems</span>
             </p>
-            <h1 style={{ fontSgitize: "40px", fontWeight: "bold", color: "white", marginBottom: "8px" }}>
+            <h1 style={{ fontSize: "40px", fontWeight: "bold", color: "white", marginBottom: "8px" }}>
               GRIND <span style={{ color: "#22c55e" }}>77</span>
             </h1>
-            <p style={{ color: "#94a3b8", fontSize: "14px", marginBottom: "32px" }}>
-              77 handpicked DSA problems. Java, Python & C++ solutions included.
+            <p style={{ color: "#94a3b8", fontSize: "14px", marginBottom: "32px", lineHeight: "1.7" }}>
+              GRIND 77 is a carefully curated collection of the most important coding problems to help you crack top tech interviews. Covering essential topics from Arrays, Strings, Trees to Dynamic Programming — these problems are handpicked to build strong problem-solving fundamentals.
             </p>
           </motion.div>
 
           {/* Stat Cards */}
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
             style={{ display: "flex", gap: "12px", marginBottom: "32px" }}>
+
+            {/* Easy */}
             <div style={{ flex: 1, background: "#111827", border: "1px solid #1f2937", borderRadius: "12px", padding: "16px", textAlign: "center" }}>
               <Zap style={{ width: "20px", height: "20px", color: "#4ade80", margin: "0 auto 4px" }} />
-              <div style={{ fontSize: "24px", fontWeight: "bold", color: "white" }}>{easySolved}</div>
-              <div style={{ fontSize: "11px", color: "#94a3b8", fontFamily: "monospace" }}>Easy</div>
+              <div style={{ fontSize: "22px", fontWeight: "bold", color: "white" }}>
+                {easySolved}
+                <span style={{ fontSize: "13px", color: "#4b5563", fontWeight: "normal" }}>/{easyTotal}</span>
+              </div>
+              <div style={{ fontSize: "11px", color: "#4ade80", fontFamily: "monospace" }}>Easy</div>
             </div>
+
+            {/* Medium */}
             <div style={{ flex: 1, background: "#111827", border: "1px solid #1f2937", borderRadius: "12px", padding: "16px", textAlign: "center" }}>
               <Flame style={{ width: "20px", height: "20px", color: "#facc15", margin: "0 auto 4px" }} />
-              <div style={{ fontSize: "24px", fontWeight: "bold", color: "white" }}>{medSolved}</div>
-              <div style={{ fontSize: "11px", color: "#94a3b8", fontFamily: "monospace" }}>Med</div>
+              <div style={{ fontSize: "22px", fontWeight: "bold", color: "white" }}>
+                {medSolved}
+                <span style={{ fontSize: "13px", color: "#4b5563", fontWeight: "normal" }}>/{medTotal}</span>
+              </div>
+              <div style={{ fontSize: "11px", color: "#facc15", fontFamily: "monospace" }}>Medium</div>
             </div>
+
+            {/* Hard */}
             <div style={{ flex: 1, background: "#111827", border: "1px solid #1f2937", borderRadius: "12px", padding: "16px", textAlign: "center" }}>
               <Skull style={{ width: "20px", height: "20px", color: "#f87171", margin: "0 auto 4px" }} />
-              <div style={{ fontSize: "24px", fontWeight: "bold", color: "white" }}>{hardSolved}</div>
-              <div style={{ fontSize: "11px", color: "#94a3b8", fontFamily: "monospace" }}>Hard</div>
+              <div style={{ fontSize: "22px", fontWeight: "bold", color: "white" }}>
+                {hardSolved}
+                <span style={{ fontSize: "13px", color: "#4b5563", fontWeight: "normal" }}>/{hardTotal}</span>
+              </div>
+              <div style={{ fontSize: "11px", color: "#f87171", fontFamily: "monospace" }}>Hard</div>
             </div>
+
+            {/* Circular Progress */}
             <div style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
               <CircularProgress percent={totalProgress} />
             </div>
@@ -352,18 +373,15 @@ const PracticePage = () => {
               ))}
             </div>
 
-
             {/* Copy Button */}
-<div style={{ padding: "8px 24px", display: "flex", justifyContent: "flex-end", background: "#0d1117" }}>
-  <button
-    onClick={() => {
-      navigator.clipboard.writeText(solutions[selectedQ.id][activeTab]);
-    }}
-    style={{ background: "#1f2937", border: "1px solid #374151", color: "#94a3b8", padding: "4px 12px", borderRadius: "6px", cursor: "pointer", fontSize: "12px" }}
-  >
-    Copy
-  </button>
-</div>
+            <div style={{ padding: "8px 24px", display: "flex", justifyContent: "flex-end", background: "#0d1117" }}>
+              <button
+                onClick={() => navigator.clipboard.writeText(solutions[selectedQ.id][activeTab])}
+                style={{ background: "#1f2937", border: "1px solid #374151", color: "#94a3b8", padding: "4px 12px", borderRadius: "6px", cursor: "pointer", fontSize: "12px" }}
+              >
+                Copy
+              </button>
+            </div>
 
             {/* Code Block */}
             <div style={{ flex: 1, overflowY: "auto", padding: "20px 24px", background: "#0d1117" }}>
