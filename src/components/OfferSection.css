@@ -101,6 +101,8 @@
 
   .offer-title {
     font-size: 28px;
+     display: block;       
+    visibility: visible; 
   }
 
   .offer-grid {
