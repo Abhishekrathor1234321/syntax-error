@@ -23,7 +23,6 @@
   line-height: 1.6;
 }
 
-/* Grid */
 .offer-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -32,7 +31,6 @@
   margin: 0 auto;
 }
 
-/* Card */
 .offer-card {
   background: #111827;
   border: 1px solid #1f2937;
@@ -66,7 +64,6 @@
   margin-bottom: 16px;
 }
 
-/* List */
 .offer-list {
   list-style: none;
   padding: 0;
@@ -99,7 +96,7 @@
 /* Mobile */
 @media (max-width: 600px) {
   .offer-section {
-    padding: 60px 16px;
+    padding: 30px 16px 60px 16px;
   }
 
   .offer-title {
