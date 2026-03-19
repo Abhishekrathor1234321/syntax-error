@@ -1,12 +1,3 @@
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 30px;
-  background-color: #111;
-  color: #fff;
-}
-
 /* Logo Section */
 .logo {
   display: flex;
@@ -14,58 +5,43 @@
   gap: 10px;
   font-weight: bold;
   font-size: 18px;
+  text-decoration: none;
+  color: white;
 }
 
 .logo img {
   width: 35px;
   height: 35px;
   object-fit: cover;
+  border-radius: 50%;
 }
 
-/* Nav Links */
-.nav-links {
-  display: flex;
-  gap: 20px;
-  list-style: none;
-}
-
-.nav-links li {
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.nav-links li:hover {
-  color: #ff5733;
-}
-
-/* Jobs Button */
+/* Jobs Button - Desktop */
 .jobs-btn {
-  background: white;
-  color: #0b1220;
-  border: none;
-  padding: 8px 18px;
+  background: transparent;
+  color: white;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  padding: 7px 16px;
   border-radius: 8px;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   letter-spacing: 0.3px;
 }
 
 .jobs-btn:hover {
-  background: #e2e8f0;
+  background: white;
+  color: #0b1220;
+  border-color: white;
   transform: translateY(-1px);
 }
 
-.jobs-btn:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
-
+/* Jobs Button - Mobile */
 .jobs-btn-mobile {
-  background: linear-gradient(135deg, #22c55e, #16a34a);
-  color: white;
-  border: none;
+  background: transparent;
+  color: #22c55e;
+  border: 1.5px solid #22c55e;
   padding: 10px 16px;
   border-radius: 8px;
   font-size: 14px;
@@ -73,13 +49,20 @@
   cursor: pointer;
   text-align: left;
   width: 100%;
+  margin-top: 4px;
+  transition: all 0.2s ease;
+}
+
+.jobs-btn-mobile:hover {
+  background: #22c55e;
+  color: white;
 }
 
 /* Backdrop */
 .jobs-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.65);
   z-index: 100;
   backdrop-filter: blur(4px);
 }
@@ -89,32 +72,16 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) !important;
   background: #111827;
-  border: 1px solid #22c55e40;
+  border: 1px solid rgba(34, 197, 94, 0.25);
   border-radius: 20px;
-  padding: 36px 32px;
+  padding: 36px 24px;
   z-index: 101;
-  width: 90%;
+  width: calc(100% - 40px);
   max-width: 400px;
   text-align: center;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
-}
-.jobs-popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-top: -250px;
-  margin-left: -200px;
-  background: #111827;
-  border: 1px solid #22c55e40;
-  border-radius: 20px;
-  padding: 36px 32px;
-  z-index: 101;
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
 }
 
 .jobs-popup-close {
@@ -130,6 +97,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: color 0.2s ease;
 }
 
 .jobs-popup-close:hover {
@@ -137,8 +105,8 @@
 }
 
 .jobs-popup-icon {
-  font-size: 48px;
-  margin-bottom: 16px;
+  font-size: 46px;
+  margin-bottom: 14px;
 }
 
 .jobs-popup-title {
@@ -181,9 +149,10 @@
   border-radius: 10px;
   font-weight: 600;
   font-size: 15px;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .jobs-popup-btn:hover {
   opacity: 0.9;
+  transform: translateY(-1px);
 }
