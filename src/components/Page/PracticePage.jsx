@@ -177,8 +177,8 @@ const PracticePage = () => {
             <p style={{ fontFamily: "monospace", fontSize: "11px", color: "#22c55e", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "4px" }}>
               DSA TRACKER • <span style={{ color: "#94a3b8" }}>{questions.length} Problems</span>
             </p>
-            <h1 style={{ fontSize: "40px", fontWeight: "bold", color: "white", marginBottom: "8px" }}>
-              LeetCode <span style={{ color: "#22c55e" }}>77</span>
+            <h1 style={{ fontSgitize: "40px", fontWeight: "bold", color: "white", marginBottom: "8px" }}>
+              GrinD <span style={{ color: "#22c55e" }}>77</span>
             </h1>
             <p style={{ color: "#94a3b8", fontSize: "14px", marginBottom: "32px" }}>
               77 handpicked DSA problems. Java, Python & C++ solutions included.
