@@ -61,7 +61,7 @@ return ( <section className="offer-section">
       </p>
       <ul>
         <li>Free Certifications</li>
-        <li>Top Udemy Picks</li>
+       
         <li>YouTube Playlists</li>
         <li>Project Based Learning</li>
       </ul>
