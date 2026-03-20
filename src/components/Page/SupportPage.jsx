@@ -51,7 +51,7 @@ function SupportPage() {
               { q: "How do I access the notes?", a: "Go to Notes section from the navbar and download any PDF." },
               { q: "How do I enroll in a course?", a: "Click the Enroll Now button on any course card." },
               { q: "Are the notes free?", a: "Yes! Most notes are completely free to download." },
-              { q: "How do I contact for course queries?", a: "Email us at syntaxerror.community@gmail.com" },
+              { q: "How do I contact for course queries?", a: "Email us at syntaxerrorxabhishek@gmail.com" },
             ].map((faq, i) => (
               <div key={i} style={{
                 background: "rgba(255,255,255,0.03)",
