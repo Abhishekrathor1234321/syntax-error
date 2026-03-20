@@ -3,11 +3,12 @@ import { GraduationCap, Star, Clock, ExternalLink, Tag, Users, Globe } from "luc
 import PageLayout from "../PageLayout";
 
 const courses = [
-  { title: "The Complete Data Structure & Algorithm Course 2026", instructor: "Abhishek Rathor [Founder/DSA-Mentor]", rating: 5.0, students: "10k+", duration: "70 hours+", price: "₹499*", language: "English", tags: ["Array", "String", "Two Pointer", "Sliding Window", "Linked-List", "Tree", "Recursion", "Graph", "Dynamic Programming", "100+ LeetCode Qs", "Java", "C++", "Python"], badge: "⚡ Most Popular", enrollLink: "https://your-link.com", btnLabel: "Enroll Now" },
-  { title: "Complete Aptitude Course 2026", instructor: "Karina Sharma [Infosys-DSE]", rating: 4.9, students: "5k+", duration: "40 hours+", price: "₹399", language: "English", tags: ["Quantitative", "Verbal", "Reasoning", "Data Interpretation", "Puzzles", "Speed Math"],  badge: "🚀 Top Selling", enrollLink: "https://forms.gle/MJPb9Mr72jMUqc8s9", btnLabel: "Enroll Now" },
+  { title: "The Complete Data Structure & Algorithm Course 2026", instructor: "Abhishek Rathor [Founder/DSA-Mentor]", rating: 5.0, students: "10k+", duration: "70 hours+", price: "₹499*", language: "English", tags: ["Array", "String", "Two Pointer", "Sliding Window", "Linked-List", "Tree", "Recursion", "Graph", "Dynamic Programming", "100+ LeetCode Qs"], badge: "⚡ Most Popular", enrollLink: "https://your-link.com", btnLabel: "Enroll Now" },
+  { title: "Complete Aptitude Course 2026", instructor: "Karina Sharma [Infosys-DSE]", rating: 4.9, students: "5k+", duration: "40 hours+", price: "₹99", language: "English", tags: ["Quantitative", "Verbal", "Reasoning", "Data Interpretation", "Puzzles", "Speed Math"],  badge: "🚀 Top Selling", enrollLink: "https://forms.gle/MJPb9Mr72jMUqc8s9", btnLabel: "Enroll Now" },
  
-  { title: "Core Java Complete Course", instructor: "Teacher:Reveal Soon", rating: 4.9, students: "20K+", duration: "40+ Hours", price: "₹399", language: "English", tags: ["Java Basics", "OOP", "Arrays", "Strings", "Collections", "Exception Handling", "Multithreading", "JDBC", "File I/O"], badge: "💎 Most Demanded", enrollLink: " ", btnLabel: "Coming Soon" },
-   { title: "Blind 75 — DSA Sheet", instructor: "", rating: 4.9, students: "100k+", duration: "Best 75 DSA Questions", price: "Free", language: "", tags: ["DSA", "LeetCode", "Patterns"], badge: " 🔥Hot & Trending", enrollLink: "https://leetcode.com/", btnLabel: "Start Practice Free" },
+//   { title: "Core Java Complete Course", instructor: "Teacher:Reveal Soon", rating: 4.9, students: "20K+", duration: "40+ Hours", price: "₹399", language: "English", tags: ["Java Basics", "OOP", "Arrays", "Strings", "Collections", "Exception Handling", "Multithreading", "JDBC", "File I/O"], badge: "💎 Most Demanded", enrollLink: " ", btnLabel: "Coming Soon" },
+//    { title: "Blind 75 — DSA Sheet", instructor: "", rating: 4.9, students: "100k+", duration: "Best 75 DSA Questions", price: "Free", language: "", tags: ["DSA", "LeetCode", "Patterns"], badge: " 🔥Hot & Trending", enrollLink: "https://leetcode.com/", btnLabel: "Start Practice Free" },
+// 
 ];
 
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.05 } } };
