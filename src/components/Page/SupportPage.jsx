@@ -12,7 +12,7 @@ function SupportPage() {
 
           <h2 style={{ color: "white", fontSize: "18px", marginTop: "24px", marginBottom: "8px" }}>Email Support</h2>
           <p>Send us your query at:</p>
-          <a href="mailto:syntaxerror.community@gmail.com" style={{
+          <a href="mailto:syntaxerrorxabhishek@gmail.com" style={{
             display: "inline-block",
             marginTop: "8px",
             padding: "10px 20px",

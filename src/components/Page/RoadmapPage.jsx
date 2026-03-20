@@ -64,7 +64,7 @@ const roadmaps = [
     totalMonths: "3 months",
     emoji: "✨",
     topics: ["LLMs", "Prompt Engineering", "RAG", "LangChain", "Fine-tuning", "HuggingFace"],
-    pdfUrl: "/pdfs/ai-ml.pdf",
+    pdfUrl: "notes/AIML_Roadmap_SyntaxError.pdf",
   },
   {
     title: "Data Science",
@@ -72,7 +72,7 @@ const roadmaps = [
     totalMonths: "6 months",
     emoji: "📊",
     topics: ["Python", "Statistics", "Pandas", "Matplotlib", "Scikit-learn", "ML Models", "Feature Engineering"],
-    pdfUrl: "/pdfs/data-science.pdf",
+    pdfUrl: "notes/DataScience_Roadmap_SyntaxError.pdf",
   },
   {
     title: "Data Analytics",
@@ -80,7 +80,7 @@ const roadmaps = [
     totalMonths: "3 months",
     emoji: "📈",
     topics: ["Excel", "SQL", "Python", "Power BI", "Tableau", "Data Cleaning", "Dashboards"],
-    pdfUrl: "/pdfs/data-analytics.pdf",
+    pdfUrl: "notes/DataAnalytics_Roadmap_SyntaxError (1).pdf",
   },
 ];
 
