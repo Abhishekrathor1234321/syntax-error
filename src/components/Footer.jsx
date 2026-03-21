@@ -47,7 +47,7 @@ function Footer() {
             <li><button onClick={() => goTo("/")}>Home</button></li>
             <li><button onClick={() => goTo("/notes")}>Notes</button></li>
             <li><button onClick={() => goTo("/roadmap")}>Roadmap</button></li>
-            <li><button onClick={() => goTo("/jobs")}>Jobs</button></li>
+           
             <li><button onClick={() => goTo("/courses")}>Courses</button></li>
           </ul>
         </div>
