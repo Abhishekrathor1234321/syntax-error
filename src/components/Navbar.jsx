@@ -14,9 +14,8 @@ const navLinks = [
 
 const WHATSAPP_LINK = "https://whatsapp.com/channel/0029VazMK0J30LKTGQxCyi40";
 
-function Navbar() {
+function Navbar({ showJobsPopup, setShowJobsPopup }) {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [showJobsPopup, setShowJobsPopup] = useState(false);
   const location = useLocation();
 
   return (
@@ -119,13 +118,13 @@ function Navbar() {
             />
 
             {/* Popup Card */}
-      <motion.div
-  initial={{ opacity: 0, scale: 0.9 }}
-  animate={{ opacity: 1, scale: 1 }}
-  exit={{ opacity: 0, scale: 0.9 }}
-  transition={{ duration: 0.2 }}
-  className="jobs-popup"
->
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.2 }}
+              className="jobs-popup"
+            >
               {/* Close */}
               <button
                 className="jobs-popup-close"

@@ -116,3 +116,14 @@
     padding: 22px 18px;
   }
 }
+
+.offer-card-footer {
+  margin-top: 16px;
+  color: #22c55e;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.offer-card:hover .offer-card-footer {
+  text-decoration: underline;
+}
