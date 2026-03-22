@@ -4,29 +4,7 @@ import "./HeroSection.css";
 function HeroSection() {
   const [visitors, setVisitors] = useState(null);
 
-  useEffect(() => {
-    const BIN_ID = "69ba7e96aa77b81da9f60d5e";
-    const API_KEY = "$2a$10$7CdozMPvGNtdCwJZnbHIWO/5oAsWiiE.nSyBrpqMYbPcayL3SDRue";
-
-    fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-      headers: { "X-Master-Key": API_KEY },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const newCount = (data.record.visits || 0) + 1;
-        setVisitors(newCount);
-
-        fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Master-Key": API_KEY,
-          },
-          body: JSON.stringify({ visits: newCount }),
-        });
-      })
-      .catch(() => setVisitors(null));
-  }, []);
+ 
 
   return (
     <section id="home" className="hero" style={{ paddingTop: "80px" }}>
@@ -59,11 +37,7 @@ function HeroSection() {
           </a>
         </div>
 
-        {visitors !== null && (
-          <div className="visitor-counter">
-            👥 Total Visitors: <strong>{visitors.toLocaleString()}</strong>
-          </div>
-        )}
+       
 
         <div className="code-box">
           {`const developer = {
