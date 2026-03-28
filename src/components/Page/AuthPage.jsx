@@ -43,7 +43,9 @@ function AuthPage() {
         localStorage.setItem("token", data.jwtToken);
         localStorage.setItem("user", data.name);
         localStorage.setItem("email", data.email);
-        window.location.href = "/";
+       const redirect = sessionStorage.getItem("redirectAfterLogin") || "/";
+sessionStorage.removeItem("redirectAfterLogin");
+window.location.href = redirect;
       } else {
         alert("Google login failed!");
       }
@@ -122,7 +124,9 @@ function AuthPage() {
         localStorage.setItem("token", pendingData.jwtToken);
         localStorage.setItem("user", pendingData.name);
         localStorage.setItem("email", pendingData.email);
-        window.location.href = "/";
+       const redirect = sessionStorage.getItem("redirectAfterLogin") || "/";
+sessionStorage.removeItem("redirectAfterLogin");
+window.location.href = redirect;
       } else {
         alert(data.message);
       }
