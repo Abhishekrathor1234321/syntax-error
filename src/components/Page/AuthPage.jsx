@@ -26,36 +26,43 @@ const redirectTo = new URLSearchParams(window.location.search).get("redirect") |
   };
 
   const handleGoogleLogin = async () => {
-    setLoading(true);
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
+  setLoading(true);
+  try {
+    const result = await signInWithPopup(auth, googleProvider);
+    const user = result.user;
 
-      const res = await fetch(`${BACKEND}/auth/google-login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: user.displayName,
-          email: user.email,
-          googleId: user.uid
-        })
-      });
+    const res = await fetch(`${BACKEND}/auth/google-login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: user.displayName,
+        email: user.email,
+        googleId: user.uid
+      })
+    });
 
-      const data = await res.json();
-      if (data.success) {
-        localStorage.setItem("token", data.jwtToken);
-        localStorage.setItem("user", data.name);
-        localStorage.setItem("email", data.email);
-        window.location.href = "/";
-      } else {
-        alert("Google login failed!");
-      }
-    } catch (error) {
-      alert("Login failed: " + error.message);
-    } finally {
-      setLoading(false);
+    const data = await res.json();
+    if (data.success) {
+      localStorage.setItem("token", data.jwtToken);
+      localStorage.setItem("user", data.name);
+      localStorage.setItem("email", data.email);
+      window.location.href = redirectTo; // ← redirectTo use karo
+    } else {
+      alert("Google login failed!");
     }
-  };
+  } catch (error) {
+    console.error("Google error:", error);
+    // Firebase error ignore karo — already logged in check karo
+    const user = auth.currentUser;
+    if (user) {
+      window.location.href = redirectTo;
+    } else {
+      alert("Login failed: " + error.message);
+    }
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleSubmit = async () => {
     if (!formData.email || !formData.password) {
