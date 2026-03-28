@@ -12,8 +12,8 @@ const courseData = {
       {
         title: "Section 1 — Introduction",
         lectures: [
-          { id: 1, title: "Course Introduction", videoId: "YOUR_VIDEO_ID_1", duration: "10:00", notes: "" },
-          { id: 2, title: "How to Use This Course", videoId: "YOUR_VIDEO_ID_2", duration: "05:00", notes: "" },
+          { id: 1, title: "Percentage", videoId: "https://youtu.be/XFcapf8Mx2c", duration: "", notes: "" },
+          { id: 2, title: "RATIO AND PROPORTION   ", videoId: "https://www.youtube.com/watch?v=Xv38cd1u5_o", duration: "", notes: "" },
         ]
       },
       {
