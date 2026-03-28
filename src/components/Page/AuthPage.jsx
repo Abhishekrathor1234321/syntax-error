@@ -48,7 +48,9 @@ function AuthPage() {
       localStorage.setItem("token", data.jwtToken);
       localStorage.setItem("user", data.name);
       localStorage.setItem("email", data.email);
-      window.location.href = redirectTo; // ← redirectTo use karo
+     const savedRedirect = sessionStorage.getItem("redirectAfterLogin") || "/";
+sessionStorage.removeItem("redirectAfterLogin");
+window.location.href = savedRedirect;
     } else {
       alert("Google login failed!");
     }
@@ -57,7 +59,9 @@ function AuthPage() {
     // Firebase error ignore karo — already logged in check karo
     const user = auth.currentUser;
     if (user) {
-      window.location.href = redirectTo;
+      const savedRedirect = sessionStorage.getItem("redirectAfterLogin") || "/";
+sessionStorage.removeItem("redirectAfterLogin");
+window.location.href = savedRedirect;
     } else {
       alert("Login failed: " + error.message);
     }
