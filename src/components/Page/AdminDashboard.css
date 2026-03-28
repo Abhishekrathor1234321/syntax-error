@@ -1,0 +1,185 @@
+.admin-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #0a0a0a;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.admin-wrapper {
+  min-height: 100vh;
+  background: #0a0a0a;
+  color: white;
+  padding: 2rem;
+  padding-top: 80px;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.admin-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.admin-header p {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+}
+
+.admin-back {
+  background: #111;
+  border: 1px solid #333;
+  color: #aaa;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.admin-back:hover { color: white; border-color: #555; }
+
+/* Stats */
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.admin-stat-card {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.admin-stat-icon { font-size: 2rem; }
+
+.admin-stat-card h3 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #60a5fa;
+}
+
+.admin-stat-card p {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* Main */
+.admin-main {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 1.5rem;
+}
+
+/* Courses */
+.admin-courses {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 1.2rem;
+}
+
+.admin-courses h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.admin-course-card {
+  background: #0a0a0a;
+  border: 1px solid #1a1a1a;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.admin-course-card:hover { border-color: #333; }
+.admin-course-card.active { border-color: #3b82f6; background: #1e3a5f20; }
+
+.admin-course-card h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #e2e8f0;
+}
+
+.admin-course-meta {
+  font-size: 0.78rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.admin-course-bar {
+  height: 4px;
+  background: #222;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.admin-course-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  border-radius: 10px;
+  transition: width 0.3s;
+}
+
+/* Buyers */
+.admin-buyers {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 1.2rem;
+}
+
+.admin-buyers h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #e2e8f0;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.admin-table th {
+  text-align: left;
+  padding: 0.6rem 1rem;
+  background: #0a0a0a;
+  color: #666;
+  font-weight: 600;
+  border-bottom: 1px solid #222;
+}
+
+.admin-table td {
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid #1a1a1a;
+  color: #ccc;
+}
+
+.admin-table tr:hover td { background: #1a1a1a; }
+
+.admin-empty {
+  color: #555;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 2rem;
+}

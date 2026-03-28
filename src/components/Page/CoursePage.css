@@ -1,0 +1,314 @@
+.cp-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #0a0a0a;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.cp-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #0a0a0a;
+  color: white;
+  overflow: hidden;
+}
+
+/* Top Bar */
+.cp-topbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 1.5rem;
+  background: #111;
+  border-bottom: 1px solid #222;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.cp-back {
+  background: transparent;
+  border: 1px solid #333;
+  color: #aaa;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.cp-back:hover { color: white; border-color: #555; }
+
+.cp-topbar-title {
+  flex: 1;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cp-progress-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 200px;
+}
+
+.cp-progress-bar > div {
+  flex: 1;
+  height: 6px;
+  background: #333;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cp-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  border-radius: 10px;
+  transition: width 0.3s;
+}
+
+.cp-progress-bar span {
+  font-size: 0.75rem;
+  color: #aaa;
+  white-space: nowrap;
+}
+
+/* Main Layout */
+.cp-main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Left Content */
+.cp-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+/* Video */
+.cp-video-container {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.cp-video {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.cp-video-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: #555;
+  font-size: 3rem;
+}
+
+.cp-video-placeholder p {
+  font-size: 1rem;
+  color: #444;
+}
+
+/* Lecture Info */
+.cp-lecture-info {
+  margin-bottom: 1.5rem;
+}
+
+.cp-lecture-info h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+
+.cp-lecture-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.cp-lecture-meta span {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.cp-complete-btn {
+  background: #1a2a1a;
+  color: #4ade80;
+  border: 1px solid #4ade80;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.cp-complete-btn.completed {
+  background: #1a3a1a;
+  color: #4ade80;
+}
+
+.cp-complete-btn:hover { opacity: 0.8; }
+
+/* Notes */
+.cp-notes-section {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.cp-notes-section h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.cp-notes-btn {
+  display: inline-block;
+  background: #1e3a5f;
+  color: #60a5fa;
+  border: 1px solid #3b82f6;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.cp-notes-btn:hover { background: #2d4f7f; }
+
+.cp-no-notes {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+/* Navigation */
+.cp-nav-btns {
+  display: flex;
+  gap: 1rem;
+}
+
+.cp-nav-btn {
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: transparent;
+  color: #aaa;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.cp-nav-btn:hover { border-color: #555; color: white; }
+
+.cp-nav-btn.primary {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
+}
+
+.cp-nav-btn.primary:hover { background: #2563eb; }
+
+/* Sidebar */
+.cp-sidebar {
+  width: 340px;
+  background: #111;
+  border-left: 1px solid #222;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.cp-sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid #222;
+  position: sticky;
+  top: 0;
+  background: #111;
+  z-index: 10;
+}
+
+.cp-sidebar-header h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.cp-sidebar-header span {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* Sections */
+.cp-section { border-bottom: 1px solid #1a1a1a; }
+
+.cp-section-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1.2rem;
+  background: transparent;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: left;
+  transition: background 0.2s;
+}
+
+.cp-section-header:hover { background: #1a1a1a; }
+
+/* Lectures */
+.cp-lecture-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.7rem 1.2rem 0.7rem 1.5rem;
+  background: transparent;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  border-bottom: 1px solid #111;
+}
+
+.cp-lecture-item:hover { background: #1a1a1a; color: white; }
+.cp-lecture-item.active { background: #1e3a5f; color: #60a5fa; }
+.cp-lecture-item.done { color: #4ade80; }
+
+.cp-lecture-icon { font-size: 0.8rem; flex-shrink: 0; }
+
+.cp-lecture-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cp-lecture-name { font-size: 0.82rem; }
+.cp-lecture-dur { font-size: 0.72rem; color: #555; }

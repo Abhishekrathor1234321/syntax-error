@@ -8,20 +8,18 @@ const notesData = [
   { title: "JavaScript Handwritten Notes", category: "Web Dev", desc: "ES6+, DOM, closures, promises and async/await.", pdf: "notes/JavaScript.pdf" },
   { title: "Tailwind CSS Handwritten Notes", category: "Web Dev", desc: "Utility classes, responsive design and custom config.", pdf: "notes/Tailwind Css.pdf" },
   { title: "Bootstrap Handwritten Notes", category: "Web Dev", desc: "Grid system, components and responsive utilities.", pdf: "notes/Boostrap.pdf" },
- 
- { title: "Python Handwritten Notes", category: "Python", desc: "OOP, loops, functions, libraries and core concepts.", pdf: "" },
- { title: "Python with DSA Handwritten Notes", category: "Python", desc: "DSA concepts implemented in Python — arrays, trees, graphs, DP and more.", pdf: "notes/DSA with python.pdf" },
-{ title: "Python Interview Questions", category: "Python", desc: "Most asked Python interview questions with best answers.", pdf: "" },
+  { title: "Python Handwritten Notes", category: "Python", desc: "OOP, loops, functions, libraries and core concepts.", pdf: "" },
+  { title: "Python with DSA Handwritten Notes", category: "Python", desc: "DSA concepts implemented in Python — arrays, trees, graphs, DP and more.", pdf: "notes/DSA with python.pdf" },
+  { title: "Python Interview Questions", category: "Python", desc: "Most asked Python interview questions with best answers.", pdf: "" },
   { title: "SQL Mastery Notes", category: "Database", desc: "Joins, queries and indexing.", pdf: "/notes/SQL interview questions.pdf" },
   { title: "Java OOP Complete Guide", category: "Java", desc: "OOP, Inheritance, polymorphism and abstraction.", pdf: "" },
- { title: "MERN Stack Handwritten Notes", category: "Web Dev", desc: "MongoDB, Express, React, Node.js — complete full stack guide.", pdf: "notes/MERN stack.pdf" },
-  
+  { title: "MERN Stack Handwritten Notes", category: "Web Dev", desc: "MongoDB, Express, React, Node.js — complete full stack guide.", pdf: "notes/MERN stack.pdf" },
   { title: "Git & GitHub Handbook", category: "Git", desc: "Branching strategies and workflows.", pdf: "" },
- { title: "C Handwritten Notes", category: "C", desc: "Pointers, arrays, strings, memory management and more.", pdf: "" },
-{ title: "C Interview Questions", category: "C", desc: "Most asked C interview questions with best answers.", pdf: "" },
-{ title: "C++ Handwritten Notes", category: "C++", desc: "STL, OOP, templates and competitive programming.", pdf: "" },
-{ title: "C++ Interview Questions", category: "C++", desc: "Most asked C++ interview questions with best answers.", pdf: "" },
-{ title: "C++ with DSA Handwritten Notes", category: "C++", desc: "DSA concepts implemented in C++ — arrays, trees, graphs, DP and more.", pdf: "notes/C++ dsa.pdf" },
+  { title: "C Handwritten Notes", category: "C", desc: "Pointers, arrays, strings, memory management and more.", pdf: "" },
+  { title: "C Interview Questions", category: "C", desc: "Most asked C interview questions with best answers.", pdf: "" },
+  { title: "C++ Handwritten Notes", category: "C++", desc: "STL, OOP, templates and competitive programming.", pdf: "" },
+  { title: "C++ Interview Questions", category: "C++", desc: "Most asked C++ interview questions with best answers.", pdf: "" },
+  { title: "C++ with DSA Handwritten Notes", category: "C++", desc: "DSA concepts implemented in C++ — arrays, trees, graphs, DP and more.", pdf: "notes/C++ dsa.pdf" },
   { title: "HR Interview Questions", category: "HR", desc: "Most asked HR questions with best answers for freshers.", pdf: "notes/hr for freshers.pdf" },
   { title: "DBMS Interview Question", category: "CS", desc: "Most asked DBMS questions with best answers.", pdf: "notes/DBMS interview question.pdf" },
   { title: "Computer Network Interview Question", category: "CS", desc: "Most asked Computer Network questions with best answers.", pdf: "notes/computer networks interview.pdf" },
@@ -32,6 +30,33 @@ const notesData = [
 function NotesPage() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
+
+  const handleDownload = async (note) => {
+    // Download start karo
+    const link = document.createElement("a");
+    link.href = note.pdf;
+    link.download = note.title;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Backend mein track karo
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        await fetch("http://localhost:8080/user/track-download", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({ title: note.title, category: note.category })
+        });
+      } catch (err) {
+        console.error("Track error:", err);
+      }
+    }
+  };
 
   const filteredNotes = notesData.filter(note => {
     return (
@@ -53,7 +78,7 @@ function NotesPage() {
       />
 
       <div className="filters">
-       {["All", "DSA", "Web Dev", "Python", "Java", "C", "C++", "CS", "HR", "Database", "Git","Projects"].map((cat) => (
+        {["All", "DSA", "Web Dev", "Python", "Java", "C", "C++", "CS", "HR", "Database", "Git", "Projects"].map((cat) => (
           <button
             key={cat}
             className={category === cat ? "active" : ""}
@@ -73,12 +98,12 @@ function NotesPage() {
 
             {note.pdf ? (
               <div style={{ display: "flex", gap: "8px", marginTop: "10px" }}>
-                {/* <a href={note.pdf} target="_blank" rel="noreferrer" className="pdf-btn">
-                  👁️ View
-                </a> */}
-                <a href={note.pdf} download className="pdf-download-btn">
+                <button
+                  onClick={() => handleDownload(note)}
+                  className="pdf-download-btn"
+                >
                   ⬇️ Download
-                </a>
+                </button>
               </div>
             ) : (
               <span className="pdf-soon">🔒 Coming Soon</span>

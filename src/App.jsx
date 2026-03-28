@@ -12,6 +12,11 @@ import PrivacyPolicy from "./components/Page/PrivacyPolicy";
 import TermsConditions from "./components/Page/TermsConditions";
 import SupportPage from "./components/Page/SupportPage";
 import PracticePage from "./components/Page/PracticePage";
+import AuthPage from "./components/Page/AuthPage";
+import PrivateRoute from "./components/PrivateRoute";
+import DashboardPage from "./components/Page/DashboardPage";
+import CoursePage from "./components/Page/CoursePage";
+import AdminDashboard from "./components/Page/AdminDashboard";
 import "./App.css";
 
 function App() {
@@ -21,6 +26,7 @@ function App() {
     <div className="app">
       <Navbar showJobsPopup={showJobsPopup} setShowJobsPopup={setShowJobsPopup} />
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={
           <>
             <HeroSection />
@@ -28,14 +34,20 @@ function App() {
             <CommunitySection />
           </>
         } />
-        <Route path="/notes" element={<NotesPage />} />
-        <Route path="/roadmap" element={<RoadmapPage />} />
-        <Route path="/courses" element={<CoursesPage />} />
-        <Route path="/practice" element={<PracticePage />} />
+        <Route path="/login" element={<AuthPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsConditions />} />
         <Route path="/support" element={<SupportPage />} />
-      </Routes>
+
+        {/* Protected Routes — Login required */}
+        <Route path="/notes" element={<PrivateRoute><NotesPage /></PrivateRoute>} />
+        <Route path="/roadmap" element={<PrivateRoute><RoadmapPage /></PrivateRoute>} />
+        <Route path="/courses" element={<PrivateRoute><CoursesPage /></PrivateRoute>} />
+        <Route path="/practice" element={<PrivateRoute><PracticePage /></PrivateRoute>} />
+        <Route path="/dashboard" element={<PrivateRoute><DashboardPage /></PrivateRoute>} />
+        <Route path="/course/:courseTitle" element={ <PrivateRoute><CoursePage /></PrivateRoute> } />
+        <Route path="/admin" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
+        </Routes>
       <Footer />
     </div>
   );

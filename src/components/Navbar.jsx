@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
 const navLinks = [
@@ -13,10 +13,28 @@ const navLinks = [
 ];
 
 const WHATSAPP_LINK = "https://whatsapp.com/channel/0029VazMK0J30LKTGQxCyi40";
+const ADMIN_EMAIL = "abhishekrathor7447@gmail.com";
 
 function Navbar({ showJobsPopup, setShowJobsPopup }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [user, setUser] = useState(localStorage.getItem("user"));
+  const [userEmail, setUserEmail] = useState(localStorage.getItem("email"));
   const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setUser(localStorage.getItem("user"));
+    setUserEmail(localStorage.getItem("email"));
+  }, [location.pathname]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("email");
+    setUser(null);
+    setUserEmail(null);
+    navigate("/login");
+  };
 
   return (
     <>
@@ -45,13 +63,69 @@ function Navbar({ showJobsPopup, setShowJobsPopup }) {
               </Link>
             ))}
 
-            {/* Jobs Button */}
-            <button
-              onClick={() => setShowJobsPopup(true)}
-              className="jobs-btn"
-            >
-              💼 Jobs
-            </button>
+            {user ? (
+              <>
+                {/* Admin Button — sirf admin ko dikhega */}
+                {userEmail === ADMIN_EMAIL && (
+                  <Link
+                    to="/admin"
+                    className="px-4 py-2 text-sm rounded-md bg-red-500/20 text-red-400 hover:text-red-300 font-semibold"
+                  >
+                    👑 Admin
+                  </Link>
+                )}
+
+                {/* Jobs Button */}
+                <button
+                  onClick={() => setShowJobsPopup(true)}
+                  className="jobs-btn"
+                >
+                  💼 Jobs
+                </button>
+
+                {/* Profile Icon */}
+                <Link
+                  to="/dashboard"
+                  className="flex items-center gap-2 hover:opacity-80 transition"
+                >
+                  <div style={{
+                    width: "34px",
+                    height: "34px",
+                    borderRadius: "50%",
+                    background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontWeight: "bold",
+                    fontSize: "14px",
+                    color: "white",
+                    flexShrink: 0
+                  }}>
+                    {user.charAt(0).toUpperCase()}
+                  </div>
+                  <span className="text-sm text-green-400 font-semibold">
+                    {user}
+                  </span>
+                </Link>
+
+                {/* Logout */}
+                <button onClick={handleLogout} className="login-btn">
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/login" className="login-btn">
+                  Login
+                </Link>
+                <button
+                  onClick={() => setShowJobsPopup(true)}
+                  className="jobs-btn"
+                >
+                  💼 Jobs
+                </button>
+              </>
+            )}
           </div>
 
           {/* Mobile Button */}
@@ -88,16 +162,86 @@ function Navbar({ showJobsPopup, setShowJobsPopup }) {
                   </Link>
                 ))}
 
-                {/* Mobile Jobs Button */}
-                <button
-                  onClick={() => {
-                    setMobileOpen(false);
-                    setShowJobsPopup(true);
-                  }}
-                  className="jobs-btn-mobile"
-                >
-                  💼 Jobs
-                </button>
+                {user ? (
+                  <div className="flex flex-col gap-2">
+                    {/* Mobile Admin Button */}
+                    {userEmail === ADMIN_EMAIL && (
+                      <Link
+                        to="/admin"
+                        onClick={() => setMobileOpen(false)}
+                        className="px-4 py-2 text-sm rounded-md bg-red-500/20 text-red-400 font-semibold text-center"
+                      >
+                        👑 Admin
+                      </Link>
+                    )}
+
+                    {/* Mobile Jobs */}
+                    <button
+                      onClick={() => {
+                        setMobileOpen(false);
+                        setShowJobsPopup(true);
+                      }}
+                      className="jobs-btn-mobile"
+                    >
+                      💼 Jobs
+                    </button>
+
+                    {/* Mobile Profile */}
+                    <Link
+                      to="/dashboard"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center gap-2 px-4 py-2"
+                    >
+                      <div style={{
+                        width: "30px",
+                        height: "30px",
+                        borderRadius: "50%",
+                        background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontWeight: "bold",
+                        fontSize: "13px",
+                        color: "white"
+                      }}>
+                        {user.charAt(0).toUpperCase()}
+                      </div>
+                      <span className="text-sm text-green-400 font-semibold">
+                        {user}
+                      </span>
+                    </Link>
+
+                    {/* Mobile Logout */}
+                    <button
+                      onClick={() => {
+                        setMobileOpen(false);
+                        handleLogout();
+                      }}
+                      className="login-btn"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-2">
+                    <Link
+                      to="/login"
+                      onClick={() => setMobileOpen(false)}
+                      className="login-btn text-center"
+                    >
+                      Login
+                    </Link>
+                    <button
+                      onClick={() => {
+                        setMobileOpen(false);
+                        setShowJobsPopup(true);
+                      }}
+                      className="jobs-btn-mobile"
+                    >
+                      💼 Jobs
+                    </button>
+                  </div>
+                )}
               </div>
             </motion.div>
           )}
@@ -108,7 +252,6 @@ function Navbar({ showJobsPopup, setShowJobsPopup }) {
       <AnimatePresence>
         {showJobsPopup && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -117,7 +260,6 @@ function Navbar({ showJobsPopup, setShowJobsPopup }) {
               onClick={() => setShowJobsPopup(false)}
             />
 
-            {/* Popup Card */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -125,7 +267,6 @@ function Navbar({ showJobsPopup, setShowJobsPopup }) {
               transition={{ duration: 0.2 }}
               className="jobs-popup"
             >
-              {/* Close */}
               <button
                 className="jobs-popup-close"
                 onClick={() => setShowJobsPopup(false)}
@@ -133,16 +274,12 @@ function Navbar({ showJobsPopup, setShowJobsPopup }) {
                 <X className="w-4 h-4" />
               </button>
 
-              {/* Icon */}
               <div className="jobs-popup-icon">💼</div>
-
-              {/* Title */}
               <h2 className="jobs-popup-title">Jobs & Opportunities</h2>
               <p className="jobs-popup-desc">
                 Join our WhatsApp channel for all latest:
               </p>
 
-              {/* Features */}
               <ul className="jobs-popup-list">
                 <li>✅ Job & Internship Openings</li>
                 <li>🏆 Hackathon Opportunities</li>
@@ -150,7 +287,6 @@ function Navbar({ showJobsPopup, setShowJobsPopup }) {
                 <li>📄 Resume & Interview Tips</li>
               </ul>
 
-              {/* CTA Button */}
               <a
                 href={WHATSAPP_LINK}
                 target="_blank"

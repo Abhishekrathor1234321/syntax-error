@@ -1,0 +1,286 @@
+.dash-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: white;
+  font-size: 1.2rem;
+  background: #0a0a0a;
+}
+
+.dash-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background: #0a0a0a;
+  color: white;
+  padding-top: 60px;
+}
+
+/* Sidebar */
+.dash-sidebar {
+  width: 260px;
+  background: #111;
+  border-right: 1px solid #222;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  position: sticky;
+  top: 60px;
+  height: calc(100vh - 60px);
+}
+
+.dash-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.dash-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+}
+
+.dash-email {
+  font-size: 0.75rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.dash-menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.dash-menu-item {
+  width: 100%;
+  text-align: left;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #aaa;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.dash-menu-item:hover {
+  background: #1a1a1a;
+  color: white;
+}
+
+.dash-menu-item.active {
+  background: #1e3a5f;
+  color: #60a5fa;
+}
+
+/* Main */
+.dash-main {
+  flex: 1;
+  padding: 2rem 2.5rem;
+  overflow-y: auto;
+}
+
+.dash-heading {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+/* Stats */
+.dash-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.dash-stat-card {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.stat-icon {
+  font-size: 2rem;
+}
+
+.dash-stat-card h4 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #60a5fa;
+}
+
+.dash-stat-card p {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* Sections */
+.dash-section {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.dash-section h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #e2e8f0;
+}
+
+.dash-notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.dash-note-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.7rem 1rem;
+  background: #0a0a0a;
+  border-radius: 8px;
+  border: 1px solid #1a1a1a;
+}
+
+.dash-note-tag {
+  background: #1e3a5f;
+  color: #60a5fa;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+
+.dash-note-title {
+  flex: 1;
+  font-size: 0.9rem;
+  color: #e2e8f0;
+}
+
+.dash-note-date {
+  font-size: 0.75rem;
+  color: #555;
+}
+
+.dash-empty {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.dash-empty span {
+  color: #60a5fa;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+.dash-empty span:hover {
+  text-decoration: underline;
+}
+
+.dash-note-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-left: auto;
+}
+
+.dash-view-btn {
+  background: #1e3a5f;
+  color: #60a5fa;
+  border: none;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.dash-view-btn:hover {
+  background: #2d4f7f;
+}
+
+.dash-download-btn {
+  background: #1a3a2a;
+  color: #4ade80;
+  border: none;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.dash-download-btn:hover {
+  background: #2d5a3f;
+}
+
+.dash-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.dash-setting-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.dash-setting-item label {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.dash-setting-item input {
+  background: #0a0a0a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  color: #ccc;
+  font-size: 0.9rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.dash-logout-btn {
+  background: #3a1a1a;
+  color: #f87171;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  width: fit-content;
+  margin-top: 1rem;
+  transition: all 0.2s;
+}
+
+.dash-logout-btn:hover {
+  background: #5a2a2a;
+}

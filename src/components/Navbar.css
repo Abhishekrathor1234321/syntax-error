@@ -156,3 +156,19 @@
   opacity: 0.9;
   transform: translateY(-1px);
 }
+
+.login-btn {
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  color: white;
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.login-btn:hover {
+  background: white;
+  color: #0b1220;
+}
