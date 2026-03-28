@@ -4,7 +4,7 @@ import { auth, googleProvider } from "../../../lib/firebase";
 import { useNavigate } from "react-router-dom";
 import "./AuthPage.css";
 
-const BACKEND = "http://localhost:8081";
+const BACKEND = "https://syntax-error-1xds.vercel.app";
 
 function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
