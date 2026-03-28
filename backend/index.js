@@ -44,3 +44,6 @@ app.use('/admin', AdminRouter);
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`)
 });
+
+const OtpRouter = require('./Routes/OtpRouter');
+app.use('/otp', OtpRouter);
