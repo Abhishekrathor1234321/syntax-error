@@ -2,81 +2,64 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./CoursePage.css";
 
-// Dummy data — baad mein real links daalna
 const courseData = {
   "Complete Aptitude Course 2026": {
     title: "Complete Aptitude Course 2026",
     instructor: "Karina Sharma [Infosys-DSE]",
-    totalLectures: 30,
     sections: [
       {
-        title: "Section 1 — Introduction",
+        title: "📊 Section 1 — Arithmetic Fundamentals",
         lectures: [
-          { id: 1, title: "Percentage", videoId: "https://youtu.be/XFcapf8Mx2c", duration: "", notes: "" },
-          { id: 2, title: "RATIO AND PROPORTION   ", videoId: "https://youtu.be/QR9q9T7HceQ?si=pb5-he7fyJV5a9mB", duration: "", notes: "" },
+          { id: 1, title: "Percentage — Concepts & Tricks", videoId: "XFcapf8Mx2c", duration: "", notes: "" },
+          { id: 2, title: "Ratio & Proportion", videoId: "Xv38cd1u5_o", duration: "", notes: "" },
+          { id: 3, title: "Age Problems — Part 1", videoId: "cWhm6yyH24w", duration: "", notes: "" },
+          { id: 4, title: "Age Problems — Part 2", videoId: "d7d09-3O_ro", duration: "", notes: "" },
+          { id: 5, title: "Partnership", videoId: "FtOA4G3tvwI", duration: "", notes: "" },
+          { id: 6, title: "Average", videoId: "fELiGdlv7aE", duration: "", notes: "" },
+          { id: 7, title: "Chain Rule", videoId: "iVgxR8uUOUw", duration: "", notes: "" },
+          { id: 8, title: "Pipes & Cisterns", videoId: "vZKu8YGF7Dw", duration: "", notes: "" },
         ]
       },
       {
-        title: "Section 2 — Quantitative Aptitude",
+        title: "🔢 Section 2 — Number System & Profit",
         lectures: [
-          { id: 3, title: "Number System", videoId: "YOUR_VIDEO_ID_3", duration: "25:00", notes: "DRIVE_LINK_1" },
-          { id: 4, title: "Percentages", videoId: "YOUR_VIDEO_ID_4", duration: "20:00", notes: "DRIVE_LINK_2" },
-          { id: 5, title: "Profit & Loss", videoId: "YOUR_VIDEO_ID_5", duration: "22:00", notes: "DRIVE_LINK_3" },
-          { id: 6, title: "Simple & Compound Interest", videoId: "YOUR_VIDEO_ID_6", duration: "18:00", notes: "" },
-          { id: 7, title: "Time & Work", videoId: "YOUR_VIDEO_ID_7", duration: "20:00", notes: "" },
-          { id: 8, title: "Time Speed Distance", videoId: "YOUR_VIDEO_ID_8", duration: "25:00", notes: "" },
+          { id: 9, title: "Number System — Fundamentals", videoId: "a6MOQA3twYo", duration: "", notes: "" },
+          { id: 10, title: "Number System (Contd.) & Profit & Loss Intro", videoId: "uV_mQFfEAbI", duration: "", notes: "" },
+          { id: 11, title: "Profit & Loss — Complete", videoId: "lF-mKVjsMqo", duration: "", notes: "" },
+          { id: 12, title: "HCF & LCM", videoId: "ulU9r9utLA4", duration: "", notes: "" },
+          { id: 13, title: "AP & GP — Part 1", videoId: "KyFarnOr520", duration: "", notes: "" },
+          { id: 14, title: "AP & GP — Part 2", videoId: "tLKpfJb_5DQ", duration: "", notes: "" },
         ]
       },
       {
-        title: "Section 3 — Verbal Reasoning",
+        title: "🚀 Section 3 — Speed, Time & Interest",
         lectures: [
-          { id: 9, title: "Synonyms & Antonyms", videoId: "YOUR_VIDEO_ID_9", duration: "15:00", notes: "" },
-          { id: 10, title: "Reading Comprehension", videoId: "YOUR_VIDEO_ID_10", duration: "20:00", notes: "" },
-          { id: 11, title: "Sentence Completion", videoId: "YOUR_VIDEO_ID_11", duration: "18:00", notes: "" },
+          { id: 15, title: "Speed, Distance & Time + Boats & Trains", videoId: "6FfM2JwZkTo", duration: "", notes: "" },
+          { id: 16, title: "Speed, Distance & Time — Practice Session", videoId: "UtauJ_7fXfQ", duration: "", notes: "" },
+          { id: 17, title: "Simple & Compound Interest — Part 1", videoId: "griZ5k8tg_0", duration: "", notes: "" },
+          { id: 18, title: "Simple & Compound Interest — Part 2", videoId: "a_8POPBwY6I", duration: "", notes: "" },
         ]
       },
       {
-        title: "Section 4 — Logical Reasoning",
+        title: "🧠 Section 4 — Reasoning",
         lectures: [
-          { id: 12, title: "Blood Relations", videoId: "YOUR_VIDEO_ID_12", duration: "20:00", notes: "" },
-          { id: 13, title: "Seating Arrangement", videoId: "YOUR_VIDEO_ID_13", duration: "25:00", notes: "" },
-          { id: 14, title: "Coding Decoding", videoId: "YOUR_VIDEO_ID_14", duration: "18:00", notes: "" },
-          { id: 15, title: "Syllogism", videoId: "YOUR_VIDEO_ID_15", duration: "22:00", notes: "" },
+          { id: 19, title: "Blood Relations", videoId: "r0beKnDn7WU", duration: "", notes: "" },
+          { id: 20, title: "Calendar Problems", videoId: "DiDg2wmcqsk", duration: "", notes: "" },
+          { id: 21, title: "Clock Problems", videoId: "-pvs8XLRstw", duration: "", notes: "" },
+          { id: 22, title: "Coding & Decoding", videoId: "BTxThoQiReQ", duration: "", notes: "" },
+          { id: 23, title: "Direction Sense", videoId: "PazYmtyCBi4", duration: "", notes: "" },
+          { id: 24, title: "Blood Relation + Seating Arrangement", videoId: "aViI3dCm_Xs", duration: "", notes: "" },
+          { id: 25, title: "Statement & Assumptions", videoId: "CGDCUVq8irk", duration: "", notes: "" },
+          { id: 26, title: "Data Sufficiency", videoId: "9WVr7OXYfrY", duration: "", notes: "" },
         ]
       },
       {
-        title: "Section 5 — Data Interpretation",
+        title: "📐 Section 5 — Advanced Topics",
         lectures: [
-          { id: 16, title: "Bar Graphs", videoId: "YOUR_VIDEO_ID_16", duration: "20:00", notes: "" },
-          { id: 17, title: "Pie Charts", videoId: "YOUR_VIDEO_ID_17", duration: "18:00", notes: "" },
-          { id: 18, title: "Line Graphs", videoId: "YOUR_VIDEO_ID_18", duration: "15:00", notes: "" },
-          { id: 19, title: "Tables & Caselets", videoId: "YOUR_VIDEO_ID_19", duration: "22:00", notes: "" },
-        ]
-      },
-      {
-        title: "Section 6 — Puzzles",
-        lectures: [
-          { id: 20, title: "Floor Puzzles", videoId: "YOUR_VIDEO_ID_20", duration: "25:00", notes: "" },
-          { id: 21, title: "Box Puzzles", videoId: "YOUR_VIDEO_ID_21", duration: "20:00", notes: "" },
-          { id: 22, title: "Scheduling Puzzles", videoId: "YOUR_VIDEO_ID_22", duration: "22:00", notes: "" },
-        ]
-      },
-      {
-        title: "Section 7 — Speed Math",
-        lectures: [
-          { id: 23, title: "Vedic Math Tricks", videoId: "YOUR_VIDEO_ID_23", duration: "20:00", notes: "" },
-          { id: 24, title: "Shortcuts for Multiplication", videoId: "YOUR_VIDEO_ID_24", duration: "15:00", notes: "" },
-          { id: 25, title: "Division Tricks", videoId: "YOUR_VIDEO_ID_25", duration: "18:00", notes: "" },
-        ]
-      },
-      {
-        title: "Section 8 — Mock Tests",
-        lectures: [
-          { id: 26, title: "Mock Test 1", videoId: "YOUR_VIDEO_ID_26", duration: "45:00", notes: "" },
-          { id: 27, title: "Mock Test 2", videoId: "YOUR_VIDEO_ID_27", duration: "45:00", notes: "" },
-          { id: 28, title: "Mock Test 3", videoId: "YOUR_VIDEO_ID_28", duration: "45:00", notes: "" },
-          { id: 29, title: "Mock Test 4", videoId: "YOUR_VIDEO_ID_29", duration: "45:00", notes: "" },
-          { id: 30, title: "Final Mock Test", videoId: "YOUR_VIDEO_ID_30", duration: "60:00", notes: "" },
+          { id: 27, title: "Permutations & Combinations", videoId: "jzg1nOrZq9g", duration: "", notes: "" },
+          { id: 28, title: "Probability", videoId: "TX-63y4VoTk", duration: "", notes: "" },
+          { id: 29, title: "Number Series & Counting Figures", videoId: "yU39-hz5MtI", duration: "", notes: "" },
+          { id: 30, title: "Statistics (Bonus)", videoId: "RvKCm7vNXDs", duration: "", notes: "" },
         ]
       }
     ]
@@ -91,6 +74,8 @@ function CoursePage() {
   const [currentLecture, setCurrentLecture] = useState(null);
   const [completedLectures, setCompletedLectures] = useState([]);
   const [activeSection, setActiveSection] = useState(0);
+  const [editingNotes, setEditingNotes] = useState(false);
+  const [notesMap, setNotesMap] = useState({});
 
   const decodedTitle = decodeURIComponent(courseTitle);
   const course = courseData[decodedTitle];
@@ -99,19 +84,15 @@ function CoursePage() {
     const checkAccess = async () => {
       const token = localStorage.getItem("token");
       if (!token) { navigate("/login"); return; }
-
       try {
         const res = await fetch("https://syntax-error-1xds.vercel.app/user/profile", {
           headers: { Authorization: `Bearer ${token}` }
         });
         const data = await res.json();
         if (data.success) {
-          const purchased = data.user.purchasedCourses?.some(
-            c => c.title === decodedTitle
-          );
+          const purchased = data.user.purchasedCourses?.some(c => c.title === decodedTitle);
           if (purchased) {
             setHasAccess(true);
-            // Pehla lecture set karo
             if (course?.sections?.[0]?.lectures?.[0]) {
               setCurrentLecture(course.sections[0].lectures[0]);
             }
@@ -140,6 +121,15 @@ function CoursePage() {
   const totalLectures = course?.sections?.reduce((acc, s) => acc + s.lectures.length, 0) || 0;
   const progress = Math.round((completedLectures.length / totalLectures) * 100);
 
+  const getVideoId = (videoId) => {
+    if (!videoId) return null;
+    if (videoId.startsWith("YOUR_VIDEO")) return null;
+    // Extract ID from URL if full URL given
+    if (videoId.includes("youtu.be/")) return videoId.split("youtu.be/")[1].split("?")[0];
+    if (videoId.includes("watch?v=")) return videoId.split("watch?v=")[1].split("&")[0];
+    return videoId;
+  };
+
   if (loading) return <div className="cp-loading">⏳ Loading...</div>;
   if (!hasAccess || !course) return null;
 
@@ -148,33 +138,35 @@ function CoursePage() {
 
       {/* Top Bar */}
       <div className="cp-topbar">
-        <button onClick={() => navigate("/dashboard")} className="cp-back">
-          ← Dashboard
-        </button>
+        <button onClick={() => navigate("/dashboard")} className="cp-back">← Dashboard</button>
         <h2 className="cp-topbar-title">{course.title}</h2>
-        <div className="cp-progress-bar">
-          <div className="cp-progress-fill" style={{ width: `${progress}%` }} />
-          <span>{progress}% Complete</span>
+        <div className="cp-progress-wrap">
+          <div className="cp-progress-bar">
+            <div className="cp-progress-fill" style={{ width: `${progress}%` }} />
+          </div>
+          <span className="cp-progress-text">{progress}% Complete</span>
         </div>
       </div>
 
       <div className="cp-main">
 
-        {/* Left — Video Player */}
+        {/* Left — Content */}
         <div className="cp-content">
 
           {/* Video Player */}
           <div className="cp-video-container">
-            {currentLecture?.videoId && currentLecture.videoId !== `YOUR_VIDEO_ID_${currentLecture.id}` ? (
+            {getVideoId(currentLecture?.videoId) ? (
               <iframe
-                src={`https://www.youtube.com/embed/${currentLecture.videoId}?rel=0&modestbranding=1`}
+                src={`https://www.youtube-nocookie.com/embed/${getVideoId(currentLecture.videoId)}?rel=0&modestbranding=1&origin=https://syntaxerrorr.com`}
                 title={currentLecture.title}
                 allowFullScreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 className="cp-video"
+                style={{ border: "none" }}
               />
             ) : (
               <div className="cp-video-placeholder">
-                <span>▶️</span>
+                <span>🎬</span>
                 <p>Video Coming Soon</p>
               </div>
             )}
@@ -182,22 +174,23 @@ function CoursePage() {
 
           {/* Lecture Info */}
           <div className="cp-lecture-info">
-            <h2>{currentLecture?.title}</h2>
+            <h2 className="cp-lecture-title">{currentLecture?.title}</h2>
             <div className="cp-lecture-meta">
-              <span>👨‍🏫 {course.instructor}</span>
-              <span>⏱️ {currentLecture?.duration}</span>
+              <span>👩‍🏫 {course.instructor}</span>
               <button
                 className={`cp-complete-btn ${completedLectures.includes(currentLecture?.id) ? "completed" : ""}`}
                 onClick={() => toggleCompleted(currentLecture?.id)}
               >
-                {completedLectures.includes(currentLecture?.id) ? "✅ Completed" : "Mark as Complete"}
+                {completedLectures.includes(currentLecture?.id) ? "✅ Completed" : "○ Mark as Complete"}
               </button>
             </div>
           </div>
 
           {/* Notes Section */}
           <div className="cp-notes-section">
-            <h3>📚 Lecture Notes & Resources</h3>
+            <div className="cp-notes-header">
+              <h3>📚 Lecture Notes & Resources</h3>
+            </div>
             {currentLecture?.notes ? (
               <a
                 href={currentLecture.notes}
@@ -208,30 +201,35 @@ function CoursePage() {
                 📥 Download Notes
               </a>
             ) : (
-              <p className="cp-no-notes">Notes coming soon for this lecture!</p>
+              <div className="cp-no-notes-wrap">
+                <span className="cp-no-notes">📝 Notes coming soon for this lecture!</span>
+              </div>
             )}
           </div>
 
-          {/* Navigation Buttons */}
+          {/* Navigation */}
           <div className="cp-nav-btns">
             <button
               className="cp-nav-btn"
               onClick={() => {
-                const allLectures = course.sections.flatMap(s => s.lectures);
-                const currentIndex = allLectures.findIndex(l => l.id === currentLecture?.id);
-                if (currentIndex > 0) setCurrentLecture(allLectures[currentIndex - 1]);
+                const all = course.sections.flatMap(s => s.lectures);
+                const idx = all.findIndex(l => l.id === currentLecture?.id);
+                if (idx > 0) setCurrentLecture(all[idx - 1]);
               }}
             >
               ← Previous
             </button>
+            <span className="cp-lecture-count">
+              {course.sections.flatMap(s => s.lectures).findIndex(l => l.id === currentLecture?.id) + 1} / {totalLectures}
+            </span>
             <button
               className="cp-nav-btn primary"
               onClick={() => {
-                const allLectures = course.sections.flatMap(s => s.lectures);
-                const currentIndex = allLectures.findIndex(l => l.id === currentLecture?.id);
-                if (currentIndex < allLectures.length - 1) {
+                const all = course.sections.flatMap(s => s.lectures);
+                const idx = all.findIndex(l => l.id === currentLecture?.id);
+                if (idx < all.length - 1) {
                   toggleCompleted(currentLecture?.id);
-                  setCurrentLecture(allLectures[currentIndex + 1]);
+                  setCurrentLecture(all[idx + 1]);
                 }
               }}
             >
@@ -247,15 +245,20 @@ function CoursePage() {
             <span>{totalLectures} Lectures</span>
           </div>
 
+          <div className="cp-progress-mini">
+            <div className="cp-progress-mini-fill" style={{ width: `${progress}%` }} />
+          </div>
+          <p className="cp-progress-mini-text">{completedLectures.length}/{totalLectures} completed</p>
+
           <div className="cp-sections">
             {course.sections.map((section, sIndex) => (
               <div key={sIndex} className="cp-section">
                 <button
-                  className="cp-section-header"
+                  className={`cp-section-header ${activeSection === sIndex ? "open" : ""}`}
                   onClick={() => setActiveSection(activeSection === sIndex ? -1 : sIndex)}
                 >
                   <span>{section.title}</span>
-                  <span>{activeSection === sIndex ? "▲" : "▼"}</span>
+                  <span className="cp-section-arrow">{activeSection === sIndex ? "▲" : "▼"}</span>
                 </button>
 
                 {activeSection === sIndex && (
@@ -267,11 +270,11 @@ function CoursePage() {
                         onClick={() => setCurrentLecture(lecture)}
                       >
                         <span className="cp-lecture-icon">
-                          {completedLectures.includes(lecture.id) ? "✅" : "▶️"}
+                          {completedLectures.includes(lecture.id) ? "✅" : currentLecture?.id === lecture.id ? "▶️" : "○"}
                         </span>
                         <div className="cp-lecture-details">
                           <span className="cp-lecture-name">{lecture.title}</span>
-                          <span className="cp-lecture-dur">{lecture.duration}</span>
+                          {lecture.duration && <span className="cp-lecture-dur">⏱ {lecture.duration}</span>}
                         </div>
                       </button>
                     ))}

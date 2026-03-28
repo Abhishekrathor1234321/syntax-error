@@ -11,23 +11,25 @@
 .cp-wrapper {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
   height: 100vh;
   background: #0a0a0a;
   color: white;
   overflow: hidden;
 }
 
-/* Top Bar */
+/* ========= TOP BAR ========= */
 .cp-topbar {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.8rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   background: #111;
   border-bottom: 1px solid #222;
   position: sticky;
   top: 0;
   z-index: 100;
+  flex-shrink: 0;
 }
 
 .cp-back {
@@ -37,15 +39,17 @@
   padding: 0.4rem 0.8rem;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.2s;
 }
 
 .cp-back:hover { color: white; border-color: #555; }
 
 .cp-topbar-title {
   flex: 1;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 600;
   color: white;
   white-space: nowrap;
@@ -53,14 +57,15 @@
   text-overflow: ellipsis;
 }
 
-.cp-progress-bar {
+.cp-progress-wrap {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  min-width: 200px;
+  gap: 0.6rem;
+  min-width: 180px;
+  flex-shrink: 0;
 }
 
-.cp-progress-bar > div {
+.cp-progress-bar {
   flex: 1;
   height: 6px;
   background: #333;
@@ -72,27 +77,28 @@
   height: 100%;
   background: linear-gradient(90deg, #3b82f6, #8b5cf6);
   border-radius: 10px;
-  transition: width 0.3s;
+  transition: width 0.4s ease;
 }
 
-.cp-progress-bar span {
-  font-size: 0.75rem;
+.cp-progress-text {
+  font-size: 0.72rem;
   color: #aaa;
   white-space: nowrap;
 }
 
-/* Main Layout */
+/* ========= MAIN LAYOUT ========= */
 .cp-main {
   display: flex;
   flex: 1;
   overflow: hidden;
 }
 
-/* Left Content */
+/* ========= LEFT CONTENT ========= */
 .cp-content {
   flex: 1;
   overflow-y: auto;
   padding: 1.5rem;
+  min-width: 0;
 }
 
 /* Video */
@@ -109,6 +115,7 @@
   width: 100%;
   height: 100%;
   border: none;
+  display: block;
 }
 
 .cp-video-placeholder {
@@ -118,53 +125,58 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.8rem;
   color: #555;
-  font-size: 3rem;
+  font-size: 2.5rem;
+  background: #0d0d0d;
 }
 
 .cp-video-placeholder p {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #444;
 }
 
 /* Lecture Info */
 .cp-lecture-info {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #1a1a1a;
 }
 
-.cp-lecture-info h2 {
-  font-size: 1.3rem;
+.cp-lecture-title {
+  font-size: 1.2rem;
   font-weight: 700;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.7rem;
+  color: #f1f5f9;
+  line-height: 1.4;
 }
 
 .cp-lecture-meta {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
 .cp-lecture-meta span {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: #888;
 }
 
 .cp-complete-btn {
-  background: #1a2a1a;
+  background: #0d1f0d;
   color: #4ade80;
   border: 1px solid #4ade80;
-  padding: 0.4rem 1rem;
+  padding: 0.38rem 1rem;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   transition: all 0.2s;
+  white-space: nowrap;
 }
 
 .cp-complete-btn.completed {
   background: #1a3a1a;
-  color: #4ade80;
 }
 
 .cp-complete-btn:hover { opacity: 0.8; }
@@ -174,14 +186,22 @@
   background: #111;
   border: 1px solid #222;
   border-radius: 12px;
-  padding: 1.2rem;
-  margin-bottom: 1.5rem;
+  padding: 1.1rem 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.cp-notes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
 }
 
 .cp-notes-section h3 {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  color: #e2e8f0;
+  margin: 0;
 }
 
 .cp-notes-btn {
@@ -189,35 +209,51 @@
   background: #1e3a5f;
   color: #60a5fa;
   border: 1px solid #3b82f6;
-  padding: 0.6rem 1.2rem;
+  padding: 0.55rem 1.2rem;
   border-radius: 8px;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   transition: all 0.2s;
 }
 
 .cp-notes-btn:hover { background: #2d4f7f; }
 
+.cp-no-notes-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .cp-no-notes {
   color: #555;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 /* Navigation */
 .cp-nav-btns {
   display: flex;
+  align-items: center;
   gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.cp-lecture-count {
+  font-size: 0.8rem;
+  color: #555;
+  flex: 1;
+  text-align: center;
 }
 
 .cp-nav-btn {
-  padding: 0.6rem 1.5rem;
+  padding: 0.55rem 1.3rem;
   border-radius: 8px;
   border: 1px solid #333;
   background: transparent;
   color: #aaa;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   transition: all 0.2s;
+  white-space: nowrap;
 }
 
 .cp-nav-btn:hover { border-color: #555; color: white; }
@@ -230,20 +266,22 @@
 
 .cp-nav-btn.primary:hover { background: #2563eb; }
 
-/* Sidebar */
+/* ========= SIDEBAR ========= */
 .cp-sidebar {
-  width: 340px;
+  width: 320px;
   background: #111;
   border-left: 1px solid #222;
   overflow-y: auto;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .cp-sidebar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.2rem;
+  padding: 1rem 1.2rem 0.8rem;
   border-bottom: 1px solid #222;
   position: sticky;
   top: 0;
@@ -252,16 +290,43 @@
 }
 
 .cp-sidebar-header h3 {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 600;
+  color: #e2e8f0;
 }
 
 .cp-sidebar-header span {
-  font-size: 0.8rem;
-  color: #666;
+  font-size: 0.78rem;
+  color: #555;
+}
+
+/* Progress mini */
+.cp-progress-mini {
+  height: 3px;
+  background: #1a1a1a;
+  margin: 0 1.2rem;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 0.6rem;
+}
+
+.cp-progress-mini-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+
+.cp-progress-mini-text {
+  font-size: 0.72rem;
+  color: #555;
+  padding: 0.3rem 1.2rem 0.6rem;
+  border-bottom: 1px solid #1a1a1a;
 }
 
 /* Sections */
+.cp-sections { flex: 1; }
+
 .cp-section { border-bottom: 1px solid #1a1a1a; }
 
 .cp-section-header {
@@ -269,26 +334,32 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.8rem 1.2rem;
+  padding: 0.75rem 1.2rem;
   background: transparent;
   border: none;
   color: #ccc;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   text-align: left;
   transition: background 0.2s;
+  gap: 0.5rem;
 }
 
 .cp-section-header:hover { background: #1a1a1a; }
+.cp-section-header.open { color: #60a5fa; background: #0d1a2d; }
+
+.cp-section-arrow { flex-shrink: 0; font-size: 0.65rem; }
 
 /* Lectures */
+.cp-lectures { background: #0d0d0d; }
+
 .cp-lecture-item {
   width: 100%;
   display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  padding: 0.7rem 1.2rem 0.7rem 1.5rem;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.65rem 1.2rem 0.65rem 1.5rem;
   background: transparent;
   border: none;
   color: #888;
@@ -298,17 +369,148 @@
   border-bottom: 1px solid #111;
 }
 
-.cp-lecture-item:hover { background: #1a1a1a; color: white; }
+.cp-lecture-item:hover { background: #141414; color: white; }
 .cp-lecture-item.active { background: #1e3a5f; color: #60a5fa; }
 .cp-lecture-item.done { color: #4ade80; }
 
-.cp-lecture-icon { font-size: 0.8rem; flex-shrink: 0; }
+.cp-lecture-icon { font-size: 0.75rem; flex-shrink: 0; margin-top: 2px; }
 
 .cp-lecture-details {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.15rem;
+  min-width: 0;
 }
 
-.cp-lecture-name { font-size: 0.82rem; }
-.cp-lecture-dur { font-size: 0.72rem; color: #555; }
+.cp-lecture-name {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.cp-lecture-dur { font-size: 0.7rem; color: #555; }
+
+/* ========= TABLET ========= */
+@media (max-width: 1024px) {
+  .cp-sidebar { width: 280px; }
+  .cp-content { padding: 1.2rem; }
+  .cp-progress-wrap { min-width: 140px; }
+}
+
+/* ========= MOBILE ========= */
+@media (max-width: 768px) {
+  .cp-wrapper {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
+  /* Topbar */
+  .cp-topbar {
+    padding: 0.6rem 1rem;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .cp-topbar-title {
+    font-size: 0.78rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .cp-progress-wrap {
+    min-width: 100px;
+    gap: 0.4rem;
+  }
+
+  .cp-progress-text { font-size: 0.65rem; }
+
+  /* Main — stack vertically */
+  .cp-main {
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  /* Content */
+  .cp-content {
+    padding: 0.8rem;
+    overflow: visible;
+  }
+
+  .cp-video-container {
+    border-radius: 8px;
+    margin-bottom: 0.8rem;
+  }
+
+  .cp-lecture-title { font-size: 1rem; margin-bottom: 0.5rem; }
+
+  .cp-lecture-meta { gap: 0.6rem; }
+  .cp-lecture-meta span { font-size: 0.75rem; }
+
+  .cp-complete-btn {
+    font-size: 0.75rem;
+    padding: 0.32rem 0.8rem;
+  }
+
+  .cp-notes-section {
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.8rem;
+  }
+
+  .cp-notes-section h3 { font-size: 0.85rem; }
+  .cp-notes-btn { font-size: 0.8rem; padding: 0.45rem 1rem; }
+  .cp-no-notes { font-size: 0.78rem; }
+
+  .cp-nav-btns { gap: 0.6rem; margin-bottom: 1rem; }
+
+  .cp-nav-btn {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.78rem;
+    flex: 1;
+    text-align: center;
+  }
+
+  .cp-lecture-count { font-size: 0.72rem; }
+
+  /* Sidebar — below video on mobile */
+  .cp-sidebar {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid #222;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .cp-sidebar-header {
+    padding: 0.7rem 1rem;
+    position: relative;
+  }
+
+  .cp-sidebar-header h3 { font-size: 0.85rem; }
+
+  .cp-progress-mini { margin: 0 1rem; }
+  .cp-progress-mini-text { padding: 0.25rem 1rem 0.5rem; }
+
+  .cp-section-header {
+    padding: 0.65rem 1rem;
+    font-size: 0.78rem;
+  }
+
+  .cp-lecture-item {
+    padding: 0.6rem 1rem 0.6rem 1.2rem;
+  }
+
+  .cp-lecture-name { font-size: 0.76rem; }
+  .cp-lecture-dur { font-size: 0.65rem; }
+}
+
+/* ========= SMALL MOBILE ========= */
+@media (max-width: 400px) {
+  .cp-topbar { padding: 0.5rem 0.8rem; }
+  .cp-topbar-title { font-size: 0.72rem; }
+  .cp-back { padding: 0.3rem 0.6rem; font-size: 0.75rem; }
+  .cp-content { padding: 0.6rem; }
+  .cp-lecture-title { font-size: 0.9rem; }
+  .cp-nav-btn { padding: 0.4rem 0.6rem; font-size: 0.72rem; }
+}
