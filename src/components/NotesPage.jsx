@@ -44,7 +44,7 @@ function NotesPage() {
     const token = localStorage.getItem("token");
     if (token) {
       try {
-        await fetch("http://localhost:8080/user/track-download", {
+        await fetch("https://syntax-error-1xds.vercel.app/user/track-download", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
