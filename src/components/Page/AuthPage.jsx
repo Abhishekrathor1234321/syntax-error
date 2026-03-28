@@ -142,7 +142,9 @@ const redirectTo = new URLSearchParams(window.location.search).get("redirect") |
         localStorage.setItem("token", pendingData.jwtToken);
         localStorage.setItem("user", pendingData.name);
         localStorage.setItem("email", pendingData.email);
-        window.location.href = redirectTo;
+       const params = new URLSearchParams(window.location.search);
+       const redirect = params.get("redirect") || "/";
+        window.location.href = redirect;
       } else {
         alert(data.message);
       }
