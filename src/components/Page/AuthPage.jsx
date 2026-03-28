@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../../lib/firebase";
@@ -20,55 +19,44 @@ function AuthPage() {
     confirmPassword: ""
   });
   const navigate = useNavigate();
-  const [redirectTo] = useState(
-  new URLSearchParams(window.location.search).get("redirect") || "/"
-);
+
+  const redirectTo = new URLSearchParams(window.location.search).get("redirect") || "/";
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleGoogleLogin = async () => {
-  setLoading(true);
-  try {
-    const result = await signInWithPopup(auth, googleProvider);
-    const user = result.user;
+    setLoading(true);
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
 
-    const res = await fetch(`${BACKEND}/auth/google-login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: user.displayName,
-        email: user.email,
-        googleId: user.uid
-      })
-    });
+      const res = await fetch(`${BACKEND}/auth/google-login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: user.displayName,
+          email: user.email,
+          googleId: user.uid
+        })
+      });
 
-    const data = await res.json();
-    if (data.success) {
-      localStorage.setItem("token", data.jwtToken);
-      localStorage.setItem("user", data.name);
-      localStorage.setItem("email", data.email);
-     const savedRedirect = sessionStorage.getItem("redirectAfterLogin") || "/";
-sessionStorage.removeItem("redirectAfterLogin");
-window.location.href = savedRedirect;
-    } else {
-      alert("Google login failed!");
-    }
-  } catch (error) {
-    console.error("Google error:", error);
-    // Firebase error ignore karo — already logged in check karo
-    const user = auth.currentUser;
-    if (user) {
-      const savedRedirect = sessionStorage.getItem("redirectAfterLogin") || "/";
-sessionStorage.removeItem("redirectAfterLogin");
-window.location.href = savedRedirect;
-    } else {
+      const data = await res.json();
+      if (data.success) {
+        localStorage.setItem("token", data.jwtToken);
+        localStorage.setItem("user", data.name);
+        localStorage.setItem("email", data.email);
+        window.location.href = redirectTo;
+      } else {
+        alert("Google login failed!");
+      }
+    } catch (error) {
       alert("Login failed: " + error.message);
+    } finally {
+      setLoading(false);
     }
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   const handleSubmit = async () => {
     if (!formData.email || !formData.password) {
@@ -110,12 +98,11 @@ window.location.href = savedRedirect;
           if (otpData.success) {
             setPendingData(data);
             setShowOtp(true);
-            alert("OTP aapke email pe bheja gaya hai!");
           } else {
-            alert("OTP send karne mein error: " + otpData.message);
+            alert("OTP send karne mein error!");
           }
         } else {
-          alert(data.message);
+          alert("Signup successful! Ab login karo.");
           setIsLogin(true);
         }
       } else {
@@ -134,7 +121,6 @@ window.location.href = savedRedirect;
       alert("6 digit OTP daalo!");
       return;
     }
-
     setLoading(true);
     try {
       const res = await fetch(`${BACKEND}/otp/verify`, {
@@ -142,15 +128,12 @@ window.location.href = savedRedirect;
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: formData.email, otp })
       });
-
       const data = await res.json();
       if (data.success) {
         localStorage.setItem("token", pendingData.jwtToken);
         localStorage.setItem("user", pendingData.name);
         localStorage.setItem("email", pendingData.email);
-       const savedRedirect = sessionStorage.getItem("redirectAfterLogin") || "/";
-       sessionStorage.removeItem("redirectAfterLogin");
-         window.location.href = savedRedirect;
+        window.location.href = redirectTo;
       } else {
         alert(data.message);
       }
@@ -164,15 +147,12 @@ window.location.href = savedRedirect;
   const handleResendOtp = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${BACKEND}/otp/send`, {
+      await fetch(`${BACKEND}/otp/send`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: formData.email })
       });
-      const data = await res.json();
-      if (data.success) {
-        alert("OTP dobara bheja gaya!");
-      }
+      alert("OTP dobara bheja gaya!");
     } catch (error) {
       alert("Error: " + error.message);
     } finally {
@@ -193,7 +173,6 @@ window.location.href = savedRedirect;
               OTP bheja gaya hai: <b>{formData.email}</b>
             </p>
           </div>
-
           <div className="auth-form">
             <div className="auth-field">
               <label>Enter OTP</label>
@@ -206,30 +185,16 @@ window.location.href = savedRedirect;
                 style={{ letterSpacing: "8px", fontSize: "24px", textAlign: "center" }}
               />
             </div>
-
-            <button
-              className="auth-submit"
-              onClick={handleVerifyOtp}
-              disabled={loading}
-            >
+            <button className="auth-submit" onClick={handleVerifyOtp} disabled={loading}>
               {loading ? "Verifying..." : "Verify OTP ✓"}
             </button>
-
             <p style={{ textAlign: "center", marginTop: "12px", color: "#888" }}>
               OTP nahi mila?{" "}
-              <span
-                onClick={handleResendOtp}
-                style={{ color: "#3b82f6", cursor: "pointer" }}
-              >
+              <span onClick={handleResendOtp} style={{ color: "#3b82f6", cursor: "pointer" }}>
                 Resend OTP
               </span>
             </p>
-
-            <p
-              className="auth-back"
-              onClick={() => setShowOtp(false)}
-              style={{ textAlign: "center", marginTop: "12px" }}
-            >
+            <p className="auth-back" onClick={() => setShowOtp(false)} style={{ textAlign: "center" }}>
               ← Back to Login
             </p>
           </div>
@@ -242,7 +207,6 @@ window.location.href = savedRedirect;
     <div className="auth-wrapper">
       <div className="auth-blob blob1" />
       <div className="auth-blob blob2" />
-
       <div className="auth-card">
         <div className="auth-header">
           <h2 className="auth-title">
@@ -256,80 +220,41 @@ window.location.href = savedRedirect;
         </div>
 
         <div className="auth-toggle">
-          <button className={isLogin ? "active" : ""} onClick={() => setIsLogin(true)}>
-            Login
-          </button>
-          <button className={!isLogin ? "active" : ""} onClick={() => setIsLogin(false)}>
-            Sign Up
-          </button>
+          <button className={isLogin ? "active" : ""} onClick={() => setIsLogin(true)}>Login</button>
+          <button className={!isLogin ? "active" : ""} onClick={() => setIsLogin(false)}>Sign Up</button>
         </div>
 
         <div className="auth-form">
           {!isLogin && (
             <div className="auth-field">
               <label>Full Name</label>
-              <input
-                type="text"
-                name="name"
-                placeholder="Your full name"
-                onChange={handleChange}
-              />
+              <input type="text" name="name" placeholder="Your full name" onChange={handleChange} />
             </div>
           )}
-
           <div className="auth-field">
             <label>Email Address</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="you@example.com"
-              onChange={handleChange}
-            />
+            <input type="email" name="email" placeholder="you@example.com" onChange={handleChange} />
           </div>
-
           <div className="auth-field">
             <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="••••••••"
-              onChange={handleChange}
-            />
+            <input type="password" name="password" placeholder="••••••••" onChange={handleChange} />
           </div>
-
           {!isLogin && (
             <div className="auth-field">
               <label>Confirm Password</label>
-              <input
-                type="password"
-                name="confirmPassword"
-                placeholder="••••••••"
-                onChange={handleChange}
-              />
+              <input type="password" name="confirmPassword" placeholder="••••••••" onChange={handleChange} />
             </div>
           )}
-
           {isLogin && (
             <div className="auth-forgot">
               <span>Forgot password?</span>
             </div>
           )}
-
-          <button
-            className="auth-submit"
-            onClick={handleSubmit}
-            disabled={loading}
-          >
+          <button className="auth-submit" onClick={handleSubmit} disabled={loading}>
             {loading ? "Loading..." : isLogin ? "Login →" : "Create Account →"}
           </button>
-
           <div className="auth-divider"><span>or</span></div>
-
-          <button
-            className="auth-google"
-            onClick={handleGoogleLogin}
-            disabled={loading}
-          >
+          <button className="auth-google" onClick={handleGoogleLogin} disabled={loading}>
             {loading ? "Loading..." : (
               <>
                 <img src="https://www.google.com/favicon.ico" alt="google" width="16" />
@@ -345,10 +270,7 @@ window.location.href = savedRedirect;
             {isLogin ? "Sign Up" : "Login"}
           </span>
         </p>
-
-        <p className="auth-back" onClick={() => navigate("/")}>
-          ← Back to Home
-        </p>
+        <p className="auth-back" onClick={() => navigate("/")}>← Back to Home</p>
       </div>
     </div>
   );
