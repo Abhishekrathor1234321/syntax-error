@@ -22,39 +22,27 @@ function DashboardPage() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("overview");
+  const [expandedNote, setExpandedNote] = useState(null);
+  const [expandedCourse, setExpandedCourse] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem("token");
       const userName = localStorage.getItem("user");
-
-      if (!token) {
-        navigate("/login");
-        return;
-      }
-
+      if (!token) { navigate("/login"); return; }
       if (userName && !token.startsWith("ey")) {
-        setUser({
-          name: userName,
-          email: "",
-          downloadedNotes: [],
-          purchasedCourses: []
-        });
+        setUser({ name: userName, email: "", downloadedNotes: [], purchasedCourses: [] });
         setLoading(false);
         return;
       }
-
       try {
         const res = await fetch("https://syntax-error-1xds.vercel.app/user/profile", {
           headers: { "Authorization": `Bearer ${token}` }
         });
         const data = await res.json();
-        if (data.success) {
-          setUser(data.user);
-        } else {
-          navigate("/login");
-        }
+        if (data.success) setUser(data.user);
+        else navigate("/login");
       } catch (err) {
         console.error("Fetch error:", err);
         navigate("/login");
@@ -67,41 +55,40 @@ function DashboardPage() {
 
   if (loading) return <div className="dash-loading">⏳ Loading...</div>;
 
+  const tabs = [
+    { id: "overview", label: "📊 Overview" },
+    { id: "notes", label: "📥 Notes" },
+    { id: "courses", label: "🎓 Courses" },
+    { id: "settings", label: "⚙️ Settings" },
+  ];
+
   return (
     <div className="dash-wrapper">
+
       {/* Sidebar */}
       <div className="dash-sidebar">
-        <div className="dash-avatar">
-          {user?.name?.charAt(0).toUpperCase()}
+        {/* Profile */}
+        <div className="dash-profile">
+          <div className="dash-avatar">
+            {user?.name?.charAt(0).toUpperCase()}
+          </div>
+          <div className="dash-profile-info">
+            <h3 className="dash-name">{user?.name}</h3>
+            <p className="dash-email">{user?.email}</p>
+          </div>
         </div>
-        <h3 className="dash-name">{user?.name}</h3>
-        <p className="dash-email">{user?.email}</p>
 
+        {/* Menu */}
         <div className="dash-menu">
-          <button
-            className={`dash-menu-item ${activeTab === "overview" ? "active" : ""}`}
-            onClick={() => setActiveTab("overview")}
-          >
-            📊 Overview
-          </button>
-          <button
-            className={`dash-menu-item ${activeTab === "notes" ? "active" : ""}`}
-            onClick={() => setActiveTab("notes")}
-          >
-            📥 Downloaded Notes
-          </button>
-          <button
-            className={`dash-menu-item ${activeTab === "courses" ? "active" : ""}`}
-            onClick={() => setActiveTab("courses")}
-          >
-            🎓 My Courses
-          </button>
-          <button
-            className={`dash-menu-item ${activeTab === "settings" ? "active" : ""}`}
-            onClick={() => setActiveTab("settings")}
-          >
-            ⚙️ Settings
-          </button>
+          {tabs.map(tab => (
+            <button
+              key={tab.id}
+              className={`dash-menu-item ${activeTab === tab.id ? "active" : ""}`}
+              onClick={() => setActiveTab(tab.id)}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -113,15 +100,16 @@ function DashboardPage() {
           <>
             <h1 className="dash-heading">Welcome back, {user?.name}! 👋</h1>
 
+            {/* Stats */}
             <div className="dash-stats">
-              <div className="dash-stat-card">
+              <div className="dash-stat-card" onClick={() => setActiveTab("notes")} style={{cursor:"pointer"}}>
                 <span className="stat-icon">📥</span>
                 <div>
                   <h4>{user?.downloadedNotes?.length || 0}</h4>
                   <p>Notes Downloaded</p>
                 </div>
               </div>
-              <div className="dash-stat-card">
+              <div className="dash-stat-card" onClick={() => setActiveTab("courses")} style={{cursor:"pointer"}}>
                 <span className="stat-icon">🎓</span>
                 <div>
                   <h4>{user?.purchasedCourses?.length || 0}</h4>
@@ -137,28 +125,46 @@ function DashboardPage() {
               </div>
             </div>
 
-            {/* Recent Downloads */}
+            {/* Recent Notes */}
             <div className="dash-section">
-              <h2>📥 Recently Downloaded Notes</h2>
+              <div className="dash-section-header">
+                <h2>📥 Recently Downloaded Notes</h2>
+                {user?.downloadedNotes?.length > 3 && (
+                  <button className="dash-see-all" onClick={() => setActiveTab("notes")}>
+                    See All →
+                  </button>
+                )}
+              </div>
               {user?.downloadedNotes?.length > 0 ? (
                 <div className="dash-notes-list">
-                  {[...user.downloadedNotes].reverse().slice(0, 5).map((note, i) => (
-                    <div className="dash-note-item" key={i}>
-                      <span className="dash-note-tag">{note.category}</span>
-                      <span className="dash-note-title">{note.title}</span>
-                      <div className="dash-note-actions">
-                        <span className="dash-note-date">
-                          {new Date(note.downloadedAt).toLocaleDateString()}
-                        </span>
-                        {notesPdfMap[note.title] && (
+                  {[...user.downloadedNotes].reverse().slice(0, 3).map((note, i) => (
+                    <div key={i}>
+                      <div
+                        className={`dash-note-item clickable ${expandedNote === i ? "expanded" : ""}`}
+                        onClick={() => setExpandedNote(expandedNote === i ? null : i)}
+                      >
+                        <span className="dash-note-tag">{note.category}</span>
+                        <span className="dash-note-title">{note.title}</span>
+                        <div className="dash-note-actions">
+                          <span className="dash-note-date">
+                            {new Date(note.downloadedAt).toLocaleDateString()}
+                          </span>
+                          <span className="dash-expand-icon">{expandedNote === i ? "▲" : "▼"}</span>
+                        </div>
+                      </div>
+                      {expandedNote === i && notesPdfMap[note.title] && (
+                        <div className="dash-note-expanded">
                           <button
                             className="dash-view-btn"
                             onClick={() => window.open(`/${notesPdfMap[note.title]}`, "_blank")}
                           >
-                            👁️ View
+                            👁️ View PDF
                           </button>
-                        )}
-                      </div>
+                          <a href={`/${notesPdfMap[note.title]}`} download className="dash-download-btn">
+                            ⬇️ Download
+                          </a>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -173,23 +179,38 @@ function DashboardPage() {
             {/* Recent Courses */}
             {user?.purchasedCourses?.length > 0 && (
               <div className="dash-section">
-                <h2>🎓 My Courses</h2>
+                <div className="dash-section-header">
+                  <h2>🎓 My Courses</h2>
+                  <button className="dash-see-all" onClick={() => setActiveTab("courses")}>
+                    See All →
+                  </button>
+                </div>
                 <div className="dash-notes-list">
                   {user.purchasedCourses.slice(0, 3).map((course, i) => (
-                    <div className="dash-note-item" key={i}>
-                      <span className="dash-note-tag">Course</span>
-                      <span className="dash-note-title">{course.title}</span>
-                      <div className="dash-note-actions">
-                        <span className="dash-note-date">
-                          {new Date(course.purchasedAt).toLocaleDateString()}
-                        </span>
-                        <button
-                          className="dash-view-btn"
-                          onClick={() => navigate(`/course/${encodeURIComponent(course.title)}`)}
-                        >
-                          ▶️ Watch Now
-                        </button>
+                    <div key={i}>
+                      <div
+                        className={`dash-note-item clickable ${expandedCourse === i ? "expanded" : ""}`}
+                        onClick={() => setExpandedCourse(expandedCourse === i ? null : i)}
+                      >
+                        <span className="dash-note-tag">Course</span>
+                        <span className="dash-note-title">{course.title}</span>
+                        <div className="dash-note-actions">
+                          <span className="dash-note-date">
+                            {new Date(course.purchasedAt).toLocaleDateString()}
+                          </span>
+                          <span className="dash-expand-icon">{expandedCourse === i ? "▲" : "▼"}</span>
+                        </div>
                       </div>
+                      {expandedCourse === i && (
+                        <div className="dash-note-expanded">
+                          <button
+                            className="dash-view-btn"
+                            onClick={() => navigate(`/course/${encodeURIComponent(course.title)}`)}
+                          >
+                            ▶️ Watch Now
+                          </button>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -202,35 +223,46 @@ function DashboardPage() {
         {activeTab === "notes" && (
           <>
             <h1 className="dash-heading">📥 Downloaded Notes</h1>
+            <p className="dash-subheading">{user?.downloadedNotes?.length || 0} notes downloaded</p>
             <div className="dash-section">
               {user?.downloadedNotes?.length > 0 ? (
                 <div className="dash-notes-list">
                   {[...user.downloadedNotes].reverse().map((note, i) => (
-                    <div className="dash-note-item" key={i}>
-                      <span className="dash-note-tag">{note.category}</span>
-                      <span className="dash-note-title">{note.title}</span>
-                      <div className="dash-note-actions">
-                        <span className="dash-note-date">
-                          {new Date(note.downloadedAt).toLocaleDateString()}
-                        </span>
-                        {notesPdfMap[note.title] && (
-                          <>
-                            <button
-                              className="dash-view-btn"
-                              onClick={() => window.open(`/${notesPdfMap[note.title]}`, "_blank")}
-                            >
-                              👁️ View
-                            </button>
-                            <a
-                              href={`/${notesPdfMap[note.title]}`}
-                              download
-                              className="dash-download-btn"
-                            >
-                              ⬇️ Download
-                            </a>
-                          </>
-                        )}
+                    <div key={i}>
+                      <div
+                        className={`dash-note-item clickable ${expandedNote === `n${i}` ? "expanded" : ""}`}
+                        onClick={() => setExpandedNote(expandedNote === `n${i}` ? null : `n${i}`)}
+                      >
+                        <span className="dash-note-tag">{note.category}</span>
+                        <span className="dash-note-title">{note.title}</span>
+                        <div className="dash-note-actions">
+                          <span className="dash-note-date">
+                            {new Date(note.downloadedAt).toLocaleDateString()}
+                          </span>
+                          <span className="dash-expand-icon">
+                            {expandedNote === `n${i}` ? "▲" : "▼"}
+                          </span>
+                        </div>
                       </div>
+                      {expandedNote === `n${i}` && (
+                        <div className="dash-note-expanded">
+                          {notesPdfMap[note.title] ? (
+                            <>
+                              <button
+                                className="dash-view-btn"
+                                onClick={() => window.open(`/${notesPdfMap[note.title]}`, "_blank")}
+                              >
+                                👁️ View PDF
+                              </button>
+                              <a href={`/${notesPdfMap[note.title]}`} download className="dash-download-btn">
+                                ⬇️ Download
+                              </a>
+                            </>
+                          ) : (
+                            <span className="dash-coming-soon">🔒 PDF Coming Soon</span>
+                          )}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -248,24 +280,42 @@ function DashboardPage() {
         {activeTab === "courses" && (
           <>
             <h1 className="dash-heading">🎓 My Courses</h1>
+            <p className="dash-subheading">{user?.purchasedCourses?.length || 0} courses enrolled</p>
             <div className="dash-section">
               {user?.purchasedCourses?.length > 0 ? (
                 <div className="dash-notes-list">
                   {user.purchasedCourses.map((course, i) => (
-                    <div className="dash-note-item" key={i}>
-                      <span className="dash-note-tag">Course</span>
-                      <span className="dash-note-title">{course.title}</span>
-                      <div className="dash-note-actions">
-                        <span className="dash-note-date">
-                          {new Date(course.purchasedAt).toLocaleDateString()}
-                        </span>
-                        <button
-                          className="dash-view-btn"
-                          onClick={() => navigate(`/course/${encodeURIComponent(course.title)}`)}
-                        >
-                          ▶️ Watch Now
-                        </button>
+                    <div key={i}>
+                      <div
+                        className={`dash-note-item clickable ${expandedCourse === `c${i}` ? "expanded" : ""}`}
+                        onClick={() => setExpandedCourse(expandedCourse === `c${i}` ? null : `c${i}`)}
+                      >
+                        <span className="dash-note-tag">🎓</span>
+                        <span className="dash-note-title">{course.title}</span>
+                        <div className="dash-note-actions">
+                          <span className="dash-note-date">
+                            {new Date(course.purchasedAt).toLocaleDateString()}
+                          </span>
+                          <span className="dash-expand-icon">
+                            {expandedCourse === `c${i}` ? "▲" : "▼"}
+                          </span>
+                        </div>
                       </div>
+                      {expandedCourse === `c${i}` && (
+                        <div className="dash-note-expanded">
+                          <button
+                            className="dash-view-btn"
+                            onClick={() => navigate(`/course/${encodeURIComponent(course.title)}`)}
+                          >
+                            ▶️ Watch Now
+                          </button>
+                          <span className="dash-enrolled-date">
+                            Enrolled: {new Date(course.purchasedAt).toLocaleDateString('en-IN', {
+                              day: '2-digit', month: 'long', year: 'numeric'
+                            })}
+                          </span>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -308,7 +358,6 @@ function DashboardPage() {
             </div>
           </>
         )}
-
       </div>
     </div>
   );
