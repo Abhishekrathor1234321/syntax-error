@@ -20,7 +20,9 @@ function AuthPage() {
     confirmPassword: ""
   });
   const navigate = useNavigate();
-const redirectTo = new URLSearchParams(window.location.search).get("redirect") || "/";
+  const [redirectTo] = useState(
+  new URLSearchParams(window.location.search).get("redirect") || "/"
+);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
