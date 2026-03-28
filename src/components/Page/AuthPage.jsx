@@ -26,7 +26,7 @@ function AuthPage() {
       const user = result.user;
 
       // Backend mein Google user save karo
-      const res = await fetch("http://localhost:8081/auth/google-login", {
+      const res = await fetch("https://syntax-error-1xds.vercel.app/auth/google-login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -65,8 +65,8 @@ function AuthPage() {
     setLoading(true);
     try {
       const url = isLogin
-        ? "http://localhost:8081/auth/login"
-        : "http://localhost:8081/auth/signup";
+        ? "https://syntax-error-1xds.vercel.app/auth/login"
+        : "https://syntax-error-1xds.vercel.app/auth/signup";
 
       const body = isLogin
         ? { email: formData.email, password: formData.password }

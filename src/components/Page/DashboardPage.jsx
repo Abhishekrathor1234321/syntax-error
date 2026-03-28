@@ -46,7 +46,7 @@ function DashboardPage() {
       }
 
       try {
-        const res = await fetch("http://localhost:8081/user/profile", {
+        const res = await fetch("https://syntax-error-1xds.vercel.app/user/profile", {
           headers: { "Authorization": `Bearer ${token}` }
         });
         const data = await res.json();

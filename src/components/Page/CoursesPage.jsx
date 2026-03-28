@@ -52,7 +52,7 @@ const CoursesPage = () => {
     setLoading(true);
     try {
       // Step 1 — Order create karo
-      const res = await fetch("http://localhost:8081/payment/create-order", {
+      const res = await fetch("https://syntax-error-1xds.vercel.app/payment/create-order", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -77,7 +77,7 @@ const CoursesPage = () => {
         order_id: data.order.id,
         handler: async function (response) {
           // Step 3 — Payment verify karo
-          const verifyRes = await fetch("http://localhost:8081/payment/verify-payment", {
+          const verifyRes = await fetch("https://syntax-error-1xds.vercel.app/payment/verify-payment", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

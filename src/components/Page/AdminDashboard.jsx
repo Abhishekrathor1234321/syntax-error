@@ -13,7 +13,7 @@ function AdminDashboard() {
       const token = localStorage.getItem("token");
       if (!token) { navigate("/login"); return; }
       try {
-        const res = await fetch("http://localhost:8081/admin/purchases", {
+        const res = await fetch("https://syntax-error-1xds.vercel.app/admin/purchases", {
           headers: { Authorization: `Bearer ${token}` }
         });
         const data = await res.json();
