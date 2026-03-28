@@ -144,9 +144,9 @@ function AuthPage() {
         localStorage.setItem("token", pendingData.jwtToken);
         localStorage.setItem("user", pendingData.name);
         localStorage.setItem("email", pendingData.email);
-       const params = new URLSearchParams(window.location.search);
-       const redirect = params.get("redirect") || "/";
-        window.location.href = redirect;
+       const savedRedirect = sessionStorage.getItem("redirectAfterLogin") || "/";
+       sessionStorage.removeItem("redirectAfterLogin");
+         window.location.href = savedRedirect;
       } else {
         alert(data.message);
       }
