@@ -1,4 +1,4 @@
-const redirectTo = new URLSearchParams(window.location.search).get("redirect") || "/";
+
 import { useState } from "react";
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../../lib/firebase";
@@ -20,7 +20,7 @@ function AuthPage() {
     confirmPassword: ""
   });
   const navigate = useNavigate();
-
+const redirectTo = new URLSearchParams(window.location.search).get("redirect") || "/";
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
