@@ -1,10 +1,5 @@
 import { useState } from "react";
-import {
-  signInWithPopup,
-  sendSignInLinkToEmail,
-  isSignInWithEmailLink,
-  signInWithEmailLink
-} from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../../lib/firebase";
 import { useNavigate } from "react-router-dom";
 import "./AuthPage.css";
@@ -12,76 +7,66 @@ import "./AuthPage.css";
 function AuthPage() {
   const [step, setStep] = useState("email");
   const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const redirectTo = new URLSearchParams(window.location.search).get("redirect") || "/";
 
-  const actionCodeSettings = {
-    url: `https://syntaxerrorr.com/login?redirect=${redirectTo}`,
-    handleCodeInApp: true,
-  };
-
-  // Send magic link to email
-  const handleSendLink = async () => {
-    if (!email) {
-      alert("Please enter your email address.");
-      return;
-    }
+  // Send OTP
+  const handleSendOtp = async () => {
+    if (!email) { alert("Please enter your email address."); return; }
     setLoading(true);
     try {
-      await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-      localStorage.setItem("emailForSignIn", email);
-      setStep("sent");
-    } catch (error) {
-      alert("Failed to send link. Please try again.");
-      console.error(error);
+      const res = await fetch("https://syntax-error-1xds.vercel.app/auth/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStep("otp");
+      } else {
+        alert(data.message);
+      }
+    } catch (err) {
+      alert("Failed to send OTP. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
-  // Handle magic link login
-  const handleEmailLinkLogin = async () => {
-    const savedEmail = localStorage.getItem("emailForSignIn");
-    if (!savedEmail) return;
+  // Verify OTP
+  const handleVerifyOtp = async () => {
+    if (!otp) { alert("Please enter the OTP."); return; }
     setLoading(true);
     try {
-      const result = await signInWithEmailLink(auth, savedEmail, window.location.href);
-      const user = result.user;
-
-      const res = await fetch("https://syntax-error-1xds.vercel.app/auth/google-login", {
+      const res = await fetch("https://syntax-error-1xds.vercel.app/auth/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: user.displayName || savedEmail.split("@")[0],
-          email: user.email,
-          googleId: user.uid
-        })
+        body: JSON.stringify({ email, otp })
       });
-
       const data = await res.json();
       if (data.success) {
         localStorage.setItem("token", data.jwtToken);
         localStorage.setItem("user", data.name);
-        localStorage.removeItem("emailForSignIn");
         window.location.href = redirectTo;
+      } else {
+        alert(data.message);
       }
-    } catch (error) {
-      alert("Authentication failed. Please try again.");
-      console.error(error);
+    } catch (err) {
+      alert("Verification failed. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
-  // Google login
+  // Google Login
   const handleGoogleLogin = async () => {
     setLoading(true);
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-
       const res = await fetch("https://syntax-error-1xds.vercel.app/auth/google-login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -91,7 +76,6 @@ function AuthPage() {
           googleId: user.uid
         })
       });
-
       const data = await res.json();
       if (data.success) {
         localStorage.setItem("token", data.jwtToken);
@@ -102,17 +86,10 @@ function AuthPage() {
       }
     } catch (error) {
       alert("Google login failed: " + error.message);
-      console.error(error);
     } finally {
       setLoading(false);
     }
   };
-
-  // Auto-handle magic link redirect
-  if (isSignInWithEmailLink(auth, window.location.href)) {
-    const savedEmail = localStorage.getItem("emailForSignIn");
-    if (savedEmail) handleEmailLinkLogin();
-  }
 
   return (
     <div className="auth-wrapper">
@@ -129,7 +106,7 @@ function AuthPage() {
           </p>
         </div>
 
-        {/* Step 1 — Email Input */}
+        {/* Step 1 — Email */}
         {step === "email" && (
           <>
             <div className="auth-form">
@@ -140,17 +117,17 @@ function AuthPage() {
                   placeholder="you@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleSendLink()}
+                  onKeyDown={(e) => e.key === "Enter" && handleSendOtp()}
                   autoFocus
                 />
               </div>
 
               <button
                 className="auth-submit"
-                onClick={handleSendLink}
+                onClick={handleSendOtp}
                 disabled={loading}
               >
-                {loading ? "Sending..." : "Continue with Email →"}
+                {loading ? "Sending OTP..." : "Continue with Email →"}
               </button>
 
               <div className="auth-divider"><span>or</span></div>
@@ -162,11 +139,7 @@ function AuthPage() {
               >
                 {loading ? "Loading..." : (
                   <>
-                    <img
-                      src="https://www.google.com/favicon.ico"
-                      alt="Google"
-                      width="16"
-                    />
+                    <img src="https://www.google.com/favicon.ico" alt="Google" width="16" />
                     Continue with Google
                   </>
                 )}
@@ -182,37 +155,57 @@ function AuthPage() {
           </>
         )}
 
-        {/* Step 2 — Email Sent */}
-        {step === "sent" && (
-          <div className="auth-sent">
+        {/* Step 2 — OTP */}
+        {step === "otp" && (
+          <div className="auth-otp-screen">
             <div className="auth-sent-icon">📧</div>
             <h3>Check Your Inbox!</h3>
-            <p>We've sent a secure sign-in link to</p>
+            <p>We've sent a 6-digit OTP to</p>
             <p className="auth-sent-email">{email}</p>
-            <p className="auth-sent-sub">
-              Click the link in your email to sign in instantly.
-              The link expires in 10 minutes.
-            </p>
 
-            <div className="auth-sent-actions">
+            <div className="auth-form" style={{ marginTop: "1.2rem" }}>
+              <div className="auth-field">
+                <label>Enter OTP</label>
+                <input
+                  type="text"
+                  placeholder="Enter 6-digit OTP"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                  onKeyDown={(e) => e.key === "Enter" && handleVerifyOtp()}
+                  maxLength={6}
+                  autoFocus
+                  style={{ textAlign: "center", fontSize: "1.4rem", letterSpacing: "8px" }}
+                />
+              </div>
+
               <button
-                className="auth-resend-link"
-                onClick={handleSendLink}
-                disabled={loading}
+                className="auth-submit"
+                onClick={handleVerifyOtp}
+                disabled={loading || otp.length !== 6}
               >
-                {loading ? "Sending..." : "🔄 Resend Link"}
+                {loading ? "Verifying..." : "Verify OTP →"}
               </button>
 
-              <button
-                className="auth-resend"
-                onClick={() => {
-                  setStep("email");
-                  setEmail("");
-                }}
-              >
-                ← Use Different Email
-              </button>
+              <div className="auth-sent-actions">
+                <button
+                  className="auth-resend-link"
+                  onClick={handleSendOtp}
+                  disabled={loading}
+                >
+                  {loading ? "Sending..." : "🔄 Resend OTP"}
+                </button>
+                <button
+                  className="auth-resend"
+                  onClick={() => { setStep("email"); setOtp(""); }}
+                >
+                  ← Use Different Email
+                </button>
+              </div>
             </div>
+
+            <p className="auth-sent-sub" style={{ marginTop: "1rem" }}>
+              OTP expires in 10 minutes.
+            </p>
           </div>
         )}
 
