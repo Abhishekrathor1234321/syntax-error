@@ -11,7 +11,8 @@ function AuthPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
- const redirectTo = sessionStorage.getItem("redirectAfterLogin") || "/";
+  const redirectTo = new URLSearchParams(window.location.search).get("redirect") || "/";
+
   // Send OTP
   const handleSendOtp = async () => {
     if (!email) { alert("Please enter your email address."); return; }
@@ -50,7 +51,9 @@ function AuthPage() {
         localStorage.setItem("token", data.jwtToken);
         localStorage.setItem("user", data.name);
       
-       sessionStorage.removeItem("redirectAfterLogin"); 
+       window.location.href = redirectTo.startsWith("http") 
+  ? redirectTo 
+  : window.location.origin + redirectTo;
       } else {
         alert(data.message);
       }
@@ -81,7 +84,9 @@ function AuthPage() {
         localStorage.setItem("token", data.jwtToken);
         localStorage.setItem("user", data.name);
         localStorage.setItem("email", data.email);
-       sessionStorage.removeItem("redirectAfterLogin"); 
+       window.location.href = redirectTo.startsWith("http") 
+  ? redirectTo 
+  : window.location.origin + redirectTo;
       } else {
         alert("Google login failed. Please try again.");
       }
