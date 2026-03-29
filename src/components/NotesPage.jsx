@@ -3,11 +3,11 @@ import "./NotesPage.css";
 
 const notesData = [
   { title: "Complete DSA Cheat Sheet", category: "DSA", desc: "Arrays, Linked Lists, Trees, Graphs, DP patterns.", pdf: "" },
-  { title: "HTML Handwritten Notes", category: "Web Dev", desc: "HTML tags, forms, semantic elements and structure.", pdf: "notes/HTML.pdf" },
+  { title: "HTML Handwritten Notes", category: "Web Dev", desc: "HTML tags, forms, semantic elements and structure.", pdf: "notes/HTML .pdf" },
   { title: "CSS Handwritten Notes", category: "Web Dev", desc: "Flexbox, Grid, animations and responsive design.", pdf: "notes/CSS.pdf" },
   { title: "JavaScript Handwritten Notes", category: "Web Dev", desc: "ES6+, DOM, closures, promises and async/await.", pdf: "notes/JavaScript.pdf" },
   { title: "Tailwind CSS Handwritten Notes", category: "Web Dev", desc: "Utility classes, responsive design and custom config.", pdf: "notes/Tailwind Css.pdf" },
-  { title: "Bootstrap Handwritten Notes", category: "Web Dev", desc: "Grid system, components and responsive utilities.", pdf: "notes/Boostrap.pdf" },
+  { title: "Bootstrap Handwritten Notes", category: "Web Dev", desc: "Grid system, components and responsive utilities.", pdf: "notes/Bootstrap .pdf" },
   { title: "Python Handwritten Notes", category: "Python", desc: "OOP, loops, functions, libraries and core concepts.", pdf: "" },
   { title: "Python with DSA Handwritten Notes", category: "Python", desc: "DSA concepts implemented in Python — arrays, trees, graphs, DP and more.", pdf: "notes/DSA with python.pdf" },
   { title: "Python Interview Questions", category: "Python", desc: "Most asked Python interview questions with best answers.", pdf: "" },
