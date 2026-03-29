@@ -50,6 +50,7 @@ function AuthPage() {
       if (data.success) {
         localStorage.setItem("token", data.jwtToken);
         localStorage.setItem("user", data.name);
+        localStorage.setItem("email", data.email);
         window.location.href = redirectTo;
       } else {
         alert(data.message);
@@ -80,6 +81,7 @@ function AuthPage() {
       if (data.success) {
         localStorage.setItem("token", data.jwtToken);
         localStorage.setItem("user", data.name);
+        localStorage.setItem("email", data.email);
         window.location.href = redirectTo;
       } else {
         alert("Google login failed. Please try again.");

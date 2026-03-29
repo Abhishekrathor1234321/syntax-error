@@ -19,6 +19,19 @@ import CoursePage from "./components/Page/CoursePage";
 import AdminDashboard from "./components/Page/AdminDashboard";
 import "./App.css";
 
+
+
+// ✅ Admin Route — sirf tumhara email
+const AdminRoute = ({ children }) => {
+  const token = localStorage.getItem("token");
+  const email = localStorage.getItem("email");
+  const ADMIN_EMAIL = "abhishekrathor7447@gmail.com"; // 👈 apna email daalo
+
+  if (!token) return <Navigate to="/login" />;
+  if (email !== ADMIN_EMAIL) return <Navigate to="/" />;
+  return children;
+};
+
 function App() {
   const [showJobsPopup, setShowJobsPopup] = useState(false);
 
