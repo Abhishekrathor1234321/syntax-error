@@ -11,7 +11,7 @@ function AuthPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const redirectTo = new URLSearchParams(window.location.search).get("redirect") || "/";
+ const redirectTo = sessionStorage.getItem("redirectAfterLogin") || "/";
 
   // Send OTP
   const handleSendOtp = async () => {
@@ -50,6 +50,7 @@ function AuthPage() {
       if (data.success) {
         localStorage.setItem("token", data.jwtToken);
         localStorage.setItem("user", data.name);
+        sessionStorage.removeItem("redirectAfterLogin");
       
        window.location.href = redirectTo.startsWith("http") 
   ? redirectTo 
@@ -84,7 +85,10 @@ function AuthPage() {
         localStorage.setItem("token", data.jwtToken);
         localStorage.setItem("user", data.name);
         localStorage.setItem("email", data.email);
-        window.location.href = redirectTo;
+        sessionStorage.removeItem("redirectAfterLogin");
+       window.location.href = redirectTo.startsWith("http")
+  ? redirectTo
+  : window.location.origin + redirectTo;
       } else {
         alert("Google login failed. Please try again.");
       }
