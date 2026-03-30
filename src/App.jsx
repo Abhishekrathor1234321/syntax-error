@@ -17,6 +17,8 @@ import PrivateRoute from "./components/PrivateRoute";
 import DashboardPage from "./components/Page/DashboardPage";
 import CoursePage from "./components/Page/CoursePage";
 import AdminDashboard from "./components/Page/AdminDashboard";
+import DSACourseDetail from "./components/Page/DSACourseDetail";
+import AptitudeCourseDetail from "./components/Page/AptitudeCourseDetail";
 import "./App.css";
 
 
@@ -60,6 +62,8 @@ function App() {
         <Route path="/dashboard" element={<PrivateRoute><DashboardPage /></PrivateRoute>} />
         <Route path="/course/:courseTitle" element={ <PrivateRoute><CoursePage /></PrivateRoute> } />
         <Route path="/admin" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
+        <Route path="/course-detail/dsa" element={<PrivateRoute><DSACourseDetail /></PrivateRoute>} />
+        <Route path="/course-detail/aptitude" element={<PrivateRoute><AptitudeCourseDetail /></PrivateRoute>} />
         </Routes>
       <Footer />
     </div>
