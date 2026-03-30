@@ -1,6 +1,5 @@
 const express = require('express');
 require('dotenv').config();
-require('./Models/db');
 
 const app = express();
 const bodyParser = require('body-parser');
@@ -24,17 +23,36 @@ app.use(cors({
     'https://syntaxerrorr.com',
     'https://www.syntaxerrorr.com',
     'https://syntax-error-9wonngxuv-abhishekrathor7447-3815s-projects.vercel.app',
-      'https://syntax-error-ecrj73l4k-abhishekrathor7447-3815s-projects.vercel.app'
-    
+    'https://syntax-error-ecrj73l4k-abhishekrathor7447-3815s-projects.vercel.app'
   ],
   credentials: true
 }));
 
 app.use(bodyParser.json());
 
+// Connect DB on every request (Vercel serverless fix)
+app.use(async (req, res, next) => {
+  const mongoose = require('mongoose');
+  if (mongoose.connection.readyState >= 1) {
+    return next();
+  }
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      serverSelectionTimeoutMS: 30000,
+      socketTimeoutMS: 45000,
+      bufferCommands: false,
+    });
+    console.log('MongoDB Connected...');
+    next();
+  } catch (err) {
+    console.error('MongoDB Connection Error:', err);
+    res.status(500).json({ success: false, message: 'Database connection failed' });
+  }
+});
+
 // Routes
 app.get('/ping', (req, res) => {
-    res.send('PONG');
+  res.send('PONG');
 });
 
 app.use('/auth', AuthRouter);
@@ -44,8 +62,7 @@ app.use('/payment', PaymentRouter);
 app.use('/admin', AdminRouter);
 
 app.listen(PORT, () => {
-    console.log(`Server is running on ${PORT}`)
+  console.log(`Server is running on ${PORT}`);
 });
 
-const OtpRouter = require('./Routes/OtpRouter');
-app.use('/otp', OtpRouter);
+module.exports = app;
