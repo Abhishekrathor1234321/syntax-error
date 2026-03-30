@@ -1,3 +1,7 @@
+/* Admin Dashboard - Complete Responsive CSS */
+
+* { box-sizing: border-box; }
+
 .admin-loading {
   display: flex;
   justify-content: center;
@@ -14,13 +18,17 @@
   color: white;
   padding: 2rem;
   padding-top: 80px;
+  scroll-behavior: smooth;
 }
 
+/* Header */
 .admin-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 2rem;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .admin-header h1 {
@@ -43,6 +51,8 @@
   cursor: pointer;
   font-size: 0.85rem;
   transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .admin-back:hover { color: white; border-color: #555; }
@@ -50,7 +60,7 @@
 /* Stats */
 .admin-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 1rem;
   margin-bottom: 2rem;
 }
@@ -65,33 +75,44 @@
   gap: 1rem;
 }
 
-.admin-stat-icon { font-size: 2rem; }
+.admin-stat-icon { font-size: 1.8rem; flex-shrink: 0; }
 
 .admin-stat-card h3 {
   font-size: 1.6rem;
   font-weight: 700;
   color: #60a5fa;
+  line-height: 1;
 }
 
 .admin-stat-card p {
   font-size: 0.8rem;
   color: #666;
+  margin-top: 0.2rem;
 }
 
-/* Main */
+/* Main Layout */
 .admin-main {
   display: grid;
   grid-template-columns: 320px 1fr;
   gap: 1.5rem;
+  align-items: start;
 }
 
-/* Courses */
+/* Courses Panel */
 .admin-courses {
   background: #111;
   border: 1px solid #222;
   border-radius: 12px;
   padding: 1.2rem;
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
 }
+
+.admin-courses::-webkit-scrollbar { width: 4px; }
+.admin-courses::-webkit-scrollbar-track { background: #0a0a0a; }
+.admin-courses::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
 
 .admin-courses h2 {
   font-size: 1rem;
@@ -139,12 +160,13 @@
   transition: width 0.3s;
 }
 
-/* Buyers */
+/* Buyers Panel */
 .admin-buyers {
   background: #111;
   border: 1px solid #222;
   border-radius: 12px;
   padding: 1.2rem;
+  overflow: hidden;
 }
 
 .admin-buyers h2 {
@@ -154,10 +176,16 @@
   color: #e2e8f0;
 }
 
+.admin-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .admin-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.85rem;
+  min-width: 400px;
 }
 
 .admin-table th {
@@ -167,12 +195,14 @@
   color: #666;
   font-weight: 600;
   border-bottom: 1px solid #222;
+  white-space: nowrap;
 }
 
 .admin-table td {
   padding: 0.7rem 1rem;
   border-bottom: 1px solid #1a1a1a;
   color: #ccc;
+  word-break: break-word;
 }
 
 .admin-table tr:hover td { background: #1a1a1a; }
@@ -182,4 +212,110 @@
   font-size: 0.9rem;
   text-align: center;
   padding: 2rem;
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* Tablet — 1024px se neeche */
+@media (max-width: 1024px) {
+  .admin-main {
+    grid-template-columns: 280px 1fr;
+    gap: 1rem;
+  }
+}
+
+/* Tablet portrait — 768px se neeche */
+@media (max-width: 768px) {
+  .admin-wrapper {
+    padding: 1rem;
+    padding-top: 70px;
+  }
+
+  .admin-header h1 { font-size: 1.4rem; }
+
+  .admin-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .admin-stat-card {
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+
+  .admin-stat-card h3 { font-size: 1.3rem; }
+  .admin-stat-icon { font-size: 1.5rem; }
+
+  /* Stack courses and buyers vertically on tablet */
+  .admin-main {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-courses {
+    position: static;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+}
+
+/* Mobile — 480px se neeche */
+@media (max-width: 480px) {
+  .admin-wrapper {
+    padding: 0.75rem;
+    padding-top: 65px;
+  }
+
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .admin-header h1 { font-size: 1.2rem; }
+  .admin-header p { font-size: 0.8rem; }
+
+  .admin-back {
+    width: 100%;
+    text-align: center;
+  }
+
+  .admin-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .admin-stat-card {
+    padding: 0.8rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .admin-stat-card h3 { font-size: 1.2rem; }
+  .admin-stat-icon { font-size: 1.3rem; }
+
+  .admin-main { gap: 0.75rem; }
+
+  .admin-courses {
+    padding: 1rem;
+    max-height: 260px;
+  }
+
+  .admin-buyers { padding: 1rem; }
+
+  .admin-table th,
+  .admin-table td {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Very small — 360px se neeche */
+@media (max-width: 360px) {
+  .admin-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admin-stat-card h3 { font-size: 1rem; }
 }
