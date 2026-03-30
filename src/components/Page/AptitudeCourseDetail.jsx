@@ -187,9 +187,9 @@ function AptitudeCourseDetail() {
           <div className="cd-instructor-avatar cd-instructor-avatar-apt">KS</div>
           <h3>Learn from Karina Sharma</h3>
           <p>
-            Infosys DSE with 5+ years of experience training students for campus
-            placements. Known for making complex aptitude concepts simple with
-            shortcut tricks and real exam strategies.
+            Infosys DSE, provides training for campus placements and is
+  known for simplifying complex aptitude concepts using shortcut tricks,
+  smart problem-solving techniques, and real exam strategies.
           </p>
           <div className="cd-instructor-tags">
             <span>◎ Infosys DSE</span>
