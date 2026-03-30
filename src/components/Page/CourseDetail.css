@@ -1,5 +1,5 @@
-
-
+.cd-wrapper * { box-sizing: border-box; }
+.cd-wrapper { margin: 0; padding: 0; }
 
 .cd-wrapper {
   min-height: 100vh;
