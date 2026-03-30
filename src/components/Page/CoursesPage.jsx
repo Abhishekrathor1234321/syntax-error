@@ -17,6 +17,7 @@ const courses = [
     badge: "⚡ Most Popular", 
     enrollLink: "https://topmate.io/syntaxerrorr/2010540", 
     btnLabel: "Enroll Now",
+    detailLink: "/course-detail/dsa",
     useRazorpay: false
   },
   { 
@@ -31,6 +32,7 @@ const courses = [
     tags: ["Quantitative", "Verbal", "Reasoning", "Data Interpretation", "Puzzles", "Speed Math"],  
     badge: "🚀 Top Selling", 
     btnLabel: "Enroll Now",
+    detailLink: "/course-detail/aptitude",
     useRazorpay: true  // ← Razorpay use karega
   },
 ];
@@ -166,6 +168,15 @@ const CoursesPage = () => {
                   <span key={t} className="text-[10px] px-2 py-0.5 rounded bg-accent text-muted-foreground">{t}</span>
                 ))}
               </div>
+              {course.detailLink && (
+  <button
+    className="course-detail-btn"
+    onClick={() => navigate(course.detailLink)}
+  >
+    View Details
+  </button>
+)}
+
 
               <div className="mt-auto pt-3">
                 {course.useRazorpay ? (
