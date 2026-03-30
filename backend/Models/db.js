@@ -1,23 +1,14 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-let isConnected = false;
+const mongo_url = process.env.MONGO_URI;
 
-const connectDB = async () => {
-  if (isConnected) return;
-  
-  try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      serverSelectionTimeoutMS: 10000,
-      socketTimeoutMS: 45000,
+mongoose.connect(mongo_url)
+    .then(() => {
+        console.log('MongoDB Connected...');
+    })
+    .catch((err) => {
+        console.log('MongoDB Connection Error: ', err);
     });
-    isConnected = true;
-    console.log('MongoDB Connected...');
-  } catch (err) {
-    console.log('MongoDB Connection Error: ', err);
-    isConnected = false;
-  }
-};
-
-connectDB();
 
 module.exports = mongoose;
