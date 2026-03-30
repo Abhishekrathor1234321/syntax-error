@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CourseDetail.css";
 import { useState, useEffect } from "react";
+
 useEffect(() => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }, []);
