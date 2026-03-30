@@ -23,7 +23,9 @@ app.use(cors({
     'http://localhost:5176',
     'https://syntaxerrorr.com',
     'https://www.syntaxerrorr.com',
-    'https://syntax-error-9wonngxuv-abhishekrathor7447-3815s-projects.vercel.app'
+    'https://syntax-error-9wonngxuv-abhishekrathor7447-3815s-projects.vercel.app',
+      'https://syntax-error-ecrj73l4k-abhishekrathor7447-3815s-projects.vercel.app'
+    
   ],
   credentials: true
 }));
