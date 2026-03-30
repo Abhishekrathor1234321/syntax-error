@@ -172,7 +172,7 @@ const CoursesPage = () => {
               {course.detailLink && (
   
   <button
-    className="mt-3 w-full text-center text-xs font-semibold px-6 py-2 rounded-md transition-all duration-200 bg-purple-500/20 text-purple-400 border border-purple-500/30 hover:bg-purple-500 hover:text-white"
+   className="mt-3 w-full text-center text-xs font-semibold px-6 py-2 rounded-md transition-all duration-200 bg-purple-500/20 text-purple-400 border border-purple-500/30 hover:bg-purple-500 hover:text-white cursor-pointer"
     onClick={() => navigate(course.detailLink)}
   >
     View Details
