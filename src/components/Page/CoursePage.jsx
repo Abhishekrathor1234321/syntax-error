@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./CoursePage.css";
 
@@ -77,6 +77,9 @@ function CoursePage() {
   const [completedLectures, setCompletedLectures] = useState([]);
   const [activeSection, setActiveSection] = useState(0);
 
+  // ✅ Ref for content div scroll
+  const contentRef = useRef(null);
+
   const decodedTitle = decodeURIComponent(courseTitle);
   const course = courseData[decodedTitle];
 
@@ -111,6 +114,12 @@ function CoursePage() {
     };
     checkAccess();
   }, []);
+
+  // ✅ Auto scroll to top — mobile + desktop dono ke liye
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    contentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const toggleCompleted = (lectureId) => {
     setCompletedLectures(prev =>
@@ -156,7 +165,7 @@ function CoursePage() {
       <div className="cp-main">
 
         {/* Left — Content */}
-        <div className="cp-content">
+        <div className="cp-content" ref={contentRef}>
 
           {/* Video Player */}
           <div className="cp-video-container">
@@ -216,7 +225,10 @@ function CoursePage() {
               className="cp-nav-btn"
               disabled={currentIndex === 0}
               onClick={() => {
-                if (currentIndex > 0) setCurrentLecture(allLectures[currentIndex - 1]);
+                if (currentIndex > 0) {
+                  setCurrentLecture(allLectures[currentIndex - 1]);
+                  scrollToTop(); // ✅
+                }
               }}
             >
               ← Previous
@@ -231,6 +243,7 @@ function CoursePage() {
                 if (currentIndex < allLectures.length - 1) {
                   toggleCompleted(currentLecture?.id);
                   setCurrentLecture(allLectures[currentIndex + 1]);
+                  scrollToTop(); // ✅
                 }
               }}
             >
@@ -274,7 +287,10 @@ function CoursePage() {
                         className={`cp-lecture-item 
                           ${currentLecture?.id === lecture.id ? "active" : ""} 
                           ${completedLectures.includes(lecture.id) ? "done" : ""}`}
-                        onClick={() => setCurrentLecture(lecture)}
+                        onClick={() => {
+                          setCurrentLecture(lecture);
+                          scrollToTop(); // ✅
+                        }}
                       >
                         <span className="cp-lecture-icon">
                           {completedLectures.includes(lecture.id)

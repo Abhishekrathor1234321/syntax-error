@@ -514,3 +514,12 @@
   .cp-lecture-title { font-size: 0.9rem; }
   .cp-nav-btn { padding: 0.4rem 0.6rem; font-size: 0.72rem; }
 }
+
+/* Auto scroll behavior */
+.cp-content {
+  scroll-behavior: smooth;  /* ← add karo existing .cp-content mein */
+}
+
+.cp-wrapper {
+  scroll-behavior: smooth;  /* ← add karo existing .cp-wrapper mein */
+}
