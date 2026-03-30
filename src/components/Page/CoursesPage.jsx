@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { GraduationCap, Star, Clock, ExternalLink, Tag, Users, Globe } from "lucide-react";
 import PageLayout from "../PageLayout";
@@ -42,7 +43,7 @@ const item = { hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0, transiti
 
 const CoursesPage = () => {
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   const handleRazorpayPayment = async (course) => {
     const token = localStorage.getItem("token");
     if (!token) {
