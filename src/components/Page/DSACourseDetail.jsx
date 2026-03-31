@@ -43,10 +43,7 @@ function DSACourseDetail() {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`
             },
-            body: JSON.stringify({
-              ...response,
-              courseTitle: "The Complete Data Structure & Algorithm Course 2026"
-            })
+           body: JSON.stringify({ ...response, courseTitle: "The Complete Data Structure & Algorithm Course 2026", amount: finalAmount })
           });
           const verifyData = await verifyRes.json();
           if (verifyData.success) {

@@ -25,7 +25,7 @@ const handleProceedPayment = async ({ name, email, phone, finalAmount }) => {
     const res = await fetch("https://syntax-error-1xds.vercel.app/payment/create-order", {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ amount: finalAmount, courseTitle: "Complete Aptitude Course 2026" })
+    body: JSON.stringify({ ...response, courseTitle: "Complete Aptitude Course 2026", amount: finalAmount })
     });
     const data = await res.json();
     const options = {
