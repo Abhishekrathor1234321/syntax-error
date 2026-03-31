@@ -1,70 +1,65 @@
-
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CourseDetail.css";
-import { useState, useEffect } from "react";
-
-
-const handlePayment = async () => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    window.location.href = "/login";
-    return;
-  }
-
-  try {
-    const res = await fetch("https://syntax-error-1xds.vercel.app/payment/create-order", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({ amount: 99, courseTitle: "Complete Aptitude Course 2026" })
-    });
-
-    const data = await res.json();
-
-    const options = {
-      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-      amount: data.order.amount,
-      currency: "INR",
-      name: "Syntax Error",
-      description: "Complete Aptitude Course 2026",
-      order_id: data.order.id,
-      handler: async function (response) {
-        const verifyRes = await fetch("https://syntax-error-1xds.vercel.app/payment/verify-payment", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-          },
-          body: JSON.stringify({
-            ...response,
-            courseTitle: "Complete Aptitude Course 2026"
-          })
-        });
-        const verifyData = await verifyRes.json();
-        if (verifyData.success) {
-          alert("🎉 Payment successful!");
-          window.location.href = "/dashboard";
-        }
-      },
-      theme: { color: "#3b82f6" }
-    };
-
-    const rzp = new window.Razorpay(options);
-    rzp.open();
-  } catch (err) {
-    alert("Payment error!");
-  }
-};
 
 function AptitudeCourseDetail() {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState(null);
-  
- useEffect(() => {
+
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // ✅ Payment handler — inside component
+  const handlePayment = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "/login";
+      return;
+    }
+    try {
+      const res = await fetch("https://syntax-error-1xds.vercel.app/payment/create-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ amount: 99, courseTitle: "Complete Aptitude Course 2026" })
+      });
+      const data = await res.json();
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: data.order.amount,
+        currency: "INR",
+        name: "Syntax Error",
+        description: "Complete Aptitude Course 2026",
+        order_id: data.order.id,
+        handler: async function (response) {
+          const verifyRes = await fetch("https://syntax-error-1xds.vercel.app/payment/verify-payment", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              ...response,
+              courseTitle: "Complete Aptitude Course 2026"
+            })
+          });
+          const verifyData = await verifyRes.json();
+          if (verifyData.success) {
+            alert("🎉 Payment successful!");
+            window.location.href = "/dashboard";
+          }
+        },
+        theme: { color: "#3b82f6" }
+      };
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (err) {
+      alert("Payment error!");
+    }
+  };
 
   const topics = [
     "Percentage — Concepts & Tricks",
@@ -143,7 +138,7 @@ function AptitudeCourseDetail() {
             </div>
           </div>
 
-          <button className="cd-enroll-btn" onClick={() => navigate("/courses")}>
+          <button className="cd-enroll-btn" onClick={handlePayment}>
             Enroll Now →
           </button>
         </div>
@@ -247,9 +242,9 @@ function AptitudeCourseDetail() {
           <div className="cd-instructor-avatar cd-instructor-avatar-apt">KS</div>
           <h3>Learn from Karina Sharma</h3>
           <p>
-            Infosys DSE, provides training for campus placements and is
-  known for simplifying complex aptitude concepts using shortcut tricks,
-  smart problem-solving techniques, and real exam strategies.
+            Infosys DSE with experience training students for campus placements.
+            Known for simplifying complex aptitude concepts using shortcut tricks,
+            smart problem-solving techniques, and real exam strategies.
           </p>
           <div className="cd-instructor-tags">
             <span>◎ Infosys DSE</span>
@@ -285,7 +280,7 @@ function AptitudeCourseDetail() {
           <p>Get the complete aptitude bundle today and never fear a placement test again.</p>
           <span className="cd-cta-label">LIMITED TIME PRICE</span>
           <div className="cd-cta-price">₹99</div>
-          <button className="cd-cta-btn" onClick={() => navigate("/courses")}>
+          <button className="cd-cta-btn" onClick={handlePayment}>
             Enroll Now →
           </button>
         </div>
