@@ -1,15 +1,70 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import CheckoutModal from "./CheckoutModal";
 import "./CourseDetail.css";
 
- 
 function DSACourseDetail() {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState(null);
+  const [showCheckout, setShowCheckout] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleProceed = async ({ name, email, phone, finalAmount }) => {
+    const token = localStorage.getItem("token");
+    if (!token) { window.location.href = "/login"; return; }
+    try {
+      const res = await fetch("https://syntax-error-1xds.vercel.app/payment/create-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          amount: finalAmount,
+          courseTitle: "The Complete Data Structure & Algorithm Course 2026"
+        })
+      });
+      const data = await res.json();
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: data.order.amount,
+        currency: "INR",
+        name: "Syntax Error",
+        description: "The Complete Data Structure & Algorithm Course 2026",
+        order_id: data.order.id,
+        prefill: { name, email, contact: phone },
+        handler: async (response) => {
+          const verifyRes = await fetch("https://syntax-error-1xds.vercel.app/payment/verify-payment", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              ...response,
+              courseTitle: "The Complete Data Structure & Algorithm Course 2026"
+            })
+          });
+          const verifyData = await verifyRes.json();
+          if (verifyData.success) {
+            alert("🎉 Payment successful! Course enrolled!");
+            window.location.href = "/dashboard";
+          } else {
+            alert("Payment verification failed!");
+          }
+        },
+        theme: { color: "#3b82f6" }
+      };
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+      setShowCheckout(false);
+    } catch (err) {
+      alert("Payment error!");
+    }
+  };
 
   const topics = [
     "Variables, Data Types & Operators",
@@ -52,6 +107,23 @@ function DSACourseDetail() {
   return (
     <div className="cd-wrapper">
 
+      {/* ✅ Checkout Modal */}
+      {showCheckout && (
+        <CheckoutModal
+          course={{
+            title: "The Complete Data Structure & Algorithm Course 2026",
+            amount: 299,
+            coupons: {
+              "SYNTAX10": 10,
+              "DSA20": 20,
+              "ABHISHEKA100": 100,
+            }
+          }}
+          onClose={() => setShowCheckout(false)}
+          onProceed={handleProceed}
+        />
+      )}
+
       {/* Navbar back */}
       <div className="cd-topbar">
         <button onClick={() => navigate("/courses")} className="cd-back-btn">
@@ -84,9 +156,9 @@ function DSACourseDetail() {
             </div>
           </div>
 
-         <button className="cd-enroll-btn" onClick={() => window.open("https://topmate.io/syntaxerrorr/2010540", "_blank")}>
-  Enroll Now →
-</button>
+          <button className="cd-enroll-btn" onClick={() => setShowCheckout(true)}>
+            Enroll Now →
+          </button>
         </div>
       </section>
 
@@ -227,10 +299,9 @@ function DSACourseDetail() {
           <p>Get the complete DSA bundle today and start your journey toward MAANG placements.</p>
           <span className="cd-cta-label">LIMITED TIME PRICE</span>
           <div className="cd-cta-price">₹299</div>
-         
-         <button className="cd-enroll-btn" onClick={() => window.open("https://topmate.io/syntaxerrorr/2010540", "_blank")}>
-  Enroll Now →
-</button>
+          <button className="cd-cta-btn" onClick={() => setShowCheckout(true)}>
+            Enroll Now →
+          </button>
         </div>
       </section>
 

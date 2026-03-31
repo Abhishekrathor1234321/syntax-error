@@ -15,10 +15,11 @@ import PracticePage from "./components/Page/PracticePage";
 import AuthPage from "./components/Page/AuthPage";
 import PrivateRoute from "./components/PrivateRoute";
 import DashboardPage from "./components/Page/DashboardPage";
-import CoursePage from "./components/Page/CoursePage";
+import AptitudeCoursePage from "./components/Page/AptitudeCoursePage";
 import AdminDashboard from "./components/Page/AdminDashboard";
 import DSACourseDetail from "./components/Page/DSACourseDetail";
 import AptitudeCourseDetail from "./components/Page/AptitudeCourseDetail";
+import DSACoursePage from "./components/Page/DSACoursePage";
 import "./App.css";
 
 
@@ -60,10 +61,11 @@ function App() {
         <Route path="/courses" element={<PrivateRoute><CoursesPage /></PrivateRoute>} />
         <Route path="/practice" element={<PrivateRoute><PracticePage /></PrivateRoute>} />
         <Route path="/dashboard" element={<PrivateRoute><DashboardPage /></PrivateRoute>} />
-        <Route path="/course/:courseTitle" element={ <PrivateRoute><CoursePage /></PrivateRoute> } />
+        <Route path="/course/:courseTitle" element={ <PrivateRoute><AptitudeCoursePage /></PrivateRoute> } />
         <Route path="/admin" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
         <Route path="/course-detail/dsa" element={<PrivateRoute><DSACourseDetail /></PrivateRoute>} />
         <Route path="/course-detail/aptitude" element={<PrivateRoute><AptitudeCourseDetail /></PrivateRoute>} />
+        <Route path="/dsa-course/:courseTitle" element={<PrivateRoute><DSACoursePage /></PrivateRoute>} />
         </Routes>
       <Footer />
     </div>

@@ -101,11 +101,19 @@ const handleProceedPayment = async ({ name, email, phone, finalAmount }) => {
   return (
     <div className="cd-wrapper">
         {showCheckout && (
-      <CheckoutModal
-        course={{ title: "Complete Aptitude Course 2026", amount: 99 }}
-        onClose={() => setShowCheckout(false)}
-        onProceed={handleProceedPayment}
-      />
+     <CheckoutModal
+  course={{
+    title: "Complete Aptitude Course 2026",
+    amount: 99,
+    coupons: {
+      "APTITUDE10": 10,
+      "KARINAA100": 100,
+      "SYNTAX20": 20,
+    }
+  }}
+  onClose={() => setShowCheckout(false)}
+  onProceed={handleProceedPayment}
+/>
     )}
 
       {/* Navbar back */}

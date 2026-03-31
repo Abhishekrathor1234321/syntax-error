@@ -2,73 +2,85 @@ import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./CoursePage.css";
 
-const APTITUDE_NOTES_LINK = "https://drive.google.com/drive/folders/1OpXdp-roAVNNb59J8cbZ8wdtB6QO1Aiq";
+const DSA_NOTES_LINK = "https://drive.google.com/drive/folders/1t1OjMoxwKtXEvuNAroHAIwtN42SDvpP4";
 
 const courseData = {
-  "Complete Aptitude Course 2026": {
-    title: "Complete Aptitude Course 2026",
-    instructor: "Karina Sharma [Infosys-DSE]",
+  "The Complete Data Structure & Algorithm Course 2026": {
+    title: "The Complete Data Structure & Algorithm Course 2026",
+    instructor: "Abhishek Rathor [Founder/DSA-Mentor]",
     sections: [
       {
-        title: "📊 Section 1 — Arithmetic Fundamentals",
+        title: "🚀 Section 1 — Programming Fundamentals",
         lectures: [
-          { id: 1, title: "Percentage — Concepts & Tricks", videoId: "XFcapf8Mx2c", duration: "" },
-          { id: 2, title: "Ratio & Proportion", videoId: "Xv38cd1u5_o", duration: "" },
-          { id: 3, title: "Age Problems — Part 1", videoId: "cWhm6yyH24w", duration: "" },
-          { id: 4, title: "Age Problems — Part 2", videoId: "d7d09-3O_ro", duration: "" },
-          { id: 5, title: "Partnership", videoId: "FtOA4G3tvwI", duration: "" },
-          { id: 6, title: "Average", videoId: "fELiGdlv7aE", duration: "" },
-          { id: 7, title: "Chain Rule", videoId: "iVgxR8uUOUw", duration: "" },
-          { id: 8, title: "Pipes & Cisterns", videoId: "vZKu8YGF7Dw", duration: "" },
+          { id: 1, title: "Day-0 | Variables, Data Types & Operators", videoId: "Irakjt8BlHQ", duration: "" },
+          { id: 2, title: "Day-1 | Conditional Statements (if-else, switch) + Questions", videoId: "siSSIseKN6s", duration: "" },
+          { id: 3, title: "Day-2 | Loops + Questions", videoId: "f9m4G1ZISHg", duration: "" },
+          { id: 4, title: "Day-3 | Functions + Recursion + Questions", videoId: "TGh-S6z0ulo", duration: "" },
+          { id: 5, title: "Day-4 | Backtracking + Questions", videoId: "IwryqR38TNE", duration: "" },
+          { id: 6, title: "Day-5 | Time and Space Complexity + Questions", videoId: "kHybbHVzZS8", duration: "" },
         ]
       },
       {
-        title: "🔢 Section 2 — Number System & Profit",
+        title: "📊 Section 2 — Arrays, Strings & Sorting",
         lectures: [
-          { id: 9, title: "Number System — Fundamentals", videoId: "a6MOQA3twYo", duration: "" },
-          { id: 10, title: "Number System (Contd.) & Profit & Loss Intro", videoId: "uV_mQFfEAbI", duration: "" },
-          { id: 11, title: "Profit & Loss — Complete", videoId: "lF-mKVjsMqo", duration: "" },
-          { id: 12, title: "HCF & LCM", videoId: "ulU9r9utLA4", duration: "" },
-          { id: 13, title: "AP & GP — Part 1", videoId: "KyFarnOr520", duration: "" },
-          { id: 14, title: "AP & GP — Part 2", videoId: "tLKpfJb_5DQ", duration: "" },
+          { id: 7, title: "Day-6 | Arrays + Questions", videoId: "w1NNAEsO4N8", duration: "" },
+          { id: 8, title: "Day-7 | Strings + Questions", videoId: "ERznKBypaM8", duration: "" },
+          { id: 9, title: "Day-7 Part-2 | All Sorting Algorithms", videoId: "bM66Ii_rpX4", duration: "" },
+          { id: 10, title: "Day-8 | Sorting & Searching + Questions", videoId: "4tfE_5VeWOM", duration: "" },
+          { id: 11, title: "Day-9 | Two Pointers + Questions", videoId: "S__chMlIjec", duration: "" },
+          { id: 12, title: "Day-10 | Greedy Approach + Questions", videoId: "TdL1fy2kYD8", duration: "" },
+          { id: 13, title: "Day-11 | Sliding Window + Questions", videoId: "zpIHKNGpdFc", duration: "" },
         ]
       },
       {
-        title: "🚀 Section 3 — Speed, Time & Interest",
+        title: "🔗 Section 3 — Linked List & Hashing",
         lectures: [
-          { id: 15, title: "Speed, Distance & Time + Boats & Trains", videoId: "6FfM2JwZkTo", duration: "" },
-          { id: 16, title: "Speed, Distance & Time — Practice Session", videoId: "UtauJ_7fXfQ", duration: "" },
-          { id: 17, title: "Simple & Compound Interest — Part 1", videoId: "griZ5k8tg_0", duration: "" },
-          { id: 18, title: "Simple & Compound Interest — Part 2", videoId: "a_8POPBwY6I", duration: "" },
+          { id: 14, title: "Day-12 | Linked List + Questions", videoId: "7-Yb7u_zdmw", duration: "" },
+          { id: 15, title: "Day-13 | Fast and Slow Pointer + Questions", videoId: "Of8e5lqMSKI", duration: "" },
+          { id: 16, title: "Day-14 | Hash Set + Questions", videoId: "w0Ty1Ad21cQ", duration: "" },
+          { id: 17, title: "Day-15 | Hash Map + Questions", videoId: "3vDT7Jz7qn8", duration: "" },
         ]
       },
       {
-        title: "🧠 Section 4 — Reasoning",
+        title: "📚 Section 4 — Stack, Queue & Bit Manipulation",
         lectures: [
-          { id: 19, title: "Blood Relations", videoId: "r0beKnDn7WU", duration: "" },
-          { id: 20, title: "Calendar Problems", videoId: "DiDg2wmcqsk", duration: "" },
-          { id: 21, title: "Clock Problems", videoId: "-pvs8XLRstw", duration: "" },
-          { id: 22, title: "Coding & Decoding", videoId: "BTxThoQiReQ", duration: "" },
-          { id: 23, title: "Direction Sense", videoId: "PazYmtyCBi4", duration: "" },
-          { id: 24, title: "Seating Arrangement", videoId: "aViI3dCm_Xs", duration: "" },
-          { id: 25, title: "Statement & Assumptions", videoId: "CGDCUVq8irk", duration: "" },
-          { id: 26, title: "Data Sufficiency", videoId: "9WVr7OXYfrY", duration: "" },
+          { id: 18, title: "Day-16 | Stack + Questions", videoId: "hVMTRnoIgfY", duration: "" },
+          { id: 19, title: "Day-17 | Queue + Questions", videoId: "0VkyWYQfzAI", duration: "" },
+          { id: 20, title: "Day-18 | Bit Manipulation + Questions", videoId: "EBXmDVEY1b0", duration: "" },
         ]
       },
       {
-        title: "📐 Section 5 — Advanced Topics",
+        title: "🌳 Section 5 — Trees",
         lectures: [
-          { id: 27, title: "Permutations & Combinations", videoId: "jzg1nOrZq9g", duration: "" },
-          { id: 28, title: "Probability", videoId: "TX-63y4VoTk", duration: "" },
-          { id: 29, title: "Number Series & Counting Figures", videoId: "yU39-hz5MtI", duration: "" },
-          { id: 30, title: "Statistics (Bonus)", videoId: "RvKCm7vNXDs", duration: "" },
+          { id: 21, title: "Day-19 | Tree + Questions", videoId: "VSf1UwZs7Ts", duration: "" },
+          { id: 22, title: "Day-20 | Tree + Questions", videoId: "AXVFWja6CFY", duration: "" },
+          { id: 23, title: "Day-21 | Tree + Questions", videoId: "o9B6_w6s-cc", duration: "" },
+        ]
+      },
+      {
+        title: "🕸️ Section 6 — Graphs",
+        lectures: [
+          { id: 24, title: "Day-22 | Graph + Questions", videoId: "UJb_VA7v3JM", duration: "" },
+          { id: 25, title: "Day-23 | Graph + Questions", videoId: "bBIAjKD2lmc", duration: "" },
+          { id: 26, title: "Day-24 | Graph + Questions", videoId: "MHCu5TyOHBQ", duration: "" },
+          { id: 27, title: "Day-25 | Graph + Questions", videoId: "gI-q_1pAg8w", duration: "" },
+        ]
+      },
+      {
+        title: "⚡ Section 7 — Dynamic Programming",
+        lectures: [
+          { id: 28, title: "Day-26 | Dynamic Programming + Questions", videoId: "ZKRK6I-kkv4", duration: "" },
+          { id: 29, title: "Day-27 | Dynamic Programming + Questions", videoId: "2l-s1vSUqVI", duration: "" },
+          { id: 30, title: "Day-28 | Dynamic Programming + Questions", videoId: "NSMAPEvZuGo", duration: "" },
+          { id: 31, title: "Day-29 | Dynamic Programming + Questions", videoId: "wBE6SRt2Fjs", duration: "" },
+          { id: 32, title: "Day-30 | Dynamic Programming + Questions", videoId: "3xoY4PwIOAQ", duration: "" },
         ]
       }
     ]
   }
 };
 
-function CoursePage() {
+function DSACoursePage() {
   const { courseTitle } = useParams();
   const navigate = useNavigate();
   const [hasAccess, setHasAccess] = useState(false);
@@ -77,7 +89,6 @@ function CoursePage() {
   const [completedLectures, setCompletedLectures] = useState([]);
   const [activeSection, setActiveSection] = useState(0);
 
-  // ✅ Ref for content div scroll
   const contentRef = useRef(null);
 
   const decodedTitle = decodeURIComponent(courseTitle);
@@ -115,7 +126,6 @@ function CoursePage() {
     checkAccess();
   }, []);
 
-  // ✅ Auto scroll to top — mobile + desktop dono ke liye
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     contentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
@@ -190,7 +200,7 @@ function CoursePage() {
           <div className="cp-lecture-info">
             <h2 className="cp-lecture-title">{currentLecture?.title}</h2>
             <div className="cp-lecture-meta">
-              <span>👩‍🏫 {course.instructor}</span>
+              <span>👨‍💻 {course.instructor}</span>
               <span>📖 Lecture {currentIndex + 1} of {totalLectures}</span>
               <button
                 className={`cp-complete-btn ${completedLectures.includes(currentLecture?.id) ? "completed" : ""}`}
@@ -210,7 +220,7 @@ function CoursePage() {
               All lecture notes are available in our Google Drive folder.
             </p>
             <a
-              href={APTITUDE_NOTES_LINK}
+              href={DSA_NOTES_LINK}
               target="_blank"
               rel="noreferrer"
               className="cp-notes-btn"
@@ -227,7 +237,7 @@ function CoursePage() {
               onClick={() => {
                 if (currentIndex > 0) {
                   setCurrentLecture(allLectures[currentIndex - 1]);
-                  scrollToTop(); // ✅
+                  scrollToTop();
                 }
               }}
             >
@@ -243,7 +253,7 @@ function CoursePage() {
                 if (currentIndex < allLectures.length - 1) {
                   toggleCompleted(currentLecture?.id);
                   setCurrentLecture(allLectures[currentIndex + 1]);
-                  scrollToTop(); // ✅
+                  scrollToTop();
                 }
               }}
             >
@@ -289,7 +299,7 @@ function CoursePage() {
                           ${completedLectures.includes(lecture.id) ? "done" : ""}`}
                         onClick={() => {
                           setCurrentLecture(lecture);
-                          scrollToTop(); // ✅
+                          scrollToTop();
                         }}
                       >
                         <span className="cp-lecture-icon">
@@ -318,4 +328,4 @@ function CoursePage() {
   );
 }
 
-export default CoursePage;
+export default DSACoursePage;

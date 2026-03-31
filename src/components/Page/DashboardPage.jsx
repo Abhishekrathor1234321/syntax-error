@@ -205,7 +205,13 @@ function DashboardPage() {
                         <div className="dash-note-expanded">
                           <button
                             className="dash-view-btn"
-                            onClick={() => navigate(`/course/${encodeURIComponent(course.title)}`)}
+                          onClick={() => {
+  if (course.title === "The Complete Data Structure & Algorithm Course 2026") {
+    navigate(`/dsa-course/${encodeURIComponent(course.title)}`);
+  } else {
+    navigate(`/course/${encodeURIComponent(course.title)}`);
+  }
+}}
                           >
                             ▶️ Watch Now
                           </button>
@@ -305,7 +311,13 @@ function DashboardPage() {
                         <div className="dash-note-expanded">
                           <button
                             className="dash-view-btn"
-                            onClick={() => navigate(`/course/${encodeURIComponent(course.title)}`)}
+                         onClick={() => {
+  if (course.title === "The Complete Data Structure & Algorithm Course 2026") {
+    navigate(`/dsa-course/${encodeURIComponent(course.title)}`);
+  } else {
+    navigate(`/course/${encodeURIComponent(course.title)}`);
+  }
+}}
                           >
                             ▶️ Watch Now
                           </button>
