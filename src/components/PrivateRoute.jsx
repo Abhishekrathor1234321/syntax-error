@@ -6,7 +6,8 @@ function PrivateRoute({ children }) {
   const location = useLocation();
 
   if (!token || !user) {
-    return <Navigate to={`/login?redirect=${location.pathname}`} />;
+    sessionStorage.setItem("redirectAfterLogin", location.pathname);
+    return <Navigate to="/login" />;
   }
 
   return children;
