@@ -50,12 +50,12 @@ function AuthPage() {
       if (data.success) {
         localStorage.setItem("token", data.jwtToken);
         localStorage.setItem("user", data.name);
-<<<<<<< HEAD
+
       localStorage.setItem("email", data.email);
-=======
+
         sessionStorage.removeItem("redirectAfterLogin");
       
->>>>>>> dev
+
        window.location.href = redirectTo.startsWith("http") 
   ? redirectTo 
   : window.location.origin + redirectTo;
@@ -89,16 +89,15 @@ function AuthPage() {
         localStorage.setItem("token", data.jwtToken);
         localStorage.setItem("user", data.name);
         localStorage.setItem("email", data.email);
-<<<<<<< HEAD
+
         const redirect = sessionStorage.getItem("redirectAfterLogin") || "/";
 sessionStorage.removeItem("redirectAfterLogin");
 window.location.href = window.location.origin + redirect;
-=======
         sessionStorage.removeItem("redirectAfterLogin");
        window.location.href = redirectTo.startsWith("http")
   ? redirectTo
   : window.location.origin + redirectTo;
->>>>>>> dev
+
       } else {
         alert("Google login failed. Please try again.");
       }
