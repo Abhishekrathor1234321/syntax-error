@@ -4,10 +4,64 @@ import "./CourseDetail.css";
 import { useState, useEffect } from "react";
 
 
+const handlePayment = async () => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/login";
+    return;
+  }
+
+  try {
+    const res = await fetch("https://syntax-error-1xds.vercel.app/payment/create-order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ amount: 99, courseTitle: "Complete Aptitude Course 2026" })
+    });
+
+    const data = await res.json();
+
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount: data.order.amount,
+      currency: "INR",
+      name: "Syntax Error",
+      description: "Complete Aptitude Course 2026",
+      order_id: data.order.id,
+      handler: async function (response) {
+        const verifyRes = await fetch("https://syntax-error-1xds.vercel.app/payment/verify-payment", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            ...response,
+            courseTitle: "Complete Aptitude Course 2026"
+          })
+        });
+        const verifyData = await verifyRes.json();
+        if (verifyData.success) {
+          alert("🎉 Payment successful!");
+          window.location.href = "/dashboard";
+        }
+      },
+      theme: { color: "#3b82f6" }
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  } catch (err) {
+    alert("Payment error!");
+  }
+};
+
 function AptitudeCourseDetail() {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState(null);
-
+  
  useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -89,14 +143,9 @@ function AptitudeCourseDetail() {
             </div>
           </div>
 
-<button className="cd-enroll-btn" onClick={() => {
-  navigate("/courses");
-  setTimeout(() => {
-    document.querySelector(".razorpay-trigger")?.click();
-  }, 500);
-}}>
-  Enroll Now →
-</button>
+          <button className="cd-enroll-btn" onClick={() => navigate("/courses")}>
+            Enroll Now →
+          </button>
         </div>
       </section>
 

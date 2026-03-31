@@ -227,9 +227,10 @@ function DSACourseDetail() {
           <p>Get the complete DSA bundle today and start your journey toward MAANG placements.</p>
           <span className="cd-cta-label">LIMITED TIME PRICE</span>
           <div className="cd-cta-price">₹299</div>
-          <button className="cd-cta-btn" onClick={() => navigate("/courses")}>
-            Enroll Now →
-          </button>
+         
+         <button className="cd-enroll-btn" onClick={() => window.open("https://topmate.io/syntaxerrorr/2010540", "_blank")}>
+  Enroll Now →
+</button>
         </div>
       </section>
 
