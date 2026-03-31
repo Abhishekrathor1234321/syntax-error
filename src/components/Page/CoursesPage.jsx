@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import CheckoutModal from "../CheckoutModal";
 import { GraduationCap, Star, Clock, ExternalLink, Tag, Users, Globe } from "lucide-react";
 import PageLayout from "../PageLayout";
 
@@ -44,85 +45,66 @@ const item = { hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0, transiti
 const CoursesPage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const handleRazorpayPayment = async (course) => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      alert("Pehle login karo!");
-      window.location.href = "/login";
-      return;
-    }
-
-    setLoading(true);
-    try {
-      // Step 1 — Order create karo
-      const res = await fetch("https://syntax-error-1xds.vercel.app/payment/create-order", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({ amount: course.amount, courseTitle: course.title })
-      });
-
-      const data = await res.json();
-      if (!data.success) {
-        alert("Order create karne mein error!");
-        return;
-      }
-
-      // Step 2 — Razorpay checkout open karo
-      const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-        amount: data.order.amount,
-        currency: "INR",
-        name: "Syntax Error",
-        description: course.title,
-        order_id: data.order.id,
-        handler: async function (response) {
-          // Step 3 — Payment verify karo
-          const verifyRes = await fetch("https://syntax-error-1xds.vercel.app/payment/verify-payment", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`
-            },
-            body: JSON.stringify({
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-              courseTitle: course.title
-            })
-          });
-
-          const verifyData = await verifyRes.json();
-          if (verifyData.success) {
-            alert("🎉 Payment successful! Course enrolled!");
-            window.location.href = "/dashboard";
-          } else {
-            alert("Payment verification failed!");
-          }
-        },
-        prefill: {
-          name: localStorage.getItem("user") || "",
-        },
-        theme: {
-          color: "#3b82f6"
+  const [showCheckout, setShowCheckout] = useState(false);
+const [selectedCourse, setSelectedCourse] = useState(null);
+  const handleRazorpayPayment = async ({ name, email, phone, finalAmount }) => {
+  const token = localStorage.getItem("token");
+  setShowCheckout(false);
+  try {
+    const res = await fetch("https://syntax-error-1xds.vercel.app/payment/create-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ amount: finalAmount, courseTitle: selectedCourse.title })
+    });
+    const data = await res.json();
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount: data.order.amount,
+      currency: "INR",
+      name: "Syntax Error",
+      description: selectedCourse.title,
+      order_id: data.order.id,
+      prefill: { name, email, contact: phone },
+      handler: async function (response) {
+        const verifyRes = await fetch("https://syntax-error-1xds.vercel.app/payment/verify-payment", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ ...response, courseTitle: selectedCourse.title })
+        });
+        const verifyData = await verifyRes.json();
+        if (verifyData.success) {
+          alert("🎉 Payment successful!");
+          window.location.href = "/dashboard";
         }
-      };
+      },
+      theme: { color: "#3b82f6" }
+    };
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  } catch (err) {
+    alert("Payment mein error aaya!");
+  }
+};
 
-      const rzp = new window.Razorpay(options);
-      rzp.open();
-
-    } catch (err) {
-      console.error(err);
-      alert("Payment mein error aaya!");
-    } finally {
-      setLoading(false);
-    }
-  };
+const openCheckout = (course) => {
+  const token = localStorage.getItem("token");
+  if (!token) { window.location.href = "/login"; return; }
+  setSelectedCourse(course);
+  setShowCheckout(true);
+};
 
   return (
     <section id="courses">
+ 
+    {showCheckout && selectedCourse && (
+      <CheckoutModal
+        course={selectedCourse}
+        onClose={() => setShowCheckout(false)}
+        onProceed={handleRazorpayPayment}
+      />
+    )}
+
+
       <PageLayout title="Courses" subtitle="Hand-picked free and paid courses from top platforms to fast-track your programming career.">
         <motion.div variants={container} initial="hidden" animate="show" className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {courses.map((course) => (
@@ -183,7 +165,7 @@ const CoursesPage = () => {
                 {course.useRazorpay ? (
                   // Razorpay Button
                   <button
-                    onClick={() => handleRazorpayPayment(course)}
+                    onClick={() =>  openCheckout(course)}
                     disabled={loading}
                     className="mt-4 w-fit block mx-auto text-center text-xs font-semibold px-6 py-2 rounded-md transition-all duration-200 bg-blue-500/20 text-blue-400 border border-blue-500/30 hover:bg-blue-500 hover:text-white"
                   >
