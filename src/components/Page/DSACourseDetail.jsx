@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import CheckoutModal from "./CheckoutModal";
+import CheckoutModal from "../CheckoutModal";
 import "./CourseDetail.css";
 
 function DSACourseDetail() {
