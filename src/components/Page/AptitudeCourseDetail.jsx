@@ -88,7 +88,7 @@ function AptitudeCourseDetail() {
               <span className="cd-discount-badge">90% OFF</span>
             </div>
           </div>
-// Naya ✅
+
 <button className="cd-enroll-btn" onClick={() => {
   navigate("/courses");
   setTimeout(() => {
