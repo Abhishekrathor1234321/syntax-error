@@ -75,7 +75,10 @@ function AdminDashboard() {
         <div className="admin-stat-card">
           <span className="admin-stat-icon">💵</span>
           <div>
-            <h3>₹{(stats?.totalPurchases || 0) * 99}</h3>
+           <h3>₹{stats?.stats?.reduce((total, course) => {
+  const price = course.title.includes("Aptitude") ? 99 : 299;
+  return total + (course.totalPurchases * price);
+}, 0) || 0}</h3>
             <p>Est. Revenue</p>
           </div>
         </div>
@@ -94,8 +97,10 @@ function AdminDashboard() {
             >
               <h4>{course.title}</h4>
               <div className="admin-course-meta">
-                <span>👥 {course.totalPurchases} purchases</span>
-              </div>
+  <span>👥 {course.totalPurchases} purchases</span>
+  <span>💰 ₹{course.title.includes("Aptitude") ? 99 : 299} per course</span>
+  <span>💵 Total: ₹{course.totalPurchases * (course.title.includes("Aptitude") ? 99 : 299)}</span>
+</div>
               <div className="admin-course-bar">
                 <div
                   className="admin-course-bar-fill"
@@ -119,6 +124,7 @@ function AdminDashboard() {
                   <th>#</th>
                   <th>Name</th>
                   <th>Email</th>
+                  <th>Amount</th>
                   <th>Date</th>
                 </tr>
               </thead>
@@ -130,6 +136,9 @@ function AdminDashboard() {
                     <td>{i + 1}</td>
                     <td>{buyer.name}</td>
                     <td>{buyer.email}</td>
+                      <td style={{color: '#4ade80', fontWeight: '600'}}>
+    ₹{selectedCourse?.title?.includes("Aptitude") ? 99 : 299}
+  </td>
                   <td>{new Date(buyer.purchasedAt).toLocaleString('en-IN', {
                          day: '2-digit', month: 'short', year: 'numeric',
                      hour: '2-digit', minute: '2-digit', hour12: true
