@@ -116,7 +116,7 @@ function DSACourseDetail() {
             coupons: {
               "SYNTAX10": 10,
               "DSA20": 20,
-              "ABHISHEKA100": 100,
+              "ABHISHEKA99": 99,
             }
           }}
           onClose={() => setShowCheckout(false)}

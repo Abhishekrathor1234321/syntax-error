@@ -107,7 +107,7 @@ const handleProceedPayment = async ({ name, email, phone, finalAmount }) => {
     amount: 99,
     coupons: {
       "APTITUDE10": 10,
-      "KARINAA100": 100,
+      "KARINAA99": 99,
       "SYNTAX20": 20,
     }
   }}

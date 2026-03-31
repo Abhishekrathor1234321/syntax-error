@@ -22,7 +22,7 @@ const courses = [
   coupons: {
     "SYNTAX10": 10,
     "DSA20": 20,
-    "ABHISHEKA100": 100,
+    "ABHISHEKA99": 99,
   },
   useRazorpay: true 
   },
@@ -41,7 +41,7 @@ const courses = [
     detailLink: "/course-detail/aptitude",
     coupons: {
     "APTITUDE10": 10,
-    "KARINAA100": 100,
+    "KARINAA99": 99,
     "SYNTAX20": 20,
   },
     useRazorpay: true  // ← Razorpay use karega
