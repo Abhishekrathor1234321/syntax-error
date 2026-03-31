@@ -10,23 +10,4 @@ const connectDB = async () => {
   });
 };
 
-<<<<<<< HEAD
-let isConnected = false;
-
-const connectDB = async () => {
-    if (isConnected) return;
-    try {
-        await mongoose.connect(mongo_url, {
-            serverSelectionTimeoutMS: 10000,
-            bufferCommands: false,
-        });
-        isConnected = true;
-        console.log('MongoDB Connected...');
-    } catch (err) {
-        console.log('MongoDB Connection Error: ', err);
-    }
-};
-
-=======
->>>>>>> dev
 module.exports = connectDB;
