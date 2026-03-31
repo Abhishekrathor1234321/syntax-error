@@ -1,8 +1,16 @@
 const mongoose = require('mongoose');
-require('dotenv').config();
 
-const mongo_url = process.env.MONGO_URI;
+const connectDB = async () => {
+  if (mongoose.connection.readyState >= 1) return;
+  
+  return mongoose.connect(process.env.MONGO_URI, {
+    serverSelectionTimeoutMS: 30000,
+    socketTimeoutMS: 45000,
+    bufferCommands: false,
+  });
+};
 
+<<<<<<< HEAD
 let isConnected = false;
 
 const connectDB = async () => {
@@ -19,4 +27,6 @@ const connectDB = async () => {
     }
 };
 
+=======
+>>>>>>> dev
 module.exports = connectDB;

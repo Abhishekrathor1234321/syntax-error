@@ -28,6 +28,7 @@ const UserSchema = new Schema({
     purchasedCourses: [
         {
             title: String,
+              amount: { type: Number, default: 0 }, 
             purchasedAt: {
                 type: Date,
                 default: Date.now

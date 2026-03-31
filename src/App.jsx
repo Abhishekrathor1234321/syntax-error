@@ -24,11 +24,11 @@ import "./App.css";
 
 
 
-// ✅ Admin Route — sirf tumhara email
+// ✅ Admin Route — sirf tumhara email personallyy
 const AdminRoute = ({ children }) => {
   const token = localStorage.getItem("token");
   const email = localStorage.getItem("email");
-  const ADMIN_EMAIL = "abhishekrathor7447@gmail.com"; // 👈 apna email daalo
+  const ADMIN_EMAIL = "abhishekrathor7447@gmail.com"; //  apna email daalo
 
   if (!token) return <Navigate to="/login" />;
   if (email !== ADMIN_EMAIL) return <Navigate to="/" />;

@@ -75,9 +75,8 @@ function AdminDashboard() {
         <div className="admin-stat-card">
           <span className="admin-stat-icon">💵</span>
           <div>
-           <h3>₹{stats?.stats?.reduce((total, course) => {
-  const price = course.title.includes("Aptitude") ? 99 : 299;
-  return total + (course.totalPurchases * price);
+          <h3>₹{stats?.stats?.reduce((total, course) => {
+  return total + course.buyers.reduce((sum, buyer) => sum + (buyer.amount || 0), 0);
 }, 0) || 0}</h3>
             <p>Est. Revenue</p>
           </div>
@@ -99,7 +98,7 @@ function AdminDashboard() {
               <div className="admin-course-meta">
   <span>👥 {course.totalPurchases} purchases</span>
   <span>💰 ₹{course.title.includes("Aptitude") ? 99 : 299} per course</span>
-  <span>💵 Total: ₹{course.totalPurchases * (course.title.includes("Aptitude") ? 99 : 299)}</span>
+<span>💵 Total: ₹{course.buyers.reduce((sum, buyer) => sum + (buyer.amount || 0), 0)}</span>
 </div>
               <div className="admin-course-bar">
                 <div
@@ -137,8 +136,8 @@ function AdminDashboard() {
                     <td>{buyer.name}</td>
                     <td>{buyer.email}</td>
                       <td style={{color: '#4ade80', fontWeight: '600'}}>
-    ₹{selectedCourse?.title?.includes("Aptitude") ? 99 : 299}
-  </td>
+  ₹{buyer.amount || 0}
+</td>
                   <td>{new Date(buyer.purchasedAt).toLocaleString('en-IN', {
                          day: '2-digit', month: 'short', year: 'numeric',
                      hour: '2-digit', minute: '2-digit', hour12: true

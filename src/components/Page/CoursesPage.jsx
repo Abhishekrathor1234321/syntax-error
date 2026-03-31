@@ -17,14 +17,14 @@ const courses = [
     language: "English", 
     tags: ["Array", "String", "Two Pointer", "Sliding Window", "Linked-List", "Tree", "Recursion", "Graph", "Dynamic Programming", "100+ LeetCode Qs"], 
     badge: "⚡ Most Popular", 
-      btnLabel: "Enroll Now",
-  detailLink: "/course-detail/dsa",
-  coupons: {
-    "SYNTAX10": 10,
-    "DSA20": 20,
-    "ABHISHEKA99": 99,
-  },
-  useRazorpay: true 
+    btnLabel: "Enroll Now",
+    detailLink: "/course-detail/dsa",
+    coupons: {
+      "SYNTAX10": 10,
+      "DSA20": 20,
+      "ABHISHEKA99": 99,
+    },
+    useRazorpay: true 
   },
   { 
     title: "Complete Aptitude Course 2026", 
@@ -40,11 +40,11 @@ const courses = [
     btnLabel: "Enroll Now",
     detailLink: "/course-detail/aptitude",
     coupons: {
-    "APTITUDE10": 10,
-    "KARINAA99": 99,
-    "SYNTAX20": 20,
-  },
-    useRazorpay: true  // ← Razorpay use karega
+      "APTITUDE10": 10,
+      "KARINAA99": 99,
+      "SYNTAX20": 20,
+    },
+    useRazorpay: true
   },
 ];
 
@@ -55,64 +55,68 @@ const CoursesPage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [showCheckout, setShowCheckout] = useState(false);
-const [selectedCourse, setSelectedCourse] = useState(null);
-  const handleRazorpayPayment = async ({ name, email, phone, finalAmount }) => {
-  const token = localStorage.getItem("token");
-  setShowCheckout(false);
-  try {
-    const res = await fetch("https://syntax-error-1xds.vercel.app/payment/create-order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ amount: finalAmount, courseTitle: selectedCourse.title })
-    });
-    const data = await res.json();
-    const options = {
-      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-      amount: data.order.amount,
-      currency: "INR",
-      name: "Syntax Error",
-      description: selectedCourse.title,
-      order_id: data.order.id,
-      prefill: { name, email, contact: phone },
-      handler: async function (response) {
-        const verifyRes = await fetch("https://syntax-error-1xds.vercel.app/payment/verify-payment", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-          body: JSON.stringify({ ...response, courseTitle: selectedCourse.title })
-        });
-        const verifyData = await verifyRes.json();
-        if (verifyData.success) {
-          alert("🎉 Payment successful!");
-          window.location.href = "/dashboard";
-        }
-      },
-      theme: { color: "#3b82f6" }
-    };
-    const rzp = new window.Razorpay(options);
-    rzp.open();
-  } catch (err) {
-    alert("Payment mein error aaya!");
-  }
-};
+  const [selectedCourse, setSelectedCourse] = useState(null);
 
-const openCheckout = (course) => {
-  const token = localStorage.getItem("token");
-  if (!token) { window.location.href = "/login"; return; }
-  setSelectedCourse(course);
-  setShowCheckout(true);
-};
+  const handleRazorpayPayment = async ({ name, email, phone, finalAmount }) => {
+    const token = localStorage.getItem("token");
+    setShowCheckout(false);
+    try {
+      const res = await fetch("https://syntax-error-1xds.vercel.app/payment/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ amount: finalAmount, courseTitle: selectedCourse.title })
+      });
+      const data = await res.json();
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: data.order.amount,
+        currency: "INR",
+        name: "Syntax Error",
+        description: selectedCourse.title,
+        order_id: data.order.id,
+        prefill: { name, email, contact: phone },
+        handler: async function (response) {
+          const verifyRes = await fetch("https://syntax-error-1xds.vercel.app/payment/verify-payment", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+            body: JSON.stringify({ 
+              ...response, 
+              courseTitle: selectedCourse.title,
+              amount: finalAmount  // ← Actual paid amount
+            })
+          });
+          const verifyData = await verifyRes.json();
+          if (verifyData.success) {
+            alert("🎉 Payment successful!");
+            window.location.href = "/dashboard";
+          }
+        },
+        theme: { color: "#3b82f6" }
+      };
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (err) {
+      alert("Payment mein error aaya!");
+    }
+  };
+
+  const openCheckout = (course) => {
+    const token = localStorage.getItem("token");
+    if (!token) { window.location.href = "/login"; return; }
+    setSelectedCourse(course);
+    setShowCheckout(true);
+  };
 
   return (
     <section id="courses">
- 
-    {showCheckout && selectedCourse && (
-      <CheckoutModal
-        course={selectedCourse}
-        onClose={() => setShowCheckout(false)}
-        onProceed={handleRazorpayPayment}
-      />
-    )}
 
+      {showCheckout && selectedCourse && (
+        <CheckoutModal
+          course={selectedCourse}
+          onClose={() => setShowCheckout(false)}
+          onProceed={handleRazorpayPayment}
+        />
+      )}
 
       <PageLayout title="Courses" subtitle="Hand-picked free and paid courses from top platforms to fast-track your programming career.">
         <motion.div variants={container} initial="hidden" animate="show" className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -160,28 +164,26 @@ const openCheckout = (course) => {
                   <span key={t} className="text-[10px] px-2 py-0.5 rounded bg-accent text-muted-foreground">{t}</span>
                 ))}
               </div>
+
               {course.detailLink && (
-  
-  <button
-   className="mt-3 w-full text-center text-xs font-semibold px-6 py-2 rounded-md transition-all duration-200 bg-purple-500/20 text-purple-400 border border-purple-500/30 hover:bg-purple-500 hover:text-white cursor-pointer"
-    onClick={() => navigate(course.detailLink)}
-  >
-    View Details
-  </button>
-)}
+                <button
+                  className="mt-3 w-full text-center text-xs font-semibold px-6 py-2 rounded-md transition-all duration-200 bg-purple-500/20 text-purple-400 border border-purple-500/30 hover:bg-purple-500 hover:text-white cursor-pointer"
+                  onClick={() => navigate(course.detailLink)}
+                >
+                  View Details
+                </button>
+              )}
 
               <div className="mt-auto pt-3">
                 {course.useRazorpay ? (
-                  // Razorpay Button
                   <button
-                    onClick={() =>  openCheckout(course)}
+                    onClick={() => openCheckout(course)}
                     disabled={loading}
                     className="mt-4 w-fit block mx-auto text-center text-xs font-semibold px-6 py-2 rounded-md transition-all duration-200 bg-blue-500/20 text-blue-400 border border-blue-500/30 hover:bg-blue-500 hover:text-white"
                   >
                     {loading ? "Processing..." : course.btnLabel}
                   </button>
                 ) : (
-                  // Normal Link Button
                   course.enrollLink && (
                     <a
                       href={course.enrollLink}

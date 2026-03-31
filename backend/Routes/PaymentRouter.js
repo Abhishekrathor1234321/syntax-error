@@ -29,7 +29,13 @@ router.post('/create-order', ensureAuthenticated, async (req, res) => {
 // Payment verify karo
 router.post('/verify-payment', ensureAuthenticated, async (req, res) => {
     try {
-        const { razorpay_order_id, razorpay_payment_id, razorpay_signature, courseTitle } = req.body;
+        const { 
+            razorpay_order_id, 
+            razorpay_payment_id, 
+            razorpay_signature, 
+            courseTitle,
+            amount  // ← Frontend se amount lo
+        } = req.body;
 
         const body = razorpay_order_id + "|" + razorpay_payment_id;
         const expectedSignature = crypto
@@ -38,11 +44,11 @@ router.post('/verify-payment', ensureAuthenticated, async (req, res) => {
             .digest("hex");
 
         if (expectedSignature === razorpay_signature) {
-            // Payment successful — course add karo user ke dashboard mein
             await UserModel.findByIdAndUpdate(req.user._id, {
                 $push: {
                     purchasedCourses: {
                         title: courseTitle,
+                        amount: amount || 0, // ← Actual amount save karo
                         purchasedAt: new Date()
                     }
                 }

@@ -34,6 +34,7 @@ router.get('/purchases', ensureAuthenticated, isAdmin, async (req, res) => {
                 courseStats[course.title].buyers.push({
                     name: user.name,
                     email: user.email,
+                     amount: course.amount || 0,
                     purchasedAt: course.purchasedAt
                 });
             });
