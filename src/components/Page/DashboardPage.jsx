@@ -268,8 +268,8 @@ function DashboardPage() {
                 </div>
               ) : (
                 <p className="dash-empty">
-                  Abhi koi notes download nahi kiye!
-                  <span onClick={() => navigate("/notes")}> Notes dekho →</span>
+                  You haven’t downloaded any notes yet!
+                  <span onClick={() => navigate("/notes")}> View Notes →</span>
                 </p>
               )}
             </div>
