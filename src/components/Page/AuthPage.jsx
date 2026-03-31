@@ -50,9 +50,10 @@ function AuthPage() {
       if (data.success) {
         localStorage.setItem("token", data.jwtToken);
         localStorage.setItem("user", data.name);
-
+ 
       localStorage.setItem("email", data.email);
-
+       
+       const redirect = sessionStorage.getItem("redirectAfterLogin") || "/"; 
         sessionStorage.removeItem("redirectAfterLogin");
       
 
