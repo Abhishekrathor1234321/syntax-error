@@ -1,66 +1,61 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import CheckoutModal from "../CheckoutModal"
 import "./CourseDetail.css";
 
 function AptitudeCourseDetail() {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState(null);
-
+  const [showCheckout, setShowCheckout] = useState(false);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   // ✅ Payment handler — inside component
-  const handlePayment = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      window.location.href = "/login";
-      return;
-    }
-    try {
-      const res = await fetch("https://syntax-error-1xds.vercel.app/payment/create-order", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({ amount: 99, courseTitle: "Complete Aptitude Course 2026" })
-      });
-      const data = await res.json();
-      const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-        amount: data.order.amount,
-        currency: "INR",
-        name: "Syntax Error",
-        description: "Complete Aptitude Course 2026",
-        order_id: data.order.id,
-        handler: async function (response) {
-          const verifyRes = await fetch("https://syntax-error-1xds.vercel.app/payment/verify-payment", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`
-            },
-            body: JSON.stringify({
-              ...response,
-              courseTitle: "Complete Aptitude Course 2026"
-            })
-          });
-          const verifyData = await verifyRes.json();
-          if (verifyData.success) {
-            alert("🎉 Payment successful!");
-            window.location.href = "/dashboard";
-          }
-        },
-        theme: { color: "#3b82f6" }
-      };
-      const rzp = new window.Razorpay(options);
-      rzp.open();
-    } catch (err) {
-      alert("Payment error!");
-    }
-  };
+ const handlePayment = () => {
+  const token = localStorage.getItem("token");
+  if (!token) { window.location.href = "/login"; return; }
+  setShowCheckout(true);
+};
 
+const handleProceedPayment = async ({ name, email, phone, finalAmount }) => {
+  const token = localStorage.getItem("token");
+  setShowCheckout(false);
+  try {
+    const res = await fetch("https://syntax-error-1xds.vercel.app/payment/create-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ amount: finalAmount, courseTitle: "Complete Aptitude Course 2026" })
+    });
+    const data = await res.json();
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount: data.order.amount,
+      currency: "INR",
+      name: "Syntax Error",
+      description: "Complete Aptitude Course 2026",
+      order_id: data.order.id,
+      prefill: { name, email, contact: phone },
+      handler: async function (response) {
+        const verifyRes = await fetch("https://syntax-error-1xds.vercel.app/payment/verify-payment", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ ...response, courseTitle: "Complete Aptitude Course 2026" })
+        });
+        const verifyData = await verifyRes.json();
+        if (verifyData.success) {
+          alert("🎉 Payment successful!");
+          window.location.href = "/dashboard";
+        }
+      },
+      theme: { color: "#3b82f6" }
+    };
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  } catch (err) {
+    alert("Payment error!");
+  }
+};
   const topics = [
     "Percentage — Concepts & Tricks",
     "Ratio & Proportion",
@@ -105,6 +100,13 @@ function AptitudeCourseDetail() {
 
   return (
     <div className="cd-wrapper">
+        {showCheckout && (
+      <CheckoutModal
+        course={{ title: "Complete Aptitude Course 2026", amount: 99 }}
+        onClose={() => setShowCheckout(false)}
+        onProceed={handleProceedPayment}
+      />
+    )}
 
       {/* Navbar back */}
       <div className="cd-topbar">
