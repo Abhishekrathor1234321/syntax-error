@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 import "./CourseDetail.css";
 import { useState, useEffect } from "react";
 
- useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
 function AptitudeCourseDetail() {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState(null);
+  
+ useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const topics = [
     "Percentage — Concepts & Tricks",

@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CourseDetail.css";
 
- useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
+ 
 function DSACourseDetail() {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState(null);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const topics = [
     "Variables, Data Types & Operators",
