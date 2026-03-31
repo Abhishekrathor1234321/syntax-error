@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 function AptitudeCourseDetail() {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState(null);
-  
+
  useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -88,10 +88,15 @@ function AptitudeCourseDetail() {
               <span className="cd-discount-badge">90% OFF</span>
             </div>
           </div>
-
-          <button className="cd-enroll-btn" onClick={() => navigate("/courses")}>
-            Enroll Now →
-          </button>
+// Naya ✅
+<button className="cd-enroll-btn" onClick={() => {
+  navigate("/courses");
+  setTimeout(() => {
+    document.querySelector(".razorpay-trigger")?.click();
+  }, 500);
+}}>
+  Enroll Now →
+</button>
         </div>
       </section>
 

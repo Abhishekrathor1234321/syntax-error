@@ -84,9 +84,9 @@ function DSACourseDetail() {
             </div>
           </div>
 
-          <button className="cd-enroll-btn" onClick={() => navigate("/courses")}>
-            Enroll Now →
-          </button>
+         <button className="cd-enroll-btn" onClick={() => window.open("https://topmate.io/syntaxerrorr/2010540", "_blank")}>
+  Enroll Now →
+</button>
         </div>
       </section>
 
