@@ -17,10 +17,14 @@ const courses = [
     language: "English", 
     tags: ["Array", "String", "Two Pointer", "Sliding Window", "Linked-List", "Tree", "Recursion", "Graph", "Dynamic Programming", "100+ LeetCode Qs"], 
     badge: "⚡ Most Popular", 
-    enrollLink: "https://topmate.io/syntaxerrorr/2010540", 
-    btnLabel: "Enroll Now",
-    detailLink: "/course-detail/dsa",
-    useRazorpay: false
+      btnLabel: "Enroll Now",
+  detailLink: "/course-detail/dsa",
+  coupons: {
+    "SYNTAX10": 10,
+    "DSA20": 20,
+    "ABHISHEK30": 30,
+  },
+  useRazorpay: true 
   },
   { 
     title: "Complete Aptitude Course 2026", 
