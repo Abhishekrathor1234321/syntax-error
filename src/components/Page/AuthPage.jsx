@@ -50,7 +50,7 @@ function AuthPage() {
       if (data.success) {
         localStorage.setItem("token", data.jwtToken);
         localStorage.setItem("user", data.name);
-      
+      localStorage.setItem("email", data.email);
        window.location.href = redirectTo.startsWith("http") 
   ? redirectTo 
   : window.location.origin + redirectTo;
