@@ -49,7 +49,7 @@ return ( <section className="community">
       The roadmaps are a game-changer!"
       </p>
       <h4>Priya Sharma</h4>
-      <span>@priya_codes</span>
+     
     </div>
 
     <div className="testimonial">
@@ -58,7 +58,7 @@ return ( <section className="community">
       The job alerts are always on point and the notes are concise."
       </p>
       <h4>Rahul Menon</h4>
-      <span>@rahul.dev</span>
+      
     </div>
 
     <div className="testimonial">
@@ -67,7 +67,7 @@ return ( <section className="community">
       in 6 months, all thanks to their roadmaps and courses."
       </p>
       <h4>Ananya Gupta</h4>
-      <span>@ananya.js</span>
+     
     </div>
 
   </div>
