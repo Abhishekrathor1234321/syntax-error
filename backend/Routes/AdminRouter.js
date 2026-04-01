@@ -55,7 +55,7 @@ router.get('/purchases', ensureAuthenticated, isAdmin, async (req, res) => {
 router.get('/ref-stats', ensureAuthenticated, isAdmin, async (req, res) => {
     try {
         const refs = await UserModel.aggregate([
-            { $match: { refCode: { $ne: "" } } },
+          { $match: { refCode: { $exists: true, $nin: ["", null] } } },
             { $group: { _id: "$refCode", count: { $sum: 1 } } },
             { $sort: { count: -1 } }
         ]);
