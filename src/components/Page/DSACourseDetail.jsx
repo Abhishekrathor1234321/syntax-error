@@ -3,10 +3,15 @@ import { useNavigate } from "react-router-dom";
 import CheckoutModal from "../CheckoutModal";
 import "./CourseDetail.css";
 
+
 function DSACourseDetail() {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState(null);
   const [showCheckout, setShowCheckout] = useState(false);
+
+  const refCode = new URLSearchParams(window.location.search).get("ref") || 
+                sessionStorage.getItem("courseRef") || "";
+                if (refCode) sessionStorage.setItem("courseRef", refCode);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -22,9 +27,11 @@ function DSACourseDetail() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`
         },
+
         body: JSON.stringify({
           amount: finalAmount,
           courseTitle: "The Complete Data Structure & Algorithm Course 2026"
+         
         })
       });
       const data = await res.json();
@@ -46,7 +53,8 @@ function DSACourseDetail() {
             body: JSON.stringify({
               ...response,
               courseTitle: "The Complete Data Structure & Algorithm Course 2026",
-              amount: finalAmount
+              amount: finalAmount,
+                ref: refCode 
             })
           });
           const verifyData = await verifyRes.json();

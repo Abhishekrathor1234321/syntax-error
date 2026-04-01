@@ -12,6 +12,7 @@ function AuthPage() {
   const navigate = useNavigate();
 
  const redirectTo = sessionStorage.getItem("redirectAfterLogin") || "/";
+ const refCode = new URLSearchParams(window.location.search).get("ref") || "";
 
   // Send OTP
   const handleSendOtp = async () => {
@@ -44,7 +45,7 @@ function AuthPage() {
       const res = await fetch("https://syntax-error-1xds.vercel.app/auth/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, otp })
+        body: JSON.stringify({ email, otp, ref: refCode  })
       });
       const data = await res.json();
       if (data.success) {
@@ -82,7 +83,8 @@ function AuthPage() {
         body: JSON.stringify({
           name: user.displayName,
           email: user.email,
-          googleId: user.uid
+          googleId: user.uid ,
+           ref: refCode
         })
       });
       const data = await res.json();

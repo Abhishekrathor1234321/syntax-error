@@ -7,6 +7,9 @@ function AptitudeCourseDetail() {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState(null);
   const [showCheckout, setShowCheckout] = useState(false);
+  const refCode = new URLSearchParams(window.location.search).get("ref") || 
+                sessionStorage.getItem("courseRef") || "";
+if (refCode) sessionStorage.setItem("courseRef", refCode);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -26,7 +29,7 @@ function AptitudeCourseDetail() {
       const res = await fetch("https://syntax-error-1xds.vercel.app/payment/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ amount: finalAmount, courseTitle: "Complete Aptitude Course 2026" })
+        body: JSON.stringify({ amount: finalAmount, courseTitle: "Complete Aptitude Course 2026",ref: refCode })
       });
       const data = await res.json();
       const options = {
