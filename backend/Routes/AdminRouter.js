@@ -51,4 +51,18 @@ router.get('/purchases', ensureAuthenticated, isAdmin, async (req, res) => {
     }
 });
 
+
+router.get('/ref-stats', ensureAuthenticated, isAdmin, async (req, res) => {
+    try {
+        const refs = await UserModel.aggregate([
+            { $match: { refCode: { $ne: "" } } },
+            { $group: { _id: "$refCode", count: { $sum: 1 } } },
+            { $sort: { count: -1 } }
+        ]);
+        res.status(200).json({ success: true, refs });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
 module.exports = router;

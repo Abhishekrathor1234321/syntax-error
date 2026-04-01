@@ -34,7 +34,8 @@ router.post('/verify-payment', ensureAuthenticated, async (req, res) => {
             razorpay_payment_id, 
             razorpay_signature, 
             courseTitle,
-            amount  // ← Frontend se amount lo
+            amount , // ← Frontend se amount lo
+            ref
         } = req.body;
 
         const body = razorpay_order_id + "|" + razorpay_payment_id;
@@ -49,6 +50,7 @@ router.post('/verify-payment', ensureAuthenticated, async (req, res) => {
                     purchasedCourses: {
                         title: courseTitle,
                         amount: amount || 0, // ← Actual amount save karo
+                         ref: ref || "",  
                         purchasedAt: new Date()
                     }
                 }

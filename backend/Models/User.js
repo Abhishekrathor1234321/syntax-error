@@ -15,6 +15,7 @@ const UserSchema = new Schema({
         type: String,
         required: true,
     },
+    refCode: { type: String, default: "" },
     downloadedNotes: [
         {
             title: String,
@@ -29,6 +30,7 @@ const UserSchema = new Schema({
         {
             title: String,
               amount: { type: Number, default: 0 }, 
+                ref: { type: String, default: "" },
             purchasedAt: {
                 type: Date,
                 default: Date.now

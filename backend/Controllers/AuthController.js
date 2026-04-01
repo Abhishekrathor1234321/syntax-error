@@ -97,6 +97,7 @@ const verifyOtp = async (req, res) => {
       user = new UserModel({
         name,
         email,
+          refCode: ref, 
         password: await bcrypt.hash(Math.random().toString(36), 10)
       });
       await user.save();
@@ -176,6 +177,7 @@ const googleLogin = async (req, res) => {
       user = new UserModel({
         name,
         email,
+          refCode: ref, 
         password: await bcrypt.hash(googleId, 10)
       });
       await user.save();
