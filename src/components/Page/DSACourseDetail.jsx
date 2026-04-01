@@ -43,7 +43,11 @@ function DSACourseDetail() {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`
             },
-           body: JSON.stringify({ ...response, courseTitle: "The Complete Data Structure & Algorithm Course 2026", amount: finalAmount })
+            body: JSON.stringify({
+              ...response,
+              courseTitle: "The Complete Data Structure & Algorithm Course 2026",
+              amount: finalAmount
+            })
           });
           const verifyData = await verifyRes.json();
           if (verifyData.success) {
@@ -104,7 +108,7 @@ function DSACourseDetail() {
   return (
     <div className="cd-wrapper">
 
-      {/* ✅ Checkout Modal */}
+      {/* Checkout Modal */}
       {showCheckout && (
         <CheckoutModal
           course={{
@@ -156,6 +160,49 @@ function DSACourseDetail() {
           <button className="cd-enroll-btn" onClick={() => setShowCheckout(true)}>
             Enroll Now →
           </button>
+        </div>
+      </section>
+
+      {/* Course Description */}
+      <section className="cd-section" style={{ paddingTop: "2rem", paddingBottom: "0" }}>
+        <div className="cd-description-card">
+          <p className="cd-desc-text">
+            This course covers all Data Structures and Algorithms topics from basic to advanced
+            level with proper concepts, approaches, and LeetCode questions. If you want to prepare
+            for placements, internships, and coding interviews, this course is perfect for you.
+            In this course, we will solve a large number of coding questions along with concept
+            building, pattern recognition, and interview preparation.
+          </p>
+
+          <h3 className="cd-desc-heading">What You Will Get in This Course:</h3>
+          <ul className="cd-desc-list">
+            <li>✅ Detailed Concept Notes</li>
+            <li>✅ Practice Questions</li>
+            <li>✅ Video Solutions</li>
+            <li>✅ 100+ LeetCode Questions Covered</li>
+            <li>✅ Interview Preparation</li>
+            <li>✅ Pattern-Based Problem Solving</li>
+            <li>✅ Assignments & Practice Sets</li>
+          </ul>
+
+          <div className="cd-desc-info">
+            <div className="cd-desc-info-item">
+              <span>🏆 Certificate</span>
+              <span>Within 48 hours after enrolling</span>
+            </div>
+            <div className="cd-desc-info-item">
+              <span>♾️ Access</span>
+              <span>Permanent / Lifetime Access</span>
+            </div>
+            <div className="cd-desc-info-item">
+              <span>💻 Languages</span>
+              <span>Java, Python, C++</span>
+            </div>
+            <div className="cd-desc-info-item">
+              <span>🌐 Course Language</span>
+              <span>English</span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -255,16 +302,19 @@ function DSACourseDetail() {
       <section className="cd-section">
         <div className="cd-instructor-card">
           <div className="cd-instructor-avatar">AR</div>
-          <h3>Learn from Abhishek</h3>
+          <h3>Abhishek Rathor</h3>
+          <p className="cd-instructor-role">Founder of SYNTAX ERROR</p>
           <p>
             A passionate tech educator focused on making complex DSA concepts
-            accessible for everyone. With a 5.0 rating and a track record of
-            helping students master data structures, Abhishek provides the
-            perfect bridge between theory and placement success.
+            accessible for everyone. Taught 1600+ students and mentored 50+
+            international students in 1-1 classes. With a 5.0 rating and a
+            track record of helping students master data structures, Abhishek
+            provides the perfect bridge between theory and placement success.
           </p>
           <div className="cd-instructor-tags">
-            <span>◎ Expert Mentor</span>
-            <span>🎓 Placement Focused</span>
+            <span>🎓 1600+ Students Taught</span>
+            <span>🌍 50+ International Students</span>
+            <span>⭐ 5.0 Rating</span>
           </div>
         </div>
       </section>
