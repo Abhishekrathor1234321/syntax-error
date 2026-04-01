@@ -176,7 +176,7 @@ function DSACourseDetail() {
 
         {/* What You'll Get */}
 <div className="cd-curriculum-card" style={{ marginTop: "1rem" }}>
-  <div className="cd-curriculum-icon">🎯</div>
+  <div className="cd-curriculum-icon"></div>
   <h3>What You Will Get in This Course</h3>
   <p>Everything you need to crack placements and coding interviews.</p>
   <ul className="cd-topics-list">
@@ -245,8 +245,8 @@ function DSACourseDetail() {
         </p>
 
         <div className="cd-curriculum-card">
-          <div className="cd-curriculum-icon">⚡</div>
-          <h3>Comprehensive Curriculum</h3>
+          <div className="cd-curriculum-icon"></div>
+          <h3>⚡Comprehensive Curriculum</h3>
           <p>Every topic you need to master DSA and crack top-tier technical interviews.</p>
           <ul className="cd-topics-list">
             {topics.map((topic, i) => (
