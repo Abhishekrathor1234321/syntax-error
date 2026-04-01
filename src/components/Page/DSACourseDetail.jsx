@@ -174,17 +174,27 @@ function DSACourseDetail() {
             building, pattern recognition, and interview preparation.
           </p>
 
-          <h3 className="cd-desc-heading">What You Will Get in This Course:</h3>
-          <ul className="cd-desc-list">
-            <li>✅ Detailed Concept Notes</li>
-            <li>✅ Practice Questions</li>
-            <li>✅ Video Solutions</li>
-            <li>✅ 100+ LeetCode Questions Covered</li>
-            <li>✅ Interview Preparation</li>
-            <li>✅ Pattern-Based Problem Solving</li>
-            <li>✅ Assignments & Practice Sets</li>
-          </ul>
-
+        {/* What You'll Get */}
+<div className="cd-curriculum-card" style={{ marginTop: "1rem" }}>
+  <div className="cd-curriculum-icon">🎯</div>
+  <h3>What You Will Get in This Course</h3>
+  <p>Everything you need to crack placements and coding interviews.</p>
+  <ul className="cd-topics-list">
+    {[
+      "Detailed Concept Notes",
+      "Practice Questions",
+      "Video Solutions",
+      "100+ LeetCode Questions Covered",
+      "Interview Preparation",
+      "Pattern-Based Problem Solving",
+      "Assignments & Practice Sets",
+    ].map((item, i) => (
+      <li key={i}>
+        <span style={{ color: "#22c55e" }}>✅</span> {item}
+      </li>
+    ))}
+  </ul>
+</div>
           <div className="cd-desc-info">
             <div className="cd-desc-info-item">
               <span>🏆 Certificate</span>
