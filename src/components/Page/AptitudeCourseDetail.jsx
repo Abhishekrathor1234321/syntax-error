@@ -1,61 +1,63 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import CheckoutModal from "../CheckoutModal"
+import CheckoutModal from "../CheckoutModal";
 import "./CourseDetail.css";
 
 function AptitudeCourseDetail() {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState(null);
   const [showCheckout, setShowCheckout] = useState(false);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  // ✅ Payment handler — inside component
- const handlePayment = () => {
-  const token = localStorage.getItem("token");
-  if (!token) { window.location.href = "/login"; return; }
-  setShowCheckout(true);
-};
+  const handlePayment = () => {
+    const token = localStorage.getItem("token");
+    if (!token) { window.location.href = "/login"; return; }
+    setShowCheckout(true);
+  };
 
-const handleProceedPayment = async ({ name, email, phone, finalAmount }) => {
-  const token = localStorage.getItem("token");
-  setShowCheckout(false);
-  try {
-    const res = await fetch("https://syntax-error-1xds.vercel.app/payment/create-order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-    body: JSON.stringify({ ...response, courseTitle: "Complete Aptitude Course 2026", amount: finalAmount })
-    });
-    const data = await res.json();
-    const options = {
-      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-      amount: data.order.amount,
-      currency: "INR",
-      name: "Syntax Error",
-      description: "Complete Aptitude Course 2026",
-      order_id: data.order.id,
-      prefill: { name, email, contact: phone },
-      handler: async function (response) {
-        const verifyRes = await fetch("https://syntax-error-1xds.vercel.app/payment/verify-payment", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-          body: JSON.stringify({ ...response, courseTitle: "Complete Aptitude Course 2026" })
-        });
-        const verifyData = await verifyRes.json();
-        if (verifyData.success) {
-          alert("🎉 Payment successful!");
-          window.location.href = "/dashboard";
-        }
-      },
-      theme: { color: "#3b82f6" }
-    };
-    const rzp = new window.Razorpay(options);
-    rzp.open();
-  } catch (err) {
-    alert("Payment error!");
-  }
-};
+  // ✅ Bug fixed — removed ...response from create-order
+  const handleProceedPayment = async ({ name, email, phone, finalAmount }) => {
+    const token = localStorage.getItem("token");
+    setShowCheckout(false);
+    try {
+      const res = await fetch("https://syntax-error-1xds.vercel.app/payment/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ amount: finalAmount, courseTitle: "Complete Aptitude Course 2026" })
+      });
+      const data = await res.json();
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: data.order.amount,
+        currency: "INR",
+        name: "Syntax Error",
+        description: "Complete Aptitude Course 2026",
+        order_id: data.order.id,
+        prefill: { name, email, contact: phone },
+        handler: async function (response) {
+          const verifyRes = await fetch("https://syntax-error-1xds.vercel.app/payment/verify-payment", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+            body: JSON.stringify({ ...response, courseTitle: "Complete Aptitude Course 2026" })
+          });
+          const verifyData = await verifyRes.json();
+          if (verifyData.success) {
+            alert("🎉 Payment successful!");
+            window.location.href = "/dashboard";
+          }
+        },
+        theme: { color: "#3b82f6" }
+      };
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (err) {
+      alert("Payment error!");
+    }
+  };
+
   const topics = [
     "Percentage — Concepts & Tricks",
     "Ratio & Proportion",
@@ -100,21 +102,22 @@ const handleProceedPayment = async ({ name, email, phone, finalAmount }) => {
 
   return (
     <div className="cd-wrapper">
-        {showCheckout && (
-     <CheckoutModal
-  course={{
-    title: "Complete Aptitude Course 2026",
-    amount: 99,
-    coupons: {
-      "APTITUDE10": 10,
-      "KARINAA99": 99,
-      "SYNTAX20": 20,
-    }
-  }}
-  onClose={() => setShowCheckout(false)}
-  onProceed={handleProceedPayment}
-/>
-    )}
+
+      {showCheckout && (
+        <CheckoutModal
+          course={{
+            title: "Complete Aptitude Course 2026",
+            amount: 99,
+            coupons: {
+              "APTITUDE10": 10,
+              "KARINAA99": 99,
+              "SYNTAX20": 20,
+            }
+          }}
+          onClose={() => setShowCheckout(false)}
+          onProceed={handleProceedPayment}
+        />
+      )}
 
       {/* Navbar back */}
       <div className="cd-topbar">
@@ -171,6 +174,61 @@ const handleProceedPayment = async ({ name, email, phone, finalAmount }) => {
         <div className="cd-stat">
           <span className="cd-stat-num">40h+</span>
           <span className="cd-stat-label">Course Content</span>
+        </div>
+      </section>
+
+      {/* ✅ Course Description */}
+      <section className="cd-section" style={{ paddingTop: "2rem", paddingBottom: "0" }}>
+        <div className="cd-description-card">
+          <p className="cd-desc-text">
+            This course covers all Aptitude topics from basic to advanced level with proper
+            concepts, shortcut tricks, and placement-focused questions. If you want to prepare
+            for TCS, Infosys, Wipro, Accenture, or any campus placement aptitude round, this
+            course is perfect for you. Master Quantitative, Verbal, and Logical Reasoning with
+            speed math techniques and real exam strategies.
+          </p>
+
+          {/* What You'll Get */}
+          <div className="cd-curriculum-card cd-curriculum-aptitude" style={{ marginTop: "1rem" }}>
+            <div className="cd-curriculum-icon">🎯</div>
+            <h3>What You Will Get in This Course</h3>
+            <p>Everything you need to clear any placement aptitude round.</p>
+            <ul className="cd-topics-list">
+              {[
+                "Chapterwise PDF Formula Sheets",
+                "Shortcut Tricks & Speed Math",
+                "Practice Questions — Topic Wise",
+                "Video Solutions for Every Topic",
+                "TCS NQT & Infosys Pattern Questions",
+                "Reasoning & Verbal Ability Coverage",
+                "Last Minute Revision Notes",
+              ].map((item, i) => (
+                <li key={i}>
+                  <span style={{ color: "#22c55e" }}>✅</span> {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Info Grid */}
+          <div className="cd-desc-info">
+            <div className="cd-desc-info-item">
+              <span>🏆 Certificate</span>
+              <span>Within 48 hours after enrolling</span>
+            </div>
+            <div className="cd-desc-info-item">
+              <span>♾️ Access</span>
+              <span>Permanent / Lifetime Access</span>
+            </div>
+            <div className="cd-desc-info-item">
+              <span>📚 Language</span>
+              <span>Hindi + English</span>
+            </div>
+            <div className="cd-desc-info-item">
+              <span>🎯 Exam Target</span>
+              <span>TCS, Infosys, Wipro, AMCAT</span>
+            </div>
+          </div>
         </div>
       </section>
 
