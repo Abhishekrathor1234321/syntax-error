@@ -4,7 +4,7 @@ import "./AdminDashboard.css";
 
 function AdminDashboard() {
   const [stats, setStats] = useState(null);
-  const [refStats, setRefStats] = useState(null);
+  const [refStats, setRefStats] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [activeTab, setActiveTab] = useState("sales");
@@ -18,7 +18,8 @@ function AdminDashboard() {
       const token = localStorage.getItem("token");
       if (!token) { navigate("/login"); return; }
       try {
-       const refRes = await fetch("https://syntax-error-1xds.vercel.app/admin/ref-stats",  {
+        // Sales fetch
+        const res = await fetch("https://syntax-error-1xds.vercel.app/admin/purchases", {
           headers: { Authorization: `Bearer ${token}` }
         });
         const data = await res.json();
@@ -31,11 +32,11 @@ function AdminDashboard() {
         }
 
         // Ref stats fetch
-        const refRes = await fetch("https://syntax-error-1xds.vercel.app/admin/purchase-ref-stats", {
+        const refRes = await fetch("https://syntax-error-1xds.vercel.app/admin/ref-stats", {
           headers: { Authorization: `Bearer ${token}` }
         });
         const refData = await refRes.json();
-        if (refData.success) setRefStats(refData.refStats);
+        if (refData.success) setRefStats(refData.refs || []);
 
       } catch (err) {
         console.error(err);
@@ -223,8 +224,7 @@ function AdminDashboard() {
               >
                 <option value="course-detail/dsa">DSA Course</option>
                 <option value="course-detail/aptitude">Aptitude Course</option>
-                <option value="courses">Courses Page</option>
-                <option value="login">Login Page</option>
+               
               </select>
             </div>
 
@@ -255,36 +255,34 @@ function AdminDashboard() {
           {/* Ref Stats */}
           <div style={{ background: "#1e293b", borderRadius: "12px", padding: "24px" }}>
             <h2 style={{ color: "white", marginBottom: "16px" }}>📊 Link Performance</h2>
-            {refStats && Object.keys(refStats).length > 0 ? (
+            {refStats && refStats.length > 0 ? (
               <table className="admin-table">
                 <thead>
                   <tr>
                     <th>#</th>
                     <th>Link / Source</th>
-                    <th>Purchases</th>
-                    <th>Revenue</th>
-                    <th>Full Link</th>
+                    <th>Registrations</th>
+                    <th>Copy Link</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {Object.entries(refStats)
-                    .sort((a, b) => b[1].count - a[1].count)
-                    .map(([ref, data], i) => (
+                  {[...refStats]
+                    .sort((a, b) => b.count - a.count)
+                    .map((item, i) => (
                     <tr key={i}>
                       <td>{i + 1}</td>
-                      <td style={{ color: "#3b82f6", fontWeight: "600" }}>{ref}</td>
-                      <td>{data.count}</td>
-                      <td style={{ color: "#4ade80", fontWeight: "600" }}>₹{data.revenue}</td>
+                      <td style={{ color: "#3b82f6", fontWeight: "600" }}>{item._id}</td>
+                      <td>{item.count}</td>
                       <td>
                         <button
-                          onClick={() => copyLink(`https://syntaxerrorr.com/course-detail/dsa?ref=${ref}`)}
+                          onClick={() => copyLink(`https://syntaxerrorr.com/course-detail/dsa?ref=${item._id}`)}
                           style={{
                             padding: "4px 10px", borderRadius: "4px",
                             background: "#334155", border: "none",
                             color: "white", fontSize: "11px", cursor: "pointer"
                           }}
                         >
-                          {copiedLink.includes(ref) ? "✅ Copied!" : "Copy"}
+                          {copiedLink.includes(item._id) ? "✅ Copied!" : "Copy"}
                         </button>
                       </td>
                     </tr>
