@@ -4,28 +4,28 @@ import "./OfferSection.css";
 
 const offers = [
   {
-    icon: "📝",
+    icon: "",
     title: "Notes",
     description: "Concise programming notes covering DSA, Web Dev, Python, Java and more.",
     items: ["Data Structures & Algorithms", "JavaScript Deep Dive", "Python Essentials", "System Design Basics"],
     path: "/notes",
   },
   {
-    icon: "🗺️",
+    icon: "",
     title: "Roadmaps",
     description: "Step-by-step career roadmaps to guide your journey.",
     items: ["Frontend Developer", "Backend Developer", "Full Stack Path", "DevOps Engineer"],
     path: "/roadmap",
   },
   {
-    icon: "💼",
+    icon: "",
     title: "Jobs",
     description: "Curated job openings, internships and placement updates.",
     items: ["Fresher Openings", "Internship Alerts", "Remote Opportunities", "Resume Tips"],
     path: null,
   },
   {
-    icon: "🎓",
+    icon: "",
     title: "Courses",
     description: "Hand-picked free and paid courses to accelerate your learning.",
     items: ["Free Certifications", "Structured Learning Paths", "Project Based Learning", "Interview Preparation"],
