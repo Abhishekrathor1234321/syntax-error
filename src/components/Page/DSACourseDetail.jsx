@@ -10,8 +10,8 @@ function DSACourseDetail() {
   const [showCheckout, setShowCheckout] = useState(false);
 
   const refCode = new URLSearchParams(window.location.search).get("ref") || 
-                sessionStorage.getItem("courseRef") || "";
-                if (refCode) sessionStorage.setItem("courseRef", refCode);
+                localStorage.getItem("courseRef") || "";
+                if (refCode) localStorage.setItem("courseRef", refCode);
 
   useEffect(() => {
     window.scrollTo(0, 0);
