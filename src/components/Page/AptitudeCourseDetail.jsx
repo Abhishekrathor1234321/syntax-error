@@ -190,7 +190,7 @@ function AptitudeCourseDetail() {
 
           {/* What You'll Get */}
           <div className="cd-curriculum-card cd-curriculum-aptitude" style={{ marginTop: "1rem" }}>
-            <div className="cd-curriculum-icon">🎯</div>
+            <div className="cd-curriculum-icon"></div>
             <h3>What You Will Get in This Course</h3>
             <p>Everything you need to clear any placement aptitude round.</p>
             <ul className="cd-topics-list">
@@ -199,7 +199,7 @@ function AptitudeCourseDetail() {
                 "Shortcut Tricks & Speed Math",
                 "Practice Questions — Topic Wise",
                 "Video Solutions for Every Topic",
-                "TCS NQT & Infosys Pattern Questions",
+                "TCS NQT , Infosys Pattern Questions and other Companies",
                 "Reasoning & Verbal Ability Coverage",
                 "Last Minute Revision Notes",
               ].map((item, i) => (
@@ -222,12 +222,9 @@ function AptitudeCourseDetail() {
             </div>
             <div className="cd-desc-info-item">
               <span>📚 Language</span>
-              <span>Hindi + English</span>
+              <span>English</span>
             </div>
-            <div className="cd-desc-info-item">
-              <span>🎯 Exam Target</span>
-              <span>TCS, Infosys, Wipro, AMCAT</span>
-            </div>
+            
           </div>
         </div>
       </section>
@@ -237,11 +234,11 @@ function AptitudeCourseDetail() {
         <h2 className="cd-section-title">Master Every Topic</h2>
         <p className="cd-section-sub">
           A complete placement aptitude syllabus — every topic asked in TCS,
-          Infosys, Wipro, and AMCAT tests.
+          Infosys, Wipro, and other Placement Exams.
         </p>
 
         <div className="cd-curriculum-card cd-curriculum-aptitude">
-          <div className="cd-curriculum-icon">📊</div>
+          <div className="cd-curriculum-icon"></div>
           <h3>Complete Aptitude Syllabus</h3>
           <p>Every formula, shortcut trick and concept you need to clear any placement aptitude round.</p>
           <ul className="cd-topics-list">
@@ -272,7 +269,7 @@ function AptitudeCourseDetail() {
           <div className="cd-feature-card">
             <span className="cd-feature-icon" style={{ color: "#f87171" }}>🎯</span>
             <h4>Placement Focused</h4>
-            <p>100% aligned with TCS NQT, Infosys, Wipro, Accenture & AMCAT patterns.</p>
+            <p>100% aligned with TCS NQT, Infosys, Wipro, Accenture & other Placement </p>
             <span className="cd-feature-tag">EXAM READY</span>
           </div>
         </div>
