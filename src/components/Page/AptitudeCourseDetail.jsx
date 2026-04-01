@@ -44,7 +44,8 @@ if (refCode) sessionStorage.setItem("courseRef", refCode);
           const verifyRes = await fetch("https://syntax-error-1xds.vercel.app/payment/verify-payment", {
             method: "POST",
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-            body: JSON.stringify({ ...response, courseTitle: "Complete Aptitude Course 2026" })
+            body: JSON.stringify({ ...response, courseTitle: "Complete Aptitude Course 2026",  amount: finalAmount,
+  ref: refCode })
           });
           const verifyData = await verifyRes.json();
           if (verifyData.success) {
