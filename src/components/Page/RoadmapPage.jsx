@@ -239,20 +239,24 @@ function RoadmapPage() {
                 style={{ animationDelay: `${index * 0.07}s` }}
               >
                 {/* Header */}
-                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "12px" }}>
-                  <div style={{ fontSize: "30px" }}>{rm.emoji}</div>
-                  <span style={{
-                    fontSize: "11px",
-                    padding: "3px 10px",
-                    borderRadius: "999px",
-                    background: "rgba(16,185,129,0.1)",
-                    color: "#34d399",
-                    border: "1px solid rgba(16,185,129,0.2)",
-                    whiteSpace: "nowrap",
-                  }}>
-                    ⏱ {rm.totalMonths}
-                  </span>
-                </div>
+               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
+  <h3 style={{ fontSize: "16px", fontWeight: "600", color: "#f0f4f8", margin: 0 }}>
+    {rm.title}
+  </h3>
+  <span style={{
+    fontSize: "11px",
+    padding: "3px 10px",
+    borderRadius: "999px",
+    background: "rgba(16,185,129,0.1)",
+    color: "#34d399",
+    border: "1px solid rgba(16,185,129,0.2)",
+    whiteSpace: "nowrap",
+    flexShrink: 0,
+    marginLeft: "10px",
+  }}>
+    ⏱ {rm.totalMonths}
+  </span>
+</div>
 
                 {/* Title & Description */}
                 <h2 style={{ fontSize: "17px", fontWeight: "700", color: "white", marginBottom: "6px" }}>
