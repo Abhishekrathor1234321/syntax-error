@@ -259,9 +259,7 @@ function RoadmapPage() {
 </div>
 
                 {/* Title & Description */}
-                <h2 style={{ fontSize: "17px", fontWeight: "700", color: "white", marginBottom: "6px" }}>
-                  {rm.title}
-                </h2>
+               
                 <p style={{ fontSize: "13px", color: "#9ca3af", marginBottom: "14px", lineHeight: "1.6" }}>
                   {rm.description}
                 </p>
