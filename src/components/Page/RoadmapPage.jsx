@@ -240,7 +240,7 @@ function RoadmapPage() {
               >
                 {/* Header */}
                 <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "12px" }}>
-                  <div style={{ fontSize: "30px" }}>{rm.emoji}</div>
+                 
                   <span style={{
                     fontSize: "11px",
                     padding: "3px 10px",
