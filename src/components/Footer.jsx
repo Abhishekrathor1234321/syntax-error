@@ -2,29 +2,13 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Footer.css";
 
-
-
 function Footer() {
-
-
-
-
-   useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
-  
   const navigate = useNavigate();
 
   const goTo = (path) => {
     navigate(path);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  
 
   return (
     <footer className="footer">
@@ -43,7 +27,7 @@ function Footer() {
               rel="noreferrer"
               className="footer-social-btn instagram"
             >
-              📸 Instagram
+               Instagram
             </a>
             <a
               href="https://t.me/syntax_errore"
@@ -51,7 +35,7 @@ function Footer() {
               rel="noreferrer"
               className="footer-social-btn telegram"
             >
-              ✈️ Telegram
+               Telegram
             </a>
           </div>
         </div>
@@ -101,20 +85,7 @@ function Footer() {
         <p>© 2026 SYNTAX ERROR. All rights Reserved</p>
         <p>• Made with ❤️ in India</p>
       </div>
-
-
-       <div style="text-align:center; margin: 20px 0;">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-6709314330121101"
-         data-ad-slot="6198959916"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-</div>
-
+      
     </footer>
   );
 }
