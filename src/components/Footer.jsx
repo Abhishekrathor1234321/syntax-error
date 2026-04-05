@@ -2,13 +2,29 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Footer.css";
 
+
+
 function Footer() {
+
+
+
+
+   useEffect(() => {
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+  
   const navigate = useNavigate();
 
   const goTo = (path) => {
     navigate(path);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  
 
   return (
     <footer className="footer">
