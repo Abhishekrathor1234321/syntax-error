@@ -85,6 +85,20 @@ function Footer() {
         <p>© 2026 SYNTAX ERROR. All rights Reserved</p>
         <p>• Made with ❤️ in India</p>
       </div>
+
+
+       <div style="text-align:center; margin: 20px 0;">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-6709314330121101"
+         data-ad-slot="6198959916"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
     </footer>
   );
 }
