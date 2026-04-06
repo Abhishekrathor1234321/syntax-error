@@ -3,35 +3,44 @@ import { useNavigate } from "react-router-dom";
 import CheckoutModal from "../CheckoutModal";
 import "./CourseDetail.css";
 
-const handleEnrollClick = () => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    window.location.href = `/login?redirect=/course-detail/dsa`;
-    return;
-  }
-  setShowCheckout(true);
-};
-
-
 function DSACourseDetail() {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState(null);
   const [showCheckout, setShowCheckout] = useState(false);
 
-  const refCode = new URLSearchParams(window.location.search).get("ref") || 
-                localStorage.getItem("courseRef") || "";
-                if (refCode) localStorage.setItem("courseRef", refCode);
+  const refCode = new URLSearchParams(window.location.search).get("ref") ||
+    localStorage.getItem("courseRef") || "";
+  if (refCode) localStorage.setItem("courseRef", refCode);
+
+  // ✅ handleEnrollClick — component ke ANDAR
+  const handleEnrollClick = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      localStorage.setItem("pendingEnroll", "dsa");
+      window.location.href = `/login?redirect=/course-detail/dsa`;
+      return;
+    }
+    setShowCheckout(true);
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // ✅ Login ke baad auto checkout open
+    const pending = localStorage.getItem("pendingEnroll");
+    const token = localStorage.getItem("token");
+    if (pending === "dsa" && token) {
+      localStorage.removeItem("pendingEnroll");
+      setShowCheckout(true);
+    }
   }, []);
 
   const handleProceed = async ({ name, email, phone, finalAmount }) => {
     const token = localStorage.getItem("token");
-    if (!token) 
-      {  window.location.href = `/login?redirect=/course-detail/dsa`;
-
-      }
+    if (!token) {
+      window.location.href = `/login?redirect=/course-detail/dsa`;
+      return;
+    }
     try {
       const res = await fetch("https://syntax-error-1xds.vercel.app/payment/create-order", {
         method: "POST",
@@ -39,11 +48,9 @@ function DSACourseDetail() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`
         },
-
         body: JSON.stringify({
           amount: finalAmount,
           courseTitle: "The Complete Data Structure & Algorithm Course 2026"
-         
         })
       });
       const data = await res.json();
@@ -66,7 +73,7 @@ function DSACourseDetail() {
               ...response,
               courseTitle: "The Complete Data Structure & Algorithm Course 2026",
               amount: finalAmount,
-                ref: refCode 
+              ref: refCode
             })
           });
           const verifyData = await verifyRes.json();
@@ -177,7 +184,7 @@ function DSACourseDetail() {
             </div>
           </div>
 
-          <button className="cd-enroll-btn"onClick={handleEnrollClick}>
+          <button className="cd-enroll-btn" onClick={handleEnrollClick}>
             Enroll Now →
           </button>
         </div>
@@ -194,27 +201,28 @@ function DSACourseDetail() {
             building, pattern recognition, and interview preparation.
           </p>
 
-        {/* What You'll Get */}
-<div className="cd-curriculum-card" style={{ marginTop: "1rem" }}>
-  <div className="cd-curriculum-icon"></div>
-  <h3>What You Will Get in This Course</h3>
-  <p>Everything you need to crack placements and coding interviews.</p>
-  <ul className="cd-topics-list">
-    {[
-      "Detailed Concept Notes",
-      "Practice Questions",
-      "Video Solutions",
-      "100+ LeetCode Questions Covered",
-      "Interview Preparation",
-      "Pattern-Based Problem Solving",
-      "Assignments & Practice Sets",
-    ].map((item, i) => (
-      <li key={i}>
-        <span style={{ color: "#22c55e" }}>✅</span> {item}
-      </li>
-    ))}
-  </ul>
-</div>
+          {/* What You'll Get */}
+          <div className="cd-curriculum-card" style={{ marginTop: "1rem" }}>
+            <div className="cd-curriculum-icon"></div>
+            <h3>What You Will Get in This Course</h3>
+            <p>Everything you need to crack placements and coding interviews.</p>
+            <ul className="cd-topics-list">
+              {[
+                "Detailed Concept Notes",
+                "Practice Questions",
+                "Video Solutions",
+                "100+ LeetCode Questions Covered",
+                "Interview Preparation",
+                "Pattern-Based Problem Solving",
+                "Assignments & Practice Sets",
+              ].map((item, i) => (
+                <li key={i}>
+                  <span style={{ color: "#22c55e" }}>✅</span> {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
           <div className="cd-desc-info">
             <div className="cd-desc-info-item">
               <span>🏆 Certificate</span>
