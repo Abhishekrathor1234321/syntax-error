@@ -9,7 +9,7 @@ const navLinks = [
   { label: "Notes", path: "/notes" },
   { label: "Roadmap", path: "/roadmap" },
   { label: "Practice", path: "/Practice" },
-  // { label: "Courses", path: "/courses" },
+  { label: "Courses", path: "/courses" },
 ];
 
 const WHATSAPP_LINK = "https://whatsapp.com/channel/0029VazMK0J30LKTGQxCyi40";
