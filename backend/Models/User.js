@@ -29,14 +29,20 @@ const UserSchema = new Schema({
     purchasedCourses: [
         {
             title: String,
-              amount: { type: Number, default: 0 }, 
-                ref: { type: String, default: "" },
+            amount: { type: Number, default: 0 },
+            ref: { type: String, default: "" },
             purchasedAt: {
                 type: Date,
                 default: Date.now
             }
         }
-    ]
+    ],
+    // ✅ 30 Days DSA Challenge
+    dsaChallenge: {
+        enrolled: { type: Boolean, default: false },
+        startDate: { type: Date, default: null },
+        language: { type: String, default: "java" }
+    }
 });
 
 const UserModel = mongoose.model('users', UserSchema);

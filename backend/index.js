@@ -13,6 +13,9 @@ const PaymentRouter = require('./Routes/PaymentRouter');
 const AdminRouter = require('./Routes/AdminRouter');
 const OtpRouter = require('./Routes/OtpRouter'); // ← upar le aao
 
+
+const challengeRoutes = require('./Routes/ChallengeRouter');
+app.use('/challenge', challengeRoutes);
 const PORT = process.env.PORT || 8081;
 
 app.use(cors({
