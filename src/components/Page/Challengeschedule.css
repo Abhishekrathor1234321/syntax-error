@@ -1,0 +1,468 @@
+/* ===================== WRAPPER ===================== */
+.cs-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background: #0a0a14;
+  color: #e2e8f0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.cs-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #0a0a14;
+  color: #94a3b8;
+  gap: 1rem;
+}
+
+.cs-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #1e293b;
+  border-top-color: #6ee7b7;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===================== SIDEBAR ===================== */
+.cs-sidebar {
+  width: 240px;
+  min-height: 100vh;
+  background: #0d0d1a;
+  border-right: 1px solid #1e293b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  position: sticky;
+  top: 0;
+  gap: 1rem;
+}
+
+.cs-sidebar-logo {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #6ee7b7;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+/* Circular Progress */
+.cs-circular-wrap {
+  position: relative;
+  width: 110px;
+  height: 110px;
+}
+
+.cs-circular-svg {
+  width: 110px;
+  height: 110px;
+  transform: rotate(0deg);
+}
+
+.cs-circular-svg circle {
+  transition: stroke-dashoffset 0.8s ease;
+}
+
+.cs-circular-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.cs-circular-num {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #fff;
+  display: block;
+  line-height: 1;
+}
+
+.cs-circular-sub {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.cs-progress-label {
+  font-size: 0.72rem;
+  color: #64748b;
+  text-align: center;
+  margin-top: -0.5rem;
+}
+
+/* Stats */
+.cs-sidebar-stats {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  background: #111827;
+  border-radius: 12px;
+  padding: 0.8rem;
+}
+
+.cs-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.cs-stat-val {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #6ee7b7;
+}
+
+.cs-stat-label {
+  font-size: 0.62rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Nav */
+.cs-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.cs-nav-btn {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.cs-nav-btn:hover {
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+.cs-nav-btn.active {
+  background: linear-gradient(135deg, #064e3b, #1e3a5f);
+  color: #6ee7b7;
+  border: 1px solid #065f46;
+}
+
+/* ===================== MAIN ===================== */
+.cs-main {
+  flex: 1;
+  padding: 2rem 2.5rem;
+  overflow-y: auto;
+}
+
+.cs-topbar {
+  margin-bottom: 2rem;
+}
+
+.cs-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cs-back {
+  background: #1e293b;
+  border: none;
+  color: #94a3b8;
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.83rem;
+  transition: all 0.2s;
+}
+
+.cs-back:hover {
+  background: #334155;
+  color: #fff;
+}
+
+.cs-badge {
+  background: linear-gradient(135deg, #064e3b, #1e3a5f);
+  border: 1px solid #065f46;
+  color: #6ee7b7;
+  padding: 0.3rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.cs-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #f1f5f9;
+  margin: 0 0 0.4rem 0;
+  letter-spacing: -0.5px;
+}
+
+.cs-subtitle {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin: 0 0 1.2rem 0;
+}
+
+.cs-start-btn {
+  background: linear-gradient(135deg, #059669, #2563eb);
+  color: #fff;
+  border: none;
+  padding: 0.85rem 2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  letter-spacing: 0.3px;
+}
+
+.cs-start-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(5, 150, 105, 0.4);
+}
+
+/* ===================== DAYS GRID ===================== */
+.cs-days-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.cs-day-card {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 14px;
+  padding: 1.2rem;
+  cursor: pointer;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.cs-day-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: #1e293b;
+  transition: background 0.3s;
+}
+
+.cs-day-card:hover:not(.cs-locked) {
+  border-color: #334155;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.cs-day-card:hover:not(.cs-locked)::before {
+  background: linear-gradient(90deg, #059669, #2563eb);
+}
+
+.cs-day-card.cs-locked {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.cs-day-card.cs-current {
+  border-color: #f59e0b;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
+}
+
+.cs-day-card.cs-current::before {
+  background: linear-gradient(90deg, #f59e0b, #ef4444);
+}
+
+.cs-day-card.cs-done::before {
+  background: linear-gradient(90deg, #059669, #10b981);
+}
+
+.cs-day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+.cs-day-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #475569;
+  letter-spacing: 1.5px;
+}
+
+.cs-day-icon {
+  font-size: 1rem;
+}
+
+.cs-day-topic {
+  font-size: 0.97rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin-bottom: 0.4rem;
+  line-height: 1.3;
+}
+
+.cs-day-desc {
+  font-size: 0.75rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin-bottom: 0.8rem;
+}
+
+.cs-day-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cs-day-q {
+  font-size: 0.78rem;
+  color: #6ee7b7;
+  font-weight: 600;
+}
+
+.cs-day-locked-txt {
+  font-size: 0.75rem;
+  color: #475569;
+}
+
+.cs-day-done-badge {
+  background: rgba(5, 150, 105, 0.15);
+  border: 1px solid #059669;
+  color: #6ee7b7;
+  font-size: 0.65rem;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+/* ===================== LEADERBOARD ===================== */
+.cs-leaderboard {
+  max-width: 750px;
+}
+
+.cs-lb-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #f1f5f9;
+  margin: 0 0 0.3rem 0;
+}
+
+.cs-lb-sub {
+  color: #64748b;
+  font-size: 0.88rem;
+  margin: 0 0 1.5rem 0;
+}
+
+.cs-lb-table {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.cs-lb-head {
+  display: grid;
+  grid-template-columns: 60px 1fr 100px 150px;
+  padding: 0.9rem 1.2rem;
+  background: #1e293b;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.cs-lb-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 100px 150px;
+  padding: 1rem 1.2rem;
+  align-items: center;
+  border-top: 1px solid #1e293b;
+  transition: background 0.2s;
+}
+
+.cs-lb-row:hover {
+  background: #111827;
+}
+
+.cs-lb-row.cs-lb-top {
+  background: rgba(5, 150, 105, 0.05);
+}
+
+.cs-lb-rank {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.cs-lb-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.cs-lb-days {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #6ee7b7;
+  text-align: center;
+}
+
+.cs-lb-bar-wrap {
+  height: 6px;
+  background: #1e293b;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cs-lb-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #059669, #2563eb);
+  border-radius: 10px;
+  transition: width 1s ease;
+}
+
+.cs-lb-empty {
+  padding: 3rem;
+  text-align: center;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 768px) {
+  .cs-wrapper { flex-direction: column; }
+  .cs-sidebar {
+    width: 100%;
+    min-height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 1rem;
+    position: relative;
+  }
+  .cs-circular-wrap { width: 70px; height: 70px; }
+  .cs-circular-svg { width: 70px; height: 70px; }
+  .cs-main { padding: 1rem; }
+  .cs-days-grid { grid-template-columns: 1fr; }
+  .cs-lb-head, .cs-lb-row { grid-template-columns: 50px 1fr 80px; }
+  .cs-lb-bar-wrap { display: none; }
+}
