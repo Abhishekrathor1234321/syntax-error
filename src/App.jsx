@@ -20,6 +20,10 @@ import AdminDashboard from "./components/Page/AdminDashboard";
 import DSACourseDetail from "./components/Page/DSACourseDetail";
 import AptitudeCourseDetail from "./components/Page/AptitudeCourseDetail";
 import DSACoursePage from "./components/Page/DSACoursePage";
+
+import ChallengePage from "./components/Page/ChallengePage";
+import ChallengeSchedule from "./components/Page/ChallengeSchedule";
+import ChallengeDay from "./components/Page/ChallengeDay";
 import "./App.css";
 
 
@@ -57,6 +61,10 @@ function App() {
 
         <Route path="/course-detail/dsa" element={<DSACourseDetail />} />
        <Route path="/course-detail/aptitude" element={<AptitudeCourseDetail />} />
+
+       <Route path="/challenge" element={<ChallengePage />} />
+<Route path="/challenge/schedule" element={<ChallengeSchedule />} />
+<Route path="/challenge/day/:day" element={<ChallengeDay />} />
 
         {/* Protected Routes — Login required */}
         <Route path="/notes" element={<PrivateRoute><NotesPage /></PrivateRoute>} />
