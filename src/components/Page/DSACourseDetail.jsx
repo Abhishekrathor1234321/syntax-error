@@ -3,6 +3,15 @@ import { useNavigate } from "react-router-dom";
 import CheckoutModal from "../CheckoutModal";
 import "./CourseDetail.css";
 
+const handleEnrollClick = () => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = `/login?redirect=/course-detail/dsa`;
+    return;
+  }
+  setShowCheckout(true);
+};
+
 
 function DSACourseDetail() {
   const navigate = useNavigate();
