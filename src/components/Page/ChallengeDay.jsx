@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./ChallengePage.css";
-import "./ChallengeDay.css";
+import "./Challengeday.css";
 
 // PURANA dummy content — safe hai, sirf theory aur description add ki
 const dayContent = {
