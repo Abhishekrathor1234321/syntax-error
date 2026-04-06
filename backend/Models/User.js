@@ -37,11 +37,22 @@ const UserSchema = new Schema({
             }
         }
     ],
-    // ✅ 30 Days DSA Challenge
+
+    // ✅ Purana field — safe hai, kuch change nahi kiya
     dsaChallenge: {
         enrolled: { type: Boolean, default: false },
         startDate: { type: Date, default: null },
         language: { type: String, default: "java" }
+    },
+
+    // ✅ Naya field — progress track karne ke liye
+    challenge: {
+        enrolled: { type: Boolean, default: false },
+        enrolledAt: { type: Date, default: null },
+        language: { type: String, default: "java" },
+        unlockedDays: { type: Number, default: 0 },
+        completedDays: [{ type: Number }],
+        lastCompletedAt: { type: Date, default: null }
     }
 });
 

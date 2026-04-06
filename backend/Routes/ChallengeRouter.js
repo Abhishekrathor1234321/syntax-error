@@ -3,7 +3,7 @@ const router = express.Router();
 const UserModel = require('../Models/User');
 const ensureAuthenticated = require('../Middlewares/Auth');
 
-// ✅ Challenge enroll — Day 1 start karo
+// ✅ Challenge enroll — Day 1 start karo (PURANA CODE — safe hai)
 router.post('/start', ensureAuthenticated, async (req, res) => {
     try {
         const { language } = req.body;
@@ -39,16 +39,17 @@ router.post('/start', ensureAuthenticated, async (req, res) => {
     }
 });
 
-// ✅ Challenge progress fetch karo — konsa day unlock hai
+// ✅ Challenge progress fetch karo — konsa day unlock hai (PURANA CODE — safe hai)
 router.get('/progress', ensureAuthenticated, async (req, res) => {
     try {
-        const user = await UserModel.findById(req.user._id).select('dsaChallenge');
+        const user = await UserModel.findById(req.user._id).select('dsaChallenge challenge');
 
         if (!user.dsaChallenge || !user.dsaChallenge.enrolled) {
             return res.status(200).json({
                 success: true,
                 enrolled: false,
-                unlockedDays: 0
+                unlockedDays: 0,
+                completedDays: []
             });
         }
 
@@ -71,8 +72,69 @@ router.get('/progress', ensureAuthenticated, async (req, res) => {
             success: true,
             enrolled: true,
             unlockedDays,
+            completedDays: user.challenge?.completedDays || [],
             startDate: user.dsaChallenge.startDate,
             language: user.dsaChallenge.language
+        });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+// ✅ NAYA — Day complete mark karo (next day time-based unlock hoga automatically)
+router.post('/complete-day', ensureAuthenticated, async (req, res) => {
+    try {
+        const { day } = req.body;
+        if (!day || day < 1 || day > 30) {
+            return res.status(400).json({ success: false, message: 'Invalid day' });
+        }
+
+        const user = await UserModel.findById(req.user._id);
+        if (!user.dsaChallenge || !user.dsaChallenge.enrolled) {
+            return res.status(400).json({ success: false, message: 'Not enrolled in challenge' });
+        }
+
+        const completedDays = user.challenge?.completedDays || [];
+        if (!completedDays.includes(day)) {
+            completedDays.push(day);
+        }
+
+        await UserModel.findByIdAndUpdate(req.user._id, {
+            'challenge.completedDays': completedDays,
+            'challenge.lastCompletedAt': new Date()
+        });
+
+        res.status(200).json({
+            success: true,
+            message: `Day ${day} completed!`,
+            completedDays
+        });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+// ✅ NAYA — Leaderboard — saare enrolled students ki ranking
+router.get('/leaderboard', async (req, res) => {
+    try {
+        const users = await UserModel.find(
+            { 'dsaChallenge.enrolled': true },
+            { name: 1, 'challenge.completedDays': 1, 'dsaChallenge.startDate': 1 }
+        );
+
+        const leaderboard = users
+            .map(u => ({
+                name: u.name,
+                completedDays: (u.challenge?.completedDays || []).length,
+                enrolledAt: u.dsaChallenge?.startDate
+            }))
+            .sort((a, b) => b.completedDays - a.completedDays || new Date(a.enrolledAt) - new Date(b.enrolledAt))
+            .slice(0, 50);
+
+        res.status(200).json({
+            success: true,
+            leaderboard,
+            totalStudents: users.length
         });
     } catch (err) {
         res.status(500).json({ success: false, message: 'Server error' });
