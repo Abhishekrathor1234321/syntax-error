@@ -40,7 +40,7 @@ function ChallengePage() {
               className="cp-option cp-option-active"
               onClick={() => handleLanguageSelect("english")}
             >
-              <span className="cp-option-flag">🇬🇧</span>
+              <span className="cp-option-flag"></span>
               <div className="cp-option-info">
                 <h3>English</h3>
                 <p>Available now</p>
@@ -53,7 +53,7 @@ function ChallengePage() {
               className="cp-option cp-option-locked"
               onClick={() => handleLanguageSelect("hindi")}
             >
-              <span className="cp-option-flag">🇮🇳</span>
+              <span className="cp-option-flag"></span>
               <div className="cp-option-info">
                 <h3>Hindi</h3>
                 <p>Coming soon</p>
@@ -77,7 +77,7 @@ function ChallengePage() {
               className="cp-option cp-option-active"
               onClick={() => handleProgrammingSelect("java")}
             >
-              <span className="cp-option-flag">☕</span>
+              <span className="cp-option-flag"></span>
               <div className="cp-option-info">
                 <h3>Java</h3>
                 <p>Available now</p>
@@ -87,7 +87,7 @@ function ChallengePage() {
 
             {/* C++ — Locked */}
             <div className="cp-option cp-option-locked">
-              <span className="cp-option-flag">⚙️</span>
+              <span className="cp-option-flag"></span>
               <div className="cp-option-info">
                 <h3>C++</h3>
                 <p>Coming soon</p>
@@ -97,7 +97,7 @@ function ChallengePage() {
 
             {/* Python — Locked */}
             <div className="cp-option cp-option-locked">
-              <span className="cp-option-flag">🐍</span>
+              <span className="cp-option-flag"></span>
               <div className="cp-option-info">
                 <h3>Python</h3>
                 <p>Coming soon</p>
