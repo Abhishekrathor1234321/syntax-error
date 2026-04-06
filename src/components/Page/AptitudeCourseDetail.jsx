@@ -7,29 +7,49 @@ function AptitudeCourseDetail() {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState(null);
   const [showCheckout, setShowCheckout] = useState(false);
-  const refCode = new URLSearchParams(window.location.search).get("ref") || 
-                sessionStorage.getItem("courseRef") || "";
-if (refCode) sessionStorage.setItem("courseRef", refCode);
+
+  const refCode = new URLSearchParams(window.location.search).get("ref") ||
+    sessionStorage.getItem("courseRef") || "";
+  if (refCode) sessionStorage.setItem("courseRef", refCode);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // ✅ Login ke baad auto checkout open
+    const token = localStorage.getItem("token");
+    const openCheckout = sessionStorage.getItem("openCheckout");
+    if (openCheckout === "aptitude" && token) {
+      sessionStorage.removeItem("openCheckout");
+      setShowCheckout(true);
+    }
   }, []);
 
+  // ✅ Enroll button — login nahi hai to /login pe bhejo, hai to checkout kholo
   const handlePayment = () => {
     const token = localStorage.getItem("token");
-    if (!token) { window.location.href = "/login"; return; }
+    if (!token) {
+      sessionStorage.setItem("redirectAfterLogin", "/course-detail/aptitude");
+      sessionStorage.setItem("openCheckout", "aptitude");
+      navigate("/login");
+      return;
+    }
     setShowCheckout(true);
   };
 
-  // ✅ Bug fixed — removed ...response from create-order
   const handleProceedPayment = async ({ name, email, phone, finalAmount }) => {
     const token = localStorage.getItem("token");
+    if (!token) {
+      sessionStorage.setItem("redirectAfterLogin", "/course-detail/aptitude");
+      sessionStorage.setItem("openCheckout", "aptitude");
+      navigate("/login");
+      return;
+    }
     setShowCheckout(false);
     try {
       const res = await fetch("https://syntax-error-1xds.vercel.app/payment/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ amount: finalAmount, courseTitle: "Complete Aptitude Course 2026",ref: refCode })
+        body: JSON.stringify({ amount: finalAmount, courseTitle: "Complete Aptitude Course 2026", ref: refCode })
       });
       const data = await res.json();
       const options = {
@@ -44,8 +64,12 @@ if (refCode) sessionStorage.setItem("courseRef", refCode);
           const verifyRes = await fetch("https://syntax-error-1xds.vercel.app/payment/verify-payment", {
             method: "POST",
             headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-            body: JSON.stringify({ ...response, courseTitle: "Complete Aptitude Course 2026",  amount: finalAmount,
-  ref: refCode })
+            body: JSON.stringify({
+              ...response,
+              courseTitle: "Complete Aptitude Course 2026",
+              amount: finalAmount,
+              ref: refCode
+            })
           });
           const verifyData = await verifyRes.json();
           if (verifyData.success) {
@@ -181,7 +205,7 @@ if (refCode) sessionStorage.setItem("courseRef", refCode);
         </div>
       </section>
 
-      {/* ✅ Course Description */}
+      {/* Course Description */}
       <section className="cd-section" style={{ paddingTop: "2rem", paddingBottom: "0" }}>
         <div className="cd-description-card">
           <p className="cd-desc-text">
@@ -228,7 +252,6 @@ if (refCode) sessionStorage.setItem("courseRef", refCode);
               <span>📚 Language</span>
               <span>English</span>
             </div>
-            
           </div>
         </div>
       </section>
@@ -273,7 +296,7 @@ if (refCode) sessionStorage.setItem("courseRef", refCode);
           <div className="cd-feature-card">
             <span className="cd-feature-icon" style={{ color: "#f87171" }}>🎯</span>
             <h4>Placement Focused</h4>
-            <p>100% aligned with TCS NQT, Infosys, Wipro, Accenture & other Placement </p>
+            <p>100% aligned with TCS NQT, Infosys, Wipro, Accenture & other Placement</p>
             <span className="cd-feature-tag">EXAM READY</span>
           </div>
         </div>
