@@ -11,8 +11,16 @@ function AuthPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
- const redirectTo = sessionStorage.getItem("redirectAfterLogin") || "/";
- const refCode = new URLSearchParams(window.location.search).get("ref") || "";
+  const refCode = new URLSearchParams(window.location.search).get("ref") || "";
+
+  // ✅ Redirect helper — ek jagah se sab handle
+  const handleRedirectAfterLogin = () => {
+    const redirect = sessionStorage.getItem("redirectAfterLogin") || "/";
+    sessionStorage.removeItem("redirectAfterLogin");
+    window.location.href = redirect.startsWith("http")
+      ? redirect
+      : window.location.origin + redirect;
+  };
 
   // Send OTP
   const handleSendOtp = async () => {
@@ -45,22 +53,14 @@ function AuthPage() {
       const res = await fetch("https://syntax-error-1xds.vercel.app/auth/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, otp, ref: refCode  })
+        body: JSON.stringify({ email, otp, ref: refCode })
       });
       const data = await res.json();
       if (data.success) {
         localStorage.setItem("token", data.jwtToken);
         localStorage.setItem("user", data.name);
- 
-      localStorage.setItem("email", data.email);
-       
-       const redirect = sessionStorage.getItem("redirectAfterLogin") || "/"; 
-        sessionStorage.removeItem("redirectAfterLogin");
-      
-
-       window.location.href = redirectTo.startsWith("http") 
-  ? redirectTo 
-  : window.location.origin + redirectTo;
+        localStorage.setItem("email", data.email);
+        handleRedirectAfterLogin(); // ✅ Sahi redirect
       } else {
         alert(data.message);
       }
@@ -83,8 +83,8 @@ function AuthPage() {
         body: JSON.stringify({
           name: user.displayName,
           email: user.email,
-          googleId: user.uid ,
-           ref: refCode
+          googleId: user.uid,
+          ref: refCode
         })
       });
       const data = await res.json();
@@ -92,15 +92,7 @@ function AuthPage() {
         localStorage.setItem("token", data.jwtToken);
         localStorage.setItem("user", data.name);
         localStorage.setItem("email", data.email);
-
-        const redirect = sessionStorage.getItem("redirectAfterLogin") || "/";
-sessionStorage.removeItem("redirectAfterLogin");
-window.location.href = window.location.origin + redirect;
-        sessionStorage.removeItem("redirectAfterLogin");
-       window.location.href = redirectTo.startsWith("http")
-  ? redirectTo
-  : window.location.origin + redirectTo;
-
+        handleRedirectAfterLogin(); // ✅ Sahi redirect
       } else {
         alert("Google login failed. Please try again.");
       }
