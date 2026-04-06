@@ -19,7 +19,10 @@ function DSACourseDetail() {
 
   const handleProceed = async ({ name, email, phone, finalAmount }) => {
     const token = localStorage.getItem("token");
-    if (!token) { window.location.href = "/login"; return; }
+    if (!token) 
+      {  window.location.href = `/login?redirect=/course-detail/dsa`;
+
+      }
     try {
       const res = await fetch("https://syntax-error-1xds.vercel.app/payment/create-order", {
         method: "POST",
@@ -165,7 +168,7 @@ function DSACourseDetail() {
             </div>
           </div>
 
-          <button className="cd-enroll-btn" onClick={() => setShowCheckout(true)}>
+          <button className="cd-enroll-btn"onClick={handleEnrollClick}>
             Enroll Now →
           </button>
         </div>

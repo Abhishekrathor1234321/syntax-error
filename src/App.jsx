@@ -55,6 +55,9 @@ function App() {
         <Route path="/terms" element={<TermsConditions />} />
         <Route path="/support" element={<SupportPage />} />
 
+        <Route path="/course-detail/dsa" element={<DSACourseDetail />} />
+       <Route path="/course-detail/aptitude" element={<AptitudeCourseDetail />} />
+
         {/* Protected Routes — Login required */}
         <Route path="/notes" element={<PrivateRoute><NotesPage /></PrivateRoute>} />
         <Route path="/roadmap" element={<PrivateRoute><RoadmapPage /></PrivateRoute>} />
@@ -63,8 +66,7 @@ function App() {
         <Route path="/dashboard" element={<PrivateRoute><DashboardPage /></PrivateRoute>} />
         <Route path="/course/:courseTitle" element={ <PrivateRoute><AptitudeCoursePage /></PrivateRoute> } />
         <Route path="/admin" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
-        <Route path="/course-detail/dsa" element={<PrivateRoute><DSACourseDetail /></PrivateRoute>} />
-        <Route path="/course-detail/aptitude" element={<PrivateRoute><AptitudeCourseDetail /></PrivateRoute>} />
+       
         <Route path="/dsa-course/:courseTitle" element={<PrivateRoute><DSACoursePage /></PrivateRoute>} />
         </Routes>
       <Footer />
