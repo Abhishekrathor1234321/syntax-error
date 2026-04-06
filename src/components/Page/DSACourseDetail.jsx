@@ -30,7 +30,7 @@ function DSACourseDetail() {
     if (!token) {
       sessionStorage.setItem("redirectAfterLogin", "/course-detail/dsa");
       sessionStorage.setItem("openCheckout", "dsa");
-      navigate("/auth");
+    navigate("/login");
       return;
     }
     setShowCheckout(true);
