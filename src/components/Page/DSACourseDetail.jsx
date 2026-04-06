@@ -12,33 +12,36 @@ function DSACourseDetail() {
     localStorage.getItem("courseRef") || "";
   if (refCode) localStorage.setItem("courseRef", refCode);
 
-  // ✅ handleEnrollClick — component ke ANDAR
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    // ✅ Login ke baad auto checkout open
+    const token = localStorage.getItem("token");
+    const openCheckout = sessionStorage.getItem("openCheckout");
+    if (openCheckout === "dsa" && token) {
+      sessionStorage.removeItem("openCheckout");
+      setShowCheckout(true);
+    }
+  }, []);
+
+  // ✅ Enroll button — login nahi hai to auth pe bhejo, hai to checkout kholo
   const handleEnrollClick = () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      localStorage.setItem("pendingEnroll", "dsa");
-      window.location.href = `/login?redirect=/course-detail/dsa`;
+      sessionStorage.setItem("redirectAfterLogin", "/course-detail/dsa");
+      sessionStorage.setItem("openCheckout", "dsa");
+      navigate("/auth");
       return;
     }
     setShowCheckout(true);
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-
-    // ✅ Login ke baad auto checkout open
-    const pending = localStorage.getItem("pendingEnroll");
-    const token = localStorage.getItem("token");
-    if (pending === "dsa" && token) {
-      localStorage.removeItem("pendingEnroll");
-      setShowCheckout(true);
-    }
-  }, []);
-
   const handleProceed = async ({ name, email, phone, finalAmount }) => {
     const token = localStorage.getItem("token");
     if (!token) {
-      window.location.href = `/login?redirect=/course-detail/dsa`;
+      sessionStorage.setItem("redirectAfterLogin", "/course-detail/dsa");
+      sessionStorage.setItem("openCheckout", "dsa");
+      navigate("/auth");
       return;
     }
     try {
