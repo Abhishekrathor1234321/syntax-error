@@ -216,7 +216,7 @@ function DSACourseDetail() {
     <iframe
      
       title="DSA Course Overview"
-      frameBorder={0}
+    
       allowFullScreen
       style={{
         position: "absolute",
