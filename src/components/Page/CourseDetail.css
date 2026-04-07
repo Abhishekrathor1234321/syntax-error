@@ -841,330 +841,152 @@
 /* ===== MOBILE (max 480px) ===== */
 @media (max-width: 480px) {
 
-  body {
-    overflow-x: hidden;
-  }
+body {
+overflow-x: hidden;
+}
 
-  /* === TOPBAR === */
-  .container {
-    padding: 0.75rem 1rem;
-  }
+/* ===== TOPBAR ===== */
+.container {
+padding: 0.75rem 1rem;
+max-width: 100%; /* 🔥 fix */
+}
 
-  .cd-back-btn {
-    font-size: 0.78rem;
-    padding: 0.45rem 0.85rem;
-  }
+.cd-back-btn {
+font-size: 0.78rem;
+padding: 0.45rem 0.85rem;
+}
 
-  .cd-brand {
-    font-size: 0.72rem;
-    letter-spacing: 2px;
-  }
+.cd-brand {
+font-size: 0.72rem;
+letter-spacing: 2px;
+}
 
-  /* === PAGE GRID === */
-  .cd-page-grid {
-    padding: 0 0.7rem;
-    width: 100%;
-  }
+/* ===== PAGE GRID ===== */
+.cd-page-grid {
+padding: 0 0.7rem;
+width: 100%;
+}
 
-  /* === HERO === */
-  .cd-hero {
-    padding: 2rem 0 1.5rem;
-    margin-top: 0;
-  }
+/* ===== HERO ===== */
+.cd-hero {
+padding: 2rem 0 1.5rem;
+margin-top: 0;
+}
 
-  /* === BADGE FIX on mobile === */
-  .cd-badge {
-    font-size: 0.68rem;
-    padding: 0.4rem 1rem;
-    margin-bottom: 1rem;
-    letter-spacing: 1px;
-    /* Allow wrap if very long text */
-    white-space: normal;
-    text-align: center;
-    max-width: 95%;
-  }
+/* ===== BADGE ===== */
+.cd-badge {
+font-size: 0.68rem;
+padding: 0.4rem 1rem;
+margin: 15px auto 1rem; /* 🔥 center + spacing */
+text-align: center;
+max-width: 95%;
+white-space: normal;
+}
 
-  .cd-title {
-    font-size: 1.6rem;
-    line-height: 1.2;
-    letter-spacing: -0.3px;
-  }
+.cd-title {
+font-size: 1.6rem;
+line-height: 1.2;
+}
 
-  .cd-subtitle {
-    font-size: 0.85rem;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-  }
+.cd-subtitle {
+font-size: 0.85rem;
+line-height: 1.6;
+margin-bottom: 1.5rem;
+}
 
-  /* === PRICE CARD === */
-  .cd-price-card {
-    width: 100%;
-    max-width: 100%;
-    padding: 1rem 1.2rem;
-    margin-bottom: 1.2rem;
-    border-radius: 14px;
-  }
+/* ===== PRICE ===== */
+.cd-price-card {
+width: 100%;
+padding: 1rem 1.2rem;
+border-radius: 14px;
+}
 
-  .cd-price {
-    font-size: 2rem;
-  }
+.cd-price {
+font-size: 2rem;
+}
 
-  .cd-price-og {
-    font-size: 1rem;
-  }
+.cd-enroll-btn {
+width: 100%;
+font-size: 0.95rem;
+padding: 0.9rem;
+}
 
-  .cd-price-row {
-    gap: 0.5rem;
-  }
+/* ===== VIDEO ===== */
+.cd-video-wrapper iframe {
+width: 100%;
+aspect-ratio: 16/9; /* 🔥 FIX */
+}
 
-  /* === ENROLL BUTTON: full width on mobile === */
-  .cd-enroll-btn {
-    width: 100%;
-    min-width: unset;
-    font-size: 0.95rem;
-    padding: 0.9rem 1rem;
-    border-radius: 12px;
-  }
+/* ===== STATS ===== */
+.cd-stats {
+grid-template-columns: 1fr 1fr;
+margin: 0 -0.7rem;
+}
 
-  /* === VIDEO === */
-  .cd-preview-video {
-    margin-top: 1.8rem;
-  }
+.cd-stat {
+padding: 1rem 0.5rem;
+}
 
-  .cd-video-wrapper {
-    border-radius: 14px;
-    box-shadow:
-      0 0 0 1px rgba(79,70,229,0.25),
-      0 6px 24px rgba(124,58,237,0.3),
-      0 12px 36px rgba(0,0,0,0.45);
-  }
+.cd-stat-num {
+font-size: 1.2rem;
+}
 
-  .cd-video-wrapper iframe {
-    width: 100%;
-    height: 100%;
-  }
+.cd-stat-label {
+font-size: 0.68rem;
+}
 
-  /* === STATS === */
-  .cd-stats {
-    grid-template-columns: 1fr 1fr;
-    margin: 0 -0.7rem;
-  }
+/* ===== SECTIONS ===== */
+.cd-section {
+padding: 1.8rem 0;
+}
 
-  .cd-stat {
-    padding: 1rem 0.5rem;
-  }
+.cd-section-title {
+font-size: 1.25rem;
+}
 
-  .cd-stat-num {
-    font-size: 1.2rem;
-  }
+/* ===== CARDS ===== */
+.cd-description-card,
+.cd-curriculum-card,
+.cd-instructor-card {
+padding: 1rem;
+border-radius: 14px;
+}
 
-  .cd-stat-label {
-    font-size: 0.68rem;
-  }
+/* ===== CTA ===== */
+.cd-cta-card {
+padding: 1.8rem 1.2rem;
+}
 
-  /* === SECTIONS === */
-  .cd-section {
-    padding: 1.8rem 0;
-  }
+.cd-cta-price {
+font-size: 2.2rem;
+}
 
-  .cd-section-title {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .cd-section-sub {
-    font-size: 0.85rem;
-    margin-bottom: 1.3rem;
-  }
-
-  /* === DESCRIPTION CARD === */
-  .cd-description-card {
-    padding: 1rem;
-    border-radius: 14px;
-  }
-
-  .cd-desc-text {
-    font-size: 0.88rem;
-    line-height: 1.75;
-  }
-
-  .cd-desc-info {
-    grid-template-columns: 1fr;
-    gap: 0.6rem;
-  }
-
-  .cd-desc-info-item {
-    padding: 0.75rem 0.9rem;
-  }
-
-  /* === CURRICULUM === */
-  .cd-curriculum-card {
-    padding: 1rem;
-    border-radius: 14px;
-  }
-
-  .cd-curriculum-card h3 {
-    font-size: 1rem;
-  }
-
-  .cd-topics-list li {
-    font-size: 0.85rem;
-    padding: 0.6rem 0;
-  }
-
-  /* === FEATURES === */
-  .cd-features-grid {
-    grid-template-columns: 1fr;
-    gap: 0.85rem;
-  }
-
-  .cd-feature-card {
-    padding: 1.1rem 1.2rem;
-    border-radius: 14px;
-  }
-
-  .cd-feature-icon {
-    font-size: 1.4rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .cd-feature-card h4 {
-    font-size: 0.95rem;
-  }
-
-  .cd-feature-card p {
-    font-size: 0.83rem;
-  }
-
-  /* === STEPS === */
-  .cd-step {
-    max-width: 260px;
-    padding: 0.8rem 0;
-  }
-
-  .cd-step-num {
-    width: 44px;
-    height: 44px;
-    font-size: 1.1rem;
-  }
-
-  .cd-step h4 {
-    font-size: 0.95rem;
-  }
-
-  .cd-step p {
-    font-size: 0.82rem;
-  }
-
-  /* === INSTRUCTOR === */
-  .cd-instructor-card {
-    padding: 1.3rem 1rem;
-    border-radius: 14px;
-  }
-
-  .cd-instructor-avatar {
-    width: 58px;
-    height: 58px;
-    font-size: 1.1rem;
-  }
-
-  .cd-instructor-card h3 {
-    font-size: 1.1rem;
-  }
-
-  .cd-instructor-card p {
-    font-size: 0.85rem;
-  }
-
-  .cd-instructor-tags {
-    gap: 0.45rem;
-  }
-
-  .cd-instructor-tags span {
-    font-size: 0.75rem;
-    padding: 0.3rem 0.7rem;
-  }
-
-  /* === FAQ === */
-  .cd-faqs {
-    gap: 0.55rem;
-  }
-
-  .cd-faq {
-    padding: 0.85rem 1rem;
-    border-radius: 10px;
-  }
-
-  .cd-faq-q {
-    font-size: 0.87rem;
-  }
-
-  .cd-faq-a {
-    font-size: 0.82rem;
-  }
-
-  /* === CTA === */
-  .cd-cta {
-    padding: 2rem 0;
-  }
-
-  .cd-cta-card {
-    padding: 1.8rem 1.2rem;
-    border-radius: 18px;
-  }
-
-  .cd-cta-card h2 {
-    font-size: 1.3rem;
-    margin-bottom: 0.6rem;
-  }
-
-  .cd-cta-card p {
-    font-size: 0.85rem;
-    margin-bottom: 1.2rem;
-  }
-
-  .cd-cta-price {
-    font-size: 2.2rem;
-    margin-bottom: 1.2rem;
-  }
-
-  .cd-cta-btn {
-    width: 100%;
-    max-width: 100%;
-    padding: 0.9rem 1rem;
-    font-size: 0.95rem;
-    border-radius: 10px;
-  }
+.cd-cta-btn {
+width: 100%;
+}
 }
 
 /* ===== EXTRA SMALL (max 360px) ===== */
 @media (max-width: 360px) {
-  .cd-title {
-    font-size: 1.35rem;
-  }
 
-  .cd-price {
-    font-size: 1.7rem;
-  }
+.cd-title {
+font-size: 1.35rem;
+}
 
-  .cd-stats {
-    grid-template-columns: 1fr 1fr;
-  }
+.cd-price {
+font-size: 1.7rem;
+}
 
-  .cd-stat-num {
-    font-size: 1.05rem;
-  }
+.cd-cta-price {
+font-size: 1.8rem;
+}
 
-  .cd-cta-price {
-    font-size: 1.8rem;
-  }
+.cd-section-title {
+font-size: 1.15rem;
+}
 
-  .cd-section-title {
-    font-size: 1.15rem;
-  }
-
-  .cd-badge {
-    font-size: 0.62rem;
-    padding: 0.35rem 0.8rem;
-  }
+.cd-badge {
+font-size: 0.62rem;
+padding: 0.35rem 0.8rem;
+}
 }
