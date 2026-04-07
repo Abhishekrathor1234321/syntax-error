@@ -214,7 +214,7 @@ function DSACourseDetail() {
     boxShadow: "0 0 30px rgba(99, 102, 241, 0.2)"
   }}>
     <iframe
-      src="https://www.youtube.com/embed/A7xxmiuuoEI"
+     
       title="DSA Course Overview"
       frameBorder={0}
       allowFullScreen
