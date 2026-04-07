@@ -10,11 +10,9 @@
 
 /* ===== TOPBAR ===== */
 .cd-topbar {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+ 
   width: 100%;
-  padding: 0.9rem 1.5rem;
+ 
   background: #0d0d1aee;
   border-bottom: 1px solid #1e1e3a;
   position: sticky;
@@ -27,7 +25,7 @@
 .container {
   max-width: 760px;
   margin : 0 auto;
-  padding: 0 1.2rem;
+   padding: 0.9rem 1.5rem;
 
 }
 .cd-topbar .container{
