@@ -197,7 +197,7 @@ function DSACourseDetail() {
     <iframe
       src="https://www.youtube.com/embed/A7xxmiuuoEI"
       title="DSA Course Overview"
-      frameBorder="0"
+     frameBorder={0}
       allowFullScreen
     />
   </div>
