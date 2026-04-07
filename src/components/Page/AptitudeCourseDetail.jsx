@@ -145,12 +145,12 @@ function AptitudeCourseDetail() {
       )}
 
       {/* ── TOPBAR (sticky, top) ── */}
-      <div className="cd-topbar">
+      {/* <div className="cd-topbar">
         <button onClick={() => navigate("/courses")} className="cd-back-btn">
           ← Back to Courses
         </button>
         <span className="cd-brand">SYNTAX ERROR</span>
-      </div>
+      </div> */}
 
       {/* ── ALL CONTENT inside single page grid ── */}
       <div className="cd-page-grid">
