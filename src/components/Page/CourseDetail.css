@@ -260,6 +260,7 @@
 .cd-video-wrapper {
   position: relative;
   width: 100%;
+   height: auto;
   aspect-ratio: 16 / 9;
   border-radius: 16px;
   overflow: hidden;
@@ -737,90 +738,95 @@
 }
 
 
-/* ===== MOBILE (max 480px) ===== */
+/* ===== MOBILE FINAL FIX ===== */
 @media (max-width: 480px) {
 
-  .cd-topbar {
-    padding: 0.75rem 1rem;
-    gap: 0.5rem;
-  }
-
-  .cd-back-btn {
-    font-size: 0.78rem;
-    padding: 0.4rem 0.8rem;
-    border-radius: 8px;
-    flex-shrink: 0;
-  }
-
-  .cd-brand {
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    flex: 1;
-    text-align: center;
+  /* page full width + no side gap */
+  body {
+    overflow-x: hidden;
   }
 
   .cd-page-grid {
-    padding: 0 0.85rem;
-    max-width: 100%;
-  }
-
-  .cd-hero { padding: 3.5rem 0 2rem; }
-
-  .cd-badge { font-size: 0.65rem; padding: 0.32rem 0.8rem; }
-
-  .cd-title {
-    font-size: 1.6rem;
-    line-height: 1.18;
-  }
-
-  .cd-subtitle {
-    font-size: 0.88rem;
-    line-height: 1.7;
-  }
-
-  .cd-price-card {
-    padding: 1rem 1.2rem;
-    max-width: 100%;
+    padding: 0 0.7rem;
     width: 100%;
   }
 
-  .cd-price { font-size: 2rem; }
+  /* HERO SECTION */
+  .cd-hero {
+    padding: 2.5rem 0 1.5rem;
+  }
 
-  .cd-enroll-btn {
-    max-width: 100%;
-    font-size: 1rem;
+  .cd-title {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .cd-subtitle {
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+
+  /* PRICE CARD */
+  .cd-price-card {
+    width: 100%;
     padding: 1rem;
   }
 
-  .cd-stats { margin: 0 -0.85rem; }
-  .cd-stat { padding: 1.2rem 0.5rem; }
-  .cd-stat-num { font-size: 1.3rem; }
-  .cd-stat-label { font-size: 0.68rem; }
+  .cd-price {
+    font-size: 1.8rem;
+  }
 
-  .cd-section { padding: 2rem 0; }
-  .cd-section-title { font-size: 1.25rem; }
+  .cd-enroll-btn {
+    width: 100%;
+    font-size: 0.95rem;
+    padding: 0.9rem;
+  }
 
-  .cd-desc-info { grid-template-columns: 1fr; }
+  /* VIDEO FIX (IMPORTANT 🔥) */
+  .cd-video-wrapper iframe {
+    width: 100%;
+    height: 200px;
+  }
 
-  .cd-description-card,
+  /* DESCRIPTION CARD */
+  .cd-description-card {
+    padding: 1rem;
+  }
+
+  /* STATS GRID */
+  .cd-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cd-stat {
+    padding: 1rem 0.5rem;
+  }
+
+  .cd-stat-num {
+    font-size: 1.2rem;
+  }
+
+  .cd-stat-label {
+    font-size: 0.7rem;
+  }
+
+  /* CARDS */
   .cd-curriculum-card,
   .cd-instructor-card {
-    padding: 1.1rem;
-    border-radius: 14px;
+    padding: 1rem;
   }
 
-  .cd-instructor-tags { gap: 0.4rem; }
-  .cd-instructor-tags span { font-size: 0.73rem; padding: 0.32rem 0.65rem; }
-
-  .cd-cta { padding: 1.8rem 0; }
+  /* CTA SECTION */
   .cd-cta-card {
-    padding: 1.8rem 1rem;
-    border-radius: 16px;
+    padding: 1.5rem 1rem;
   }
-  .cd-cta-card h2 { font-size: 1.25rem; }
-  .cd-cta-price { font-size: 2rem; }
-  .cd-cta-btn { max-width: 100%; font-size: 0.95rem; }
 
-  .cd-video-wrapper { border-radius: 12px; }
-  .cd-feature-card { padding: 1.1rem 1.2rem; }
+  .cd-cta-price {
+    font-size: 1.8rem;
+  }
+
+  .cd-cta-btn {
+    width: 100%;
+  }
+
 }
