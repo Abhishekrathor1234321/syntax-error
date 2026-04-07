@@ -3,6 +3,8 @@
 .cd-wrapper * { box-sizing: border-box; margin: 0; padding: 0; }
 
 .cd-wrapper {
+    width: 100%;
+  max-width: 100%;
   min-height: 100vh;
   background: #0d0d1a;
   color: white;
@@ -24,9 +26,10 @@
 }
 
 .container {
-  max-width: 100%;
-  width: 100%;
-  margin : 0 ;
+
+   width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
    padding: 0.9rem 1.5rem;
 
 }
@@ -68,10 +71,9 @@
 
 /* ===== PAGE GRID — ALWAYS SINGLE COLUMN ===== */
 .cd-page-grid {
-  display: block !important ;       /* ← force single column, no grid/flex */
+  display: block !important;
   width: 100% !important;
- 
-  padding: 0 1.2rem;
+  padding: 0 !important; 
 }
 
 /* Hide right sidebar always */
@@ -93,7 +95,9 @@
 /* ===== HERO ===== */
 .cd-hero {
   position: relative;
-  padding: 4rem  1rem;
+    width: 100%;
+  padding: 4rem 2rem;   /* controlled spacing */
+  margin: 0;
   text-align: center;
   overflow: hidden;
   background: transparent;
