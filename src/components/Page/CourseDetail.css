@@ -15,17 +15,15 @@
 .cd-topbar {
  
   width: 100%;
-  padding: 1rem 1.5rem;
+ 
   background: #0d0d1aee;
   border-bottom: 1px solid #1e1e3a;
   position: sticky;
   top: 0;
   z-index: 100;
   backdrop-filter: blur(10px);
+  
  
-}
-.cd-page-grid{
-  padding-top: 80px;;
 }
 
 .container {
@@ -100,13 +98,13 @@
 /* ===== HERO ===== */
 .cd-hero {
   position: relative;
-    width: 100% !important;
+    width: 100%;
   padding: 4rem 2rem;   /* controlled spacing */
   margin: 0;
   text-align: center;
   overflow: hidden;
   background: transparent;
-   margin-top: 60px;
+   margin-top: 10px;
 }
 
 .cd-hero::before {
@@ -129,6 +127,7 @@
   background-size: 28px 28px;
   pointer-events: none;
   z-index: 0;
+  padding-top: 20px;
 }
 
 .cd-hero-content {
