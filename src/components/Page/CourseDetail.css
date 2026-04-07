@@ -67,9 +67,6 @@
   z-index: 1;
   max-width: 600px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .cd-badge {
@@ -620,36 +617,3 @@
   }
 }
 
-/* ===== PREVIEW VIDEO ===== */
-.cd-preview-video {
-  margin-top: 2rem;
-  width: 100%;
-  max-width: 600px;
-}
-
-.cd-preview-label {
-  font-size: 1rem;
-  color: #94a3b8;
-  margin-bottom: 0.75rem;
-  text-align: center;
-  letter-spacing: 0.05em;
-}
-
-.cd-video-wrapper {
-  position: relative;
-  width: 100%;
-  padding-bottom: 56.25%;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 2px solid rgba(99, 102, 241, 0.4);
-  box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
-}
-
-.cd-video-wrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-}
