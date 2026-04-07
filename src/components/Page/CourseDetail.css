@@ -127,7 +127,7 @@
 }
 
 .cd-title {
-  font-size: clamp(2rem, 7vw, 3rem);
+  font-size: clamp(2.5rem, 8vw, 3.5rem);
   font-weight: 900;
   line-height: 1.12;
   margin-bottom: 1.2rem;
