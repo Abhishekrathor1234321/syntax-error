@@ -83,6 +83,8 @@
 .cd-center-col {
   display: block;
   width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 /* Left col = no sticky in single-col mode */
@@ -129,6 +131,8 @@
 .cd-hero-content {
   position: relative;
   z-index: 1;
+   max-width: 900px;   
+  margin: 0 auto;  
 }
 
 .cd-badge {
