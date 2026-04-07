@@ -13,30 +13,25 @@
 
 /* ===== TOPBAR ===== */
 .cd-topbar {
- 
   width: 100%;
- 
   background: #0d0d1aee;
   border-bottom: 1px solid #1e1e3a;
   position: sticky;
   top: 0;
   z-index: 100;
   backdrop-filter: blur(10px);
- 
 }
 
 .container {
-
-   width: 100% !important;
+  width: 100% !important;
   max-width: 100% !important;
   margin: 0 !important;
-   padding: 0.9rem 1.5rem;
-
+  padding: 0.9rem 1.5rem;
 }
+
 .cd-topbar .container{
   display: flex;
   align-items: center;
-
 }
 
 .cd-back-btn {
@@ -73,7 +68,7 @@
 .cd-page-grid {
   display: block !important;
   width: 100% !important;
-  padding: 0 !important; 
+  padding: 0 !important;
 }
 
 /* Hide right sidebar always */
@@ -87,23 +82,16 @@
   margin: 0 auto;
 }
 
-/* Left col = no sticky in single-col mode */
-/* .cd-left-col {
-  position: static !important;
-  height: auto !important;
-  overflow: visible !important;
-} */
-
 /* ===== HERO ===== */
 .cd-hero {
   position: relative;
-    width: 100%;
-  padding: 4rem 2rem;   /* controlled spacing */
+  width: 100%;
+  padding: 4rem 2rem;
   margin: 0;
   text-align: center;
   overflow: hidden;
   background: transparent;
-   margin-top: 10px;
+  margin-top: 10px;
 }
 
 .cd-hero::before {
@@ -131,8 +119,8 @@
 .cd-hero-content {
   position: relative;
   z-index: 1;
-   max-width: 900px;   
-  margin: 0 auto;  
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .cd-badge {
@@ -260,7 +248,6 @@
 .cd-video-wrapper {
   position: relative;
   width: 100%;
-  
   aspect-ratio: 16 / 9;
   border-radius: 16px;
   overflow: hidden;
@@ -278,7 +265,6 @@
   background: #0f0f1f;
   border-top: 1px solid #1e1e3a;
   border-bottom: 1px solid #1e1e3a;
-  /* Full bleed within the page grid */
   margin: 0 -1.2rem;
 }
 
@@ -718,8 +704,22 @@
 @media (max-width: 768px) {
   .cd-page-grid { padding: 0 1rem; }
 
-  .cd-hero { padding: 3rem 0 2rem; }
-  .cd-title { font-size: 1.95rem; }
+  .cd-hero { padding: 3rem 1.2rem 2rem; }
+  .cd-title { font-size: 2rem; }
+
+  .cd-subtitle {
+    font-size: 0.9rem;
+    max-width: 100%;
+  }
+
+  .cd-price-card {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .cd-enroll-btn {
+    width: 100%;
+  }
 
   .cd-stats {
     grid-template-columns: repeat(2, 1fr);
@@ -733,69 +733,124 @@
   .cd-section { padding: 2.2rem 0; }
   .cd-section-title { font-size: 1.45rem; }
 
+  .cd-desc-info {
+    grid-template-columns: 1fr;
+  }
+
+  .cd-features-grid {
+    grid-template-columns: 1fr;
+  }
+
   .cd-cta-card h2 { font-size: 1.45rem; }
   .cd-cta-price { font-size: 2.6rem; }
+
+  .cd-instructor-tags span {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.75rem;
+  }
 }
 
 
-/* ===== MOBILE FINAL FIX ===== */
+/* ===== MOBILE (max 480px) ===== */
 @media (max-width: 480px) {
 
-  /* page full width + no side gap */
   body {
     overflow-x: hidden;
   }
 
+  /* === TOPBAR === */
+  .container {
+    padding: 0.75rem 1rem;
+  }
+
+  .cd-back-btn {
+    font-size: 0.78rem;
+    padding: 0.45rem 0.85rem;
+  }
+
+  .cd-brand {
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+  }
+
+  /* === PAGE GRID === */
   .cd-page-grid {
     padding: 0 0.7rem;
     width: 100%;
   }
 
-  /* HERO SECTION */
+  /* === HERO === */
   .cd-hero {
-    padding: 2.5rem 0 1.5rem;
+    padding: 2rem 0 1.5rem;
+    margin-top: 0;
+  }
+
+  .cd-badge {
+    font-size: 0.65rem;
+    padding: 0.35rem 0.85rem;
+    margin-bottom: 1rem;
   }
 
   .cd-title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     line-height: 1.2;
+    letter-spacing: -0.3px;
   }
 
   .cd-subtitle {
     font-size: 0.85rem;
     line-height: 1.6;
+    margin-bottom: 1.5rem;
   }
 
-  /* PRICE CARD */
+  /* === PRICE CARD === */
   .cd-price-card {
     width: 100%;
-    padding: 1rem;
+    max-width: 100%;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.2rem;
+    border-radius: 14px;
   }
 
   .cd-price {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 
+  .cd-price-og {
+    font-size: 1rem;
+  }
+
+  .cd-price-row {
+    gap: 0.5rem;
+  }
+
+  /* === ENROLL BUTTON === */
   .cd-enroll-btn {
     width: 100%;
     font-size: 0.95rem;
-    padding: 0.9rem;
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
   }
 
-  /* VIDEO FIX (IMPORTANT 🔥) */
+  /* === VIDEO === */
+  .cd-preview-video {
+    margin-top: 1.8rem;
+  }
+
+  .cd-video-wrapper {
+    border-radius: 12px;
+    /* aspect-ratio handles height automatically — no fixed height needed */
+  }
+
   .cd-video-wrapper iframe {
     width: 100%;
-    height: 200px;
+    height: 100%;
   }
 
-  /* DESCRIPTION CARD */
-  .cd-description-card {
-    padding: 1rem;
-  }
-
-  /* STATS GRID */
+  /* === STATS === */
   .cd-stats {
     grid-template-columns: 1fr 1fr;
+    margin: 0 -0.7rem;
   }
 
   .cd-stat {
@@ -807,26 +862,207 @@
   }
 
   .cd-stat-label {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
   }
 
-  /* CARDS */
-  .cd-curriculum-card,
-  .cd-instructor-card {
+  /* === SECTIONS === */
+  .cd-section {
+    padding: 1.8rem 0;
+  }
+
+  .cd-section-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .cd-section-sub {
+    font-size: 0.85rem;
+    margin-bottom: 1.3rem;
+  }
+
+  /* === DESCRIPTION CARD === */
+  .cd-description-card {
     padding: 1rem;
+    border-radius: 14px;
   }
 
-  /* CTA SECTION */
+  .cd-desc-text {
+    font-size: 0.88rem;
+    line-height: 1.75;
+  }
+
+  .cd-desc-info {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .cd-desc-info-item {
+    padding: 0.75rem 0.9rem;
+  }
+
+  /* === CURRICULUM === */
+  .cd-curriculum-card {
+    padding: 1rem;
+    border-radius: 14px;
+  }
+
+  .cd-curriculum-card h3 {
+    font-size: 1rem;
+  }
+
+  .cd-topics-list li {
+    font-size: 0.85rem;
+    padding: 0.6rem 0;
+  }
+
+  /* === FEATURES === */
+  .cd-features-grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .cd-feature-card {
+    padding: 1.1rem 1.2rem;
+    border-radius: 14px;
+  }
+
+  .cd-feature-icon {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .cd-feature-card h4 {
+    font-size: 0.95rem;
+  }
+
+  .cd-feature-card p {
+    font-size: 0.83rem;
+  }
+
+  /* === STEPS === */
+  .cd-step {
+    max-width: 260px;
+    padding: 0.8rem 0;
+  }
+
+  .cd-step-num {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+
+  .cd-step h4 {
+    font-size: 0.95rem;
+  }
+
+  .cd-step p {
+    font-size: 0.82rem;
+  }
+
+  /* === INSTRUCTOR === */
+  .cd-instructor-card {
+    padding: 1.3rem 1rem;
+    border-radius: 14px;
+  }
+
+  .cd-instructor-avatar {
+    width: 58px;
+    height: 58px;
+    font-size: 1.1rem;
+  }
+
+  .cd-instructor-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .cd-instructor-card p {
+    font-size: 0.85rem;
+  }
+
+  .cd-instructor-tags {
+    gap: 0.45rem;
+  }
+
+  .cd-instructor-tags span {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.7rem;
+  }
+
+  /* === FAQ === */
+  .cd-faqs {
+    gap: 0.55rem;
+  }
+
+  .cd-faq {
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+  }
+
+  .cd-faq-q {
+    font-size: 0.87rem;
+  }
+
+  .cd-faq-a {
+    font-size: 0.82rem;
+  }
+
+  /* === CTA === */
+  .cd-cta {
+    padding: 2rem 0;
+  }
+
   .cd-cta-card {
-    padding: 1.5rem 1rem;
+    padding: 1.8rem 1.2rem;
+    border-radius: 18px;
+  }
+
+  .cd-cta-card h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .cd-cta-card p {
+    font-size: 0.85rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .cd-cta-price {
+    font-size: 2.2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .cd-cta-btn {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.9rem 1rem;
+    font-size: 0.95rem;
+    border-radius: 10px;
+  }
+}
+
+/* ===== EXTRA SMALL (max 360px) ===== */
+@media (max-width: 360px) {
+  .cd-title {
+    font-size: 1.35rem;
+  }
+
+  .cd-price {
+    font-size: 1.7rem;
+  }
+
+  .cd-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cd-stat-num {
+    font-size: 1.05rem;
   }
 
   .cd-cta-price {
     font-size: 1.8rem;
   }
 
-  .cd-cta-btn {
-    width: 100%;
+  .cd-section-title {
+    font-size: 1.15rem;
   }
-
 }
