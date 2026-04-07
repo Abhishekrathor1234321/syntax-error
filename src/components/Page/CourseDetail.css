@@ -50,9 +50,9 @@
   letter-spacing: 3px;
 }
 
-/* ===== SINGLE COLUMN LAYOUT ===== */
+/* ===== PAGE GRID — ALWAYS SINGLE COLUMN ===== */
 .cd-page-grid {
-  display: block;
+  display: block;          /* ← force single column, no grid/flex */
   max-width: 760px;
   margin: 0 auto;
   padding: 0 1.2rem;
@@ -60,6 +60,12 @@
 
 /* Hide right sidebar always */
 .cd-right-col { display: none !important; }
+
+/* Center col: full width, no sticky */
+.cd-center-col {
+  display: block;
+  width: 100%;
+}
 
 /* Left col = no sticky in single-col mode */
 .cd-left-col {
@@ -71,11 +77,10 @@
 /* ===== HERO ===== */
 .cd-hero {
   position: relative;
-  padding: 4rem 0 2.5rem;       /* ← increased top padding */
+  padding: 4rem 0 2.5rem;
   text-align: center;
   overflow: hidden;
   background: transparent;
-   padding-top: 5rem;
 }
 
 .cd-hero::before {
@@ -247,6 +252,7 @@
   background: #0f0f1f;
   border-top: 1px solid #1e1e3a;
   border-bottom: 1px solid #1e1e3a;
+  /* Full bleed within the page grid */
   margin: 0 -1.2rem;
 }
 
@@ -387,7 +393,7 @@
   flex-shrink: 0;
 }
 
-/* Features Grid */
+/* Features Grid — always single column */
 .cd-features-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -505,6 +511,12 @@
   box-shadow: 0 0 0 4px rgba(124,58,237,0.2);
 }
 
+/* Aptitude instructor avatar — green theme */
+.cd-instructor-avatar-apt {
+  background: linear-gradient(135deg, #059669, #0891b2);
+  box-shadow: 0 0 0 4px rgba(5,150,105,0.2);
+}
+
 .cd-instructor-card h3 {
   font-size: 1.25rem;
   font-weight: 800;
@@ -593,6 +605,11 @@
   width: 100%;
   position: relative;
   overflow: hidden;
+}
+
+/* Aptitude CTA — green gradient */
+.cd-cta-aptitude {
+  background: linear-gradient(135deg, #064e3b, #059669, #0891b2);
 }
 
 .cd-cta-card::before {
@@ -698,7 +715,6 @@
 /* ===== MOBILE (max 480px) ===== */
 @media (max-width: 480px) {
 
-  /* --- Topbar: back btn left, brand centered --- */
   .cd-topbar {
     padding: 0.75rem 1rem;
     gap: 0.5rem;
@@ -718,16 +734,12 @@
     text-align: center;
   }
 
-  /* --- Page grid: tight padding --- */
   .cd-page-grid {
     padding: 0 0.85rem;
     max-width: 100%;
   }
 
-  /* --- Hero: good top breathing room --- */
-  .cd-hero {
-    padding: 3.5rem 0 2rem;     /* ← clear top space below sticky nav */
-  }
+  .cd-hero { padding: 3.5rem 0 2rem; }
 
   .cd-badge { font-size: 0.65rem; padding: 0.32rem 0.8rem; }
 
@@ -741,7 +753,6 @@
     line-height: 1.7;
   }
 
-  /* --- Price & enroll: full width --- */
   .cd-price-card {
     padding: 1rem 1.2rem;
     max-width: 100%;
@@ -756,20 +767,16 @@
     padding: 1rem;
   }
 
-  /* --- Stats: 2 col grid --- */
   .cd-stats { margin: 0 -0.85rem; }
   .cd-stat { padding: 1.2rem 0.5rem; }
   .cd-stat-num { font-size: 1.3rem; }
   .cd-stat-label { font-size: 0.68rem; }
 
-  /* --- Sections --- */
   .cd-section { padding: 2rem 0; }
   .cd-section-title { font-size: 1.25rem; }
 
-  /* --- Info grid: single col on small screens --- */
   .cd-desc-info { grid-template-columns: 1fr; }
 
-  /* --- Cards --- */
   .cd-description-card,
   .cd-curriculum-card,
   .cd-instructor-card {
@@ -777,11 +784,9 @@
     border-radius: 14px;
   }
 
-  /* --- Instructor tags --- */
   .cd-instructor-tags { gap: 0.4rem; }
   .cd-instructor-tags span { font-size: 0.73rem; padding: 0.32rem 0.65rem; }
 
-  /* --- CTA --- */
   .cd-cta { padding: 1.8rem 0; }
   .cd-cta-card {
     padding: 1.8rem 1rem;
@@ -791,7 +796,6 @@
   .cd-cta-price { font-size: 2rem; }
   .cd-cta-btn { max-width: 100%; font-size: 0.95rem; }
 
-  /* --- Ensure nothing breaks out of single column --- */
   .cd-video-wrapper { border-radius: 12px; }
   .cd-feature-card { padding: 1.1rem 1.2rem; }
 }
