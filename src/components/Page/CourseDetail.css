@@ -100,7 +100,7 @@
 /* ===== HERO ===== */
 .cd-hero {
   position: relative;
-    width: 100%;
+    width: 100% !important;
   padding: 4rem 2rem;   /* controlled spacing */
   margin: 0;
   text-align: center;
