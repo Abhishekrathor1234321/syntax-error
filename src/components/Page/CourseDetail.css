@@ -24,8 +24,9 @@
 }
 
 .container {
-  max-width: 760px;
-  margin : 0 auto;
+  max-width: 100%;
+  width: 100%;
+  margin : 0 ;
    padding: 0.9rem 1.5rem;
 
 }
@@ -67,8 +68,8 @@
 
 /* ===== PAGE GRID — ALWAYS SINGLE COLUMN ===== */
 .cd-page-grid {
-  display: block;          /* ← force single column, no grid/flex */
-  width: 100%;
+  display: block !important ;       /* ← force single column, no grid/flex */
+  width: 100% !important;
  
   padding: 0 1.2rem;
 }
@@ -83,16 +84,16 @@
 }
 
 /* Left col = no sticky in single-col mode */
-.cd-left-col {
+/* .cd-left-col {
   position: static !important;
   height: auto !important;
   overflow: visible !important;
-}
+} */
 
 /* ===== HERO ===== */
 .cd-hero {
   position: relative;
-  padding: 4rem 0 2.5rem;
+  padding: 4rem  1rem;
   text-align: center;
   overflow: hidden;
   background: transparent;
