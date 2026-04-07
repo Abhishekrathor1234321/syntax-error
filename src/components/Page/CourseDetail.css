@@ -12,7 +12,7 @@
 .cd-topbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 0.9rem 1.5rem;
   background: #0d0d1aee;
   border-bottom: 1px solid #1e1e3a;
@@ -38,6 +38,7 @@
   transition: all 0.2s;
   white-space: nowrap;
 }
+
 .cd-back-btn:hover {
   color: white;
   border-color: #a78bfa;
