@@ -191,7 +191,7 @@ function DSACourseDetail() {
             Enroll Now →
           </button>
 
-         <div style={{
+<div style={{
   marginTop: "2rem",
   width: "100%",
   maxWidth: "600px",
@@ -211,24 +211,27 @@ function DSACourseDetail() {
     borderRadius: "16px",
     overflow: "hidden",
     border: "2px solid rgba(99, 102, 241, 0.4)",
-    boxShadow: "0 0 30px rgba(99, 102, 241, 0.2)"
+    boxShadow: "0 0 30px rgba(99, 102, 241, 0.2)",
+    background: "#1e1e3a"
   }}>
-    <iframe
-     
-      title="DSA Course Overview"
-    
-      allowFullScreen
-      style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        border: "none"
-      }}
-    />
+    <div style={{
+      position: "absolute",
+      top: 0, left: 0,
+      width: "100%", height: "100%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      color: "#a78bfa",
+      fontSize: "2rem"
+    }}>▶ Video</div>
   </div>
 </div>
+
+
+
+
+
+
         </div>
       </section>
 
