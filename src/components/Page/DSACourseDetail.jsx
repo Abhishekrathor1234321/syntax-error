@@ -190,22 +190,24 @@ function DSACourseDetail() {
             <button className="cd-enroll-btn" onClick={handleEnrollClick}>
               Enroll Now →
             </button>
+
+            <div className="cd-video-wrapper">
+    <iframe
+      src="https://www.youtube-nocookie.com/embed/A7xxmiuuoEI?rel=0&modestbranding=1"
+      title="DSA Course Preview"
+      loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      referrerPolicy="strict-origin-when-cross-origin"
+      allowFullScreen
+    />
+  </div>
+</div>
              
 
              <div className="cd-preview-video">
   <p className="cd-preview-label">🎬 See What You'll Learn</p>
 
- <div className="cd-preview-video">
-  <p className="cd-preview-label">🎬 See What You'll Learn</p>
-  <div className="cd-video-wrapper">
-    <iframe
-      src="https://www.youtube.com/embed/A7xxmiuuoEI"
-      title="DSA Course Overview"
-      frameBorder="0"
-      allowFullScreen
-    />
-  </div>
-</div>
+  
           </div>
         </section>
 
