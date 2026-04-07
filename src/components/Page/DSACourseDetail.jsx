@@ -14,8 +14,6 @@ function DSACourseDetail() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
-    // ✅ Login ke baad auto checkout open
     const token = localStorage.getItem("token");
     const openCheckout = sessionStorage.getItem("openCheckout");
     if (openCheckout === "dsa" && token) {
@@ -24,13 +22,12 @@ function DSACourseDetail() {
     }
   }, []);
 
-  // ✅ Enroll button — login nahi hai to auth pe bhejo, hai to checkout kholo
   const handleEnrollClick = () => {
     const token = localStorage.getItem("token");
     if (!token) {
       sessionStorage.setItem("redirectAfterLogin", "/course-detail/dsa");
       sessionStorage.setItem("openCheckout", "dsa");
-    navigate("/login");
+      navigate("/login");
       return;
     }
     setShowCheckout(true);
@@ -41,7 +38,7 @@ function DSACourseDetail() {
     if (!token) {
       sessionStorage.setItem("redirectAfterLogin", "/course-detail/dsa");
       sessionStorage.setItem("openCheckout", "dsa");
-     navigate("/login");
+      navigate("/login");
       return;
     }
     try {
@@ -155,7 +152,7 @@ function DSACourseDetail() {
         />
       )}
 
-      {/* Navbar back */}
+      {/* Topbar */}
       <div className="cd-topbar">
         <button onClick={() => navigate("/courses")} className="cd-back-btn">
           ← Back to Courses
@@ -163,250 +160,359 @@ function DSACourseDetail() {
         <span className="cd-brand">SYNTAX ERROR</span>
       </div>
 
-      {/* Hero Section */}
-      <section className="cd-hero">
-        <div className="cd-hero-bg" />
-        <div className="cd-hero-content">
-          <div className="cd-badge">⚡ LANGUAGE SUPPORT: JAVA / PYTHON / C++</div>
-          <h1 className="cd-title">
-            Complete Data Structure<br />& Algorithm Course<br />
-            <span className="cd-title-accent">2026</span>
-          </h1>
-          <p className="cd-subtitle">
-            Master Data Structures and Algorithms from zero to hero. Prepare for
-            placements, internships, and MAANG interviews with structured concepts
-            and LeetCode practice.
-          </p>
+      {/* ===== DESKTOP 3-COLUMN GRID ===== */}
+      <div className="cd-page-grid">
 
-          <div className="cd-price-card">
-            <span className="cd-price-label">LIFETIME ACCESS</span>
-            <div className="cd-price-row">
-              <span className="cd-price">₹299</span>
-              <span className="cd-price-og">₹1999</span>
-              <span className="cd-discount-badge">85% OFF</span>
-            </div>
-          </div>
+        {/* ── LEFT COLUMN: Hero (sticky) ── */}
+        <section className="cd-hero cd-left-col">
+          <div className="cd-hero-bg" />
+          <div className="cd-hero-content">
+            <div className="cd-badge">⚡ LANGUAGE SUPPORT: JAVA / PYTHON / C++</div>
+            <h1 className="cd-title">
+              Complete Data Structure<br />& Algorithm Course<br />
+              <span className="cd-title-accent">2026</span>
+            </h1>
+            <p className="cd-subtitle">
+              Master Data Structures and Algorithms from zero to hero. Prepare for
+              placements, internships, and MAANG interviews with structured concepts
+              and LeetCode practice.
+            </p>
 
-          <button className="cd-enroll-btn" onClick={handleEnrollClick}>
-            Enroll Now →
-          </button>
-
-             <div className="cd-preview-video">
-  <p className="cd-preview-label">🎬 See What You'll Learn</p>
-  <div className="cd-video-wrapper">
-    <iframe
-      src="https://www.youtube.com/embed/A7xxmiuuoEI"
-      title="DSA Course Preview"
-      allowFullScreen
-    />
-  </div>
-</div>
-
-
-
-
-        </div>
-      </section>
-
-      {/* Course Description */}
-      <section className="cd-section" style={{ paddingTop: "2rem", paddingBottom: "0" }}>
-        <div className="cd-description-card">
-          <p className="cd-desc-text">
-            This course covers all Data Structures and Algorithms topics from basic to advanced
-            level with proper concepts, approaches, and LeetCode questions. If you want to prepare
-            for placements, internships, and coding interviews, this course is perfect for you.
-            In this course, we will solve a large number of coding questions along with concept
-            building, pattern recognition, and interview preparation.
-          </p>
-
-          {/* What You'll Get */}
-          <div className="cd-curriculum-card" style={{ marginTop: "1rem" }}>
-            <div className="cd-curriculum-icon"></div>
-            <h3>What You Will Get in This Course</h3>
-            <p>Everything you need to crack placements and coding interviews.</p>
-            <ul className="cd-topics-list">
-              {[
-                "Detailed Concept Notes",
-                "Practice Questions",
-                "Video Solutions",
-                "100+ LeetCode Questions Covered",
-                "Interview Preparation",
-                "Pattern-Based Problem Solving",
-                "Assignments & Practice Sets",
-              ].map((item, i) => (
-                <li key={i}>
-                  <span style={{ color: "#22c55e" }}>✅</span> {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="cd-desc-info">
-            <div className="cd-desc-info-item">
-              <span>🏆 Certificate</span>
-              <span>Within 48 hours after enrolling</span>
-            </div>
-            <div className="cd-desc-info-item">
-              <span>♾️ Access</span>
-              <span>Permanent / Lifetime Access</span>
-            </div>
-            <div className="cd-desc-info-item">
-              <span>💻 Languages</span>
-              <span>Java, Python, C++</span>
-            </div>
-            <div className="cd-desc-info-item">
-              <span>🌐 Course Language</span>
-              <span>English</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section className="cd-stats">
-        <div className="cd-stat">
-          <span className="cd-stat-num">5.0 ⭐</span>
-          <span className="cd-stat-label">Average Rating</span>
-        </div>
-        <div className="cd-stat">
-          <span className="cd-stat-num">20+</span>
-          <span className="cd-stat-label">DSA Topics</span>
-        </div>
-        <div className="cd-stat">
-          <span className="cd-stat-num">100+</span>
-          <span className="cd-stat-label">LeetCode Problems</span>
-        </div>
-        <div className="cd-stat">
-          <span className="cd-stat-num">70h+</span>
-          <span className="cd-stat-label">Course Content</span>
-        </div>
-      </section>
-
-      {/* What You'll Learn */}
-      <section className="cd-section">
-        <h2 className="cd-section-title">Master the Foundations</h2>
-        <p className="cd-section-sub">
-          A comprehensive roadmap designed to take you from writing your first
-          line of code to solving complex graph problems.
-        </p>
-
-        <div className="cd-curriculum-card">
-          <div className="cd-curriculum-icon"></div>
-          <h3>⚡Comprehensive Curriculum</h3>
-          <p>Every topic you need to master DSA and crack top-tier technical interviews.</p>
-          <ul className="cd-topics-list">
-            {topics.map((topic, i) => (
-              <li key={i}>
-                <span className="cd-check">◎</span> {topic}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="cd-section">
-        <div className="cd-features-grid">
-          <div className="cd-feature-card">
-            <span className="cd-feature-icon" style={{ color: "#60a5fa" }}>📖</span>
-            <h4>Structured Notes</h4>
-            <p>Detailed PDF notes for every single topic, optimized for quick revision before interviews.</p>
-            <span className="cd-feature-tag">STUDY MATERIAL</span>
-          </div>
-          <div className="cd-feature-card">
-            <span className="cd-feature-icon" style={{ color: "#f472b6" }}>&lt;/&gt;</span>
-            <h4>Practice Problems</h4>
-            <p>100+ handpicked LeetCode problems with solutions in Java, Python & C++.</p>
-            <span className="cd-feature-tag">HANDS-ON</span>
-          </div>
-          <div className="cd-feature-card">
-            <span className="cd-feature-icon" style={{ color: "#a78bfa" }}>🎯</span>
-            <h4>Placement Focused</h4>
-            <p>Interview patterns from TCS, Infosys, Wipro, Amazon, Google & Microsoft.</p>
-            <span className="cd-feature-tag">CAREER READY</span>
-          </div>
-        </div>
-      </section>
-
-      {/* How to Get Started */}
-      <section className="cd-section cd-steps-section">
-        <h2 className="cd-section-title">How to Get Started</h2>
-        <p className="cd-section-sub">Three simple steps to kickstart your coding journey.</p>
-
-        <div className="cd-steps">
-          <div className="cd-step">
-            <div className="cd-step-num" style={{ background: "#7c3aed" }}>1</div>
-            <h4>Secure Access</h4>
-            <p>Instant access to all videos and notes immediately after booking.</p>
-          </div>
-          <div className="cd-step-line" />
-          <div className="cd-step">
-            <div className="cd-step-num" style={{ background: "#2563eb" }}>2</div>
-            <h4>Learn & Practice</h4>
-            <p>Follow the structured modules and solve the curated LeetCode questions.</p>
-          </div>
-          <div className="cd-step-line" />
-          <div className="cd-step">
-            <div className="cd-step-num" style={{ background: "#db2777" }}>3</div>
-            <h4>Crack Interviews</h4>
-            <p>Apply your knowledge to real placement and MAANG interview problems.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Instructor */}
-      <section className="cd-section">
-        <div className="cd-instructor-card">
-          <div className="cd-instructor-avatar">AR</div>
-          <h3>Abhishek Rathor</h3>
-          <p className="cd-instructor-role">Founder of SYNTAX ERROR</p>
-          <p>
-            A passionate tech educator focused on making complex DSA concepts
-            accessible for everyone. Taught 1600+ students and mentored 50+
-            international students in 1-1 classes. With a 5.0 rating and a
-            track record of helping students master data structures, Abhishek
-            provides the perfect bridge between theory and placement success.
-          </p>
-          <div className="cd-instructor-tags">
-            <span>🎓 1600+ Students Taught</span>
-            <span>🌍 50+ International Students</span>
-            <span>⭐ 5.0 Rating</span>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="cd-section">
-        <h2 className="cd-section-title">Frequently Asked Questions</h2>
-        <div className="cd-faqs">
-          {faqs.map((faq, i) => (
-            <div
-              key={i}
-              className={`cd-faq ${openFaq === i ? "open" : ""}`}
-              onClick={() => setOpenFaq(openFaq === i ? null : i)}
-            >
-              <div className="cd-faq-q">
-                <span>{faq.q}</span>
-                <span className="cd-faq-icon">{openFaq === i ? "−" : "+"}</span>
+            <div className="cd-price-card">
+              <span className="cd-price-label">LIFETIME ACCESS</span>
+              <div className="cd-price-row">
+                <span className="cd-price">₹299</span>
+                <span className="cd-price-og">₹1999</span>
+                <span className="cd-discount-badge">85% OFF</span>
               </div>
-              {openFaq === i && <p className="cd-faq-a">{faq.a}</p>}
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* CTA Bottom */}
-      <section className="cd-cta">
-        <div className="cd-cta-card">
-          <h2>Ready to Crack Your<br />Dream Interview?</h2>
-          <p>Get the complete DSA bundle today and start your journey toward MAANG placements.</p>
-          <span className="cd-cta-label">LIMITED TIME PRICE</span>
-          <div className="cd-cta-price">₹299</div>
-          <button className="cd-cta-btn" onClick={handleEnrollClick}>
-            Enroll Now →
-          </button>
+            <button className="cd-enroll-btn" onClick={handleEnrollClick}>
+              Enroll Now →
+            </button>
+
+            <div className="cd-preview-video">
+              <p className="cd-preview-label">🎬 See What You'll Learn</p>
+              <div className="cd-video-wrapper">
+                <iframe
+                  src="https://www.youtube.com/embed/A7xxmiuuoEI"
+                  title="DSA Course Preview"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── CENTER COLUMN: Main content ── */}
+        <div className="cd-center-col">
+
+          {/* Description */}
+          <section className="cd-section" style={{ paddingTop: "2rem", paddingBottom: "1rem" }}>
+            <div className="cd-description-card">
+              <p className="cd-desc-text">
+                This course covers all Data Structures and Algorithms topics from basic to advanced
+                level with proper concepts, approaches, and LeetCode questions. If you want to prepare
+                for placements, internships, and coding interviews, this course is perfect for you.
+                In this course, we will solve a large number of coding questions along with concept
+                building, pattern recognition, and interview preparation.
+              </p>
+
+              <div className="cd-curriculum-card" style={{ marginTop: "1rem" }}>
+                <div className="cd-curriculum-icon"></div>
+                <h3>What You Will Get in This Course</h3>
+                <p>Everything you need to crack placements and coding interviews.</p>
+                <ul className="cd-topics-list">
+                  {[
+                    "Detailed Concept Notes",
+                    "Practice Questions",
+                    "Video Solutions",
+                    "100+ LeetCode Questions Covered",
+                    "Interview Preparation",
+                    "Pattern-Based Problem Solving",
+                    "Assignments & Practice Sets",
+                  ].map((item, i) => (
+                    <li key={i}>
+                      <span style={{ color: "#22c55e" }}>✅</span> {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="cd-desc-info">
+                <div className="cd-desc-info-item">
+                  <span>🏆 Certificate</span>
+                  <span>Within 48 hours after enrolling</span>
+                </div>
+                <div className="cd-desc-info-item">
+                  <span>♾️ Access</span>
+                  <span>Permanent / Lifetime Access</span>
+                </div>
+                <div className="cd-desc-info-item">
+                  <span>💻 Languages</span>
+                  <span>Java, Python, C++</span>
+                </div>
+                <div className="cd-desc-info-item">
+                  <span>🌐 Course Language</span>
+                  <span>English</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Stats */}
+          <section className="cd-stats">
+            <div className="cd-stat">
+              <span className="cd-stat-num">5.0 ⭐</span>
+              <span className="cd-stat-label">Average Rating</span>
+            </div>
+            <div className="cd-stat">
+              <span className="cd-stat-num">20+</span>
+              <span className="cd-stat-label">DSA Topics</span>
+            </div>
+            <div className="cd-stat">
+              <span className="cd-stat-num">100+</span>
+              <span className="cd-stat-label">LeetCode Problems</span>
+            </div>
+            <div className="cd-stat">
+              <span className="cd-stat-num">70h+</span>
+              <span className="cd-stat-label">Course Content</span>
+            </div>
+          </section>
+
+          {/* What You'll Learn */}
+          <section className="cd-section">
+            <h2 className="cd-section-title">Master the Foundations</h2>
+            <p className="cd-section-sub">
+              A comprehensive roadmap designed to take you from writing your first
+              line of code to solving complex graph problems.
+            </p>
+            <div className="cd-curriculum-card">
+              <div className="cd-curriculum-icon"></div>
+              <h3>⚡ Comprehensive Curriculum</h3>
+              <p>Every topic you need to master DSA and crack top-tier technical interviews.</p>
+              <ul className="cd-topics-list">
+                {topics.map((topic, i) => (
+                  <li key={i}>
+                    <span className="cd-check">◎</span> {topic}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          {/* Features */}
+          <section className="cd-section">
+            <div className="cd-features-grid">
+              <div className="cd-feature-card">
+                <span className="cd-feature-icon" style={{ color: "#60a5fa" }}>📖</span>
+                <h4>Structured Notes</h4>
+                <p>Detailed PDF notes for every single topic, optimized for quick revision before interviews.</p>
+                <span className="cd-feature-tag">STUDY MATERIAL</span>
+              </div>
+              <div className="cd-feature-card">
+                <span className="cd-feature-icon" style={{ color: "#f472b6" }}>&lt;/&gt;</span>
+                <h4>Practice Problems</h4>
+                <p>100+ handpicked LeetCode problems with solutions in Java, Python & C++.</p>
+                <span className="cd-feature-tag">HANDS-ON</span>
+              </div>
+              <div className="cd-feature-card">
+                <span className="cd-feature-icon" style={{ color: "#a78bfa" }}>🎯</span>
+                <h4>Placement Focused</h4>
+                <p>Interview patterns from TCS, Infosys, Wipro, Amazon, Google & Microsoft.</p>
+                <span className="cd-feature-tag">CAREER READY</span>
+              </div>
+            </div>
+          </section>
+
+          {/* How to Get Started */}
+          <section className="cd-section cd-steps-section">
+            <h2 className="cd-section-title">How to Get Started</h2>
+            <p className="cd-section-sub">Three simple steps to kickstart your coding journey.</p>
+            <div className="cd-steps">
+              <div className="cd-step">
+                <div className="cd-step-num" style={{ background: "#7c3aed" }}>1</div>
+                <h4>Secure Access</h4>
+                <p>Instant access to all videos and notes immediately after booking.</p>
+              </div>
+              <div className="cd-step-line" />
+              <div className="cd-step">
+                <div className="cd-step-num" style={{ background: "#2563eb" }}>2</div>
+                <h4>Learn & Practice</h4>
+                <p>Follow the structured modules and solve the curated LeetCode questions.</p>
+              </div>
+              <div className="cd-step-line" />
+              <div className="cd-step">
+                <div className="cd-step-num" style={{ background: "#db2777" }}>3</div>
+                <h4>Crack Interviews</h4>
+                <p>Apply your knowledge to real placement and MAANG interview problems.</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Instructor */}
+          <section className="cd-section">
+            <div className="cd-instructor-card">
+              <div className="cd-instructor-avatar">AR</div>
+              <h3>Abhishek Rathor</h3>
+              <p className="cd-instructor-role">Founder of SYNTAX ERROR</p>
+              <p>
+                A passionate tech educator focused on making complex DSA concepts
+                accessible for everyone. Taught 1600+ students and mentored 50+
+                international students in 1-1 classes. With a 5.0 rating and a
+                track record of helping students master data structures, Abhishek
+                provides the perfect bridge between theory and placement success.
+              </p>
+              <div className="cd-instructor-tags">
+                <span>🎓 1600+ Students Taught</span>
+                <span>🌍 50+ International Students</span>
+                <span>⭐ 5.0 Rating</span>
+              </div>
+            </div>
+          </section>
+
+          {/* FAQ */}
+          <section className="cd-section">
+            <h2 className="cd-section-title">Frequently Asked Questions</h2>
+            <div className="cd-faqs">
+              {faqs.map((faq, i) => (
+                <div
+                  key={i}
+                  className={`cd-faq ${openFaq === i ? "open" : ""}`}
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                >
+                  <div className="cd-faq-q">
+                    <span>{faq.q}</span>
+                    <span className="cd-faq-icon">{openFaq === i ? "−" : "+"}</span>
+                  </div>
+                  {openFaq === i && <p className="cd-faq-a">{faq.a}</p>}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* CTA Bottom */}
+          <section className="cd-cta">
+            <div className="cd-cta-card">
+              <h2>Ready to Crack Your<br />Dream Interview?</h2>
+              <p>Get the complete DSA bundle today and start your journey toward MAANG placements.</p>
+              <span className="cd-cta-label">LIMITED TIME PRICE</span>
+              <div className="cd-cta-price">₹299</div>
+              <button className="cd-cta-btn" onClick={handleEnrollClick}>
+                Enroll Now →
+              </button>
+            </div>
+          </section>
+
         </div>
-      </section>
+        {/* end cd-center-col */}
+
+        {/* ── RIGHT COLUMN: Sidebar (sticky, desktop only) ── */}
+        <aside className="cd-right-col">
+          <div className="cd-sidebar-inner">
+
+            {/* Rating card */}
+            <div className="cd-sidebar-card">
+              <div className="cd-sidebar-rating">
+                <span className="cd-sidebar-star">⭐</span>
+                <span>5.0</span>
+              </div>
+              <p style={{ color: "#94a3b8", fontSize: "0.82rem", marginTop: "0.3rem" }}>Average Rating</p>
+              <div className="cd-sidebar-stats-row">
+                <div className="cd-sidebar-stat-item">
+                  <span className="cd-sidebar-stat-num">20+</span>
+                  <span className="cd-sidebar-stat-lbl">DSA Topics</span>
+                </div>
+                <div className="cd-sidebar-stat-item">
+                  <span className="cd-sidebar-stat-num">100+</span>
+                  <span className="cd-sidebar-stat-lbl">LeetCode</span>
+                </div>
+                <div className="cd-sidebar-stat-item">
+                  <span className="cd-sidebar-stat-num">70h+</span>
+                  <span className="cd-sidebar-stat-lbl">Content</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Curriculum quick-view */}
+            <div className="cd-sidebar-card">
+              <h3>⚡ Comprehensive Curriculum</h3>
+              <p style={{ color: "#94a3b8", fontSize: "0.82rem", marginBottom: "1rem" }}>
+                Every topic you need to master DSA and crack top-tier technical interviews.
+              </p>
+              <ul className="cd-sidebar-topics">
+                {topics.map((topic, i) => (
+                  <li key={i}>{topic}</li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Features quick-view */}
+            <div className="cd-sidebar-card">
+              <div className="cd-sidebar-feature-item">
+                <span style={{ fontSize: "1.3rem" }}>📖</span>
+                <div>
+                  <strong>Structured Notes</strong>
+                  <p>Detailed PDF notes for every topic.</p>
+                  <span className="cd-feature-tag">STUDY MATERIAL</span>
+                </div>
+              </div>
+              <div className="cd-sidebar-feature-item">
+                <span style={{ fontSize: "1.3rem", color: "#f472b6" }}>&lt;/&gt;</span>
+                <div>
+                  <strong>Practice Problems</strong>
+                  <p>100+ handpicked LeetCode problems.</p>
+                  <span className="cd-feature-tag">HANDS-ON</span>
+                </div>
+              </div>
+            </div>
+
+            {/* How to Get Started quick-view */}
+            <div className="cd-sidebar-card">
+              <h3 style={{ marginBottom: "1rem" }}>How to Get Started</h3>
+              <div className="cd-sidebar-steps">
+                <div className="cd-sidebar-step">
+                  <div className="cd-sidebar-step-num" style={{ background: "#7c3aed" }}>1</div>
+                  <div>
+                    <strong>Secure Access</strong>
+                    <p>Instant access to all videos and notes immediately after booking.</p>
+                  </div>
+                </div>
+                <div className="cd-sidebar-step">
+                  <div className="cd-sidebar-step-num" style={{ background: "#2563eb" }}>2</div>
+                  <div>
+                    <strong>Learn & Practice</strong>
+                    <p>Follow structured modules and solve curated LeetCode questions.</p>
+                  </div>
+                </div>
+                <div className="cd-sidebar-step">
+                  <div className="cd-sidebar-step-num" style={{ background: "#db2777" }}>3</div>
+                  <div>
+                    <strong>Crack Interviews</strong>
+                    <p>Apply knowledge to real placement and MAANG interview problems.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Enroll CTA in sidebar */}
+            <div className="cd-sidebar-cta">
+              <span className="cd-cta-label" style={{ marginBottom: "0.4rem", display: "block" }}>LIMITED TIME</span>
+              <div className="cd-price-row" style={{ justifyContent: "center", marginBottom: "1rem" }}>
+                <span className="cd-price" style={{ fontSize: "2rem" }}>₹299</span>
+                <span className="cd-price-og">₹1999</span>
+                <span className="cd-discount-badge">85% OFF</span>
+              </div>
+              <button className="cd-enroll-btn" style={{ width: "100%" }} onClick={handleEnrollClick}>
+                Enroll Now →
+              </button>
+            </div>
+
+          </div>
+        </aside>
+
+      </div>
+      {/* end cd-page-grid */}
 
     </div>
   );
