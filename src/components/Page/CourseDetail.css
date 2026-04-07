@@ -40,49 +40,28 @@
   letter-spacing: 2px;
 }
 
-/* ===== PAGE GRID — MOBILE FIRST ===== */
+/* ===== PAGE GRID — SINGLE COLUMN ===== */
 .cd-page-grid {
-  display: block; /* mobile: single column, normal flow */
+  display: block;
+  max-width: 860px;
+  margin: 0 auto;
 }
 
-/* Desktop: 3 columns */
-@media (min-width: 1024px) {
-  .cd-page-grid {
-    display: grid;
-    grid-template-columns: 360px 1fr 300px;
-    grid-template-rows: 1fr;
-    align-items: start;
-  }
+/* All columns flow normally, no sticky/fixed behavior */
+.cd-left-col,
+.cd-center-col,
+.cd-right-col {
+  display: block;
+  width: 100%;
+  position: static;
+  height: auto;
+  overflow: visible;
+  border: none;
+}
 
-  /* Left column — hero, sticky */
-  .cd-left-col {
-    grid-column: 1;
-    grid-row: 1;
-    position: sticky;
-    top: 65px;
-    height: calc(100vh - 65px);
-    overflow-y: auto;
-    border-right: 1px solid #1e1e3a;
-  }
-
-  /* Center column */
-  .cd-center-col {
-    grid-column: 2;
-    grid-row: 1;
-    min-width: 0; /* prevent overflow */
-  }
-
-  /* Right column — sidebar, sticky */
-  .cd-right-col {
-    grid-column: 3;
-    grid-row: 1;
-    position: sticky;
-    top: 65px;
-    height: calc(100vh - 65px);
-    overflow-y: auto;
-    border-left: 1px solid #1e1e3a;
-    display: block !important; /* override mobile hide */
-  }
+/* Right sidebar — show inline in single column */
+.cd-right-col {
+  display: block !important;
 }
 
 /* ===== HERO ===== */
@@ -651,12 +630,7 @@
 
 .cd-cta-btn:hover { background: #1e1e3a; }
 
-/* ===== RIGHT SIDEBAR ===== */
-/* Hidden on mobile/tablet — shown only on desktop via grid */
-.cd-right-col {
-  display: none;
-}
-
+/* ===== RIGHT SIDEBAR — inline in single column ===== */
 .cd-sidebar-inner {
   padding: 1.5rem;
   display: flex;
