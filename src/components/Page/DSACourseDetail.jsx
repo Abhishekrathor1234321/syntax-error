@@ -126,7 +126,7 @@ function DSACourseDetail() {
       a: "Yes! The course starts from absolute basics and goes all the way to MAANG-level problems."
     },
     {
-      q: "Do I get lifetime access?",
+      q: "Do I get Lifetime access?",
       a: "Yes, you get lifetime access to all videos, notes, and future updates."
     },
     {
