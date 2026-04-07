@@ -129,7 +129,7 @@ function AptitudeCourseDetail() {
   ];
 
   return (
-    <div className="cd-wrapper aptitude">
+    <div className="cd-wrapper ">
 
       {showCheckout && (
         <CheckoutModal
