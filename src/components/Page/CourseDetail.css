@@ -127,7 +127,7 @@
   background-size: 28px 28px;
   pointer-events: none;
   z-index: 0;
-  padding-top: 20px;
+  padding-top: 20px !important;
 }
 
 .cd-hero-content {
