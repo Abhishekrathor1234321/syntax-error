@@ -21,9 +21,7 @@
   top: 0;
   z-index: 100;
   backdrop-filter: blur(10px);
-  max-width: 760px;
-  margin: 0 auto;
-  
+ 
 }
 
 .container {
