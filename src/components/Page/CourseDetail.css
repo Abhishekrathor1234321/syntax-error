@@ -68,7 +68,7 @@
 .cd-page-grid {
   display: block;          /* ← force single column, no grid/flex */
   width: 100%;
-  margin: 0 auto;
+ 
   padding: 0 1.2rem;
 }
 
