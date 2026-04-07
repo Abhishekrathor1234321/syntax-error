@@ -160,7 +160,7 @@ function DSACourseDetail() {
         <span className="cd-brand">SYNTAX ERROR</span>
       </div>
 
-      {/* ===== DESKTOP 3-COLUMN GRID ===== */}
+      
       <div className="cd-page-grid">
 
         {/* ── LEFT COLUMN: Hero (sticky) ── */}

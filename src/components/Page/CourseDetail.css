@@ -75,6 +75,7 @@
   text-align: center;
   overflow: hidden;
   background: transparent;
+   padding-top: 5rem;
 }
 
 .cd-hero::before {
