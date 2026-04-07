@@ -22,7 +22,6 @@
   top: 0;
   z-index: 100;
   backdrop-filter: blur(10px);
-  padding-top: 12px;
  
 }
 
@@ -261,7 +260,7 @@
 .cd-video-wrapper {
   position: relative;
   width: 100%;
-   height: auto;
+  
   aspect-ratio: 16 / 9;
   border-radius: 16px;
   overflow: hidden;
