@@ -191,14 +191,41 @@ function DSACourseDetail() {
             Enroll Now →
           </button>
 
-          <div className="cd-preview-video">
-  <p className="cd-preview-label">🎬 See What You'll Learn</p>
-  <div className="cd-video-wrapper">
+         <div style={{
+  marginTop: "2rem",
+  width: "100%",
+  maxWidth: "600px",
+  alignSelf: "center"
+}}>
+  <p style={{
+    fontSize: "1rem",
+    color: "#94a3b8",
+    marginBottom: "0.75rem",
+    textAlign: "center",
+    letterSpacing: "0.05em"
+  }}>🎬 See What You'll Learn</p>
+  <div style={{
+    position: "relative",
+    width: "100%",
+    paddingBottom: "56.25%",
+    borderRadius: "16px",
+    overflow: "hidden",
+    border: "2px solid rgba(99, 102, 241, 0.4)",
+    boxShadow: "0 0 30px rgba(99, 102, 241, 0.2)"
+  }}>
     <iframe
       src="https://www.youtube.com/embed/A7xxmiuuoEI"
       title="DSA Course Overview"
-     frameBorder={0}
+      frameBorder={0}
       allowFullScreen
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        border: "none"
+      }}
     />
   </div>
 </div>
