@@ -22,7 +22,6 @@
   top: 0;
   z-index: 100;
   backdrop-filter: blur(10px);
-  padding-top: 25px;
  
 }
 
@@ -104,7 +103,7 @@
   text-align: center;
   overflow: hidden;
   background: transparent;
-   margin-top: 10px;
+   margin-top: 60px;
 }
 
 .cd-hero::before {
