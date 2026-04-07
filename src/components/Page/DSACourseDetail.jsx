@@ -153,14 +153,14 @@ function DSACourseDetail() {
       )}
 
       {/* Topbar */}
-      <div className="cd-topbar">
+      {/* <div className="cd-topbar">
         <div className="container">
         <button onClick={() => navigate("/courses")} className="cd-back-btn">
           ← Back to Courses
         </button>
         <span className="cd-brand">SYNTAX ERROR</span>
       </div>
-      </div>
+      </div> */}
 
       
       <div className="cd-page-grid">
