@@ -166,7 +166,7 @@ function DSACourseDetail() {
       <div className="cd-page-grid">
 
         {/* ── LEFT COLUMN: Hero (sticky) ── */}
-        <section className="cd-hero cd-left-col">
+        <section className="cd-hero ">
           <div className="cd-hero-bg" />
           <div className="cd-hero-content">
             <div className="cd-badge">⚡ LANGUAGE SUPPORT: JAVA / PYTHON / C++</div>

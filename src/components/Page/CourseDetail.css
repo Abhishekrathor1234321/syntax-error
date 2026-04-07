@@ -1,8 +1,5 @@
 /* ===== RESET & BASE ===== */
 
-*{
-  max-width: 100% !important;
-}
 .cd-wrapper * { box-sizing: border-box; margin: 0; padding: 0; }
 
 .cd-wrapper {
