@@ -202,9 +202,9 @@
 
 /* Enroll Button */
 .cd-enroll-btn {
-  display: block;
-  width: 100%;
-  max-width: 340px;
+  display: inline-block;
+  width: auto;
+  max-width: none;
   margin: 0 auto 0.5rem;
   background: linear-gradient(135deg, #4f46e5, #7c3aed);
   color: white;
