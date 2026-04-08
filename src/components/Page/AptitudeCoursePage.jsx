@@ -10,7 +10,7 @@ const courseData = {
     instructor: "Karina Sharma [Infosys-DSE]",
     sections: [
       {
-        title: "📊 Section 1 — Arithmetic Fundamentals",
+        title: " Section 1 — Arithmetic Fundamentals",
         lectures: [
           { id: 1, title: "Percentage — Concepts & Tricks", videoId: "XFcapf8Mx2c", duration: "" },
           { id: 2, title: "Ratio & Proportion", videoId: "Xv38cd1u5_o", duration: "" },
@@ -23,7 +23,7 @@ const courseData = {
         ]
       },
       {
-        title: "🔢 Section 2 — Number System & Profit",
+        title: " Section 2 — Number System & Profit",
         lectures: [
           { id: 9, title: "Number System — Fundamentals", videoId: "a6MOQA3twYo", duration: "" },
           { id: 10, title: "Number System (Contd.) & Profit & Loss Intro", videoId: "uV_mQFfEAbI", duration: "" },
@@ -34,7 +34,7 @@ const courseData = {
         ]
       },
       {
-        title: "🚀 Section 3 — Speed, Time & Interest",
+        title: " Section 3 — Speed, Time & Interest",
         lectures: [
           { id: 15, title: "Speed, Distance & Time + Boats & Trains", videoId: "6FfM2JwZkTo", duration: "" },
           { id: 16, title: "Speed, Distance & Time — Practice Session", videoId: "UtauJ_7fXfQ", duration: "" },
@@ -43,7 +43,7 @@ const courseData = {
         ]
       },
       {
-        title: "🧠 Section 4 — Reasoning",
+        title: " Section 4 — Reasoning",
         lectures: [
           { id: 19, title: "Blood Relations", videoId: "r0beKnDn7WU", duration: "" },
           { id: 20, title: "Calendar Problems", videoId: "DiDg2wmcqsk", duration: "" },
@@ -56,14 +56,24 @@ const courseData = {
         ]
       },
       {
-        title: "📐 Section 5 — Advanced Topics",
+        title: " Section 5 — Advanced Topics",
         lectures: [
           { id: 27, title: "Permutations & Combinations", videoId: "jzg1nOrZq9g", duration: "" },
           { id: 28, title: "Probability", videoId: "TX-63y4VoTk", duration: "" },
           { id: 29, title: "Number Series & Counting Figures", videoId: "yU39-hz5MtI", duration: "" },
           { id: 30, title: "Statistics (Bonus)", videoId: "RvKCm7vNXDs", duration: "" },
         ]
+      },
+       {
+        title: " Section 6 — Verbal Ability",
+        lectures: [
+          { id: 31, title: "Part-1", videoId: "y2nm1NPaRdo", duration: "" },
+          { id: 32, title: "Part-2", videoId: "TPOyYFrnNAk", duration: "" },
+          { id: 33, title: "Part-3", videoId: "QTI8V18obSE", duration: "" },
+          { id: 34, title: "Part-4", videoId: "-0jBDciIk7o", duration: "" },
+        ]
       }
+      
     ]
   }
 };
