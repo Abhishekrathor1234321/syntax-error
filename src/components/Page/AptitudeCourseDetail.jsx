@@ -132,7 +132,7 @@ function AptitudeCourseDetail() {
         <CheckoutModal
           course={{
             title: "Complete Aptitude Course 2026",
-            amount: 99,
+            amount: 199,
             coupons: {
               "APTITUDE10": 10,
               "KARINAA99": 99,
@@ -164,8 +164,8 @@ function AptitudeCourseDetail() {
             <div className="cd-price-card">
               <span className="cd-price-label">LIFETIME ACCESS</span>
               <div className="cd-price-row">
-                <span className="cd-price">₹99</span>
-                <span className="cd-price-og">₹999</span>
+                <span className="cd-price">₹199</span>
+                <span className="cd-price-og">₹1999</span>
                 <span className="cd-discount-badge">90% OFF</span>
               </div>
             </div>
@@ -359,7 +359,7 @@ function AptitudeCourseDetail() {
               <h2>Ready to Clear Every<br />Aptitude Round?</h2>
               <p>Get the complete aptitude bundle today and never fear a placement test again.</p>
               <span className="cd-cta-label">LIMITED TIME PRICE</span>
-              <div className="cd-cta-price">₹99</div>
+              <div className="cd-cta-price">₹199</div>
               <button className="cd-cta-btn" onClick={handlePayment}>
                 Enroll Now →
               </button>
