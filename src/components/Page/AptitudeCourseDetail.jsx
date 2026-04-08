@@ -144,18 +144,9 @@ function AptitudeCourseDetail() {
         />
       )}
 
-      {/* ── TOPBAR (sticky, top) ── */}
-      {/* <div className="cd-topbar">
-        <button onClick={() => navigate("/courses")} className="cd-back-btn">
-          ← Back to Courses
-        </button>
-        <span className="cd-brand">SYNTAX ERROR</span>
-      </div> */}
-
-      {/* ── ALL CONTENT inside single page grid ── */}
       <div className="cd-page-grid">
 
-        {/* Hero */}
+        {/* ── Hero (full width, same as DSA) ── */}
         <section className="cd-hero">
           <div className="cd-hero-bg" />
           <div className="cd-hero-content">
@@ -185,192 +176,201 @@ function AptitudeCourseDetail() {
           </div>
         </section>
 
-        {/* Stats */}
-        <section className="cd-stats">
-          <div className="cd-stat">
-            <span className="cd-stat-num">4.9 ⭐</span>
-            <span className="cd-stat-label">Average Rating</span>
-          </div>
-          <div className="cd-stat">
-            <span className="cd-stat-num">20+</span>
-            <span className="cd-stat-label">Topics Covered</span>
-          </div>
-          <div className="cd-stat">
-            <span className="cd-stat-num">5k+</span>
-            <span className="cd-stat-label">Students Enrolled</span>
-          </div>
-          <div className="cd-stat">
-            <span className="cd-stat-num">40h+</span>
-            <span className="cd-stat-label">Course Content</span>
-          </div>
-        </section>
+        {/* ── CENTER COLUMN: All main content (mirrors DSA) ── */}
+        <div className="cd-center-col">
 
-        {/* Course Description */}
-        <section className="cd-section" style={{ paddingTop: "2rem", paddingBottom: "0" }}>
-          <div className="cd-description-card">
-            <p className="cd-desc-text">
-              This course covers all Aptitude topics from basic to advanced level with proper
-              concepts, shortcut tricks, and placement-focused questions. If you want to prepare
-              for TCS, Infosys, Wipro, Accenture, or any campus placement aptitude round, this
-              course is perfect for you. Master Quantitative, Verbal, and Logical Reasoning with
-              speed math techniques and real exam strategies.
+          {/* Description */}
+          <section className="cd-section" style={{ paddingTop: "2rem", paddingBottom: "1rem" }}>
+            <div className="cd-description-card">
+              <p className="cd-desc-text">
+                This course covers all Aptitude topics from basic to advanced level with proper
+                concepts, shortcut tricks, and placement-focused questions. If you want to prepare
+                for TCS, Infosys, Wipro, Accenture, or any campus placement aptitude round, this
+                course is perfect for you. Master Quantitative, Verbal, and Logical Reasoning with
+                speed math techniques and real exam strategies.
+              </p>
+
+              <div className="cd-curriculum-card" style={{ marginTop: "1rem" }}>
+                <h3>What You Will Get in This Course</h3>
+                <p>Everything you need to clear any placement aptitude round.</p>
+                <ul className="cd-topics-list">
+                  {[
+                    "Chapterwise PDF Formula Sheets",
+                    "Shortcut Tricks & Speed Math",
+                    "Practice Questions — Topic Wise",
+                    "Video Solutions for Every Topic",
+                    "TCS NQT, Infosys Pattern Questions and other Companies",
+                    "Reasoning & Verbal Ability Coverage",
+                    "Last Minute Revision Notes",
+                  ].map((item, i) => (
+                    <li key={i}>
+                      <span style={{ color: "#22c55e" }}>✅</span> {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="cd-desc-info">
+                <div className="cd-desc-info-item">
+                  <span>🏆 Certificate</span>
+                  <span>Within 48 hours after enrolling</span>
+                </div>
+                <div className="cd-desc-info-item">
+                  <span>♾️ Access</span>
+                  <span>Permanent / Lifetime Access</span>
+                </div>
+                <div className="cd-desc-info-item">
+                  <span>📚 Language</span>
+                  <span>English</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Stats */}
+          <section className="cd-stats">
+            <div className="cd-stat">
+              <span className="cd-stat-num">4.9 ⭐</span>
+              <span className="cd-stat-label">Average Rating</span>
+            </div>
+            <div className="cd-stat">
+              <span className="cd-stat-num">20+</span>
+              <span className="cd-stat-label">Topics Covered</span>
+            </div>
+            <div className="cd-stat">
+              <span className="cd-stat-num">5k+</span>
+              <span className="cd-stat-label">Students Enrolled</span>
+            </div>
+            <div className="cd-stat">
+              <span className="cd-stat-num">40h+</span>
+              <span className="cd-stat-label">Course Content</span>
+            </div>
+          </section>
+
+          {/* What You'll Learn */}
+          <section className="cd-section">
+            <h2 className="cd-section-title">Master Every Topic</h2>
+            <p className="cd-section-sub">
+              A complete placement aptitude syllabus — every topic asked in TCS,
+              Infosys, Wipro, and other Placement Exams.
             </p>
-
-            <div className="cd-curriculum-card" style={{ marginTop: "1rem" }}>
-              <h3>What You Will Get in This Course</h3>
-              <p>Everything you need to clear any placement aptitude round.</p>
+            <div className="cd-curriculum-card">
+              <h3>Complete Aptitude Syllabus</h3>
+              <p>Every formula, shortcut trick and concept you need to clear any placement aptitude round.</p>
               <ul className="cd-topics-list">
-                {[
-                  "Chapterwise PDF Formula Sheets",
-                  "Shortcut Tricks & Speed Math",
-                  "Practice Questions — Topic Wise",
-                  "Video Solutions for Every Topic",
-                  "TCS NQT, Infosys Pattern Questions and other Companies",
-                  "Reasoning & Verbal Ability Coverage",
-                  "Last Minute Revision Notes",
-                ].map((item, i) => (
+                {topics.map((topic, i) => (
                   <li key={i}>
-                    <span style={{ color: "#22c55e" }}>✅</span> {item}
+                    <span className="cd-check">◎</span> {topic}
                   </li>
                 ))}
               </ul>
             </div>
+          </section>
 
-            <div className="cd-desc-info">
-              <div className="cd-desc-info-item">
-                <span>🏆 Certificate</span>
-                <span>Within 48 hours after enrolling</span>
+          {/* Features */}
+          <section className="cd-section">
+            <div className="cd-features-grid">
+              <div className="cd-feature-card">
+                <span className="cd-feature-icon" style={{ color: "#34d399" }}>📖</span>
+                <h4>PDF Notes</h4>
+                <p>Chapterwise formula sheets and shortcut tricks for last-minute revision.</p>
+                <span className="cd-feature-tag">STUDY MATERIAL</span>
               </div>
-              <div className="cd-desc-info-item">
-                <span>♾️ Access</span>
-                <span>Permanent / Lifetime Access</span>
+              <div className="cd-feature-card">
+                <span className="cd-feature-icon" style={{ color: "#fbbf24" }}>⏱</span>
+                <h4>Speed Math Tricks</h4>
+                <p>Learn calculation shortcuts to solve aptitude questions 3x faster in tests.</p>
+                <span className="cd-feature-tag">SHORTCUT TRICKS</span>
               </div>
-              <div className="cd-desc-info-item">
-                <span>📚 Language</span>
-                <span>English</span>
+              <div className="cd-feature-card">
+                <span className="cd-feature-icon" style={{ color: "#f87171" }}>🎯</span>
+                <h4>Placement Focused</h4>
+                <p>100% aligned with TCS NQT, Infosys, Wipro, Accenture & other Placements.</p>
+                <span className="cd-feature-tag">EXAM READY</span>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* What You'll Learn */}
-        <section className="cd-section">
-          <h2 className="cd-section-title">Master Every Topic</h2>
-          <p className="cd-section-sub">
-            A complete placement aptitude syllabus — every topic asked in TCS,
-            Infosys, Wipro, and other Placement Exams.
-          </p>
-          <div className="cd-curriculum-card">
-            <h3>Complete Aptitude Syllabus</h3>
-            <p>Every formula, shortcut trick and concept you need to clear any placement aptitude round.</p>
-            <ul className="cd-topics-list">
-              {topics.map((topic, i) => (
-                <li key={i}>
-                  <span className="cd-check">◎</span> {topic}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+          {/* How to Get Started */}
+          <section className="cd-section cd-steps-section">
+            <h2 className="cd-section-title">How to Get Started</h2>
+            <p className="cd-section-sub">Three simple steps to ace your placement aptitude.</p>
+            <div className="cd-steps">
+              <div className="cd-step">
+                <div className="cd-step-num" style={{ background: "#059669" }}>1</div>
+                <h4>Enroll & Access</h4>
+                <p>Get instant access to all 30+ videos and PDF notes after enrollment.</p>
+              </div>
+              <div className="cd-step-line" />
+              <div className="cd-step">
+                <div className="cd-step-num" style={{ background: "#d97706" }}>2</div>
+                <h4>Learn with Tricks</h4>
+                <p>Master speed math shortcuts and formula-based solving techniques.</p>
+              </div>
+              <div className="cd-step-line" />
+              <div className="cd-step">
+                <div className="cd-step-num" style={{ background: "#dc2626" }}>3</div>
+                <h4>Clear Aptitude</h4>
+                <p>Score 90%+ in any campus placement aptitude round with confidence.</p>
+              </div>
+            </div>
+          </section>
 
-        {/* Features */}
-        <section className="cd-section">
-          <div className="cd-features-grid">
-            <div className="cd-feature-card">
-              <span className="cd-feature-icon" style={{ color: "#34d399" }}>📖</span>
-              <h4>PDF Notes</h4>
-              <p>Chapterwise formula sheets and shortcut tricks for last-minute revision.</p>
-              <span className="cd-feature-tag">STUDY MATERIAL</span>
+          {/* Instructor */}
+          <section className="cd-section">
+            <div className="cd-instructor-card">
+              <div className="cd-instructor-avatar cd-instructor-avatar-apt">KS</div>
+              <h3>Learn from Karina Sharma</h3>
+              <p>
+                Infosys DSE with experience training students for campus placements.
+                Known for simplifying complex aptitude concepts using shortcut tricks,
+                smart problem-solving techniques, and real exam strategies.
+              </p>
+              <div className="cd-instructor-tags">
+                <span>◎ Infosys DSE</span>
+                <span>🎓 Placement Expert</span>
+              </div>
             </div>
-            <div className="cd-feature-card">
-              <span className="cd-feature-icon" style={{ color: "#fbbf24" }}>⏱</span>
-              <h4>Speed Math Tricks</h4>
-              <p>Learn calculation shortcuts to solve aptitude questions 3x faster in tests.</p>
-              <span className="cd-feature-tag">SHORTCUT TRICKS</span>
-            </div>
-            <div className="cd-feature-card">
-              <span className="cd-feature-icon" style={{ color: "#f87171" }}>🎯</span>
-              <h4>Placement Focused</h4>
-              <p>100% aligned with TCS NQT, Infosys, Wipro, Accenture & other Placements.</p>
-              <span className="cd-feature-tag">EXAM READY</span>
-            </div>
-          </div>
-        </section>
+          </section>
 
-        {/* How to Get Started */}
-        <section className="cd-section cd-steps-section">
-          <h2 className="cd-section-title">How to Get Started</h2>
-          <p className="cd-section-sub">Three simple steps to ace your placement aptitude.</p>
-          <div className="cd-steps">
-            <div className="cd-step">
-              <div className="cd-step-num" style={{ background: "#059669" }}>1</div>
-              <h4>Enroll & Access</h4>
-              <p>Get instant access to all 30+ videos and PDF notes after enrollment.</p>
-            </div>
-            <div className="cd-step-line" />
-            <div className="cd-step">
-              <div className="cd-step-num" style={{ background: "#d97706" }}>2</div>
-              <h4>Learn with Tricks</h4>
-              <p>Master speed math shortcuts and formula-based solving techniques.</p>
-            </div>
-            <div className="cd-step-line" />
-            <div className="cd-step">
-              <div className="cd-step-num" style={{ background: "#dc2626" }}>3</div>
-              <h4>Clear Aptitude</h4>
-              <p>Score 90%+ in any campus placement aptitude round with confidence.</p>
-            </div>
-          </div>
-        </section>
-
-        {/* Instructor */}
-        <section className="cd-section">
-          <div className="cd-instructor-card">
-            <div className="cd-instructor-avatar cd-instructor-avatar-apt">KS</div>
-            <h3>Learn from Karina Sharma</h3>
-            <p>
-              Infosys DSE with experience training students for campus placements.
-              Known for simplifying complex aptitude concepts using shortcut tricks,
-              smart problem-solving techniques, and real exam strategies.
-            </p>
-            <div className="cd-instructor-tags">
-              <span>◎ Infosys DSE</span>
-              <span>🎓 Placement Expert</span>
-            </div>
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <section className="cd-section">
-          <h2 className="cd-section-title">Frequently Asked Questions</h2>
-          <div className="cd-faqs">
-            {faqs.map((faq, i) => (
-              <div
-                key={i}
-                className={`cd-faq ${openFaq === i ? "open" : ""}`}
-                onClick={() => setOpenFaq(openFaq === i ? null : i)}
-              >
-                <div className="cd-faq-q">
-                  <span>{faq.q}</span>
-                  <span className="cd-faq-icon">{openFaq === i ? "−" : "+"}</span>
+          {/* FAQ */}
+          <section className="cd-section">
+            <h2 className="cd-section-title">Frequently Asked Questions</h2>
+            <div className="cd-faqs">
+              {faqs.map((faq, i) => (
+                <div
+                  key={i}
+                  className={`cd-faq ${openFaq === i ? "open" : ""}`}
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                >
+                  <div className="cd-faq-q">
+                    <span>{faq.q}</span>
+                    <span className="cd-faq-icon">{openFaq === i ? "−" : "+"}</span>
+                  </div>
+                  {openFaq === i && <p className="cd-faq-a">{faq.a}</p>}
                 </div>
-                {openFaq === i && <p className="cd-faq-a">{faq.a}</p>}
-              </div>
-            ))}
-          </div>
-        </section>
+              ))}
+            </div>
+          </section>
 
-        {/* CTA Bottom */}
-        <section className="cd-cta">
-          <div className="cd-cta-card cd-cta-aptitude">
-            <h2>Ready to Clear Every<br />Aptitude Round?</h2>
-            <p>Get the complete aptitude bundle today and never fear a placement test again.</p>
-            <span className="cd-cta-label">LIMITED TIME PRICE</span>
-            <div className="cd-cta-price">₹99</div>
-            <button className="cd-cta-btn" onClick={handlePayment}>
-              Enroll Now →
-            </button>
-          </div>
-        </section>
+          {/* CTA Bottom */}
+          <section className="cd-cta">
+            <div className="cd-cta-card cd-cta-aptitude">
+              <h2>Ready to Clear Every<br />Aptitude Round?</h2>
+              <p>Get the complete aptitude bundle today and never fear a placement test again.</p>
+              <span className="cd-cta-label">LIMITED TIME PRICE</span>
+              <div className="cd-cta-price">₹99</div>
+              <button className="cd-cta-btn" onClick={handlePayment}>
+                Enroll Now →
+              </button>
+            </div>
+          </section>
+
+        </div>
+        {/* end cd-center-col */}
+
+        {/* Right sidebar — hidden via CSS, same as DSA */}
+        <aside className="cd-right-col" />
 
       </div>
       {/* end cd-page-grid */}
