@@ -1,7 +1,8 @@
 /* ===== RESET & BASE ===== */
 
-.cd-wrapper * { box-sizing: border-box; margin: 0; padding: 0; }
-
+.cd-wrapper {
+  overflow-x: hidden;
+}
 .cd-wrapper {
   width: 100%;
   max-width: 100%;
@@ -23,9 +24,9 @@
 }
 
 .container {
-  width: 100% !important;
-  max-width: 100% !important;
-  margin: 0 !important;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
   padding: 0.9rem 1.5rem;
 }
 
@@ -76,12 +77,10 @@
 
 /* Center col: full width, no sticky */
 .cd-center-col {
-  display: block;
-  width: 100%;
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto;
+  padding: 0 1.5rem;
 }
-
 /* ===== HERO ===== */
 .cd-hero {
   position: relative;
@@ -344,7 +343,7 @@
   background: #0f0f1f;
   border-top: 1px solid #1e1e3a;
   border-bottom: 1px solid #1e1e3a;
-  margin: 0 -1.2rem;
+  
 }
 
 .cd-stat {
@@ -868,7 +867,7 @@
 
   /* === HERO === */
   .cd-hero {
-    padding: 2rem 0 1.5rem;
+    padding: 2rem 1rem;
     margin-top: 0;
   }
 
