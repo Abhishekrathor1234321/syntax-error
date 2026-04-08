@@ -81,6 +81,30 @@
   margin: 0 auto;
   padding: 0 1.5rem;
 }
+
+/* ─────────────────────────────────────────────────────────────
+   FIX: Aptitude page doesn't use .cd-center-col wrapper.
+   Apply the same max-width + padding to direct children of
+   .cd-page-grid so Aptitude sections behave identically to DSA.
+───────────────────────────────────────────────────────────── */
+.cd-page-grid > .cd-section,
+.cd-page-grid > .cd-cta,
+.cd-page-grid > .cd-steps-section {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Stats spans full width (no center constraint) — same as DSA */
+.cd-page-grid > .cd-stats {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 /* ===== HERO ===== */
 .cd-hero {
   position: relative;
@@ -122,7 +146,7 @@
   margin: 0 auto;
 }
 
-/* ===== BADGE — FIX: properly visible, colorful ===== */
+/* ===== BADGE ===== */
 .cd-badge {
   display: inline-flex;
   align-items: center;
@@ -136,7 +160,6 @@
   color: #d4bbff;
   margin-bottom: 1.6rem;
   font-weight: 600;
-  /* FIX: ensure it's always visible, not clipped */
   overflow: visible;
   white-space: nowrap;
   max-width: 100%;
@@ -165,10 +188,9 @@
   margin-right: auto;
 }
 
-/* ===== PRICE CARD — FIX: colorful gradient ===== */
+/* ===== PRICE CARD ===== */
 .cd-price-card {
   display: inline-block;
-  /* Colorful gradient background */
   background: linear-gradient(135deg, #1a0f3a 0%, #1e1260 40%, #0f1a3a 100%);
   border: 1px solid rgba(167,139,250,0.35);
   border-radius: 18px;
@@ -177,13 +199,11 @@
   text-align: center;
   width: 100%;
   max-width: 340px;
-  /* Glowing purple outline */
   box-shadow: 0 0 0 1px rgba(124,58,237,0.2), 0 8px 32px rgba(79,70,229,0.25), inset 0 1px 0 rgba(255,255,255,0.07);
   position: relative;
   overflow: hidden;
 }
 
-/* Subtle shimmer top line */
 .cd-price-card::before {
   content: '';
   position: absolute;
@@ -196,7 +216,6 @@
   display: block;
   font-size: 0.68rem;
   letter-spacing: 2.5px;
-  /* FIX: brighter color so it's readable */
   color: #a78bfa;
   margin-bottom: 0.6rem;
   text-transform: uppercase;
@@ -214,7 +233,6 @@
 .cd-price {
   font-size: 2.6rem;
   font-weight: 900;
-  /* FIX: white-to-purple gradient text */
   background: linear-gradient(135deg, #ffffff, #c4b5fd);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -240,10 +258,9 @@
   box-shadow: 0 2px 8px rgba(21,128,61,0.3);
 }
 
-/* ===== ENROLL BUTTON — FIX: auto width (not full width) ===== */
+/* ===== ENROLL BUTTON ===== */
 .cd-enroll-btn {
   display: inline-block;
-  /* FIX: auto width so it fits text, not full-width */
   width: auto;
   min-width: 200px;
   max-width: none;
@@ -262,13 +279,22 @@
   white-space: nowrap;
   animation: floatBtn 2.5s ease-in-out infinite;
 }
+
+@keyframes floatBtn {
+  0%   { transform: translateY(0px); }
+  25%  { transform: translateY(-4px); }
+  50%  { transform: translateY(-6px); }
+  75%  { transform: translateY(-4px); }
+  100% { transform: translateY(0px); }
+}
+
 .cd-enroll-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 32px rgba(124,58,237,0.55);
   background: linear-gradient(135deg, #4338ca, #6d28d9);
 }
 
-/* ===== VIDEO PREVIEW — FIX: attractive styling ===== */
+/* ===== VIDEO PREVIEW ===== */
 .cd-preview-video {
   margin-top: 2.5rem;
   position: relative;
@@ -287,7 +313,6 @@
   gap: 0.5rem;
 }
 
-/* Decorative line on sides of label */
 .cd-preview-label::before,
 .cd-preview-label::after {
   content: '';
@@ -306,18 +331,15 @@
   aspect-ratio: 16 / 9;
   border-radius: 20px;
   overflow: hidden;
-  /* Colorful glowing border */
   border: 1px solid rgba(124,58,237,0.5);
   background: #000;
   transition: transform 0.3s, box-shadow 0.3s;
-  /* Purple-blue glow */
   box-shadow:
     0 0 0 1px rgba(79,70,229,0.2),
     0 8px 40px rgba(124,58,237,0.35),
     0 20px 60px rgba(0,0,0,0.5);
 }
 
-/* Glowing corner accents */
 .cd-video-wrapper::before {
   content: '';
   position: absolute;
@@ -344,7 +366,6 @@
   background: #0f0f1f;
   border-top: 1px solid #1e1e3a;
   border-bottom: 1px solid #1e1e3a;
-  
 }
 
 .cd-stat {
@@ -375,6 +396,7 @@
 .cd-section {
   padding: 2.8rem 0;
   border-bottom: 1px solid #1e1e3a;
+  box-sizing: border-box;
 }
 
 .cd-section-title {
@@ -484,7 +506,7 @@
   flex-shrink: 0;
 }
 
-/* Features Grid — always single column */
+/* Features Grid */
 .cd-features-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -779,7 +801,19 @@
 
 /* ===== TABLET (max 768px) ===== */
 @media (max-width: 768px) {
-  .cd-page-grid { padding: 0 1rem; }
+
+  /* DSA center col */
+  .cd-center-col {
+    padding: 0 1rem;
+  }
+
+  /* Aptitude direct children */
+  .cd-page-grid > .cd-section,
+  .cd-page-grid > .cd-cta,
+  .cd-page-grid > .cd-steps-section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 
   .cd-hero { padding: 3rem 1.2rem 2rem; }
   .cd-title { font-size: 2rem; }
@@ -794,7 +828,6 @@
     width: 100%;
   }
 
-  /* Enroll btn: full width on tablet */
   .cd-enroll-btn {
     width: 100%;
     min-width: unset;
@@ -802,7 +835,7 @@
 
   .cd-stats {
     grid-template-columns: repeat(2, 1fr);
-    margin: 0 -1rem;
+    margin: 0;
   }
   .cd-stat { border-bottom: 1px solid #1e1e3a; }
   .cd-stat:nth-child(2) { border-right: none; }
@@ -828,7 +861,6 @@
     padding: 0.35rem 0.75rem;
   }
 
-  /* Video: slightly smaller glow on tablet */
   .cd-video-wrapper {
     box-shadow:
       0 0 0 1px rgba(79,70,229,0.2),
@@ -862,8 +894,20 @@
 
   /* === PAGE GRID === */
   .cd-page-grid {
-    padding: 0 0.7rem;
     width: 100%;
+  }
+
+  /* DSA center col on mobile */
+  .cd-center-col {
+    padding: 0 0.85rem;
+  }
+
+  /* Aptitude direct children on mobile */
+  .cd-page-grid > .cd-section,
+  .cd-page-grid > .cd-cta,
+  .cd-page-grid > .cd-steps-section {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
   }
 
   /* === HERO === */
@@ -872,13 +916,12 @@
     margin-top: 0;
   }
 
-  /* === BADGE FIX on mobile === */
+  /* === BADGE === */
   .cd-badge {
     font-size: 0.68rem;
     padding: 0.4rem 1rem;
     margin-bottom: 1rem;
     letter-spacing: 1px;
-    /* Allow wrap if very long text */
     white-space: normal;
     text-align: center;
     max-width: 95%;
@@ -918,7 +961,7 @@
     gap: 0.5rem;
   }
 
-  /* === ENROLL BUTTON: full width on mobile === */
+  /* === ENROLL BUTTON === */
   .cd-enroll-btn {
     display: inline-block;
     width: auto;
@@ -949,7 +992,7 @@
   /* === STATS === */
   .cd-stats {
     grid-template-columns: 1fr 1fr;
-    margin: 0 -0.7rem;
+    margin: 0;
   }
 
   .cd-stat {
@@ -1139,17 +1182,7 @@
   }
 }
 
-/* existing CSS */
-
+/* Enroll button gradient override */
 .cd-enroll-btn {
   background: linear-gradient(45deg, #6a5cff, #8f44fd);
-}
-
-/* 👇 यहां paste करो */
-@keyframes floatBtn {
-  0% { transform: translateY(0px); }
-  25% { transform: translateY(-4px); }
-  50% { transform: translateY(-6px); }
-  75% { transform: translateY(-4px); }
-  100% { transform: translateY(0px); }
 }
