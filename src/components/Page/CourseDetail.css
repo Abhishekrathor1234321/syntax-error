@@ -260,6 +260,7 @@
   letter-spacing: 0.4px;
   box-shadow: 0 4px 24px rgba(124,58,237,0.4);
   white-space: nowrap;
+  animation: floatBtn 2.5s ease-in-out infinite;
 }
 .cd-enroll-btn:hover {
   transform: translateY(-2px);
@@ -1138,3 +1139,17 @@
   }
 }
 
+/* existing CSS */
+
+.cd-enroll-btn {
+  background: linear-gradient(45deg, #6a5cff, #8f44fd);
+}
+
+/* 👇 यहां paste करो */
+@keyframes floatBtn {
+  0% { transform: translateY(0px); }
+  25% { transform: translateY(-4px); }
+  50% { transform: translateY(-6px); }
+  75% { transform: translateY(-4px); }
+  100% { transform: translateY(0px); }
+}
