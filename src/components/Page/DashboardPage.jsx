@@ -225,62 +225,7 @@ function DashboardPage() {
           </>
         )}
 
-        {/* DOWNLOADED NOTES TAB */}
-        {activeTab === "notes" && (
-          <>
-            <h1 className="dash-heading">📥 Downloaded Notes</h1>
-            <p className="dash-subheading">{user?.downloadedNotes?.length || 0} notes downloaded</p>
-            <div className="dash-section">
-              {user?.downloadedNotes?.length > 0 ? (
-                <div className="dash-notes-list">
-                  {[...user.downloadedNotes].reverse().map((note, i) => (
-                    <div key={i}>
-                      <div
-                        className={`dash-note-item clickable ${expandedNote === `n${i}` ? "expanded" : ""}`}
-                        onClick={() => setExpandedNote(expandedNote === `n${i}` ? null : `n${i}`)}
-                      >
-                        <span className="dash-note-tag">{note.category}</span>
-                        <span className="dash-note-title">{note.title}</span>
-                        <div className="dash-note-actions">
-                          <span className="dash-note-date">
-                            {new Date(note.downloadedAt).toLocaleDateString()}
-                          </span>
-                          <span className="dash-expand-icon">
-                            {expandedNote === `n${i}` ? "▲" : "▼"}
-                          </span>
-                        </div>
-                      </div>
-                      {expandedNote === `n${i}` && (
-                        <div className="dash-note-expanded">
-                          {notesPdfMap[note.title] ? (
-                            <>
-                              <button
-                                className="dash-view-btn"
-                                onClick={() => window.open(`/${notesPdfMap[note.title]}`, "_blank")}
-                              >
-                                👁️ View PDF
-                              </button>
-                              <a href={`/${notesPdfMap[note.title]}`} download className="dash-download-btn">
-                                ⬇️ Download
-                              </a>
-                            </>
-                          ) : (
-                            <span className="dash-coming-soon">🔒 PDF Coming Soon</span>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="dash-empty">
-                  You haven’t downloaded any notes yet!
-                  <span onClick={() => navigate("/notes")}> View Notes →</span>
-                </p>
-              )}
-            </div>
-          </>
-        )}
+       
 
         {/* COURSES TAB */}
         {activeTab === "courses" && (
@@ -340,6 +285,65 @@ function DashboardPage() {
             </div>
           </>
         )}
+          
+           {/* DOWNLOADED NOTES TAB */}
+        {activeTab === "notes" && (
+          <>
+            <h1 className="dash-heading">📥 Downloaded Notes</h1>
+            <p className="dash-subheading">{user?.downloadedNotes?.length || 0} notes downloaded</p>
+            <div className="dash-section">
+              {user?.downloadedNotes?.length > 0 ? (
+                <div className="dash-notes-list">
+                  {[...user.downloadedNotes].reverse().map((note, i) => (
+                    <div key={i}>
+                      <div
+                        className={`dash-note-item clickable ${expandedNote === `n${i}` ? "expanded" : ""}`}
+                        onClick={() => setExpandedNote(expandedNote === `n${i}` ? null : `n${i}`)}
+                      >
+                        <span className="dash-note-tag">{note.category}</span>
+                        <span className="dash-note-title">{note.title}</span>
+                        <div className="dash-note-actions">
+                          <span className="dash-note-date">
+                            {new Date(note.downloadedAt).toLocaleDateString()}
+                          </span>
+                          <span className="dash-expand-icon">
+                            {expandedNote === `n${i}` ? "▲" : "▼"}
+                          </span>
+                        </div>
+                      </div>
+                      {expandedNote === `n${i}` && (
+                        <div className="dash-note-expanded">
+                          {notesPdfMap[note.title] ? (
+                            <>
+                              <button
+                                className="dash-view-btn"
+                                onClick={() => window.open(`/${notesPdfMap[note.title]}`, "_blank")}
+                              >
+                                👁️ View PDF
+                              </button>
+                              <a href={`/${notesPdfMap[note.title]}`} download className="dash-download-btn">
+                                ⬇️ Download
+                              </a>
+                            </>
+                          ) : (
+                            <span className="dash-coming-soon">🔒 PDF Coming Soon</span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="dash-empty">
+                  You haven’t downloaded any notes yet!
+                  <span onClick={() => navigate("/notes")}> View Notes →</span>
+                </p>
+              )}
+            </div>
+          </>
+        )}
+
+
 
         {/* SETTINGS TAB */}
         {activeTab === "settings" && (
