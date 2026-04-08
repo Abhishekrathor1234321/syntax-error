@@ -919,7 +919,8 @@
 
   /* === ENROLL BUTTON: full width on mobile === */
   .cd-enroll-btn {
-    width: 100%;
+    display: inline-block;
+    width: auto;
     min-width: unset;
     font-size: 0.95rem;
     padding: 0.9rem 1rem;
