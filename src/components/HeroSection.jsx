@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./HeroSection.css";
-
+import DSABootcampPopup from "./components/DSABootcampPopup";
 function HeroSection() {
   const [visitors, setVisitors] = useState(null);
 
  
 
   return (
+    <>  
+    <DSABootcampPopup />
     <section id="home" className="hero" style={{ paddingTop: "80px" }}>
       <div className="hero-content">
         <div className="insta">@code.abhii07</div>
@@ -47,8 +49,11 @@ function HeroSection() {
 };`}
         </div>
       </div>
+      
     </section>
+     </>
   );
+ 
 }
 
 export default HeroSection;
