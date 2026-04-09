@@ -4,9 +4,10 @@ export default function DSABootcampPopup() {
   const [visible, setVisible] = useState(false);
   const [timeLeft, setTimeLeft] = useState(2 * 86400 + 14 * 3600 + 30 * 60);
 
+  // Har baar page open hone par show hoga — no localStorage
   useEffect(() => {
-    const seen = localStorage.getItem("dsa_popup_v4_closed");
-    if (!seen) setTimeout(() => setVisible(true), 1800);
+    const timer = setTimeout(() => setVisible(true), 1500);
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -15,10 +16,7 @@ export default function DSABootcampPopup() {
     return () => clearInterval(iv);
   }, [visible]);
 
-  const handleClose = () => {
-    setVisible(false);
-    localStorage.setItem("dsa_popup_v4_closed", "true");
-  };
+  const handleClose = () => setVisible(false);
 
   const handleEnroll = () => {
     window.open("https://live-dsa.vercel.app/", "_blank");
@@ -35,175 +33,183 @@ export default function DSABootcampPopup() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-        .dp-backdrop {
+        .dp-overlay {
           position: fixed; inset: 0; z-index: 9990;
-          background: rgba(0,0,0,0.72);
-          backdrop-filter: blur(6px);
-          animation: dpFade .3s ease;
+          background: rgba(0, 0, 0, 0.75);
+          backdrop-filter: blur(5px);
+          animation: dpFade .25s ease;
         }
         .dp-card {
           position: fixed; top: 50%; left: 50%;
           transform: translate(-50%, -50%);
           z-index: 9999;
-          width: min(420px, 94vw);
+          width: min(400px, 92vw);
           border-radius: 20px;
-          background: #0c0c14;
-          border: 1px solid rgba(255,255,255,0.09);
-          box-shadow: 0 30px 80px rgba(0,0,0,0.7), 0 0 60px rgba(99,102,241,0.12);
-          animation: dpPop .4s cubic-bezier(.34,1.56,.64,1);
+          background: linear-gradient(160deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+          border: 1px solid rgba(255,255,255,0.1);
+          box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 40px rgba(99,102,241,0.15);
+          animation: dpPop .35s cubic-bezier(.34,1.56,.64,1);
           overflow: hidden;
+          font-family: 'Inter', sans-serif;
         }
-        .dp-top-bar {
+        .dp-top {
           height: 3px;
-          background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899, #f97316, #eab308);
-          background-size: 200% 100%;
-          animation: dpBar 4s linear infinite;
+          background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899);
         }
-        .dp-inner { padding: 28px 26px 26px; }
+        .dp-body { padding: 28px 24px 24px; position: relative; }
         .dp-close {
           position: absolute; top: 16px; right: 16px;
           width: 28px; height: 28px; border-radius: 50%;
-          background: rgba(255,255,255,0.06);
-          border: 1px solid rgba(255,255,255,0.1);
-          color: #555; font-size: 13px; cursor: pointer;
-          display: flex; align-items: center; justify-content: center;
+          background: rgba(255,255,255,0.07);
+          border: 1px solid rgba(255,255,255,0.12);
+          color: #64748b; font-size: 13px;
+          cursor: pointer; display: flex;
+          align-items: center; justify-content: center;
           transition: all .2s;
         }
-        .dp-close:hover { background: rgba(239,68,68,0.2); color: #ef4444; border-color: rgba(239,68,68,0.3); }
-        .dp-badge {
+        .dp-close:hover { background: rgba(239,68,68,0.2); color: #ef4444; }
+
+        .dp-tag {
           display: inline-flex; align-items: center; gap: 6px;
-          background: rgba(34,197,94,0.1);
-          border: 1px solid rgba(34,197,94,0.3);
-          border-radius: 20px; padding: 4px 12px;
-          font-family: 'Space Mono', monospace;
-          font-size: 10px; color: #22c55e;
-          font-weight: 700; letter-spacing: 1.5px;
-          margin-bottom: 16px;
+          background: rgba(255,255,255,0.07);
+          border: 1px solid rgba(255,255,255,0.12);
+          border-radius: 20px; padding: 5px 12px;
+          font-size: 10px; color: #94a3b8;
+          font-weight: 600; letter-spacing: 1px;
+          text-transform: uppercase; margin-bottom: 16px;
         }
-        .dp-badge-dot {
-          width: 7px; height: 7px; border-radius: 50%;
+        .dp-tag-dot {
+          width: 6px; height: 6px; border-radius: 50%;
           background: #22c55e; box-shadow: 0 0 6px #22c55e;
-          animation: dpBlink 1s infinite;
+          animation: dpBlink 1.2s infinite;
         }
+
         .dp-title {
-          font-family: 'Syne', sans-serif;
-          font-size: clamp(26px, 6vw, 32px);
-          font-weight: 800; line-height: 1.15;
-          margin: 0 0 8px; color: #f1f5f9;
-          letter-spacing: -0.5px;
+          font-size: clamp(20px, 5vw, 24px);
+          font-weight: 800; color: #f1f5f9;
+          line-height: 1.25; margin: 0 0 6px;
+          letter-spacing: -0.3px;
         }
-        .dp-title span {
+        .dp-year {
+          font-size: clamp(20px, 5vw, 24px);
+          font-weight: 800;
           background: linear-gradient(90deg, #a855f7, #ec4899);
           -webkit-background-clip: text; -webkit-text-fill-color: transparent;
           background-clip: text;
         }
         .dp-desc {
-          font-family: 'Space Mono', monospace;
-          font-size: 12px; color: #475569;
-          line-height: 1.8; margin: 0 0 22px;
+          font-size: 13px; color: #64748b;
+          line-height: 1.7; margin: 0 0 20px;
         }
-        .dp-divider {
-          height: 1px;
+
+        .dp-price-box {
           background: rgba(255,255,255,0.05);
-          margin: 0 -26px 22px;
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 14px; padding: 16px 18px;
+          margin-bottom: 16px;
+          display: flex; align-items: center; justify-content: space-between;
         }
+        .dp-price-label {
+          font-size: 10px; color: #475569;
+          letter-spacing: 1.5px; text-transform: uppercase;
+          font-weight: 600; margin-bottom: 6px;
+        }
+        .dp-price-row { display: flex; align-items: center; gap: 10px; }
+        .dp-price-main {
+          font-size: 30px; font-weight: 800; color: #f1f5f9;
+          letter-spacing: -1px;
+        }
+        .dp-price-old {
+          font-size: 16px; color: #475569;
+          text-decoration: line-through; font-weight: 500;
+        }
+        .dp-badge-off {
+          background: #22c55e; color: #fff;
+          font-size: 11px; font-weight: 700;
+          padding: 4px 10px; border-radius: 8px;
+          letter-spacing: 0.5px;
+        }
+
         .dp-timer-label {
-          font-family: 'Space Mono', monospace;
           font-size: 10px; color: #f97316;
           letter-spacing: 1.5px; text-transform: uppercase;
-          text-align: center; margin: 0 0 12px;
+          text-align: center; margin: 0 0 10px;
+          font-weight: 600;
         }
-        .dp-timer {
-          display: flex; gap: 8px; margin-bottom: 22px;
-        }
+        .dp-timer { display: flex; gap: 6px; margin-bottom: 20px; }
         .dp-unit {
-          flex: 1; background: rgba(255,255,255,0.03);
+          flex: 1; background: rgba(255,255,255,0.04);
           border: 1px solid rgba(255,255,255,0.07);
           border-radius: 10px; padding: 10px 4px;
           text-align: center;
         }
         .dp-num {
-          display: block;
-          font-family: 'Space Mono', monospace;
-          font-size: clamp(20px,5vw,26px); font-weight: 700;
-          color: #f1f5f9; line-height: 1;
-          margin-bottom: 4px;
+          display: block; font-size: clamp(18px,4vw,22px);
+          font-weight: 700; color: #f1f5f9; line-height: 1;
+          margin-bottom: 4px; font-variant-numeric: tabular-nums;
         }
         .dp-lbl {
-          font-family: 'Space Mono', monospace;
           font-size: 9px; color: #334155;
           letter-spacing: 1px; text-transform: uppercase;
         }
-        .dp-btn-main {
+
+        .dp-btn {
           width: 100%; padding: 14px;
-          background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
-          background-size: 200% 200%;
-          animation: dpGrad 4s ease infinite;
+          background: #2563eb;
           border: none; border-radius: 12px;
-          color: #fff; font-family: 'Syne', sans-serif;
-          font-size: 15px; font-weight: 800;
-          cursor: pointer; letter-spacing: 0.3px;
-          transition: transform .2s, box-shadow .2s;
-          margin-bottom: 10px;
+          color: #fff; font-family: 'Inter', sans-serif;
+          font-size: 15px; font-weight: 700;
+          cursor: pointer; letter-spacing: 0.2px;
+          transition: background .2s, transform .15s, box-shadow .2s;
+          margin-bottom: 0;
         }
-        .dp-btn-main:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(168,85,247,0.35); }
-        .dp-btn-main:active { transform: scale(.98); }
-        .dp-btn-skip {
-          width: 100%; padding: 10px;
-          background: transparent;
-          border: 1px solid rgba(255,255,255,0.07);
-          border-radius: 10px; color: #334155;
-          font-family: 'Space Mono', monospace;
-          font-size: 11px; cursor: pointer;
-          transition: color .2s, border-color .2s;
-        }
-        .dp-btn-skip:hover { color: #64748b; border-color: rgba(255,255,255,0.14); }
-        .dp-note {
-          margin: 12px 0 0; text-align: center;
-          font-family: 'Space Mono', monospace;
-          font-size: 10px; color: #1e293b;
-        }
+        .dp-btn:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 8px 25px rgba(37,99,235,0.4); }
+        .dp-btn:active { transform: scale(.98); }
 
         @keyframes dpFade { from{opacity:0} to{opacity:1} }
-        @keyframes dpPop { from{opacity:0;transform:translate(-50%,-50%) scale(.85)} to{opacity:1;transform:translate(-50%,-50%) scale(1)} }
-        @keyframes dpBar { 0%{background-position:0% 50%} 100%{background-position:200% 50%} }
+        @keyframes dpPop { from{opacity:0;transform:translate(-50%,-50%) scale(.88)} to{opacity:1;transform:translate(-50%,-50%) scale(1)} }
         @keyframes dpBlink { 0%,100%{opacity:1} 50%{opacity:.2} }
-        @keyframes dpGrad { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
         @media(max-width:380px){
-          .dp-title{font-size:24px;}
-          .dp-btn-main{font-size:13px;padding:12px;}
+          .dp-price-main{font-size:26px;}
+          .dp-btn{font-size:14px; padding:13px;}
         }
       `}</style>
 
-      <div className="dp-backdrop" onClick={handleClose} />
+      <div className="dp-overlay" onClick={handleClose} />
 
       <div className="dp-card">
-        <div className="dp-top-bar" />
-
-        <div className="dp-inner">
+        <div className="dp-top" />
+        <div className="dp-body">
           <button className="dp-close" onClick={handleClose}>✕</button>
 
-          <div className="dp-badge">
-            <span className="dp-badge-dot" />
-            LIVE BOOTCAMP
+          <div className="dp-tag">
+            <span className="dp-tag-dot" />
+            Live Bootcamp · 2026
           </div>
 
           <h2 className="dp-title">
-            DSA Bootcamp<br />
-            <span>2026 🚀</span>
+            Complete DSA Course<br />
+            <span className="dp-year">2026 🚀</span>
           </h2>
-
           <p className="dp-desc">
-            Basics se Advanced tak — live sessions,<br />
-            doubt solving &amp; placement prep.
+            Basics se Advanced tak — placements, internships aur MAANG interviews ke liye taiyaar karo.
           </p>
 
-          <div className="dp-divider" />
+          <div className="dp-price-box">
+            <div>
+              <p className="dp-price-label">Lifetime Access</p>
+              <div className="dp-price-row">
+                <span className="dp-price-main">₹299</span>
+                <span className="dp-price-old">₹1999</span>
+                <span className="dp-badge-off">85% OFF</span>
+              </div>
+            </div>
+          </div>
 
-          <p className="dp-timer-label">⏳ Early bird offer ends in</p>
+          <p className="dp-timer-label">⏳ Offer ends in</p>
           <div className="dp-timer">
             {[[fmt(days),"Days"],[fmt(hrs),"Hrs"],[fmt(mins),"Min"],[fmt(secs),"Sec"]].map(([v,l]) => (
               <div key={l} className="dp-unit">
@@ -213,15 +219,9 @@ export default function DSABootcampPopup() {
             ))}
           </div>
 
-          <button className="dp-btn-main" onClick={handleEnroll}>
-            🔥 Enroll Now — Check Full Details
+          <button className="dp-btn" onClick={handleEnroll}>
+            Enroll Now →
           </button>
-
-          <button className="dp-btn-skip" onClick={handleClose}>
-            Maybe later
-          </button>
-
-          <p className="dp-note">*Free for first 100 students · Limited time</p>
         </div>
       </div>
     </>
