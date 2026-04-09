@@ -3,10 +3,9 @@ import { useState, useEffect } from "react";
 export default function DSABootcampPopup() {
   const [visible, setVisible] = useState(false);
   const [timeLeft, setTimeLeft] = useState(2 * 86400 + 14 * 3600 + 30 * 60);
-  const [particles, setParticles] = useState([]);
 
   useEffect(() => {
-    const seen = localStorage.getItem("dsa_popup_v3_closed");
+    const seen = localStorage.getItem("dsa_popup_v4_closed");
     if (!seen) setTimeout(() => setVisible(true), 1800);
   }, []);
 
@@ -16,28 +15,12 @@ export default function DSABootcampPopup() {
     return () => clearInterval(iv);
   }, [visible]);
 
-  useEffect(() => {
-    if (!visible) return;
-    const colors = ["#ff6b6b","#ffd93d","#6bcb77","#4d96ff","#c77dff","#ff9f43","#00d2d3","#ff6b9d"];
-    setParticles(
-      Array.from({ length: 16 }, (_, i) => ({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 5 + 2,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        dur: (Math.random() * 4 + 3).toFixed(1),
-        delay: (Math.random() * 3).toFixed(1),
-      }))
-    );
-  }, [visible]);
-
   const handleClose = () => {
     setVisible(false);
-    localStorage.setItem("dsa_popup_v3_closed", "true");
+    localStorage.setItem("dsa_popup_v4_closed", "true");
   };
 
-  const handleMoreDetails = () => {
+  const handleEnroll = () => {
     window.open("https://live-dsa.vercel.app/", "_blank");
   };
 
@@ -54,279 +37,192 @@ export default function DSABootcampPopup() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap');
 
-        .dsa-bd{position:fixed;inset:0;z-index:9990;background:rgba(0,0,0,0.80);backdrop-filter:blur(7px);animation:dsaFdIn .3s ease;}
-        .dsa-box{
-          position:fixed;top:50%;left:50%;
-          transform:translate(-50%,-50%);
-          z-index:9999;
-          width:min(460px,95vw);
-          max-height:92vh;
-          overflow-y:auto;
-          border-radius:22px;
-          background:#080810;
-          border:1.5px solid rgba(255,255,255,0.08);
-          box-shadow:0 0 0 1px rgba(255,107,107,0.1),0 0 80px rgba(77,150,255,0.15),0 40px 100px rgba(0,0,0,0.85);
-          animation:dsaPopIn .45s cubic-bezier(.34,1.56,.64,1);
-          scrollbar-width:none;
+        .dp-backdrop {
+          position: fixed; inset: 0; z-index: 9990;
+          background: rgba(0,0,0,0.72);
+          backdrop-filter: blur(6px);
+          animation: dpFade .3s ease;
         }
-        .dsa-box::-webkit-scrollbar{display:none;}
+        .dp-card {
+          position: fixed; top: 50%; left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 9999;
+          width: min(420px, 94vw);
+          border-radius: 20px;
+          background: #0c0c14;
+          border: 1px solid rgba(255,255,255,0.09);
+          box-shadow: 0 30px 80px rgba(0,0,0,0.7), 0 0 60px rgba(99,102,241,0.12);
+          animation: dpPop .4s cubic-bezier(.34,1.56,.64,1);
+          overflow: hidden;
+        }
+        .dp-top-bar {
+          height: 3px;
+          background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899, #f97316, #eab308);
+          background-size: 200% 100%;
+          animation: dpBar 4s linear infinite;
+        }
+        .dp-inner { padding: 28px 26px 26px; }
+        .dp-close {
+          position: absolute; top: 16px; right: 16px;
+          width: 28px; height: 28px; border-radius: 50%;
+          background: rgba(255,255,255,0.06);
+          border: 1px solid rgba(255,255,255,0.1);
+          color: #555; font-size: 13px; cursor: pointer;
+          display: flex; align-items: center; justify-content: center;
+          transition: all .2s;
+        }
+        .dp-close:hover { background: rgba(239,68,68,0.2); color: #ef4444; border-color: rgba(239,68,68,0.3); }
+        .dp-badge {
+          display: inline-flex; align-items: center; gap: 6px;
+          background: rgba(34,197,94,0.1);
+          border: 1px solid rgba(34,197,94,0.3);
+          border-radius: 20px; padding: 4px 12px;
+          font-family: 'Space Mono', monospace;
+          font-size: 10px; color: #22c55e;
+          font-weight: 700; letter-spacing: 1.5px;
+          margin-bottom: 16px;
+        }
+        .dp-badge-dot {
+          width: 7px; height: 7px; border-radius: 50%;
+          background: #22c55e; box-shadow: 0 0 6px #22c55e;
+          animation: dpBlink 1s infinite;
+        }
+        .dp-title {
+          font-family: 'Syne', sans-serif;
+          font-size: clamp(26px, 6vw, 32px);
+          font-weight: 800; line-height: 1.15;
+          margin: 0 0 8px; color: #f1f5f9;
+          letter-spacing: -0.5px;
+        }
+        .dp-title span {
+          background: linear-gradient(90deg, #a855f7, #ec4899);
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        .dp-desc {
+          font-family: 'Space Mono', monospace;
+          font-size: 12px; color: #475569;
+          line-height: 1.8; margin: 0 0 22px;
+        }
+        .dp-divider {
+          height: 1px;
+          background: rgba(255,255,255,0.05);
+          margin: 0 -26px 22px;
+        }
+        .dp-timer-label {
+          font-family: 'Space Mono', monospace;
+          font-size: 10px; color: #f97316;
+          letter-spacing: 1.5px; text-transform: uppercase;
+          text-align: center; margin: 0 0 12px;
+        }
+        .dp-timer {
+          display: flex; gap: 8px; margin-bottom: 22px;
+        }
+        .dp-unit {
+          flex: 1; background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 10px; padding: 10px 4px;
+          text-align: center;
+        }
+        .dp-num {
+          display: block;
+          font-family: 'Space Mono', monospace;
+          font-size: clamp(20px,5vw,26px); font-weight: 700;
+          color: #f1f5f9; line-height: 1;
+          margin-bottom: 4px;
+        }
+        .dp-lbl {
+          font-family: 'Space Mono', monospace;
+          font-size: 9px; color: #334155;
+          letter-spacing: 1px; text-transform: uppercase;
+        }
+        .dp-btn-main {
+          width: 100%; padding: 14px;
+          background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+          background-size: 200% 200%;
+          animation: dpGrad 4s ease infinite;
+          border: none; border-radius: 12px;
+          color: #fff; font-family: 'Syne', sans-serif;
+          font-size: 15px; font-weight: 800;
+          cursor: pointer; letter-spacing: 0.3px;
+          transition: transform .2s, box-shadow .2s;
+          margin-bottom: 10px;
+        }
+        .dp-btn-main:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(168,85,247,0.35); }
+        .dp-btn-main:active { transform: scale(.98); }
+        .dp-btn-skip {
+          width: 100%; padding: 10px;
+          background: transparent;
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 10px; color: #334155;
+          font-family: 'Space Mono', monospace;
+          font-size: 11px; cursor: pointer;
+          transition: color .2s, border-color .2s;
+        }
+        .dp-btn-skip:hover { color: #64748b; border-color: rgba(255,255,255,0.14); }
+        .dp-note {
+          margin: 12px 0 0; text-align: center;
+          font-family: 'Space Mono', monospace;
+          font-size: 10px; color: #1e293b;
+        }
 
-        .dsa-rainbow{
-          height:3px;
-          background:linear-gradient(90deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff,#c77dff,#ff6b9d,#ff6b6b);
-          background-size:200% 100%;
-          animation:dsaRainbow 3s linear infinite;
-        }
-        .dsa-ticker{
-          overflow:hidden;padding:7px 0;
-          background:rgba(255,217,61,0.05);
-          border-bottom:1px solid rgba(255,255,255,0.04);
-        }
-        .dsa-ticker-txt{
-          display:inline-block;white-space:nowrap;
-          animation:dsaTick 18s linear infinite;
-          font-family:'Space Mono',monospace;
-          font-size:11px;color:#ffd93d;letter-spacing:.5px;
-        }
-        .dsa-hdr{
-          position:relative;
-          background:linear-gradient(145deg,#0d0d1e 0%,#080d1a 60%,#0d0814 100%);
-          padding:28px 24px 22px;
-          border-bottom:1px solid rgba(255,255,255,0.05);
-          overflow:hidden;
-        }
-        .dsa-particle{position:absolute;border-radius:50%;pointer-events:none;animation:dsaFloat var(--dur,4s) ease-in-out var(--delay,0s) infinite alternate;}
-        .dsa-close{
-          position:absolute;top:14px;right:14px;
-          width:30px;height:30px;border-radius:50%;
-          background:rgba(255,255,255,0.06);
-          border:1px solid rgba(255,255,255,0.1);
-          color:#667;font-size:14px;cursor:pointer;
-          display:flex;align-items:center;justify-content:center;
-          transition:background .2s,color .2s;z-index:10;
-        }
-        .dsa-close:hover{background:rgba(255,107,107,.25);color:#ff6b6b;}
-        .dsa-live{
-          display:inline-flex;align-items:center;gap:7px;
-          background:rgba(107,203,119,0.1);
-          border:1px solid rgba(107,203,119,.4);border-radius:30px;
-          padding:5px 14px;margin-bottom:14px;
-          font-family:'Space Mono',monospace;font-size:10px;
-          color:#6bcb77;font-weight:700;letter-spacing:1.5px;
-        }
-        .dsa-live-dot{width:8px;height:8px;background:#6bcb77;border-radius:50%;box-shadow:0 0 8px #6bcb77;animation:dsaBlink 1s infinite;}
-        .dsa-title{
-          font-family:'Syne',sans-serif;
-          font-size:clamp(24px,5vw,30px);font-weight:800;line-height:1.2;
-          margin:0 0 10px;
-          background:linear-gradient(135deg,#fff 0%,#c0d4ff 100%);
-          -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-        }
-        .dsa-title-accent{
-          background:linear-gradient(135deg,#ff6b6b,#ffd93d);
-          -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-        }
-        .dsa-sub{font-family:'Space Mono',monospace;font-size:12px;color:#4a5870;line-height:1.8;margin:0;}
+        @keyframes dpFade { from{opacity:0} to{opacity:1} }
+        @keyframes dpPop { from{opacity:0;transform:translate(-50%,-50%) scale(.85)} to{opacity:1;transform:translate(-50%,-50%) scale(1)} }
+        @keyframes dpBar { 0%{background-position:0% 50%} 100%{background-position:200% 50%} }
+        @keyframes dpBlink { 0%,100%{opacity:1} 50%{opacity:.2} }
+        @keyframes dpGrad { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
-        .dsa-body{padding:20px 24px 24px;}
-
-        .dsa-highlights{
-          display:grid;grid-template-columns:1fr 1fr;gap:10px;
-          margin-bottom:20px;
-        }
-        .dsa-hl-card{
-          border-radius:12px;padding:14px 12px;
-          border:1px solid rgba(255,255,255,0.06);
-          display:flex;align-items:center;gap:10px;
-        }
-        .dsa-hl-icon{font-size:20px;flex-shrink:0;}
-        .dsa-hl-txt-main{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;display:block;}
-        .dsa-hl-txt-sub{font-family:'Space Mono',monospace;font-size:10px;color:#445566;display:block;margin-top:1px;}
-
-        .dsa-timer-box{
-          background:rgba(255,107,107,.06);
-          border:1px solid rgba(255,107,107,.2);
-          border-radius:14px;padding:16px;margin-bottom:20px;
-        }
-        .dsa-timer-lbl{
-          margin:0 0 10px;text-align:center;
-          font-family:'Space Mono',monospace;font-size:11px;
-          color:#ff9f43;letter-spacing:1px;text-transform:uppercase;
-        }
-        .dsa-timer-row{display:flex;gap:8px;}
-        .dsa-t-unit{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:11px;padding:12px 4px;text-align:center;}
-        .dsa-t-num{
-          font-family:'Space Mono',monospace;
-          font-size:clamp(20px,4vw,26px);font-weight:700;display:block;
-          background:linear-gradient(135deg,#ff6b6b,#ffd93d);
-          -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-        }
-        .dsa-t-sub{font-family:'Space Mono',monospace;font-size:9px;color:#334455;letter-spacing:1px;text-transform:uppercase;}
-
-        .dsa-enroll{
-          width:100%;padding:15px;
-          background:linear-gradient(135deg,#ff6b6b,#ff9f43,#ffd93d);
-          background-size:200% 200%;
-          border:none;border-radius:13px;
-          color:#08080f;font-weight:800;
-          font-family:'Syne',sans-serif;font-size:15px;cursor:pointer;
-          letter-spacing:.5px;
-          animation:dsaGrad 3s ease infinite;
-          transition:transform .2s,box-shadow .2s;
-          margin-bottom:10px;
-        }
-        .dsa-enroll:hover{transform:translateY(-2px);box-shadow:0 10px 35px rgba(255,107,107,.4);}
-        .dsa-enroll:active{transform:scale(.98);}
-
-        .dsa-details-btn{
-          width:100%;padding:11px;
-          background:rgba(77,150,255,0.07);
-          border:1px solid rgba(77,150,255,.2);
-          border-radius:11px;color:#4d96ff;
-          font-family:'Space Mono',monospace;font-size:12px;cursor:pointer;
-          transition:background .2s,box-shadow .2s;
-          margin-bottom:10px;
-        }
-        .dsa-details-btn:hover{background:rgba(77,150,255,.15);box-shadow:0 0 20px rgba(77,150,255,.15);}
-
-        .dsa-later{
-          width:100%;padding:9px;
-          background:transparent;border:1px solid rgba(255,255,255,.07);
-          border-radius:10px;color:#334455;
-          font-family:'Space Mono',monospace;font-size:11px;cursor:pointer;
-          transition:color .2s,border-color .2s;
-        }
-        .dsa-later:hover{color:#667788;border-color:rgba(255,255,255,.15);}
-        .dsa-foot{margin:12px 0 0;text-align:center;font-family:'Space Mono',monospace;font-size:10px;color:#222d3a;}
-
-        @keyframes dsaFdIn{from{opacity:0}to{opacity:1}}
-        @keyframes dsaPopIn{from{opacity:0;transform:translate(-50%,-50%) scale(.82) translateY(20px)}to{opacity:1;transform:translate(-50%,-50%) scale(1) translateY(0)}}
-        @keyframes dsaTick{0%{transform:translateX(110%)}100%{transform:translateX(-110%)}}
-        @keyframes dsaBlink{0%,100%{opacity:1;box-shadow:0 0 8px #6bcb77}50%{opacity:.3;box-shadow:none}}
-        @keyframes dsaFloat{0%{transform:translateY(0) scale(1)}100%{transform:translateY(-16px) scale(1.2)}}
-        @keyframes dsaGrad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-        @keyframes dsaRainbow{0%{background-position:0% 50%}100%{background-position:200% 50%}}
-
-        @media(max-width:400px){
-          .dsa-highlights{grid-template-columns:1fr 1fr;}
-          .dsa-enroll{font-size:13px;padding:13px;}
-          .dsa-title{font-size:22px;}
+        @media(max-width:380px){
+          .dp-title{font-size:24px;}
+          .dp-btn-main{font-size:13px;padding:12px;}
         }
       `}</style>
 
-      {/* Backdrop */}
-      <div className="dsa-bd" onClick={handleClose} />
+      <div className="dp-backdrop" onClick={handleClose} />
 
-      {/* Popup */}
-      <div className="dsa-box">
+      <div className="dp-card">
+        <div className="dp-top-bar" />
 
-        <div className="dsa-rainbow" />
+        <div className="dp-inner">
+          <button className="dp-close" onClick={handleClose}>✕</button>
 
-        {/* Ticker */}
-        <div className="dsa-ticker">
-          <span className="dsa-ticker-txt">
-            🚀 LIVE DSA BOOTCAMP 2026 — SESSIONS STARTING SOON &nbsp;·&nbsp; LIMITED SEATS &nbsp;·&nbsp; EARLY BIRD DISCOUNT &nbsp;·&nbsp; BASICS → ADVANCED &nbsp;·&nbsp; 🔥 DON'T MISS IT &nbsp;&nbsp;&nbsp;&nbsp;
-          </span>
-        </div>
-
-        {/* Header */}
-        <div className="dsa-hdr">
-          {particles.map(p => (
-            <div key={p.id} className="dsa-particle" style={{
-              left:`${p.x}%`, top:`${p.y}%`,
-              width:p.size, height:p.size,
-              background:p.color,
-              boxShadow:`0 0 ${p.size*2}px ${p.color}`,
-              "--dur":`${p.dur}s`, "--delay":`${p.delay}s`,
-              opacity:.5,
-            }} />
-          ))}
-
-          <button className="dsa-close" onClick={handleClose}>✕</button>
-
-          <div className="dsa-live">
-            <span className="dsa-live-dot" />
+          <div className="dp-badge">
+            <span className="dp-badge-dot" />
             LIVE BOOTCAMP
           </div>
 
-          <h2 className="dsa-title">
+          <h2 className="dp-title">
             DSA Bootcamp<br />
-            <span className="dsa-title-accent">2026 🚀</span>
+            <span>2026 🚀</span>
           </h2>
 
-          <p className="dsa-sub">
+          <p className="dp-desc">
             Basics se Advanced tak — live sessions,<br />
             doubt solving &amp; placement prep.
           </p>
-        </div>
 
-        {/* Body */}
-        <div className="dsa-body">
+          <div className="dp-divider" />
 
-          {/* Highlight cards */}
-          <div className="dsa-highlights">
-            <div className="dsa-hl-card" style={{background:"rgba(107,203,119,0.07)",borderColor:"rgba(107,203,119,0.15)"}}>
-              <span className="dsa-hl-icon">📚</span>
-              <div>
-                <span className="dsa-hl-txt-main" style={{color:"#6bcb77"}}>30+ Sessions</span>
-                <span className="dsa-hl-txt-sub">Live classes</span>
+          <p className="dp-timer-label">⏳ Early bird offer ends in</p>
+          <div className="dp-timer">
+            {[[fmt(days),"Days"],[fmt(hrs),"Hrs"],[fmt(mins),"Min"],[fmt(secs),"Sec"]].map(([v,l]) => (
+              <div key={l} className="dp-unit">
+                <span className="dp-num">{v}</span>
+                <span className="dp-lbl">{l}</span>
               </div>
-            </div>
-            <div className="dsa-hl-card" style={{background:"rgba(77,150,255,0.07)",borderColor:"rgba(77,150,255,0.15)"}}>
-              <span className="dsa-hl-icon">💡</span>
-              <div>
-                <span className="dsa-hl-txt-main" style={{color:"#4d96ff"}}>500+ Problems</span>
-                <span className="dsa-hl-txt-sub">Practice set</span>
-              </div>
-            </div>
-            <div className="dsa-hl-card" style={{background:"rgba(255,217,61,0.07)",borderColor:"rgba(255,217,61,0.15)"}}>
-              <span className="dsa-hl-icon">🎯</span>
-              <div>
-                <span className="dsa-hl-txt-main" style={{color:"#ffd93d"}}>FREE*</span>
-                <span className="dsa-hl-txt-sub">Early access</span>
-              </div>
-            </div>
-            <div className="dsa-hl-card" style={{background:"rgba(199,125,255,0.07)",borderColor:"rgba(199,125,255,0.15)"}}>
-              <span className="dsa-hl-icon">🏆</span>
-              <div>
-                <span className="dsa-hl-txt-main" style={{color:"#c77dff"}}>Certificate</span>
-                <span className="dsa-hl-txt-sub">On completion</span>
-              </div>
-            </div>
+            ))}
           </div>
 
-          {/* Countdown timer */}
-          <div className="dsa-timer-box">
-            <p className="dsa-timer-lbl">⏳ Early bird offer ends in</p>
-            <div className="dsa-timer-row">
-              {[[fmt(days),"Days"],[fmt(hrs),"Hours"],[fmt(mins),"Mins"],[fmt(secs),"Secs"]].map(([v,l]) => (
-                <div key={l} className="dsa-t-unit">
-                  <span className="dsa-t-num">{v}</span>
-                  <span className="dsa-t-sub">{l}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Enroll CTA */}
-          <button className="dsa-enroll" onClick={handleMoreDetails}>
+          <button className="dp-btn-main" onClick={handleEnroll}>
             🔥 Enroll Now — Check Full Details
           </button>
 
-          {/* More details */}
-          <button className="dsa-details-btn" onClick={handleMoreDetails}>
-            📋 View Complete Course Details →
-          </button>
-
-          {/* Maybe later */}
-          <button className="dsa-later" onClick={handleClose}>
+          <button className="dp-btn-skip" onClick={handleClose}>
             Maybe later
           </button>
 
-          <p className="dsa-foot">*Free for first 100 students · Limited time offer</p>
+          <p className="dp-note">*Free for first 100 students · Limited time</p>
         </div>
-
-        <div className="dsa-rainbow" />
       </div>
     </>
   );
