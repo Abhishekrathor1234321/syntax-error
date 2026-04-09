@@ -39,13 +39,13 @@ function HeroSection() {
 
        
 
-        <div className="code-box">
+        {/* <div className="code-box">
           {`const developer = {
   passion: "infinite",
   learning: true,
   community: "SYNTAX ERROR"
 };`}
-        </div>
+        </div> */}
       </div>
     </section>
   );
