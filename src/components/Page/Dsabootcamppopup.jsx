@@ -191,14 +191,14 @@ export default function DSABootcampPopup() {
           </div>
 
           <h2 className="dp-title">
-            Complete DSA Course<br />
+            Live DSA Bootcamp -Perfect for beginners<br />
             <span className="dp-year">2026 🚀</span>
           </h2>
           <p className="dp-desc">
-            Basics se Advanced tak — placements, internships aur MAANG interviews ke liye taiyaar karo.
+           From basics to advanced — prepare yourself for placements, internships, and MAANG interviews.
           </p>
 
-          <div className="dp-price-box">
+          {/* <div className="dp-price-box">
             <div>
               <p className="dp-price-label">Lifetime Access</p>
               <div className="dp-price-row">
@@ -207,7 +207,7 @@ export default function DSABootcampPopup() {
                 <span className="dp-badge-off">85% OFF</span>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <p className="dp-timer-label">⏳ Offer ends in</p>
           <div className="dp-timer">
@@ -220,7 +220,7 @@ export default function DSABootcampPopup() {
           </div>
 
           <button className="dp-btn" onClick={handleEnroll}>
-            Enroll Now →
+            Check More Detials →
           </button>
         </div>
       </div>
