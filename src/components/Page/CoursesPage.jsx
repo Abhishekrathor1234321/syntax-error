@@ -20,9 +20,9 @@ const courses = [
     btnLabel: "Enroll Now",
     detailLink: "/course-detail/dsa",
     coupons: {
-      "SYNTAX10": 10,
-      "DSA20": 20,
-      "ABHISHEKA99": 99,
+      // "SYNTAX10": 10,
+      // "DSA20": 20,
+      // "ABHISHEKA99": 99,
     },
     useRazorpay: true 
   },
