@@ -142,9 +142,9 @@ function DSACourseDetail() {
             title: "The Complete Data Structure & Algorithm Course 2026",
             amount: 299,
             coupons: {
-              "SYNTAX10": 10,
-              "DSA20": 20,
-              "ABHISHEKA99": 99,
+              // "SYNTAX10": 10,
+              // "DSA20": 20,
+              // "ABHISHEKA99": 99,
             }
           }}
           onClose={() => setShowCheckout(false)}
