@@ -40,9 +40,9 @@ const courses = [
     btnLabel: "Enroll Now",
     detailLink: "/course-detail/aptitude",
     coupons: {
-      "APTITUDE10": 10,
-      "KARINAA99": 99,
-      "SYNTAX20": 20,
+      // "APTITUDE10": 10,
+      // "KARINAA99": 99,
+      // "SYNTAX20": 20,
     },
     useRazorpay: true
   },

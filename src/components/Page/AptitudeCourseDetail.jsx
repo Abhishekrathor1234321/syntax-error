@@ -134,9 +134,9 @@ function AptitudeCourseDetail() {
             title: "Complete Aptitude Course 2026",
             amount: 199,
             coupons: {
-              "APTITUDE10": 10,
-              "KARINAA99": 99,
-              "SYNTAX20": 20,
+              // "APTITUDE10": 10,
+              // "KARINAA99": 99,
+              // "SYNTAX20": 20,
             }
           }}
           onClose={() => setShowCheckout(false)}
