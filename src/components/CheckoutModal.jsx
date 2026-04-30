@@ -9,8 +9,7 @@ function CheckoutModal({ course, onClose, onProceed }) {
   const [couponMsg, setCouponMsg] = useState("");
 
 const COUPONS = course.coupons || {
-  "SYNTAX10": 10,
-  "ABHISHEK20": 20,
+
 };
 
   const applyCoupon = () => {
