@@ -8,7 +8,7 @@ function HeroSection() {
 
   return (
     <>  
-    <DSABootcampPopup/>
+    {/* <DSABootcampPopup/> */}
     <section id="home" className="hero" style={{ paddingTop: "80px" }}>
       <div className="hero-content">
         <div className="insta">@code.abhii07</div>
