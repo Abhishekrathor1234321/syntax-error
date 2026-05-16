@@ -242,7 +242,7 @@ function TCSCourseDetail() {
       {showCheckout && (
         <CheckoutModal
           course={{
-            title: "TCS Complete Placement Course 2026-27",
+            title: "CS Complete Preparation Course 2026",
             amount: 9,
             coupons: {},
           }}
