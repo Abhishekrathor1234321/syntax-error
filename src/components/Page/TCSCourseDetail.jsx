@@ -232,8 +232,8 @@ function TCSCourseDetail() {
   const stats = [
     { num: "5", suffix: ".0 ⭐", label: "Avg Rating" },
     { num: "5", suffix: " Modules", label: "Complete Course" },
-    { num: "200", suffix: "+", label: "Practice Questions" },
-    { num: "100", suffix: "h+", label: "Course Content" },
+    { num: "200", suffix: "+", label: "Practice Questions[DSA+Aptitude"},
+    { num: "40", suffix: "h+", label: "Course Content" },
   ];
 
   return (
@@ -342,7 +342,7 @@ function TCSCourseDetail() {
                 <h3>📦 What's Inside This Bundle</h3>
                 <div className="tcs-bundle-grid">
                   {[
-                    { icon: "⚙️", title: "Full DSA Course", desc: "From basics to MAANG-level problems" },
+                    { icon: "⚙️", title: "Full DSA Course", desc: "From basics to TCS Prime-level problems" },
                     { icon: "🧠", title: "Aptitude Mastery", desc: "All TCS NQT quant & reasoning topics" },
                     { icon: "💻", title: "CS Fundamentals", desc: "OS, DBMS, Networks, OOPs, System Design" },
                     { icon: "🎯", title: "Interview Prep", desc: "HR + Technical + Mock rounds" },
