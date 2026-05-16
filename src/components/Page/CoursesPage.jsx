@@ -53,7 +53,7 @@ const courses = [
     students: "10k+", 
     duration: "70 hours+", 
     price: "₹999*", 
-    amount: 999,
+    amount: 1,
     language: "English", 
     tags: ["DSA","Aptitude","CS Fundamental","GenAI","InterviewQuestion","HR Question" ],
     badge: "⚡ Most Popular", 
