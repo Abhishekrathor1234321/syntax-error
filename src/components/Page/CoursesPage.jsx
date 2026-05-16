@@ -55,7 +55,7 @@ const courses = [
     price: "₹799*", 
     amount: 799,
     language: "English", 
-    tags: ["DSA","Aptitude","CS Fundamental","GenAI","InterviewQuestion","HR Question" ]
+    tags: ["DSA","Aptitude","CS Fundamental","GenAI","InterviewQuestion","HR Question" ],
     badge: "⚡ Most Popular", 
     btnLabel: "Enroll Now",
     detailLink: "/course-detail/dsa",
