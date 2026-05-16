@@ -14,7 +14,7 @@ const courseData = {
       // APTITUDE
       // ─────────────────────────────────────────
       {
-        title: "📐 Section 1 — Arithmetic Fundamentals",
+        title: "📐 Section 1.1 — Arithmetic Fundamentals",
         lectures: [
           { id: 1,  title: "Percentage — Concepts & Tricks",             videoId: "XFcapf8Mx2c", duration: "" },
           { id: 2,  title: "Ratio & Proportion",                         videoId: "Xv38cd1u5_o", duration: "" },
@@ -27,7 +27,7 @@ const courseData = {
         ]
       },
       {
-        title: "🔢 Section 2 — Number System & Profit",
+        title: "🔢 Section 1.2 — Number System & Profit",
         lectures: [
           { id: 9,  title: "Number System — Fundamentals",               videoId: "a6MOQA3twYo", duration: "" },
           { id: 10, title: "Number System (Contd.) & Profit & Loss Intro",videoId: "uV_mQFfEAbI", duration: "" },
@@ -38,7 +38,7 @@ const courseData = {
         ]
       },
       {
-        title: "⏱️ Section 3 — Speed, Time & Interest",
+        title: "⏱️ Section 1.3 — Speed, Time & Interest",
         lectures: [
           { id: 15, title: "Speed, Distance & Time + Boats & Trains",    videoId: "6FfM2JwZkTo", duration: "" },
           { id: 16, title: "Speed, Distance & Time — Practice Session",  videoId: "UtauJ_7fXfQ", duration: "" },
@@ -47,7 +47,7 @@ const courseData = {
         ]
       },
       {
-        title: "🧠 Section 4 — Reasoning",
+        title: "🧠 Section 1.4 — Reasoning",
         lectures: [
           { id: 19, title: "Blood Relations",                            videoId: "r0beKnDn7WU", duration: "" },
           { id: 20, title: "Calendar Problems",                          videoId: "DiDg2wmcqsk", duration: "" },
@@ -60,7 +60,7 @@ const courseData = {
         ]
       },
       {
-        title: "📊 Section 5 — Advanced Aptitude",
+        title: "📊 Section 1.5 — Advanced Aptitude",
         lectures: [
           { id: 27, title: "Permutations & Combinations",                videoId: "jzg1nOrZq9g", duration: "" },
           { id: 28, title: "Probability",                                videoId: "TX-63y4VoTk", duration: "" },
@@ -69,7 +69,7 @@ const courseData = {
         ]
       },
       {
-        title: "🗣️ Section 6 — Verbal Ability",
+        title: "🗣️ Section 1.6 — Verbal Ability",
         lectures: [
           { id: 31, title: "Verbal Ability — Part 1",                    videoId: "y2nm1NPaRdo", duration: "" },
           { id: 32, title: "Verbal Ability — Part 2",                    videoId: "TPOyYFrnNAk", duration: "" },
@@ -78,23 +78,48 @@ const courseData = {
         ]
       },
 
+       {
+  title: "🧩 Section 2.1 — DSA",
+  lectures: [
+    { id: 35, title: "Coding — Part 1", videoId: "pCvDSgH4-L0", duration: "" },
+    { id: 36, title: "Coding — Part 2", videoId: "U_BoPsu0qgs", duration: "" },
+    { id: 37, title: "Coding — Part 3", videoId: "0f22VrRN1_c", duration: "" },
+    { id: 38, title: "Coding — Part 4", videoId: "En8Bfg_ZnFA", duration: "" },
+    { id: 39, title: "Coding — Part 5", videoId: "f-wZWGTG8ow", duration: "" },
+  ]
+},
+{
+  title: "🟢 Section 2.2 — Greedy Approach",
+  lectures: [
+    { id: 40, title: "Greedy Approach", videoId: "TdL1fy2kYD8", duration: "" },
+  ]
+},
+{
+  title: "🕸️ Section 2.3 — Graph Series",
+  lectures: [
+    { id: 41, title: "Graph — Part 1", videoId: "UJb_VA7v3JM", duration: "" },
+    { id: 42, title: "Graph — Part 2", videoId: "bBIAjKD2lmc", duration: "" },
+    { id: 43, title: "Graph — Part 3", videoId: "MHCu5TyOHB",  duration: "" },
+    { id: 44, title: "Graph — Part 4", videoId: "gI-q_1pAg8w", duration: "" },
+  ]
+},
 
 
       // ─────────────────────────────────────────
       // CS FUNDAMENTALS
       // ─────────────────────────────────────────
       {
-        title: "🗄️ Section 7 — DBMS",
+        title: "🗄️ Section 3 — DBMS",
         lectures: [
-          { id: 35, title: "DBMS — Part 1",                              videoId: "-AVkAFCB9yE", duration: "" },
-          { id: 36, title: "DBMS — Part 2",                              videoId: "qOylUHEdOzc", duration: "" },
+          { id: 45, title: "DBMS — Part 1",                              videoId: "-AVkAFCB9yE", duration: "" },
+          { id: 46, title: "DBMS — Part 2",                              videoId: "qOylUHEdOzc", duration: "" },
         ]
       },
       {
-        title: "🧩 Section 8 — OOPs Concepts",
+        title: "🧩 Section 4 — OOPs Concepts",
         lectures: [
-          { id: 37, title: "OOPs — Part 1",                              videoId: "AmXCxd5N9UQ", duration: "" },
-          { id: 38, title: "OOPs — Part 2",                              videoId: "y48-cjrDey0", duration: "" },
+          { id: 47, title: "OOPs — Part 1",                              videoId: "AmXCxd5N9UQ", duration: "" },
+          { id: 48, title: "OOPs — Part 2",                              videoId: "y48-cjrDey0", duration: "" },
         ]
       },
 
@@ -102,10 +127,10 @@ const courseData = {
       // GENERATIVE AI
       // ─────────────────────────────────────────
       {
-        title: "🤖 Section 9 — Generative AI",
+        title: "🤖 Section 5 — Generative AI",
         lectures: [
-          { id: 39, title: "Generative AI — Part 1",                     videoId: "_I4_dIZjcRs", duration: "" },
-          { id: 40, title: "Generative AI — Part 2",                     videoId: "tWfAdclOGc4", duration: "" },
+          { id: 49, title: "Generative AI — Part 1",                     videoId: "_I4_dIZjcRs", duration: "" },
+          { id: 50, title: "Generative AI — Part 2",                     videoId: "tWfAdclOGc4", duration: "" },
         ]
       },
 
@@ -250,31 +275,47 @@ function TCSCoursePage() {
             </div>
           </div>
 
-          {/* Notes Section */}
-          {(() => {
-            const genAISectionIds = [39, 40];
-            const isGenAI = genAISectionIds.includes(currentLecture?.id);
-            return (
-              <div className="cp-notes-section">
-                <div className="cp-notes-header">
-                  <h3>📚 Course Notes & Resources</h3>
-                </div>
-                <p className="cp-notes-desc">
-                  All lecture notes are available in our Google Drive folder.
-                </p>
-                {isGenAI ? (
-                  <a href={GENAI_NOTES_LINK} target="_blank" rel="noreferrer" className="cp-notes-btn">
-                    📂 Open GenAI Notes Folder — All PDFs
-                  </a>
-                ) : (
-                  <a href={CS_NOTES_LINK} target="_blank" rel="noreferrer" className="cp-notes-btn">
-                    📂 Open Core CS Notes Folder — All PDFs
-                  </a>
-                )}
-              </div>
-            );
-          })()}
+       {/* Notes Section */}
+{(() => {
+  const genAIIds = [49, 50];
+  const oopsIds = [47, 48];
+  const dsaIds = [35, 36, 37, 38, 39];
+  const greedyIds = [40];
+  const graphIds = [41, 42, 43, 44];
 
+  const id = currentLecture?.id;
+
+  let notesLink = CS_NOTES_LINK; // default
+  let notesLabel = "📂 Open Core CS Notes Folder — All PDFs";
+
+  if (genAIIds.includes(id)) {
+    notesLink = "https://drive.google.com/drive/folders/1fVJ3d3VGlf3qfbhPwSdgtQg3-ndMG4ZO";
+    notesLabel = "📂 Open GenAI Notes Folder — All PDFs";
+  } else if (dsaIds.includes(id)) {
+    notesLink = "https://drive.google.com/drive/folders/15otNT7EWQ_cMmEAJ14a1K64daZsumlRt";
+    notesLabel = "📂 Open DSA (Coding) Notes — All PDFs";
+  } else if (greedyIds.includes(id)) {
+    notesLink = "https://drive.google.com/drive/folders/1PcfqlBqlv-NjGcB7dTw_PJHv61bCXZRn";
+    notesLabel = "📂 Open Greedy Approach Notes — All PDFs";
+  } else if (graphIds.includes(id)) {
+    notesLink = "https://drive.google.com/drive/folders/1JdNF3RmFuvEL37V7sRGOgOPhOPNRbq7V";
+    notesLabel = "📂 Open Graph Series Notes — All PDFs";
+  }
+
+  return (
+    <div className="cp-notes-section">
+      <div className="cp-notes-header">
+        <h3>📚 Course Notes & Resources</h3>
+      </div>
+      <p className="cp-notes-desc">
+        All lecture notes are available in our Google Drive folder.
+      </p>
+      <a href={notesLink} target="_blank" rel="noreferrer" className="cp-notes-btn">
+        {notesLabel}
+      </a>
+    </div>
+  );
+})()}
           {/* Navigation */}
           <div className="cp-nav-btns">
             <button
