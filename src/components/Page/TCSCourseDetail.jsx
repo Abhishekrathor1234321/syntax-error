@@ -232,7 +232,7 @@ function TCSCourseDetail() {
   const stats = [
     { num: "5", suffix: ".0 ⭐", label: "Avg Rating" },
     { num: "5", suffix: " Modules", label: "Complete Course" },
-    { num: "200", suffix: "+", label: "Practice Questions[DSA+Aptitude"},
+    { num: "200", suffix: "+", label: "Practice Questions[DSA+Aptitude]"},
     { num: "40", suffix: "h+", label: "Course Content" },
   ];
 

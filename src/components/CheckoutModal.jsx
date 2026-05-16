@@ -4,26 +4,6 @@ function CheckoutModal({ course, onClose, onProceed }) {
   const [name, setName] = useState(localStorage.getItem("user") || "");
   const [email, setEmail] = useState(localStorage.getItem("email") || "");
   const [phone, setPhone] = useState("");
-  const [coupon, setCoupon] = useState("");
-  const [discount, setDiscount] = useState(0);
-  const [couponMsg, setCouponMsg] = useState("");
-
-const COUPONS = course.coupons || {
-
-};
-
-  const applyCoupon = () => {
-    const code = coupon.toUpperCase().trim();
-    if (COUPONS[code]) {
-      setDiscount(COUPONS[code]);
-      setCouponMsg(`✅ ${COUPONS[code]}% discount applied!`);
-    } else {
-      setDiscount(0);
-      setCouponMsg("❌ Invalid coupon code");
-    }
-  };
-
-  const finalAmount = Math.round(course.amount - (course.amount * discount / 100));
 
   return (
     <div style={{
@@ -71,7 +51,7 @@ const COUPONS = course.coupons || {
         </div>
 
         {/* Phone */}
-        <div style={{ marginBottom: "12px" }}>
+        <div style={{ marginBottom: "16px" }}>
           <label style={{ fontSize: "12px", color: "#94a3b8", display: "block", marginBottom: "4px" }}>Phone Number</label>
           <input value={phone} onChange={e => setPhone(e.target.value)}
             placeholder="+91 XXXXXXXXXX"
@@ -80,46 +60,21 @@ const COUPONS = course.coupons || {
               fontSize: "14px", boxSizing: "border-box" }} />
         </div>
 
-        {/* Coupon */}
-        <div style={{ marginBottom: "16px" }}>
-          <label style={{ fontSize: "12px", color: "#94a3b8", display: "block", marginBottom: "4px" }}>Discount Coupon</label>
-          <div style={{ display: "flex", gap: "8px" }}>
-            <input value={coupon} onChange={e => setCoupon(e.target.value)}
-              placeholder="Enter coupon code"
-              style={{ flex: 1, padding: "10px 12px", borderRadius: "8px",
-                background: "#1e293b", border: "1px solid #334155", color: "white",
-                fontSize: "14px" }} />
-            <button onClick={applyCoupon} style={{
-              padding: "10px 16px", borderRadius: "8px", background: "#3b82f6",
-              border: "none", color: "white", fontSize: "13px",
-              fontWeight: "600", cursor: "pointer"
-            }}>Apply</button>
-          </div>
-          {couponMsg && <p style={{ fontSize: "12px", marginTop: "6px",
-            color: discount > 0 ? "#22c55e" : "#f87171" }}>{couponMsg}</p>}
-        </div>
-
         {/* Order Summary */}
         <div style={{ background: "#1e293b", borderRadius: "10px", padding: "14px", marginBottom: "16px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px", color: "#94a3b8", marginBottom: "6px" }}>
             <span>{course.title}</span>
             <span>₹{course.amount}</span>
           </div>
-          {discount > 0 && (
-            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px", color: "#22c55e", marginBottom: "6px" }}>
-              <span>Discount ({discount}%)</span>
-              <span>-₹{course.amount - finalAmount}</span>
-            </div>
-          )}
           <div style={{ borderTop: "1px solid #334155", paddingTop: "8px", display: "flex", justifyContent: "space-between", fontWeight: "700", fontSize: "15px" }}>
             <span>Total</span>
-            <span>₹{finalAmount}</span>
+            <span>₹{course.amount}</span>
           </div>
         </div>
 
         {/* Pay Button */}
         <button
-          onClick={() => onProceed({ name, email, phone, finalAmount })}
+          onClick={() => onProceed({ name, email, phone, finalAmount: course.amount })}
           disabled={!name || !email || !phone}
           style={{
             width: "100%", padding: "13px", borderRadius: "10px",
@@ -128,7 +83,7 @@ const COUPONS = course.coupons || {
             fontWeight: "700", cursor: (!name || !email || !phone) ? "not-allowed" : "pointer"
           }}
         >
-          Pay ₹{finalAmount} →
+          Pay ₹{course.amount} →
         </button>
 
         <p style={{ textAlign: "center", fontSize: "11px", color: "#475569", marginTop: "10px" }}>
