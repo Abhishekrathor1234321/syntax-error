@@ -55,7 +55,7 @@ function TCSCourseDetail() {
           },
           body: JSON.stringify({
             amount: finalAmount,
-            courseTitle: "TCS Complete Placement Course 2026-27",
+            courseTitle: "The Complete TCS NQT Course 2026",
           }),
         }
       );
@@ -65,7 +65,7 @@ function TCSCourseDetail() {
         amount: data.order.amount,
         currency: "INR",
         name: "Syntax Error",
-        description: "TCS Complete Placement Course 2026-27",
+        description: "The Complete TCS NQT Course 2026",
         order_id: data.order.id,
         prefill: { name, email, contact: phone },
         handler: async (response) => {
@@ -79,7 +79,7 @@ function TCSCourseDetail() {
               },
               body: JSON.stringify({
                 ...response,
-                courseTitle: "TCS Complete Placement Course 2026-27",
+                courseTitle: "The Complete TCS NQT Course 2026",
                 amount: finalAmount,
                 ref: refCode,
               }),
@@ -242,7 +242,7 @@ function TCSCourseDetail() {
       {showCheckout && (
         <CheckoutModal
           course={{
-            title: "CS Complete Preparation Course 2026",
+            title: "The Complete TCS NQT Course 2026"",
             amount: 9,
             coupons: {},
           }}
