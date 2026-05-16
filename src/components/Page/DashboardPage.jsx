@@ -208,7 +208,9 @@ function DashboardPage() {
                           onClick={() => {
   if (course.title === "The Complete Data Structure & Algorithm Course 2026") {
     navigate(`/dsa-course/${encodeURIComponent(course.title)}`);
-  } else {
+  }   else if (course.title === "TCS Complete Preparation Course 2026") {
+  navigate(`/tcs-course/${encodeURIComponent(course.title)}`);}
+  else {
     navigate(`/course/${encodeURIComponent(course.title)}`);
   }
 }}

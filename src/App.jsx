@@ -26,7 +26,7 @@ import ChallengeSchedule from "./components/Page/ChallengeSchedule";
 import ChallengeDay from "./components/Page/ChallengeDay";
 
 import TCSCourseDetail from "./components/Page/TCSCourseDetail";
-import TCSCoursePage from "./components/Page/Tcscoursepage";
+import TCSCoursePage from "./components/Page/TCSCursePage";
 import "./App.css";
 
 
@@ -80,6 +80,8 @@ function App() {
         <Route path="/admin" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
        
         <Route path="/dsa-course/:courseTitle" element={<PrivateRoute><DSACoursePage /></PrivateRoute>} />
+       
+        <Route path="/tcs-course/:courseTitle" element={<PrivateRoute><TCSCoursePage /></PrivateRoute>} />
         </Routes>
       <Footer />
     </div>
