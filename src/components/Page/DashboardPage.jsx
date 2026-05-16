@@ -208,7 +208,7 @@ function DashboardPage() {
                           onClick={() => {
   if (course.title === "The Complete Data Structure & Algorithm Course 2026") {
     navigate(`/dsa-course/${encodeURIComponent(course.title)}`);
-  }   else if (course.title === "TCS Complete Preparation Course 2026") {
+  }   else if (course.title === "The Complete TCS NQT Course 2026") {
   navigate(`/tcs-course/${encodeURIComponent(course.title)}`);}
   else {
     navigate(`/course/${encodeURIComponent(course.title)}`);
@@ -262,7 +262,7 @@ function DashboardPage() {
   if (course.title === "The Complete Data Structure & Algorithm Course 2026") {
     navigate(`/dsa-course/${encodeURIComponent(course.title)}`);
   } 
-   else if (course.title === "TCS Complete Preparation Course 2026") {
+   else if (course.title === "The Complete TCS NQT Course 2026") {
     navigate(`/tcs-course/${encodeURIComponent(course.title)}`);
   }
   else {

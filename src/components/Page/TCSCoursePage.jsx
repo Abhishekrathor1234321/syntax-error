@@ -6,8 +6,8 @@ const CS_NOTES_LINK   = "https://drive.google.com/drive/folders/1IGkTc-wTDR0gZLE
 const GENAI_NOTES_LINK = "https://drive.google.com/drive/folders/1fVJ3d3VGlf3qfbhPwSdgtQg3-ndMG4ZO";
 
 const courseData = {
-  "TCS Complete Preparation Course 2026": {
-    title: "TCS Complete Preparation Course 2026",
+  "The Complete TCS NQT Course 2026": {
+    title: "The Complete TCS NQT Course 2026",
     instructor: "Karina Sharma [Infosys-DSE]",
     sections: [
       // ─────────────────────────────────────────
