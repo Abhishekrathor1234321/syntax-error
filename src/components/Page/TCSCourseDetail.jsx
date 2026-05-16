@@ -243,7 +243,7 @@ function TCSCourseDetail() {
         <CheckoutModal
           course={{
             title: "TCS Complete Placement Course 2026-27",
-            amount: 799,
+            amount: 999,
             coupons: {},
           }}
           onClose={() => setShowCheckout(false)}
@@ -298,8 +298,8 @@ function TCSCourseDetail() {
             <div className="tcs-price-card">
               <span className="cd-price-label">LIFETIME ACCESS — ALL 5 MODULES</span>
               <div className="cd-price-row">
-                <span className="tcs-price">₹799</span>
-                <span className="cd-price-og">₹7999</span>
+                <span className="tcs-price">₹999</span>
+                <span className="cd-price-og">₹9999</span>
                 <span className="tcs-discount-badge">90% OFF</span>
               </div>
             </div>
