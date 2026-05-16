@@ -26,6 +26,7 @@ import ChallengeSchedule from "./components/Page/ChallengeSchedule";
 import ChallengeDay from "./components/Page/ChallengeDay";
 
 import TCSCourseDetail from "./components/Page/TCSCourseDetail";
+import TCSCoursePage from "./components/Page/Tcscoursepage";
 import "./App.css";
 
 
