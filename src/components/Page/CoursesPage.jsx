@@ -58,7 +58,7 @@ const courses = [
     tags: ["DSA","Aptitude","CS Fundamental","GenAI","InterviewQuestion","HR Question" ],
     badge: "⚡ Most Popular", 
     btnLabel: "Enroll Now",
-    detailLink: "/course-detail/dsa",
+    detailLink: "/course-detail/tcs2026",
     coupons: {
       // "SYNTAX10": 10,
       // "DSA20": 20,
