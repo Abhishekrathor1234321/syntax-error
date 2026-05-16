@@ -243,7 +243,7 @@ function TCSCourseDetail() {
         <CheckoutModal
           course={{
             title: "TCS Complete Placement Course 2026-27",
-            amount: 999,
+            amount: 9,
             coupons: {},
           }}
           onClose={() => setShowCheckout(false)}
