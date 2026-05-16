@@ -576,7 +576,7 @@ function TCSCourseDetail() {
                 Interview Prep + Gen AI. Enroll today at launch price.
               </p>
               <span className="cd-cta-label">LIMITED TIME LAUNCH PRICE</span>
-              <div className="cd-cta-price tcs-cta-price">₹799</div>
+              <div className="cd-cta-price tcs-cta-price">₹999</div>
               <button className="cd-cta-btn tcs-cta-btn" onClick={handleEnrollClick}>
                 Enroll Now →
               </button>
