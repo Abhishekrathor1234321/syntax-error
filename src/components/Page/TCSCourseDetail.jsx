@@ -242,7 +242,7 @@ function TCSCourseDetail() {
       {showCheckout && (
         <CheckoutModal
           course={{
-            title: "The Complete TCS NQT Course 2026"",
+            title: "The Complete TCS NQT Course 2026",
             amount: 9,
             coupons: {},
           }}
