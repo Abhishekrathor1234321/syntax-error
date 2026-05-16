@@ -46,6 +46,26 @@ const courses = [
     },
     useRazorpay: true
   },
+  { 
+    title: "The Complete TCS NQT Course 2026", 
+    instructor: "Abhishek Rathor & Karina Sharma", 
+    rating: 5.0, 
+    students: "10k+", 
+    duration: "70 hours+", 
+    price: "₹799*", 
+    amount: 799,
+    language: "English", 
+    tags: ["DSA","Aptitude","CS Fundamental","GenAI","InterviewQuestion","HR Question" ]
+    badge: "⚡ Most Popular", 
+    btnLabel: "Enroll Now",
+    detailLink: "/course-detail/dsa",
+    coupons: {
+      // "SYNTAX10": 10,
+      // "DSA20": 20,
+      // "ABHISHEKA99": 99,
+    },
+    useRazorpay: true  
+  },
 ];
 
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.05 } } };
