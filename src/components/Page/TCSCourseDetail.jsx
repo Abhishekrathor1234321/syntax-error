@@ -261,10 +261,10 @@ function TCSCourseDetail() {
           <div className="cd-hero-content">
             {/* Badge */}
             <div className="tcs-badge-row">
-              <span className="tcs-badge tcs-badge-blue">🏢 TCS NQT</span>
+              <span className="tcs-badge tcs-badge-blue">🏢 TCS Ninja</span>
               <span className="tcs-badge tcs-badge-purple">⚡ Digital</span>
               <span className="tcs-badge tcs-badge-green">🔥 Prime</span>
-              <span className="tcs-badge tcs-badge-orange">🤖 Gen AI</span>
+            
             </div>
 
             <h1 className="tcs-title">
@@ -300,7 +300,7 @@ function TCSCourseDetail() {
               <div className="cd-price-row">
                 <span className="tcs-price">₹799</span>
                 <span className="cd-price-og">₹7999</span>
-                <span className="tcs-discount-badge">83% OFF</span>
+                <span className="tcs-discount-badge">90% OFF</span>
               </div>
             </div>
 
@@ -375,7 +375,7 @@ function TCSCourseDetail() {
                 </div>
                 <div className="cd-desc-info-item">
                   <span>🌐 Language</span>
-                  <span>English (Hindi Support)</span>
+                  <span>English (Beginner Friendly)</span>
                 </div>
               </div>
             </div>
