@@ -188,7 +188,11 @@ function TCSCoursePage() {
   const currentIndex = allLectures.findIndex(l => l.id === currentLecture?.id);
 
   if (loading) return <div className="cp-loading">⏳ Loading...</div>;
-  if (!hasAccess || !course) return null;
+  if (!hasAccess || !course) return (
+  <div style={{color:"white", padding:"2rem", textAlign:"center"}}>
+    ❌ Course not found. Title: "{decodedTitle}"
+  </div>
+);
 
   return (
     <div className="cp-wrapper">
