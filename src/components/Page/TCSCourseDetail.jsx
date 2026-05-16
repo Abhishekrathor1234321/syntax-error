@@ -243,7 +243,7 @@ function TCSCourseDetail() {
         <CheckoutModal
           course={{
             title: "TCS Complete Placement Course 2026-27",
-            amount: 499,
+            amount: 799,
             coupons: {},
           }}
           onClose={() => setShowCheckout(false)}
@@ -298,8 +298,8 @@ function TCSCourseDetail() {
             <div className="tcs-price-card">
               <span className="cd-price-label">LIFETIME ACCESS — ALL 5 MODULES</span>
               <div className="cd-price-row">
-                <span className="tcs-price">₹499</span>
-                <span className="cd-price-og">₹2999</span>
+                <span className="tcs-price">₹799</span>
+                <span className="cd-price-og">₹7999</span>
                 <span className="tcs-discount-badge">83% OFF</span>
               </div>
             </div>
@@ -455,7 +455,7 @@ function TCSCourseDetail() {
                 {
                   icon: "</> ",
                   color: "#f472b6",
-                  title: "200+ Practice Problems",
+                  title: "80+ Practice Problems",
                   desc: "TCS NQT pattern questions + LeetCode problems with solutions in Java, Python & C++.",
                   tag: "HANDS-ON",
                 },
@@ -517,8 +517,8 @@ function TCSCourseDetail() {
           <section className="cd-section">
             <div className="cd-instructor-card tcs-instructor-card">
               <div className="cd-instructor-avatar tcs-instructor-avatar">AR</div>
-              <h3>Abhishek Rathor</h3>
-              <p className="cd-instructor-role">Founder of SYNTAX ERROR</p>
+              <h3>Abhishek Rathor & Karina Sharma</h3>
+              <p className="cd-instructor-role">Founder of SYNTAX ERROR & Infoys-DSE</p>
               <p>
                 A passionate tech educator focused on making complex DSA and
                 placement concepts accessible. Taught 1600+ students and
@@ -576,7 +576,7 @@ function TCSCourseDetail() {
                 Interview Prep + Gen AI. Enroll today at launch price.
               </p>
               <span className="cd-cta-label">LIMITED TIME LAUNCH PRICE</span>
-              <div className="cd-cta-price tcs-cta-price">₹499</div>
+              <div className="cd-cta-price tcs-cta-price">₹799</div>
               <button className="cd-cta-btn tcs-cta-btn" onClick={handleEnrollClick}>
                 Enroll Now →
               </button>
