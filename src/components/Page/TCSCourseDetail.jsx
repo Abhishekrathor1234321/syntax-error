@@ -60,41 +60,60 @@ function TCSCourseDetail() {
         }
       );
       const data = await res.json();
-      const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-        amount: data.order.amount,
-        currency: "INR",
-        name: "Syntax Error",
-        description: "The Complete TCS NQT Course 2026",
-        order_id: data.order.id,
-        prefill: { name, email, contact: phone },
-        handler: async (response) => {
-          const verifyRes = await fetch(
-            "https://syntax-error-1xds.vercel.app/payment/verify-payment",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-              body: JSON.stringify({
-                ...response,
-                courseTitle: "The Complete TCS NQT Course 2026",
-                amount: finalAmount,
-                ref: refCode,
-              }),
-            }
-          );
-          const verifyData = await verifyRes.json();
-          if (verifyData.success) {
-            alert("🎉 Payment successful! Course enrolled!");
-            window.location.href = "/dashboard";
-          } else {
-            alert("Payment verification failed!");
-          }
+     const options = {
+  key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+  amount: data.order.amount,
+  currency: "INR",
+  name: "Syntax Error",
+  description: "The Complete TCS NQT Course 2026",
+  order_id: data.order.id,
+  prefill: { name, email, contact: phone },
+  modal: {
+    ondismiss: async function() {
+      const token = localStorage.getItem("token");
+      const res = await fetch("https://syntax-error-1xds.vercel.app/user/profile", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await res.json();
+      const hasCourse = data.user?.purchasedCourses?.some(
+        c => c.title === "The Complete TCS NQT Course 2026"
+      );
+      if (hasCourse) {
+        window.location.href = "/dashboard";
+      }
+    }
+  },
+  handler: async (response) => {
+    const verifyRes = await fetch(
+      "https://syntax-error-1xds.vercel.app/payment/verify-payment",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        theme: { color: "#0ea5e9" },
-      };
+        body: JSON.stringify({
+          ...response,
+          courseTitle: "The Complete TCS NQT Course 2026",
+          amount: finalAmount,
+          ref: refCode,
+        }),
+      }
+    );
+    const verifyData = await verifyRes.json();
+    if (verifyData.success) {
+      alert("🎉 Payment successful! Course enrolled!");
+      window.location.href = "/dashboard";
+    } else {
+      alert("Payment verification failed!");
+    }
+  },
+  theme: { color: "#0ea5e9" },
+};
+
+
+
+
       const rzp = new window.Razorpay(options);
 
 rzp.on('payment.failed', async function(response) {
