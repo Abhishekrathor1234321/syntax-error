@@ -26,32 +26,26 @@ function DashboardPage() {
   const [expandedCourse, setExpandedCourse] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      const token = localStorage.getItem("token");
-      const userName = localStorage.getItem("user");
-      if (!token) { navigate("/login"); return; }
-      if (userName && !token.startsWith("ey")) {
-        setUser({ name: userName, email: "", downloadedNotes: [], purchasedCourses: [] });
-        setLoading(false);
-        return;
-      }
-      try {
-        const res = await fetch("https://syntax-error-1xds.vercel.app/user/profile", {
-          headers: { "Authorization": `Bearer ${token}` }
-        });
-        const data = await res.json();
-        if (data.success) setUser(data.user);
-        else navigate("/login");
-      } catch (err) {
-        console.error("Fetch error:", err);
-        navigate("/login");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProfile();
-  }, []);
+ useEffect(() => {
+  const fetchProfile = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) { navigate("/login"); return; }
+    try {
+      const res = await fetch("https://syntax-error-1xds.vercel.app/user/profile", {
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+      const data = await res.json();
+      if (data.success) setUser(data.user);
+      else navigate("/login");
+    } catch (err) {
+      console.error("Fetch error:", err);
+      navigate("/login");
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchProfile();
+}, []);
 
   if (loading) return <div className="dash-loading">⏳ Loading...</div>;
 
