@@ -103,6 +103,17 @@ const courseData = {
     { id: 44, title: "Graph — Part 4", videoId: "gI-q_1pAg8w", duration: "" },
   ]
 },
+{
+  title: "📊 Section 2.4 — Dynamic Programming Series",
+  lectures: [
+    { id: 45, title: "DP — Part 1", videoId: "ZKRK6I-kkv4", duration: "" },
+    { id: 46, title: "DP — Part 2", videoId: "2l-s1vSUqVI", duration: "" },
+    { id: 47, title: "DP — Part 3", videoId: "NSMAPEvZuGo",  duration: "" },
+    { id: 48, title: "DP — Part 4", videoId: "wBE6SRt2Fjs", duration: "" },
+    { id: 49, title: "DP — Part 5", videoId: "3xoY4PwIOAQ", duration: "" },
+  ]
+},
+
 
 
       // ─────────────────────────────────────────
@@ -111,15 +122,15 @@ const courseData = {
       {
         title: "🗄️ Section 3 — DBMS",
         lectures: [
-          { id: 45, title: "DBMS — Part 1",                              videoId: "-AVkAFCB9yE", duration: "" },
-          { id: 46, title: "DBMS — Part 2",                              videoId: "qOylUHEdOzc", duration: "" },
+          { id: 50, title: "DBMS — Part 1",                              videoId: "-AVkAFCB9yE", duration: "" },
+          { id: 51, title: "DBMS — Part 2",                              videoId: "qOylUHEdOzc", duration: "" },
         ]
       },
       {
         title: "🧩 Section 4 — OOPs Concepts",
         lectures: [
-          { id: 47, title: "OOPs — Part 1",                              videoId: "AmXCxd5N9UQ", duration: "" },
-          { id: 48, title: "OOPs — Part 2",                              videoId: "y48-cjrDey0", duration: "" },
+          { id: 52, title: "OOPs — Part 1",                              videoId: "AmXCxd5N9UQ", duration: "" },
+          { id: 53, title: "OOPs — Part 2",                              videoId: "y48-cjrDey0", duration: "" },
         ]
       },
 
@@ -129,10 +140,26 @@ const courseData = {
       {
         title: "🤖 Section 5 — Generative AI",
         lectures: [
-          { id: 49, title: "Generative AI — Part 1",                     videoId: "_I4_dIZjcRs", duration: "" },
-          { id: 50, title: "Generative AI — Part 2",                     videoId: "tWfAdclOGc4", duration: "" },
+          { id: 54, title: "Generative AI — Part 1",                     videoId: "_I4_dIZjcRs", duration: "" },
+          { id: 55, title: "Generative AI — Part 2",                     videoId: "tWfAdclOGc4", duration: "" },
         ]
       },
+
+        {
+        title: "🧠 Section 6 — Operating System",
+        lectures: [
+          { id: 56, title: "Operating System",                     videoId: "_I4_dIZjcRs", duration: "" },
+        
+        ]
+      },
+        {
+        title: "🚀 Section 7 — Computer Network",
+        lectures: [
+          { id: 57, title: "Computer Network",                     videoId: "_I4_dIZjcRs", duration: "" },
+         
+        ]
+      },
+
 
 
 
@@ -277,11 +304,12 @@ function TCSCoursePage() {
 
        {/* Notes Section */}
 {(() => {
-  const genAIIds = [49, 50];
-  const oopsIds = [47, 48];
+  const genAIIds = [54, 55];
+  const oopsIds = [52, 53];
   const dsaIds = [35, 36, 37, 38, 39];
   const greedyIds = [40];
   const graphIds = [41, 42, 43, 44];
+  const dpIds = [45, 46, 47, 48, 49];
 
   const id = currentLecture?.id;
 
