@@ -111,16 +111,18 @@ function TCSCourseDetail() {
   theme: { color: "#0ea5e9" },
 };
 
-
-
-
-      const rzp = new window.Razorpay(options);
+ const rzp = new window.Razorpay(options);
 
 rzp.on('payment.failed', async function(response) {
   console.log("Payment failed:", response.error);
 });
 
-rzp.on('payment.dismiss', async function() {
+
+
+rzp.open();
+setShowCheckout(false);
+
+const pollInterval = setInterval(async () => {
   const token = localStorage.getItem("token");
   const res = await fetch("https://syntax-error-1xds.vercel.app/user/profile", {
     headers: { Authorization: `Bearer ${token}` }
@@ -130,19 +132,17 @@ rzp.on('payment.dismiss', async function() {
     c => c.title === "The Complete TCS NQT Course 2026"
   );
   if (hasCourse) {
-    alert("🎉 Payment successful! Course enrolled!");
+    clearInterval(pollInterval);
     window.location.href = "/dashboard";
   }
-});
+}, 3000);
 
+setTimeout(() => clearInterval(pollInterval), 30000);
 
-      rzp.open();
-      setShowCheckout(false);
-    } catch (err) {
-      alert("Payment error!");
-    }
-  };
-
+} catch (err) {
+  alert("Payment error!");
+}
+};
   // ── Curriculum tabs ──
   const modules = [
     {
@@ -284,7 +284,7 @@ rzp.on('payment.dismiss', async function() {
         <CheckoutModal
           course={{
             title: "The Complete TCS NQT Course 2026",
-            amount: 999,
+            amount: 1,
             coupons: {},
           }}
           onClose={() => setShowCheckout(false)}
