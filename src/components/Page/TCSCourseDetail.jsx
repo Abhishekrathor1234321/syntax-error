@@ -96,6 +96,27 @@ function TCSCourseDetail() {
         theme: { color: "#0ea5e9" },
       };
       const rzp = new window.Razorpay(options);
+
+rzp.on('payment.failed', async function(response) {
+  console.log("Payment failed:", response.error);
+});
+
+rzp.on('payment.dismiss', async function() {
+  const token = localStorage.getItem("token");
+  const res = await fetch("https://syntax-error-1xds.vercel.app/user/profile", {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  const data = await res.json();
+  const hasCourse = data.user?.purchasedCourses?.some(
+    c => c.title === "The Complete TCS NQT Course 2026"
+  );
+  if (hasCourse) {
+    alert("🎉 Payment successful! Course enrolled!");
+    window.location.href = "/dashboard";
+  }
+});
+
+
       rzp.open();
       setShowCheckout(false);
     } catch (err) {
@@ -244,7 +265,7 @@ function TCSCourseDetail() {
         <CheckoutModal
           course={{
             title: "The Complete TCS NQT Course 2026",
-            amount: 999,
+            amount: 1,
             coupons: {},
           }}
           onClose={() => setShowCheckout(false)}
