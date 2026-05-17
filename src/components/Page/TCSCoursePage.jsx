@@ -148,14 +148,14 @@ const courseData = {
         {
         title: "🧠 Section 6 — Operating System",
         lectures: [
-          { id: 56, title: "Operating System",                     videoId: "_I4_dIZjcRs", duration: "" },
+          { id: 56, title: "Operating System",                     videoId: "bnPBSrle5sU", duration: "" },
         
         ]
       },
         {
         title: "🚀 Section 7 — Computer Network",
         lectures: [
-          { id: 57, title: "Computer Network",                     videoId: "_I4_dIZjcRs", duration: "" },
+          { id: 57, title: "Computer Network",                     videoId: "u1Kfzud_aPY", duration: "" },
          
         ]
       },
@@ -302,14 +302,19 @@ function TCSCoursePage() {
             </div>
           </div>
 
-       {/* Notes Section */}
+     {/* Notes Section */}
 {(() => {
   const genAIIds = [54, 55];
+  const osIds = [56];
+  const cnIds = [57];
   const oopsIds = [52, 53];
   const dsaIds = [35, 36, 37, 38, 39];
   const greedyIds = [40];
   const graphIds = [41, 42, 43, 44];
   const dpIds = [45, 46, 47, 48, 49];
+  const aptitudeIds = Array.from({ length: 34 }, (_, i) => i + 1); // 1 to 34
+  const csFundamentalIds = [...osIds, ...cnIds, ...oopsIds]; // OS, CN, OOPs, DBMS etc.
+  const dbmsIds = [50, 51];
 
   const id = currentLecture?.id;
 
@@ -319,6 +324,9 @@ function TCSCoursePage() {
   if (genAIIds.includes(id)) {
     notesLink = "https://drive.google.com/drive/folders/1fVJ3d3VGlf3qfbhPwSdgtQg3-ndMG4ZO";
     notesLabel = "📂 Open GenAI Notes Folder — All PDFs";
+  } else if (aptitudeIds.includes(id)) {
+    notesLink = "https://drive.google.com/drive/folders/YOUR_APTITUDE_FOLDER_ID"; // 🔴 Replace this
+    notesLabel = "📂 Open Aptitude Notes Folder — All PDFs";
   } else if (dsaIds.includes(id)) {
     notesLink = "https://drive.google.com/drive/folders/15otNT7EWQ_cMmEAJ14a1K64daZsumlRt";
     notesLabel = "📂 Open DSA (Coding) Notes — All PDFs";
@@ -328,6 +336,12 @@ function TCSCoursePage() {
   } else if (graphIds.includes(id)) {
     notesLink = "https://drive.google.com/drive/folders/1JdNF3RmFuvEL37V7sRGOgOPhOPNRbq7V";
     notesLabel = "📂 Open Graph Series Notes — All PDFs";
+  } else if (dpIds.includes(id)) {
+    notesLink = "https://drive.google.com/drive/folders/1f8_lZd2IplNMIvclw4b7FsYvl1CNRAH5";
+    notesLabel = "📂 Open Dynamic Programming Notes — All PDFs";
+  } else if ([...csFundamentalIds, ...dbmsIds].includes(id)) {
+    notesLink = CS_NOTES_LINK;
+    notesLabel = "📂 Open Core CS Notes Folder — All PDFs";
   }
 
   return (
@@ -343,8 +357,10 @@ function TCSCoursePage() {
       </a>
     </div>
   );
-})()}
-          {/* Navigation */}
+})()}  
+
+
+ {/* Navigation */}
           <div className="cp-nav-btns">
             <button
               className="cp-nav-btn"
