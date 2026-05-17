@@ -453,6 +453,7 @@ function TCSCoursePage() {
                         key={lecture.id}
                         className={`cp-lecture-item 
                           ${currentLecture?.id === lecture.id ? "active" : ""} 
+                          ${completedLectures.includes(lecture.id) ? "done" : ""}`}
                       onClick={() => {
   if (lecture.notesOnly) {
     window.open("https://drive.google.com/drive/folders/1zIsN2U9q2ynsLzBDwHwjjGesfDiRZb32", "_blank");
