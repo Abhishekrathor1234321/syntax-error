@@ -120,6 +120,7 @@ function TCSCourseDetail() {
         "Greedy, Backtracking & Bit Manipulation",
         "80+ LeetCode Interview Problems",
         "Previous Year Question Solved",
+        "& Many More...",
       ],
     },
     {
@@ -139,7 +140,7 @@ function TCSCourseDetail() {
         "Averages & Allegations",
         "Data Interpretation (Tables, Charts)",
         "TCS NQT Previous Year Questions",
-        "Many More....",
+        "& Many More...",
       ],
     },
     {
@@ -152,7 +153,7 @@ function TCSCourseDetail() {
         "Computer Networks",
         "OOPs",
         "Interview Questions",
-        "Many More....",
+        "& Many More...",
       
       ],
     },
@@ -166,7 +167,7 @@ function TCSCourseDetail() {
         "Why TCS? / Why This Role?",
         "Strengths, Weaknesses & Goals",
         "Technical Round — C / Java / Python Questions",
-        "Many More....",
+        "& Many More...",
        
       ],
     },
