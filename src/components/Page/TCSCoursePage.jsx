@@ -160,6 +160,19 @@ const courseData = {
         ]
       },
 
+      {
+  title: "📁 Section 8 — Other Resources",
+  lectures: [
+    { 
+      id: 58, 
+      title: "All Other Stuffs — Notes + HR Questions + PYQ", 
+      videoId: null,
+      duration: "",
+      notesOnly: true
+    },
+  ]
+},
+
 
 
 
@@ -315,6 +328,7 @@ function TCSCoursePage() {
   const aptitudeIds = Array.from({ length: 34 }, (_, i) => i + 1); // 1 to 34
   const csFundamentalIds = [...osIds, ...cnIds, ...oopsIds]; // OS, CN, OOPs, DBMS etc.
   const dbmsIds = [50, 51];
+  const otherIds = [58];
 
   const id = currentLecture?.id;
 
@@ -325,7 +339,7 @@ function TCSCoursePage() {
     notesLink = "https://drive.google.com/drive/folders/1fVJ3d3VGlf3qfbhPwSdgtQg3-ndMG4ZO";
     notesLabel = "📂 Open GenAI Notes Folder — All PDFs";
   } else if (aptitudeIds.includes(id)) {
-    notesLink = "https://drive.google.com/drive/folders/YOUR_APTITUDE_FOLDER_ID"; // 🔴 Replace this
+    notesLink = "https://drive.google.com/drive/folders/1OpXdp-roAVNNb59J8cbZ8wdtB6QO1Aiq"; // 🔴 Replace this
     notesLabel = "📂 Open Aptitude Notes Folder — All PDFs";
   } else if (dsaIds.includes(id)) {
     notesLink = "https://drive.google.com/drive/folders/15otNT7EWQ_cMmEAJ14a1K64daZsumlRt";
@@ -344,7 +358,13 @@ function TCSCoursePage() {
     notesLabel = "📂 Open Core CS Notes Folder — All PDFs";
   }
 
-  return (
+  else if (otherIds.includes(id)) {
+  notesLink = "https://drive.google.com/drive/folders/1zIsN2U9q2ynsLzBDwHwjjGesfDiRZb32"; // 🔴 link paste karo
+  notesLabel = "📂 All Other Stuffs — Notes + HR Questions + PYQ";
+    }
+    
+    
+    return (
     <div className="cp-notes-section">
       <div className="cp-notes-header">
         <h3>📚 Course Notes & Resources</h3>
