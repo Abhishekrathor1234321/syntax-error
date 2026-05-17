@@ -282,23 +282,29 @@ function TCSCoursePage() {
         <div className="cp-content" ref={contentRef}>
 
           {/* Video Player */}
-          <div className="cp-video-container">
-            {getVideoId(currentLecture?.videoId) ? (
-              <iframe
-                src={`https://www.youtube-nocookie.com/embed/${getVideoId(currentLecture.videoId)}?rel=0&modestbranding=1&origin=https://syntaxerrorr.com`}
-                title={currentLecture.title}
-                allowFullScreen
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                className="cp-video"
-                style={{ border: "none" }}
-              />
-            ) : (
-              <div className="cp-video-placeholder">
-                <span>🎬</span>
-                <p>Video Coming Soon</p>
-              </div>
-            )}
-          </div>
+        <div className="cp-video-container">
+  {currentLecture?.notesOnly ? (
+    <div className="cp-video-placeholder">
+      <span>📂</span>
+      <p>Notes & Resources Section</p>
+      <p style={{ fontSize: "0.85rem", opacity: 0.6 }}>Open the notes folder below</p>
+    </div>
+  ) : getVideoId(currentLecture?.videoId) ? (
+    <iframe
+      src={`https://www.youtube-nocookie.com/embed/${getVideoId(currentLecture.videoId)}?rel=0&modestbranding=1&origin=https://syntaxerrorr.com`}
+      title={currentLecture.title}
+      allowFullScreen
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      className="cp-video"
+      style={{ border: "none" }}
+    />
+  ) : (
+    <div className="cp-video-placeholder">
+      <span>🎬</span>
+      <p>Video Coming Soon</p>
+    </div>
+  )}
+</div>
 
           {/* Lecture Info */}
           <div className="cp-lecture-info">
@@ -447,11 +453,14 @@ function TCSCoursePage() {
                         key={lecture.id}
                         className={`cp-lecture-item 
                           ${currentLecture?.id === lecture.id ? "active" : ""} 
-                          ${completedLectures.includes(lecture.id) ? "done" : ""}`}
-                        onClick={() => {
-                          setCurrentLecture(lecture);
-                          scrollToTop();
-                        }}
+                      onClick={() => {
+  if (lecture.notesOnly) {
+    window.open("https://drive.google.com/drive/folders/1zIsN2U9q2ynsLzBDwHwjjGesfDiRZb32", "_blank");
+    return;
+  }
+  setCurrentLecture(lecture);
+  scrollToTop();
+}}
                       >
                         <span className="cp-lecture-icon">
                           {completedLectures.includes(lecture.id)
