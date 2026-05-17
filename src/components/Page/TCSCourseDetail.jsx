@@ -148,18 +148,11 @@ function TCSCourseDetail() {
       label: "CS Fundamentals",
       color: "#10b981",
       topics: [
-        "Operating Systems — Processes, Threads, Scheduling",
-        "Memory Management & Virtual Memory",
-        "DBMS — SQL, Normalization, Transactions",
-        "Computer Networks — OSI / TCP-IP Model",
-        "HTTP, DNS, TCP, UDP Deep Dive",
-        "OOPs — Inheritance, Polymorphism, Abstraction",
-        "SOLID Principles & Design Patterns",
-        "System Design Basics",
-        "Computer Organization & Architecture",
-        "Compiler Design Basics",
-        "Software Engineering Concepts",
-        "TCS Digital / Prime CS Question Patterns",
+        "Operating Systems",
+        "DBMS",
+        "Computer Networks",
+        "OOPs",
+      
       ],
     },
     {
