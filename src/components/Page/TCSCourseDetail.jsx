@@ -350,16 +350,16 @@ setTimeout(() => clearInterval(pollInterval), 30000);
             </button>
 
             {/* Video */}
-            {/* <div className="cd-preview-video">
+            <div className="cd-preview-video">
               <p className="cd-preview-label">🎬 Course Preview</p>
               <div className="cd-video-wrapper tcs-video-wrapper">
                 <iframe
-                  src="https://www.youtube.com/embed/A7xxmiuuoEI"
+                  src="https://www.youtube.com/embed/zBQ6qV_tJL0"
                   title="TCS Course Preview"
                   allowFullScreen
                 />
               </div>
-            </div> */}
+            </div>
           </div>
         </section>
 
