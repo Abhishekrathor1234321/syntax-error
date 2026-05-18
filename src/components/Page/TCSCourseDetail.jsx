@@ -350,7 +350,7 @@ setTimeout(() => clearInterval(pollInterval), 30000);
             </button>
 
             {/* Video */}
-            <div className="cd-preview-video">
+            {/* <div className="cd-preview-video">
               <p className="cd-preview-label">🎬 Course Preview</p>
               <div className="cd-video-wrapper tcs-video-wrapper">
                 <iframe
@@ -359,7 +359,7 @@ setTimeout(() => clearInterval(pollInterval), 30000);
                   allowFullScreen
                 />
               </div>
-            </div>
+            </div> */}
           </div>
         </section>
 
