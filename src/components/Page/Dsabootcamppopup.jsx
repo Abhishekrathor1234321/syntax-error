@@ -19,7 +19,7 @@ export default function DSABootcampPopup() {
   const handleClose = () => setVisible(false);
 
   const handleEnroll = () => {
-    window.open("https://live-dsa.vercel.app/", "_blank");
+    window.open("https://live-dsa-june.vercel.app/", "_blank");
   };
 
   if (!visible) return null;
