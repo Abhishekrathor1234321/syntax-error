@@ -638,7 +638,7 @@ function TCSPYQCourseDetail() {
               </p>
               <span className="cd-cta-label">LIMITED TIME LAUNCH PRICE</span>
               <div className="cd-cta-price tcs-cta-price pyq-cta-price">
-                ₹499
+                ₹799
               </div>
               <button
                 className="cd-cta-btn tcs-cta-btn pyq-cta-btn"
