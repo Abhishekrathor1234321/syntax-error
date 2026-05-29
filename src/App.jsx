@@ -27,6 +27,8 @@ import ChallengeDay from "./components/Page/ChallengeDay";
 
 import TCSCourseDetail from "./components/Page/TCSCourseDetail";
 import TCSCoursePage from "./components/Page/TCSCoursePage";
+
+import TCSPYQCourseDetail from "./components/Page/TCSCourseDetailPractice";
 import "./App.css";
 
 
@@ -35,7 +37,7 @@ import "./App.css";
 const AdminRoute = ({ children }) => {
   const token = localStorage.getItem("token");
   const email = localStorage.getItem("email");
-  const ADMIN_EMAIL = "abhishekrathor7447@gmail.com"; //  apna email daalo
+  const ADMIN_EMAIL = "abhishekrathor7447@gmail.com"; 
 
   if (!token) return <Navigate to="/login" />;
   if (email !== ADMIN_EMAIL) return <Navigate to="/" />;
@@ -65,6 +67,7 @@ function App() {
         <Route path="/course-detail/dsa" element={<DSACourseDetail />} />
        <Route path="/course-detail/aptitude" element={<AptitudeCourseDetail />} />
          <Route path="/course-detail/tcs2026" element={<TCSCourseDetail />} />
+         <Route path="/course-detail/tcs-pyq-2026" element={<TCSPYQCourseDetail />} />
 
        <Route path="/challenge" element={<ChallengePage />} />
 <Route path="/challenge/schedule" element={<ChallengeSchedule />} />

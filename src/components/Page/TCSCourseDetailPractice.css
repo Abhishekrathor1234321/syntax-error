@@ -1,0 +1,150 @@
+/* ============================================================
+   TCS PYQ Practice Course — Overrides
+   Add these classes INSIDE TCSCourseDetailPractice.css
+   OR import in a separate file after it.
+   All .pyq-* classes override the .tcs-* base styles.
+   ============================================================ */
+
+/* ── Base wrapper ── */
+.pyq-wrapper {
+  background: #0d0a04;
+}
+
+/* ── Hero grid tint → orange ── */
+.pyq-grid-bg {
+  background-image:
+    linear-gradient(rgba(249, 115, 22, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(249, 115, 22, 0.04) 1px, transparent 1px) !important;
+}
+
+/* ── Glow blobs ── */
+.pyq-glow-1 {
+  background: radial-gradient(ellipse, rgba(249, 115, 22, 0.15) 0%, transparent 70%) !important;
+}
+
+.pyq-glow-2 {
+  background: radial-gradient(ellipse, rgba(234, 179, 8, 0.12) 0%, transparent 70%) !important;
+}
+
+/* ── Badges ── */
+.pyq-badge-orange {
+  background: rgba(249, 115, 22, 0.1);
+  border-color: rgba(249, 115, 22, 0.4);
+  color: #fb923c;
+}
+
+.pyq-badge-yellow {
+  background: rgba(234, 179, 8, 0.1);
+  border-color: rgba(234, 179, 8, 0.4);
+  color: #fbbf24;
+}
+
+.pyq-badge-red {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #f87171;
+}
+
+.pyq-badge-green {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.4);
+  color: #4ade80;
+}
+
+/* ── Title accent → orange-to-yellow gradient ── */
+.pyq-title-accent {
+  background: linear-gradient(135deg, #fb923c, #fbbf24) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+/* ── Price card → orange tint ── */
+.pyq-wrapper .cd-price-card {
+  background: linear-gradient(135deg, #160a00 0%, #2d1400 40%, #160a00 100%) !important;
+  border-color: rgba(249, 115, 22, 0.35) !important;
+  box-shadow:
+    0 0 0 1px rgba(249, 115, 22, 0.15),
+    0 8px 32px rgba(249, 115, 22, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07) !important;
+}
+
+.pyq-wrapper .cd-price-card::before {
+  background: linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.6), transparent) !important;
+}
+
+.pyq-price-label {
+  color: #fb923c !important;
+}
+
+.pyq-price {
+  background: linear-gradient(135deg, #ffffff, #fed7aa) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.pyq-discount-badge {
+  background: linear-gradient(135deg, #431407, #9a3412) !important;
+  color: #fed7aa !important;
+  border: 1px solid rgba(251, 146, 60, 0.25) !important;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.35) !important;
+}
+
+/* ── Enroll button → orange ── */
+.pyq-enroll-btn {
+  background: linear-gradient(135deg, #c2410c, #f97316, #fb923c) !important;
+  box-shadow: 0 4px 24px rgba(249, 115, 22, 0.45) !important;
+}
+
+.pyq-enroll-btn:hover {
+  box-shadow: 0 8px 32px rgba(249, 115, 22, 0.6) !important;
+}
+
+/* ── Video wrapper → orange glow ── */
+.pyq-video-wrapper {
+  border-color: rgba(249, 115, 22, 0.45) !important;
+  box-shadow:
+    0 0 0 1px rgba(249, 115, 22, 0.15),
+    0 8px 40px rgba(249, 115, 22, 0.3),
+    0 20px 60px rgba(0, 0, 0, 0.5) !important;
+}
+
+.pyq-video-wrapper::before {
+  background: linear-gradient(90deg, transparent 10%, #f97316 40%, #fb923c 60%, transparent 90%) !important;
+}
+
+/* ── FAQ open state → orange ── */
+.pyq-faq.open {
+  border-color: #f97316 !important;
+}
+
+.pyq-wrapper .cd-faq-icon {
+  color: #f97316 !important;
+}
+
+/* ── Instructor avatar → orange ── */
+.pyq-instructor-avatar {
+  background: linear-gradient(135deg, #c2410c, #f97316) !important;
+  box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.15) !important;
+}
+
+/* ── CTA card → orange gradient ── */
+.pyq-cta-card {
+  background: linear-gradient(135deg, #1c0d00, #c2410c, #f97316) !important;
+}
+
+.pyq-cta-price {
+  background: linear-gradient(135deg, #ffffff, #fed7aa) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.pyq-cta-btn {
+  background: #0d0700 !important;
+}
+
+.pyq-cta-btn:hover {
+  background: #1a0e00 !important;
+}
