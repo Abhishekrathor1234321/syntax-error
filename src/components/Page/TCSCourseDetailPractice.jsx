@@ -150,41 +150,33 @@ function TCSPYQCourseDetail() {
       label: "DSA PYQs",
       color: "#f97316",
       topics: [
-        "Arrays — 8 Previous Year Questions",
-        "Strings — 6 Previous Year Questions",
-        "Linked List — 5 Previous Year Questions",
-        "Stack & Queue — 5 Previous Year Questions",
-        "Binary Search — 5 Previous Year Questions",
-        "Trees & BST — 6 Previous Year Questions",
-        "Graphs — 5 Previous Year Questions",
-        "Dynamic Programming — 5 Previous Year Questions",
-        "Greedy & Backtracking — 5 Previous Year Questions",
-        "All 50 Questions with Video Solutions",
-        "Solutions in Java, Python & C++",
-        "TCS NQT + Digital + Prime Pattern Covered",
+        "Arrays",
+        "Strings",
+        "Linked List",
+        "Stack & Queue",
+        "Binary Search",
+        "Trees & BST",
+        "Graphs",
+        "Dynamic Programming",
+        "Greedy & Backtracking",
+        "Bit Manipulation",
+        "Hashing",
+        "Two Pointer & Sliding Window",
       ],
     },
     {
       icon: "🧠",
       label: "Aptitude PYQs",
       color: "#eab308",
-      topics: [
-        "Percentage — 8 Previous Year Questions",
-        "Profit & Loss — 6 Previous Year Questions",
-        "Time, Speed & Distance — 8 Previous Year Questions",
-        "Time & Work — 7 Previous Year Questions",
-        "Number System & HCF/LCM — 8 Previous Year Questions",
-        "Permutations & Combinations — 7 Previous Year Questions",
-        "Probability — 6 Previous Year Questions",
-        "Averages & Ratio — 6 Previous Year Questions",
-        "Series & Sequences — 7 Previous Year Questions",
-        "Logical Reasoning PYQs — 10 Questions",
-        "Verbal Ability PYQs — 10 Questions",
-        "All 150 Questions with Video Solutions & Notes",
-      ],
+       topics: [
+    "Quantitative Aptitude",
+    "Verbal Ability",
+    "Logical Reasoning",
+    "Mathematics",
+  ],
+
     },
   ];
-
   const faqs = [
     {
       q: "Who is this course for?",
@@ -226,7 +218,7 @@ function TCSPYQCourseDetail() {
         <CheckoutModal
           course={{
             title: "TCS PYQ Practice — DSA + Aptitude 2026",
-            amount: 499,
+            amount: 799,
             coupons: {},
           }}
           onClose={() => setShowCheckout(false)}
