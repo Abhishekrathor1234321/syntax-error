@@ -104,7 +104,7 @@ function Navbar({ showJobsPopup, setShowJobsPopup }) {
                     {user.charAt(0).toUpperCase()}
                   </div>
                   <span className="text-sm text-green-400 font-semibold">
-                    {user}
+                    My Dashboard
                   </span>
                 </Link>
 
@@ -207,7 +207,7 @@ function Navbar({ showJobsPopup, setShowJobsPopup }) {
                         {user.charAt(0).toUpperCase()}
                       </div>
                       <span className="text-sm text-green-400 font-semibold">
-                        {user}
+                        My Dashboard
                       </span>
                     </Link>
 
