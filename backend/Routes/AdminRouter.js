@@ -74,4 +74,39 @@ router.get('/ref-stats', ensureAuthenticated, isAdmin, async (req, res) => {
     }
 });
 
+// ✅ NEW: Grant Access Route
+router.post('/grant-access', ensureAuthenticated, isAdmin, async (req, res) => {
+    try {
+        const { email, courseTitle } = req.body;
+
+        if (!email || !courseTitle) {
+            return res.status(400).json({ success: false, message: 'Email aur courseTitle dono chahiye!' });
+        }
+
+        const user = await UserModel.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User nahi mila is email se!' });
+        }
+
+        const alreadyHas = user.purchasedCourses.some(c => c.title === courseTitle);
+        if (alreadyHas) {
+            return res.status(400).json({ success: false, message: 'Is user ko pehle se ye course mila hua hai!' });
+        }
+
+        user.purchasedCourses.push({
+            title: courseTitle,
+            purchasedAt: new Date(),
+            amount: 0
+        });
+
+        await user.save();
+
+        res.status(200).json({ success: true, message: `✅ Access de diya: ${email} → ${courseTitle}` });
+
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
 module.exports = router;
