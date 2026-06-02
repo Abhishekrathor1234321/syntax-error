@@ -33,12 +33,11 @@ import TCSPYQCourseDetail from "./components/Page/TCSCourseDetailPractice";
 import "./App.css";
 
 
-
-// ✅ Admin Route — sirf tumhara email personallyy
+// ✅ Admin Route — sirf tumhara email personally
 const AdminRoute = ({ children }) => {
   const token = localStorage.getItem("token");
   const email = localStorage.getItem("email");
-  const ADMIN_EMAIL = "abhishekrathor7447@gmail.com"; 
+  const ADMIN_EMAIL = "abhishekrathor7447@gmail.com";
 
   if (!token) return <Navigate to="/login" />;
   if (email !== ADMIN_EMAIL) return <Navigate to="/" />;
@@ -66,13 +65,13 @@ function App() {
         <Route path="/support" element={<SupportPage />} />
 
         <Route path="/course-detail/dsa" element={<DSACourseDetail />} />
-       <Route path="/course-detail/aptitude" element={<AptitudeCourseDetail />} />
-         <Route path="/course-detail/tcs2026" element={<TCSCourseDetail />} />
-         <Route path="/course-detail/tcs-pyq-2026" element={<TCSPYQCourseDetail />} />
+        <Route path="/course-detail/aptitude" element={<AptitudeCourseDetail />} />
+        <Route path="/course-detail/tcs2026" element={<TCSCourseDetail />} />
+        <Route path="/course-detail/tcs-pyq-2026" element={<TCSPYQCourseDetail />} />
 
-       <Route path="/challenge" element={<ChallengePage />} />
-<Route path="/challenge/schedule" element={<ChallengeSchedule />} />
-<Route path="/challenge/day/:day" element={<ChallengeDay />} />
+        <Route path="/challenge" element={<ChallengePage />} />
+        <Route path="/challenge/schedule" element={<ChallengeSchedule />} />
+        <Route path="/challenge/day/:day" element={<ChallengeDay />} />
 
         {/* Protected Routes — Login required */}
         <Route path="/notes" element={<PrivateRoute><NotesPage /></PrivateRoute>} />
@@ -80,15 +79,18 @@ function App() {
         <Route path="/courses" element={<PrivateRoute><CoursesPage /></PrivateRoute>} />
         <Route path="/practice" element={<PrivateRoute><PracticePage /></PrivateRoute>} />
         <Route path="/dashboard" element={<PrivateRoute><DashboardPage /></PrivateRoute>} />
-        <Route path="/course/:courseTitle" element={ <PrivateRoute><AptitudeCoursePage /></PrivateRoute> } />
+        <Route path="/course/:courseTitle" element={<PrivateRoute><AptitudeCoursePage /></PrivateRoute>} />
         <Route path="/admin" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
-       
-        <Route path="/dsa-course/:courseTitle" element={<PrivateRoute><DSACoursePage /></PrivateRoute>} />
-      
-        
 
-         <Route path="/tcs-practice/:courseTitle" element={<PrivateRoute><TCSCoursePracticePage /></PrivateRoute>} />
-        </Routes>
+        <Route path="/dsa-course/:courseTitle" element={<PrivateRoute><DSACoursePage /></PrivateRoute>} />
+
+        {/* ✅ TCS Complete Course */}
+        <Route path="/tcs-course/:courseTitle" element={<PrivateRoute><TCSCoursePage /></PrivateRoute>} />
+
+        {/* ✅ TCS PYQ Practice Course */}
+        <Route path="/tcs-practice/:courseTitle" element={<PrivateRoute><TCSCoursePracticePage /></PrivateRoute>} />
+
+      </Routes>
       <Footer />
     </div>
   );

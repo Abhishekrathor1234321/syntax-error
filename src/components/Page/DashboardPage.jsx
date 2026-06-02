@@ -261,6 +261,9 @@ function DashboardPage() {
    else if (course.title === "The Complete TCS NQT Course 2026") {
     navigate(`/tcs-course/${encodeURIComponent(course.title)}`);
   }
+   else if (course.title === "TCS PYQ Practice — DSA + Aptitude 2026") {
+    navigate(`/tcs-practice/${encodeURIComponent(course.title)}`);
+  } 
   else {
     navigate(`/course/${encodeURIComponent(course.title)}`);
   }
