@@ -84,9 +84,10 @@ function App() {
         <Route path="/admin" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
        
         <Route path="/dsa-course/:courseTitle" element={<PrivateRoute><DSACoursePage /></PrivateRoute>} />
-       
-        <Route path="/tcs-course/:courseTitle" element={<PrivateRoute><TCSCoursePage /></PrivateRoute>} />
-         <Route path="/tcs-course/:courseTitle" element={<PrivateRoute><TCSCoursePracticePage /></PrivateRoute>} />
+      
+        
+
+         <Route path="/tcs-practice/:courseTitle" element={<PrivateRoute><TCSCoursePracticePage /></PrivateRoute>} />
         </Routes>
       <Footer />
     </div>
