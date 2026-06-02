@@ -289,7 +289,7 @@ function TCSPYQCourseDetail() {
                 LIFETIME ACCESS — 200 PYQs WITH VIDEO SOLUTIONS
               </span>
               <div className="cd-price-row">
-                <span className="tcs-price pyq-price">₹799</span>
+                <span className="tcs-price pyq-price">₹1</span>
                 <span className="cd-price-og">₹7999</span>
                 <span className="tcs-discount-badge pyq-discount-badge">
                   90% OFF
