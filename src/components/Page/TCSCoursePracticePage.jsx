@@ -3,8 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./CoursePage.css";
 
 const courseData = {
-  "TCS PYQ Course 2026": {
-    title: "TCS PYQ Course 2026",
+  "TCS PYQ Practice — DSA + Aptitude 2026": {
+    title: "TCS PYQ Practice — DSA + Aptitude 2026",
     instructor: "Abhishek Rathor[Founder of SYNTAX ERROR] & Karina Sharma [Infosys-DSE]",
     sections: [
       {
