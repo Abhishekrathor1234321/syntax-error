@@ -6,6 +6,7 @@ const COURSES = [
   "The Complete Data Structure & Algorithm Course 2026",
   "The Complete TCS NQT Course 2026",
   "TCS PYQ Practice — DSA + Aptitude 2026",
+  "Complete Aptitude Course 2026",
 ];
 
 function AdminDashboard() {

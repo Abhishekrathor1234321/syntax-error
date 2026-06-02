@@ -218,7 +218,7 @@ function TCSPYQCourseDetail() {
         <CheckoutModal
           course={{
             title: "TCS PYQ Practice — DSA + Aptitude 2026",
-            amount: 1,
+            amount: 799,
             coupons: {},
           }}
           onClose={() => setShowCheckout(false)}
