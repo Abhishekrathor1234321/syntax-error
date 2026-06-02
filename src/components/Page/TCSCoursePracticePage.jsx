@@ -10,16 +10,16 @@ const courseData = {
       {
         title: "📐 Section 1 - Aptitude PYQ",
         lectures: [
-          { id: 1,  title: "Part-1",  videoId: "XFcapf8Mx2c", duration: "" },
-          { id: 2,  title: "Part-2",  videoId: "Xv38cd1u5_o", duration: "" },
-          { id: 3,  title: "Part-3",  videoId: "cWhm6yyH24w", duration: "" },
-          { id: 4,  title: "Part-4",  videoId: "d7d09-3O_ro", duration: "" },
-          { id: 5,  title: "Part-5",  videoId: "FtOA4G3tvwI", duration: "" },
-          { id: 6,  title: "Part-6",  videoId: "fELiGdlv7aE", duration: "" },
-          { id: 7,  title: "Part-7",  videoId: "iVgxR8uUOUw", duration: "" },
-          { id: 8,  title: "Part-8",  videoId: "vZKu8YGF7Dw", duration: "" },
-          { id: 9,  title: "Part-9",  videoId: "a6MOQA3twYo", duration: "" },
-          { id: 10, title: "Part-10", videoId: "uV_mQFfEAbI", duration: "" },
+          { id: 1,  title: "Part-1",  videoId: "RHFBA-V6rH4", duration: "" },
+          { id: 2,  title: "Part-2",  videoId: "QSkxO-UQdYo", duration: "" },
+          { id: 3,  title: "Part-3",  videoId: "E-SA_H2kL74", duration: "" },
+          { id: 4,  title: "Part-4",  videoId: "mukhc_2Kl9U", duration: "" },
+          { id: 5,  title: "Part-5",  videoId: "", duration: "" },
+          { id: 6,  title: "Part-6",  videoId: "", duration: "" },
+          { id: 7,  title: "Part-7",  videoId: "", duration: "" },
+          { id: 8,  title: "Part-8",  videoId: "", duration: "" },
+          { id: 9,  title: "Part-9",  videoId: "", duration: "" },
+          { id: 10, title: "Part-10", videoId: "", duration: "" },
         ]
       },
       {
