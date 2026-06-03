@@ -30,7 +30,7 @@ const courseData = {
           { id: 13, title: "Question-3",  videoId: "lwlfWWVu0Xs", duration: "" },
           { id: 14, title: "Question-4",  videoId: "3p2SnnDhFzY", duration: "" },
           { id: 15, title: "Question-5",  videoId: "kjqRkXv4Nwg", duration: "" },
-          { id: 16, title: "Question-6",  videoId: "", duration: "" },
+          { id: 16, title: "Question-6",  videoId: "nOGoDiDUjr8", duration: "" },
           { id: 17, title: "Question-7",  videoId: "", duration: "" },
           { id: 18, title: "Question-8",  videoId: "", duration: "" },
           { id: 19, title: "Question-9",  videoId: "", duration: "" },
@@ -65,8 +65,8 @@ const courseData = {
       {
         title: "🟢 Section 4 — DSA Hard[20]",
         lectures: [
-          { id: 41, title: "Question-1",  videoId: "", duration: "" },
-          { id: 42, title: "Question-2",  videoId: "", duration: "" },
+          { id: 41, title: "Question-1",  videoId: "_UiiT6liTi8", duration: "" },
+          { id: 42, title: "Question-2",  videoId: "rnJzT4TKyj8", duration: "" },
           { id: 43, title: "Question-3",  videoId: "", duration: "" },
           { id: 44, title: "Question-4",  videoId: "", duration: "" },
           { id: 45, title: "Question-5",  videoId: "", duration: "" },
