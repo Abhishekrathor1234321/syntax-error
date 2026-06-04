@@ -306,7 +306,7 @@ function TCSPYQCourseDetail() {
               <p className="cd-preview-label">🎬 Course Preview</p>
               <div className="cd-video-wrapper tcs-video-wrapper pyq-video-wrapper">
                 <iframe
-                  src="https://www.youtube.com/embed/zBQ6qV_tJL0"
+                  src="https://www.youtube.com/embed/_7wYB5rEJnE"
                   title="TCS PYQ Practice Course Preview"
                   allowFullScreen
                 />
