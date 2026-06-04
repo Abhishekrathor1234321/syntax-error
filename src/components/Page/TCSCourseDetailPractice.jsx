@@ -249,7 +249,7 @@ function TCSPYQCourseDetail() {
                 Practice Bundle
               </span>
               <br />
-              <span className="tcs-title-year">DSA + APTITUDE 2026</span>
+              <span className="tcs-title-year">DSA + APTITUDE 2026-27</span>
             </h1>
 
             <p className="cd-subtitle">
