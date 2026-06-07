@@ -88,7 +88,7 @@ function App() {
         <Route path="/tcs-course/:courseTitle" element={<PrivateRoute><TCSCoursePage /></PrivateRoute>} />
 
         {/* ✅ TCS PYQ Practice Course */}
-        <Route path="/tcs-practice/:courseTitle" element={<PrivateRoute><TCSCoursePracticePage /></PrivateRoute>} />
+        {/* <Route path="/tcs-practice/:courseTitle" element={<PrivateRoute><TCSCoursePracticePage /></PrivateRoute>} /> */}
 
       </Routes>
       <Footer />
