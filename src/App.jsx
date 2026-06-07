@@ -67,7 +67,7 @@ function App() {
         <Route path="/course-detail/dsa" element={<DSACourseDetail />} />
         <Route path="/course-detail/aptitude" element={<AptitudeCourseDetail />} />
         <Route path="/course-detail/tcs2026" element={<TCSCourseDetail />} />
-        <Route path="/course-detail/tcs-pyq-2026" element={<TCSPYQCourseDetail />} />
+        {/* <Route path="/course-detail/tcs-pyq-2026" element={<TCSPYQCourseDetail />} /> */}
 
         <Route path="/challenge" element={<ChallengePage />} />
         <Route path="/challenge/schedule" element={<ChallengeSchedule />} />
