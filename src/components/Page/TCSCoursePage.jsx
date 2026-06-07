@@ -173,7 +173,7 @@ const courseData = {
 
 
       {
-        title: "🚀 Section 9 — DSA Easy",
+        title: "🚀 Section 9 — DSA PYQ (Easy)",
         lectures: [
           { id: 63, title: "Question-1",  videoId: "5NV6m_AH57o", duration: "" },
           { id: 64, title: "Question-2",  videoId: "1aam6la-0e4", duration: "" },
@@ -184,7 +184,7 @@ const courseData = {
         ]
       },
       {
-        title: "🚀 Section 10 — DSA Medium",
+        title: "🚀 Section 10 — DSA PYQ (Medium)",
         lectures: [
           { id: 69, title: "Question-1",  videoId: "FJ2Bw2vfEE0", duration: "" },
           { id: 70, title: "Question-2",  videoId: "CSkgIm2-Yak", duration: "" },
@@ -195,7 +195,7 @@ const courseData = {
         ]
       },
       {
-        title: "🚀 Section 11 — DSA Hard",
+        title: "🚀 Section 11 — DSA PYQ (Hard)",
         lectures: [
           { id: 74, title: "Question-1",  videoId: "_UiiT6liTi8", duration: "" },
           { id: 75, title: "Question-2",  videoId: "rnJzT4TKyj8", duration: "" },
