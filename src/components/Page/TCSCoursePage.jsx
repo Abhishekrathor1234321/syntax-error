@@ -160,8 +160,52 @@ const courseData = {
         ]
       },
 
+
+       {
+        title: "🔥 Section 8 — Aptitude PYQ",
+        lectures: [
+          { id: 59, title: "Part 1",                    videoId: "RHFBA-V6rH4", duration: "" },
+          { id: 60, title: "Part 2",                    videoId: "QSkxO-UQdYo", duration: "" },
+          { id: 61, title: "Part 3",                    videoId: "E-SA_H2kL74", duration: "" },
+          { id: 62, title: "Part 4",                    videoId: "mukhc_2Kl9U", duration: "" },
+        ]
+      },
+
+
       {
-  title: "📁 Section 8 — Other Resources",
+        title: "🚀 Section 9 — DSA Easy",
+        lectures: [
+          { id: 63, title: "Question-1",  videoId: "5NV6m_AH57o", duration: "" },
+          { id: 64, title: "Question-2",  videoId: "1aam6la-0e4", duration: "" },
+          { id: 65, title: "Question-3",  videoId: "lwlfWWVu0Xs", duration: "" },
+          { id: 66, title: "Question-4",  videoId: "3p2SnnDhFzY", duration: "" },
+          { id: 67, title: "Question-5",  videoId: "kjqRkXv4Nwg", duration: "" },
+          { id: 68, title: "Question-6",  videoId: "nOGoDiDUjr8", duration: "" },
+        ]
+      },
+      {
+        title: "🚀 Section 10 — DSA Medium",
+        lectures: [
+          { id: 69, title: "Question-1",  videoId: "FJ2Bw2vfEE0", duration: "" },
+          { id: 70, title: "Question-2",  videoId: "CSkgIm2-Yak", duration: "" },
+          { id: 71, title: "Question-3",  videoId: "wOB5-9L9P-I", duration: "" },
+          { id: 72, title: "Question-4",  videoId: "Wt0lqFupp3c", duration: "" },
+          { id: 73, title: "Question-5",  videoId: "eXMB3LYgxTU", duration: "" },
+         
+        ]
+      },
+      {
+        title: "🚀 Section 11 — DSA Hard",
+        lectures: [
+          { id: 74, title: "Question-1",  videoId: "_UiiT6liTi8", duration: "" },
+          { id: 75, title: "Question-2",  videoId: "rnJzT4TKyj8", duration: "" },
+         
+        ]
+      },
+
+
+      {
+  title: "📁 Section 12 — Other Resources",
   lectures: [
     { 
       id: 58, 
@@ -335,6 +379,10 @@ function TCSCoursePage() {
   const csFundamentalIds = [...osIds, ...cnIds, ...oopsIds]; // OS, CN, OOPs, DBMS etc.
   const dbmsIds = [50, 51];
   const otherIds = [58];
+  const aptipyq=[59,60,61,62];
+  const dsaeasypyq=[63,64,65,66,67,68];
+  const dsamediumpyq=[69,70,71,72,73];
+   const dsahardpyq=[74,75];
 
   const id = currentLecture?.id;
 
@@ -356,10 +404,38 @@ function TCSCoursePage() {
   } else if (graphIds.includes(id)) {
     notesLink = "https://drive.google.com/drive/folders/1JdNF3RmFuvEL37V7sRGOgOPhOPNRbq7V";
     notesLabel = "📂 Open Graph Series Notes — All PDFs";
-  } else if (dpIds.includes(id)) {
+  } 
+  else if (dpIds.includes(id)) {
     notesLink = "https://drive.google.com/drive/folders/1f8_lZd2IplNMIvclw4b7FsYvl1CNRAH5";
     notesLabel = "📂 Open Dynamic Programming Notes — All PDFs";
-  } else if ([...csFundamentalIds, ...dbmsIds].includes(id)) {
+  } 
+
+
+
+   else if (aptipyq.includes(id)) {
+    notesLink = "https://drive.google.com/drive/folders/1ADp-3BK5ejEtut6niu9vGELFMn_dctXq";
+    notesLabel = "📂 Open Apti PYQ Notes — All PDFs";
+  } 
+   else if (dsaeasypyq.includes(id)) {
+    notesLink = "https://drive.google.com/drive/folders/1mJo2l2t1qkOQHPhwxhlXTAjzcMAY7KFm";
+    notesLabel = "📂 Open DSA-EASY PYQ Notes — All PDFs";
+  } 
+  
+  else if (dsamediumpyq.includes(id)) {
+    notesLink = "https://drive.google.com/drive/folders/1kNYJ9KETKQ-K9OAFN3w3IQZjcgMaHbQj";
+    notesLabel = "📂 Open DSA-Medium PYQ Notes — All PDFs";
+  } 
+
+   else if (dsahardpyq.includes(id)) {
+    notesLink = "https://drive.google.com/drive/folders/1pY0hK3YBr53zkcO2iuIm4S5QmvPQibCy";
+    notesLabel = "📂 Open DSA-Hard PYQ Notes — All PDFs";
+  } 
+  
+  
+  
+  
+  
+  else if ([...csFundamentalIds, ...dbmsIds].includes(id)) {
     notesLink = CS_NOTES_LINK;
     notesLabel = "📂 Open Core CS Notes Folder — All PDFs";
   }
