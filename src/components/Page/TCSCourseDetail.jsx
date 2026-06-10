@@ -359,7 +359,19 @@ setTimeout(() => clearInterval(pollInterval), 30000);
                   allowFullScreen
                 />
               </div>
+
+               <div className="cd-video-wrapper tcs-video-wrapper">
+                <iframe
+                  src="https://www.youtube.com/embed/oghvHFbxcG8"
+                  title="TCS Course Preview"
+                  allowFullScreen
+                />
+              </div>
+
+              
             </div>
+
+            
           </div>
         </section>
 
