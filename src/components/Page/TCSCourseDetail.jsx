@@ -350,7 +350,7 @@ setTimeout(() => clearInterval(pollInterval), 30000);
             </button>
 
             {/* Video */}
-            <div className="cd-preview-video">
+            <div className="cd-preview-video" style={{ display: "flex", gap: "20px" }}>
               <p className="cd-preview-label">🎬 Course Preview</p>
               <div className="cd-video-wrapper tcs-video-wrapper">
                 <iframe
@@ -359,7 +359,7 @@ setTimeout(() => clearInterval(pollInterval), 30000);
                   allowFullScreen
                 />
               </div>
-
+               
                <div className="cd-video-wrapper tcs-video-wrapper">
                 <iframe
                   src="https://www.youtube.com/embed/oghvHFbxcG8"
@@ -367,8 +367,9 @@ setTimeout(() => clearInterval(pollInterval), 30000);
                   allowFullScreen
                 />
               </div>
-
               
+
+
             </div>
 
             
