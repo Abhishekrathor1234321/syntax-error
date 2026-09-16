@@ -19,11 +19,7 @@ const courses = [
     badge: "⚡ Most Popular", 
     btnLabel: "Enroll Now",
     detailLink: "/course-detail/dsa",
-    coupons: {
-      // "SYNTAX10": 10,
-      // "DSA20": 20,
-      // "ABHISHEKA99": 99,
-    },
+    // NOTE: coupons ab backend se validate honge, yahan kuch likhne ki zarurat nahi
     useRazorpay: true 
   },
   { 
@@ -39,11 +35,6 @@ const courses = [
     badge: "🚀 Top Selling", 
     btnLabel: "Enroll Now",
     detailLink: "/course-detail/aptitude",
-    coupons: {
-      // "APTITUDE10": 10,
-      // "KARINAA99": 99,
-      // "SYNTAX20": 20,
-    },
     useRazorpay: true
   },
   { 
@@ -59,11 +50,6 @@ const courses = [
     badge: "⚡ Most Popular", 
     btnLabel: "Enroll Now",
     detailLink: "/course-detail/tcs2026",
-    coupons: {
-      // "SYNTAX10": 10,
-      // "DSA20": 20,
-      // "ABHISHEKA99": 99,
-    },
     useRazorpay: true  
   },
 ];
@@ -77,16 +63,27 @@ const CoursesPage = () => {
   const [showCheckout, setShowCheckout] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
 
-  const handleRazorpayPayment = async ({ name, email, phone, finalAmount }) => {
+  // ↓ couponCode ab modal se yahan aayega
+  const handleRazorpayPayment = async ({ name, email, phone, finalAmount, couponCode }) => {
     const token = localStorage.getItem("token");
     setShowCheckout(false);
     try {
       const res = await fetch("https://syntax-error-1xds.vercel.app/payment/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ amount: finalAmount, courseTitle: selectedCourse.title })
+        body: JSON.stringify({
+          amount: finalAmount,
+          courseTitle: selectedCourse.title,
+          couponCode: couponCode || null   // ← NEW
+        })
       });
       const data = await res.json();
+
+      if (!data.order) {
+        alert(data.message || "Order banane me dikkat aayi. Dobara try karo.");
+        return;
+      }
+
       const options = {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
         amount: data.order.amount,
@@ -102,7 +99,8 @@ const CoursesPage = () => {
             body: JSON.stringify({ 
               ...response, 
               courseTitle: selectedCourse.title,
-              amount: finalAmount  // ← Actual paid amount
+              amount: finalAmount,             // ← Actual paid amount
+              couponCode: couponCode || null   // ← NEW (usage count ke liye)
             })
           });
           const verifyData = await verifyRes.json();
