@@ -2,6 +2,9 @@ const express = require('express');
 require('dotenv').config();
 const connectDB = require('./Models/db'); // ← change
 
+const CouponRouter = require('./Routes/CouponRouter');
+
+
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -49,6 +52,7 @@ app.use('/user', UserRouter);
 app.use('/payment', PaymentRouter);
 app.use('/admin', AdminRouter);
 app.use('/otp', OtpRouter);
+app.use('/coupons', CouponRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`)
