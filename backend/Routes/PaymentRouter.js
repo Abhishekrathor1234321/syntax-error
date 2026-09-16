@@ -91,7 +91,9 @@ router.post('/create-order', ensureAuthenticated, async (req, res) => {
             appliedCoupon,
         });
     } catch (err) {
-        res.status(500).json({ success: false, message: err.message });
+      console.error("create-order error:", err);
+const message = err?.error?.description || err.message || "An error occurred while creating the order";
+res.status(500).json({ success: false, message });
     }
 });
 
