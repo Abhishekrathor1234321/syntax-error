@@ -4,9 +4,8 @@ import "./AdminDashboard.css";
 
 const COURSES = [
   "The Complete Data Structure & Algorithm Course 2026",
-  "The Complete TCS NQT Course 2026",
-  "TCS PYQ Practice — DSA + Aptitude 2026",
   "Complete Aptitude Course 2026",
+  "The Complete TCS NQT Course 2026",
 ];
 
 const API_BASE = "https://syntax-error-1xds.vercel.app";
