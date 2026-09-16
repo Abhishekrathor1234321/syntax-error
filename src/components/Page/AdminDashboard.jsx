@@ -9,6 +9,17 @@ const COURSES = [
   "Complete Aptitude Course 2026",
 ];
 
+const API_BASE = "https://syntax-error-1xds.vercel.app";
+
+const EMPTY_COUPON_FORM = {
+  code: "",
+  discountValue: "",       // percentage off
+  applicableTo: "all",     // "all" ya "specific"
+  courseTitles: [],
+  usageLimit: "",          // total kitne users use kar sakte hain
+  expiryDate: "",
+};
+
 function AdminDashboard() {
   const [stats, setStats] = useState(null);
   const [refStats, setRefStats] = useState([]);
@@ -25,6 +36,13 @@ function AdminDashboard() {
   const [grantLoading, setGrantLoading] = useState(false);
   const [grantMsg, setGrantMsg] = useState(null);
 
+  // Coupons state
+  const [coupons, setCoupons] = useState([]);
+  const [couponsLoading, setCouponsLoading] = useState(false);
+  const [couponForm, setCouponForm] = useState(EMPTY_COUPON_FORM);
+  const [couponMsg, setCouponMsg] = useState(null);
+  const [couponSaving, setCouponSaving] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +50,7 @@ function AdminDashboard() {
       const token = localStorage.getItem("token");
       if (!token) { navigate("/login"); return; }
       try {
-        const res = await fetch("https://syntax-error-1xds.vercel.app/admin/purchases", {
+        const res = await fetch(`${API_BASE}/admin/purchases`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const data = await res.json();
@@ -44,7 +62,7 @@ function AdminDashboard() {
           navigate("/");
         }
 
-        const refRes = await fetch("https://syntax-error-1xds.vercel.app/admin/ref-stats", {
+        const refRes = await fetch(`${API_BASE}/admin/ref-stats`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const refData = await refRes.json();
@@ -58,6 +76,29 @@ function AdminDashboard() {
     };
     fetchStats();
   }, []);
+
+  // Fetch coupons jab "coupons" tab khule
+  useEffect(() => {
+    if (activeTab === "coupons") {
+      fetchCoupons();
+    }
+  }, [activeTab]);
+
+  const fetchCoupons = async () => {
+    setCouponsLoading(true);
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${API_BASE}/coupons`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await res.json();
+      if (data.success) setCoupons(data.coupons || []);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setCouponsLoading(false);
+    }
+  };
 
   const copyLink = (link) => {
     navigator.clipboard.writeText(link);
@@ -79,7 +120,7 @@ function AdminDashboard() {
     setGrantMsg(null);
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("https://syntax-error-1xds.vercel.app/admin/grant-access", {
+      const res = await fetch(`${API_BASE}/admin/grant-access`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -98,6 +139,95 @@ function AdminDashboard() {
       setGrantMsg({ type: "error", text: "Server error — dobara try karo!" });
     } finally {
       setGrantLoading(false);
+    }
+  };
+
+  // ---------- Coupon handlers ----------
+
+  const toggleCourseInForm = (course) => {
+    setCouponForm((prev) => {
+      const already = prev.courseTitles.includes(course);
+      return {
+        ...prev,
+        courseTitles: already
+          ? prev.courseTitles.filter((c) => c !== course)
+          : [...prev.courseTitles, course],
+      };
+    });
+  };
+
+  const handleCreateCoupon = async () => {
+    if (!couponForm.code.trim() || !couponForm.discountValue || !couponForm.expiryDate) {
+      setCouponMsg({ type: "error", text: "Code, discount value aur expiry date zaroori hain!" });
+      return;
+    }
+    if (couponForm.applicableTo === "specific" && couponForm.courseTitles.length === 0) {
+      setCouponMsg({ type: "error", text: "Kam se kam ek course select karo!" });
+      return;
+    }
+
+    setCouponSaving(true);
+    setCouponMsg(null);
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${API_BASE}/coupons`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          code: couponForm.code.trim(),
+          discountType: "percentage",
+          discountValue: Number(couponForm.discountValue),
+          applicableTo: couponForm.applicableTo,
+          courseTitles: couponForm.courseTitles,
+          usageLimit: couponForm.usageLimit ? Number(couponForm.usageLimit) : null,
+          perUserLimit: 1, // ek user sirf ek baar use kar sakta hai
+          expiryDate: couponForm.expiryDate,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setCouponMsg({ type: "success", text: `✅ Coupon "${data.coupon.code}" ban gaya!` });
+        setCouponForm(EMPTY_COUPON_FORM);
+        fetchCoupons();
+      } else {
+        setCouponMsg({ type: "error", text: data.message });
+      }
+    } catch (err) {
+      setCouponMsg({ type: "error", text: "Server error — dobara try karo!" });
+    } finally {
+      setCouponSaving(false);
+    }
+  };
+
+  const handleToggleCoupon = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${API_BASE}/coupons/${id}/toggle`, {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (data.success) fetchCoupons();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleDeleteCoupon = async (id, code) => {
+    if (!window.confirm(`Pakka "${code}" coupon delete karna hai?`)) return;
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${API_BASE}/coupons/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (data.success) fetchCoupons();
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -144,7 +274,7 @@ function AdminDashboard() {
 
       {/* Tabs */}
       <div style={{ display: "flex", gap: "12px", margin: "24px 0 16px", flexWrap: "wrap" }}>
-        {["sales", "tracking", "grant"].map(tab => (
+        {["sales", "tracking", "grant", "coupons"].map(tab => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
@@ -157,6 +287,7 @@ function AdminDashboard() {
             {tab === "sales" && "📊 Sales"}
             {tab === "tracking" && "🔗 Tracking Links"}
             {tab === "grant" && "🎁 Grant Access"}
+            {tab === "coupons" && "🎟️ Coupons"}
           </button>
         ))}
       </div>
@@ -362,6 +493,212 @@ function AdminDashboard() {
                 </div>
               )}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Coupons Tab */}
+      {activeTab === "coupons" && (
+        <div style={{ padding: "0 0 40px" }}>
+
+          {/* Create coupon form */}
+          <div style={{ background: "#1e293b", borderRadius: "12px", padding: "24px", marginBottom: "24px", maxWidth: "640px" }}>
+            <h2 style={{ color: "white", marginBottom: "16px" }}>🎟️ Naya Coupon Banao</h2>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+              <div>
+                <label style={{ color: "#94a3b8", fontSize: "13px", display: "block", marginBottom: "8px" }}>
+                  Coupon Code
+                </label>
+                <input
+                  value={couponForm.code}
+                  onChange={e => setCouponForm({ ...couponForm, code: e.target.value.toUpperCase() })}
+                  placeholder="e.g. DIWALI50"
+                  style={{
+                    width: "100%", padding: "12px 14px", borderRadius: "8px",
+                    background: "#0f172a", border: "1px solid #334155",
+                    color: "white", fontSize: "14px"
+                  }}
+                />
+              </div>
+
+              <div>
+                <label style={{ color: "#94a3b8", fontSize: "13px", display: "block", marginBottom: "8px" }}>
+                  Discount Percentage (%)
+                </label>
+                <input
+                  type="number"
+                  value={couponForm.discountValue}
+                  onChange={e => setCouponForm({ ...couponForm, discountValue: e.target.value })}
+                  placeholder="e.g. 50 (matlab 50% off)"
+                  style={{
+                    width: "100%", padding: "12px 14px", borderRadius: "8px",
+                    background: "#0f172a", border: "1px solid #334155",
+                    color: "white", fontSize: "14px"
+                  }}
+                />
+              </div>
+
+              <div>
+                <label style={{ color: "#94a3b8", fontSize: "13px", display: "block", marginBottom: "8px" }}>
+                  Kitne users use kar sakte hain?
+                </label>
+                <input
+                  type="number"
+                  value={couponForm.usageLimit}
+                  onChange={e => setCouponForm({ ...couponForm, usageLimit: e.target.value })}
+                  placeholder="e.g. 100 (blank chhodo agar unlimited chahiye)"
+                  style={{
+                    width: "100%", padding: "12px 14px", borderRadius: "8px",
+                    background: "#0f172a", border: "1px solid #334155",
+                    color: "white", fontSize: "14px"
+                  }}
+                />
+              </div>
+
+              <div>
+                <label style={{ color: "#94a3b8", fontSize: "13px", display: "block", marginBottom: "8px" }}>
+                  Ye coupon kahan chalega?
+                </label>
+                <select
+                  value={couponForm.applicableTo}
+                  onChange={e => setCouponForm({ ...couponForm, applicableTo: e.target.value })}
+                  style={{
+                    width: "100%", padding: "12px 14px", borderRadius: "8px",
+                    background: "#0f172a", border: "1px solid #334155",
+                    color: "white", fontSize: "14px"
+                  }}
+                >
+                  <option value="all">✅ Sabhi Courses par</option>
+                  <option value="specific">🎯 Sirf select kiye hue courses par</option>
+                </select>
+              </div>
+
+              {couponForm.applicableTo === "specific" && (
+                <div style={{ background: "#0f172a", borderRadius: "8px", padding: "14px", display: "flex", flexDirection: "column", gap: "10px" }}>
+                  {COURSES.map((course, i) => (
+                    <label key={i} style={{ display: "flex", alignItems: "center", gap: "10px", color: "#e2e8f0", fontSize: "13px", cursor: "pointer" }}>
+                      <input
+                        type="checkbox"
+                        checked={couponForm.courseTitles.includes(course)}
+                        onChange={() => toggleCourseInForm(course)}
+                      />
+                      {course}
+                    </label>
+                  ))}
+                </div>
+              )}
+
+              <div>
+                <label style={{ color: "#94a3b8", fontSize: "13px", display: "block", marginBottom: "8px" }}>
+                  Expiry Date
+                </label>
+                <input
+                  type="date"
+                  value={couponForm.expiryDate}
+                  onChange={e => setCouponForm({ ...couponForm, expiryDate: e.target.value })}
+                  style={{
+                    width: "100%", padding: "12px 14px", borderRadius: "8px",
+                    background: "#0f172a", border: "1px solid #334155",
+                    color: "white", fontSize: "14px"
+                  }}
+                />
+              </div>
+
+              <button
+                onClick={handleCreateCoupon}
+                disabled={couponSaving}
+                style={{
+                  padding: "12px", borderRadius: "8px", border: "none",
+                  background: couponSaving ? "#334155" : "#22c55e",
+                  color: "white", fontWeight: "700", fontSize: "15px",
+                  cursor: couponSaving ? "not-allowed" : "pointer"
+                }}
+              >
+                {couponSaving ? "⏳ Ban raha hoon..." : "✅ Coupon Banao"}
+              </button>
+
+              {couponMsg && (
+                <div style={{
+                  padding: "12px 16px", borderRadius: "8px",
+                  background: couponMsg.type === "success" ? "#14532d" : "#450a0a",
+                  color: couponMsg.type === "success" ? "#4ade80" : "#f87171",
+                  fontSize: "14px", fontWeight: "600"
+                }}>
+                  {couponMsg.text}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Coupons list */}
+          <div style={{ background: "#1e293b", borderRadius: "12px", padding: "24px" }}>
+            <h2 style={{ color: "white", marginBottom: "16px" }}>📋 Sabhi Coupons</h2>
+            {couponsLoading ? (
+              <p className="admin-empty">⏳ Loading...</p>
+            ) : coupons.length > 0 ? (
+              <table className="admin-table">
+                <thead>
+                  <tr>
+                    <th>Code</th><th>Discount</th><th>Applicable</th>
+                    <th>Used</th><th>Expiry</th><th>Status</th><th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {coupons.map((c) => {
+                    const expired = new Date() > new Date(c.expiryDate);
+                    return (
+                      <tr key={c._id}>
+                        <td style={{ color: "#3b82f6", fontWeight: "700" }}>{c.code}</td>
+                        <td>{c.discountValue}%</td>
+                        <td style={{ fontSize: "12px" }}>
+                          {c.applicableTo === "all" ? "Sabhi Courses" : `${c.courseTitles.length} course(s)`}
+                        </td>
+                        <td>{c.usedCount}{c.usageLimit ? ` / ${c.usageLimit}` : ""}</td>
+                        <td style={{ fontSize: "12px" }}>
+                          {new Date(c.expiryDate).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}
+                        </td>
+                        <td>
+                          {expired ? (
+                            <span style={{ color: "#f87171", fontSize: "12px", fontWeight: "700" }}>Expired</span>
+                          ) : c.isActive ? (
+                            <span style={{ color: "#4ade80", fontSize: "12px", fontWeight: "700" }}>Active</span>
+                          ) : (
+                            <span style={{ color: "#94a3b8", fontSize: "12px", fontWeight: "700" }}>Inactive</span>
+                          )}
+                        </td>
+                        <td>
+                          <div style={{ display: "flex", gap: "6px" }}>
+                            <button
+                              onClick={() => handleToggleCoupon(c._id)}
+                              style={{
+                                padding: "4px 10px", borderRadius: "4px",
+                                background: "#334155", border: "none",
+                                color: "white", fontSize: "11px", cursor: "pointer"
+                              }}
+                            >
+                              {c.isActive ? "Disable" : "Enable"}
+                            </button>
+                            <button
+                              onClick={() => handleDeleteCoupon(c._id, c.code)}
+                              style={{
+                                padding: "4px 10px", borderRadius: "4px",
+                                background: "#450a0a", border: "none",
+                                color: "#f87171", fontSize: "11px", cursor: "pointer"
+                              }}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            ) : (
+              <p className="admin-empty">Abhi koi coupon nahi bana — upar se bana lo!</p>
+            )}
           </div>
         </div>
       )}
