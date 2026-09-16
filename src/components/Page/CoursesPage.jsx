@@ -72,7 +72,7 @@ const CoursesPage = () => {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({
-          amount: finalAmount,
+         amount: selectedCourse.amount,
           courseTitle: selectedCourse.title,
           couponCode: couponCode || null   // ← NEW
         })
