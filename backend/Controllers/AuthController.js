@@ -171,7 +171,7 @@ const login = async (req, res) => {
 
 const googleLogin = async (req, res) => {
   try {
-    const { name, email, googleId } = req.body;
+    const { name, email, googleId, ref } = req.body;
     let user = await UserModel.findOne({ email });
     if (!user) {
       user = new UserModel({
