@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { signInWithPopup } from "firebase/auth";
+import { useState, useEffect } from "react"; // ✅ NEW: useEffect added
+import { signInWithPopup, signInWithRedirect, getRedirectResult } from "firebase/auth"; // ✅ NEW: signInWithRedirect, getRedirectResult added
 import { auth, googleProvider } from "../../../lib/firebase";
 import { useNavigate } from "react-router-dom";
 import "./AuthPage.css";
@@ -71,12 +71,10 @@ function AuthPage() {
     }
   };
 
-  // Google Login
-  const handleGoogleLogin = async () => {
-    setLoading(true);
+  // ✅ NEW: Ek jagah se Google response backend ko bhejna aur login complete karna
+  // (dono — popup aur redirect — isi ek function ko use karenge, taaki code duplicate na ho)
+  const completeGoogleLogin = async (user) => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
       const res = await fetch("https://syntax-error-1xds.vercel.app/auth/google-login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -99,6 +97,45 @@ function AuthPage() {
     } catch (error) {
       alert("Google login failed: " + error.message);
     } finally {
+      setLoading(false);
+    }
+  };
+
+  // ✅ NEW: Page load hone par check karo ki kahin user Google redirect se wapas to nahi aaya
+  useEffect(() => {
+    const checkRedirectResult = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        if (result && result.user) {
+          setLoading(true);
+          await completeGoogleLogin(result.user);
+        }
+      } catch (error) {
+        console.error("Redirect login error:", error);
+      }
+    };
+    checkRedirectResult();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Google Login
+  const handleGoogleLogin = async () => {
+    setLoading(true);
+    try {
+      // ✅ NEW: Mobile devices pe popup fail/close ho jata hai, isliye redirect use karo
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+      if (isMobile) {
+        await signInWithRedirect(auth, googleProvider); // ✅ NEW
+        return; // yahan se page redirect ho jayega, result useEffect me handle hoga
+      }
+
+      // Desktop ke liye — bilkul purana wala popup flow, koi change nahi
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      await completeGoogleLogin(user); // ✅ same logic, ab common function se
+    } catch (error) {
+      alert("Google login failed: " + error.message);
       setLoading(false);
     }
   };
