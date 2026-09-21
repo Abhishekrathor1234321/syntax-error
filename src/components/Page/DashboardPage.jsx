@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./DashboardPage.css";
+import { API_BASE } from "../../config";
+
+const TCS_API_BASE = API_BASE;
 
 const notesPdfMap = {
   "HTML Handwritten Notes": "notes/HTML.pdf",
