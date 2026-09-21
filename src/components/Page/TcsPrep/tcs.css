@@ -264,3 +264,111 @@
   background: #f1f5f9;
   transform: translateX(-2px);
 }
+
+/* =========================================================
+   TCS Prep - RESPONSIVE (mobile / tablet / laptop)
+   tcs.css ke sabse NEECHE paste karo. Purana CSS mat hatana.
+   ========================================================= */
+
+/* ---------- Sab devices: safety rules ---------- */
+.tcs { overflow-x: hidden; }
+.tcs img, .tcs video { max-width: 100%; height: auto; }
+.tcs pre { max-width: 100%; overflow-x: auto; }
+.tcs h1, .tcs h2, .tcs h3, .tcs p, .tcs li { overflow-wrap: anywhere; }
+
+/* header ke upar content na dikhe, aur buttons ka text na tute */
+.tcs-bar { background: #fff; z-index: 30; }
+.tcs-back { flex-shrink: 0; white-space: nowrap; }
+.tcs-brand { white-space: nowrap; }
+.tcs-nav a { white-space: nowrap; }
+
+/* ---------- Tablet (<= 900px) ---------- */
+@media (max-width: 900px) {
+  .tcs-wrap {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  .inside-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+  }
+}
+
+/* ---------- Mobile (<= 640px) ---------- */
+@media (max-width: 640px) {
+  /* side me gap (pehle text screen ke edge se chipka tha) */
+  .tcs-wrap {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* header: 2 rows - upar Back + brand, neeche Leaderboard + Start practicing */
+  .tcs-bar-in {
+    flex-wrap: wrap;
+    row-gap: 8px;
+    height: auto !important;
+    min-height: 0 !important;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .tcs-left {
+    width: 100%;
+    gap: 10px;
+    min-width: 0;
+  }
+  .tcs-back {
+    padding: 5px 12px;
+    font-size: 13px;
+  }
+  .tcs-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+  }
+  .tcs-nav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .tcs-nav a { font-size: 14px; }
+  .tcs-nav-cta { padding: 8px 14px !important; }
+
+  /* bade headings chhote karo */
+  .tcs h1 {
+    font-size: clamp(1.7rem, 8vw, 2.4rem) !important;
+    line-height: 1.15 !important;
+  }
+  .tcs h2 {
+    font-size: clamp(1.3rem, 5.5vw, 1.8rem) !important;
+    line-height: 1.2 !important;
+  }
+  .tcs p { font-size: 1rem; }
+
+  /* category cards: ek ke neeche ek */
+  .inside-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+  .tcs .card { padding: 18px !important; }
+
+  /* buttons: touch ke liye badhiya size */
+  .tcs .btn { min-height: 44px; }
+
+  /* quiz timer screen se bahar na jaye */
+  .tcs [class*="timer"] {
+    font-size: 1rem !important;
+    white-space: nowrap;
+  }
+}
+
+/* ---------- Bahut chhote phones (<= 380px) ---------- */
+@media (max-width: 380px) {
+  .tcs-free { display: none; }
+  .tcs h1 { font-size: 1.6rem !important; }
+  .tcs-nav a { font-size: 13px; }
+}
