@@ -22,10 +22,13 @@ export default function TcsStart() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/login");
-      return;
-    }
-
+  sessionStorage.setItem(
+    "redirectAfterLogin",
+    window.location.pathname + window.location.search
+  );
+  navigate("/login");
+  return;
+}
     fetch(`${API_BASE}/tcs/me`, {
       headers: { Authorization: `Bearer ${token}` },
     })

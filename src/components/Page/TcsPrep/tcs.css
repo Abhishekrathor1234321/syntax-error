@@ -372,3 +372,70 @@
   .tcs h1 { font-size: 1.6rem !important; }
   .tcs-nav a { font-size: 13px; }
 }
+
+
+/* =========================================================
+   TCS Prep - MOBILE MENU (☰)
+   tcs.css ke sabse NEECHE paste karo (pehle wale blocks ke bhi baad).
+   ========================================================= */
+
+/* Desktop / tablet par ☰ button chhupa rahega */
+.tcs-burger {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  /* header: ek hi row - left me Back + brand, right me ☰ */
+  .tcs-bar-in {
+    flex-wrap: wrap !important;
+    align-items: center;
+  }
+  .tcs-left {
+    width: auto !important;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .tcs-burger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    line-height: 1;
+    color: #0f172a;
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  /* links pehle band, ☰ dabane par hi khulenge */
+  .tcs-nav {
+    display: none !important;
+  }
+  .tcs-nav.open {
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 8px;
+    padding: 10px 0 6px;
+    border-top: 1px solid #e2e8f0;
+  }
+  .tcs-nav.open a {
+    display: flex !important;
+    justify-content: center;
+    padding: 12px 14px;
+    font-size: 15px;
+    border-radius: 10px;
+  }
+  .tcs-nav.open a:not(.tcs-nav-cta) {
+    border: 1px solid #e2e8f0;
+  }
+  .tcs-nav.open .tcs-nav-cta {
+    margin-left: 0 !important;
+  }
+}

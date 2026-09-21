@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import "./tcs.css";
 
@@ -12,6 +12,7 @@ const FONT_URL =
 export default function TcsLayout() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false); // mobile menu (☰)
 
   // /tcs-prep (home) par back button nahi dikhana
   const showBack = location.pathname.replace(/\/$/, "") !== "/tcs-prep";
@@ -20,6 +21,13 @@ export default function TcsLayout() {
     if (window.history.length > 1) navigate(-1);
     else navigate("/tcs-prep");
   };
+
+  const closeMenu = () => setMenuOpen(false);
+
+  // page badalne par mobile menu band ho jaye
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   // Google Fonts sirf ek baar load hote hain
   useEffect(() => {
@@ -59,9 +67,30 @@ export default function TcsLayout() {
               <span className="tcs-free">Free</span>
             </Link>
           </div>
-          <nav className="tcs-nav" aria-label="TCS NQT Prep">
-            <Link to="/tcs-prep/leaderboard">Leaderboard</Link>
-            <Link to="/tcs-prep/start" className="tcs-nav-cta">
+
+          {/* Sirf mobile par dikhta hai (CSS se) */}
+          <button
+            type="button"
+            className="tcs-burger"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((o) => !o)}
+          >
+            {menuOpen ? "✕" : "☰"}
+          </button>
+
+          <nav
+            className={`tcs-nav${menuOpen ? " open" : ""}`}
+            aria-label="TCS NQT Prep"
+          >
+            <Link to="/tcs-prep/leaderboard" onClick={closeMenu}>
+              Leaderboard
+            </Link>
+            <Link
+              to="/tcs-prep/start"
+              className="tcs-nav-cta"
+              onClick={closeMenu}
+            >
               Start practicing
             </Link>
           </nav>
