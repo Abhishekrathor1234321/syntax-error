@@ -477,40 +477,24 @@
   pointer-events: auto;
 }
 
-/* 4) OVERLAP FIX — final, robust version.
-      Poora top header (black "SYNTAX ERROR" bar + safed "TCS NQT Prep" bar)
-      ek saath fixed lagta hai (ek hi wrapper ke andar), isliye sirf .tcs-bar
-      ko "relative" karna kaafi nahi tha — uska PARENT abhi bhi fixed tha.
-      Fix: page content (.tcs) ko itni top-spacing do jitni poore header
-      block ki combined height hai. Ye robust values hain, sab screens ke
-      liye alag-alag. */
+/* 4) OVERLAP FIX — final version, ab actual TcsLayout.jsx dekhne ke baad.
+      .tcs-bar ek normal <header> hai (koi sticky/fixed CSS nahi), isliye
+      wo structurally hero ke sath kabhi overlap nahi kar sakta — dono
+      normal document flow mein stacked hain. Sirf bahar wale
+      "SYNTAX ERROR" black header (jo TcsLayout ke bahar, App.jsx mein hai)
+      ke liye clearance chahiye — uski typical height 56 se 70px hoti hai. */
 .tcs-bar {
-  position: relative !important;
-  top: auto !important;
-  bottom: auto !important;
-  z-index: 25;
-  background: #fff !important;
-}
-.tcs .hero {
   position: relative;
-  z-index: 1;
+  z-index: 5;
+  background: #fff !important;
 }
 .tcs {
   padding-top: 64px !important;
 }
-@media (max-width: 900px) {
-  .tcs { padding-top: 130px !important; }
-}
 @media (max-width: 640px) {
-  .tcs { padding-top: max(148px, env(safe-area-inset-top, 0px) + 148px) !important; }
-}
-@media (max-width: 380px) {
-  .tcs { padding-top: max(158px, env(safe-area-inset-top, 0px) + 158px) !important; }
-}
-/* Extra safety cushion directly on the heading, in case any other CSS
-   later in the bundle re-shrinks the padding above. */
-.tcs .hero h1 {
-  scroll-margin-top: 160px;
+  .tcs {
+    padding-top: max(56px, env(safe-area-inset-top, 0px) + 56px) !important;
+  }
 }
 
 /* 5) Burger (☰) hata ke uski jagah seedha "Leaderboard" text dikhao. */
