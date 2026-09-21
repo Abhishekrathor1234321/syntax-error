@@ -18,6 +18,9 @@ const notesPdfMap = {
   "Operating System": "notes/oprating system interview question.pdf",
 };
 
+// TODO: production me deploy karte waqt yahan backend ka live URL daalo
+const API_BASE = "https://syntax-error-1xds.vercel.app";
+
 function DashboardPage() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -25,6 +28,11 @@ function DashboardPage() {
   const [expandedNote, setExpandedNote] = useState(null);
   const [expandedCourse, setExpandedCourse] = useState(null);
   const navigate = useNavigate();
+
+  // TCS Prep stats — sirf tab khulne par fetch hote hain
+  const [tcsStats, setTcsStats] = useState(null);
+  const [tcsLoading, setTcsLoading] = useState(false);
+  const [tcsError, setTcsError] = useState("");
 
  useEffect(() => {
   const fetchProfile = async () => {
@@ -47,12 +55,36 @@ function DashboardPage() {
   fetchProfile();
 }, []);
 
+  // TCS Prep tab khulte hi stats fetch karo
+  useEffect(() => {
+    if (activeTab !== "tcsprep" || tcsStats) return;
+    const fetchTcsStats = async () => {
+      const token = localStorage.getItem("token");
+      setTcsLoading(true);
+      setTcsError("");
+      try {
+        const res = await fetch(`${TCS_API_BASE}/tcs/my-stats`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        if (data.success) setTcsStats(data.stats);
+        else setTcsError(data.message || "Stats load nahi ho paaye");
+      } catch (err) {
+        setTcsError("Server se connect nahi ho paya");
+      } finally {
+        setTcsLoading(false);
+      }
+    };
+    fetchTcsStats();
+  }, [activeTab, tcsStats]);
+
   if (loading) return <div className="dash-loading">⏳ Loading...</div>;
 
   const tabs = [
     { id: "overview", label: "📊 Overview" },
     { id: "notes", label: "📥 Notes" },
     { id: "courses", label: "🎓 Courses" },
+    { id: "tcsprep", label: "🏆 TCS Prep" },
     { id: "settings", label: "⚙️ Settings" },
   ];
 
@@ -348,7 +380,54 @@ function DashboardPage() {
           </>
         )}
 
+        {/* TCS PREP TAB */}
+        {activeTab === "tcsprep" && (
+          <>
+            <h1 className="dash-heading">🏆 TCS Prep Progress</h1>
+            <p className="dash-subheading">Your points and rank in each section</p>
 
+            {tcsLoading && <p>Loading...</p>}
+            {tcsError && <p style={{ color: "#f87171" }}>{tcsError}</p>}
+
+            {tcsStats && (
+              <div className="dash-section">
+                <div className="dash-stats">
+                  <div className="dash-stat-card">
+                    <span className="stat-icon">⭐</span>
+                    <div>
+                      <h4>{tcsStats.points}</h4>
+                      <p>Overall Points — Rank #{tcsStats.overallRank}</p>
+                    </div>
+                  </div>
+                  <div className="dash-stat-card">
+                    <span className="stat-icon">💻</span>
+                    <div>
+                      <h4>{tcsStats.codingPoints}</h4>
+                      <p>Coding — Rank #{tcsStats.codingRank} ({tcsStats.codingSolvedCount} solved)</p>
+                    </div>
+                  </div>
+                  <div className="dash-stat-card">
+                    <span className="stat-icon">🧮</span>
+                    <div>
+                      <h4>{tcsStats.aptitudePoints}</h4>
+                      <p>Aptitude — Rank #{tcsStats.aptitudeRank} ({tcsStats.aptitudeSolvedCount} solved)</p>
+                    </div>
+                  </div>
+                  <div className="dash-stat-card">
+                    <span className="stat-icon">🧠</span>
+                    <div>
+                      <h4>{tcsStats.csHrPoints}</h4>
+                      <p>CS + HR + GenAI — Rank #{tcsStats.csHrRank} ({tcsStats.csHrSolvedCount} solved)</p>
+                    </div>
+                  </div>
+                </div>
+                <p className="dash-empty" style={{ marginTop: "1rem" }}>
+                  <span onClick={() => navigate("/tcs-prep/start")}>Continue practicing →</span>
+                </p>
+              </div>
+            )}
+          </>
+        )}
 
         {/* SETTINGS TAB */}
         {activeTab === "settings" && (

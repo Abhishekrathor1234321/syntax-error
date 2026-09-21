@@ -4,6 +4,8 @@ const connectDB = require('./Models/db'); // ← change
 
 const CouponRouter = require('./Routes/CouponRouter');
 
+const TcsRouter = require('./Routes/TcsRouter');
+
 
 const app = express();
 const bodyParser = require('body-parser');
@@ -53,6 +55,8 @@ app.use('/payment', PaymentRouter);
 app.use('/admin', AdminRouter);
 app.use('/otp', OtpRouter);
 app.use('/coupons', CouponRouter);
+
+app.use('/tcs', TcsRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`)

@@ -1,0 +1,1 @@
+export const API_BASE = "https://syntax-error-1xds.vercel.app";

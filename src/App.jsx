@@ -33,6 +33,16 @@ import TCSPYQCourseDetail from "./components/Page/TCSCourseDetailPractice";
 import "./App.css";
 
 
+import TcsLayout from "./components/Page/TcsPrep/TcsLayout";
+import TcsLanding from "./components/Page/TcsPrep/TcsLanding";
+
+import TcsStart from "./components/Page/TcsPrep/TcsStart";
+
+import TcsQuiz from "./components/Page/TcsPrep/TcsQuiz";
+
+import TcsLeaderboard from "./components/Page/TcsPrep/TcsLeaderboard";
+
+
 // ✅ Admin Route — sirf tumhara email personally
 const AdminRoute = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -59,6 +69,27 @@ function App() {
             <CommunitySection />
           </>
         } />
+
+        {/* <Route path="/tcs-prep" element={<TcsLayout />}>
+         <Route index element={<TcsLanding />} />
+          <Route path="start" element={<TcsStart />} />
+        </Route>
+         <Route path="/tcs-prep" element={<TcsLayout />}>
+ <Route index element={<TcsLanding />} />
+ <Route path="start" element={<TcsStart />} />
+ <Route path="aptitude" element={<TcsQuiz type="aptitude" />} />
+ <Route path="cshr" element={<TcsQuiz type="cshr" />} />
+</Route>
+         */}
+        <Route path="/tcs-prep" element={<TcsLayout />}>
+ <Route index element={<TcsLanding />} />
+ <Route path="start" element={<TcsStart />} />
+ <Route path="aptitude" element={<TcsQuiz type="aptitude" />} />
+ <Route path="cshr" element={<TcsQuiz type="cshr" />} />
+ <Route path="leaderboard" element={<TcsLeaderboard />} />
+</Route>
+
+
         <Route path="/login" element={<AuthPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsConditions />} />

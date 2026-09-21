@@ -53,7 +53,21 @@ const UserSchema = new Schema({
         unlockedDays: { type: Number, default: 0 },
         completedDays: [{ type: Number }],
         lastCompletedAt: { type: Date, default: null }
+    },
+
+    tcsPrep: {
+        points: { type: Number, default: 0 },
+        codingSolved: [{ type: Schema.Types.ObjectId, ref: "CodingQuestion" }],
+        aptitudeSolved: [{ type: Schema.Types.ObjectId, ref: "AptitudeQuestion" }],
+        csHrSolved: [{ type: Schema.Types.ObjectId, ref: "CsHrQuestion" }],
+        codingPoints: { type: Number, default: 0 },
+        aptitudePoints: { type: Number, default: 0 },
+        csHrPoints: { type: Number, default: 0 },
+        nameConfirmed: { type: Boolean, default: false }
     }
+
+
+
 });
 
 const UserModel = mongoose.model('users', UserSchema);

@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminDashboard.css";
+import AdminTcsAptitude from "./AdminTcsAptitude";
+import AdminTcsCsHr from "./AdminTcsCsHr";
 
 const COURSES = [
   "The Complete Data Structure & Algorithm Course 2026",
@@ -10,6 +12,11 @@ const COURSES = [
 
 const API_BASE = "https://syntax-error-1xds.vercel.app";
 
+// TCS Prep routes abhi sirf local backend pe hain — jab production me deploy
+// karo, isko production URL se badal dena (ya API_BASE hi use kar lena agar
+// tab tak TCS routes bhi wahi deploy ho chuke hon).
+const TCS_API_BASE = "https://syntax-error-1xds.vercel.app";
+
 const EMPTY_COUPON_FORM = {
   code: "",
   discountValue: "",       // percentage off
@@ -18,6 +25,32 @@ const EMPTY_COUPON_FORM = {
   usageLimit: "",          // total kitne users use kar sakte hain
   expiryDate: "",
 };
+
+// ---------- TCS Prep form defaults ----------
+const EMPTY_MCQ_FORM = {
+  groupValue: "",   // aptitude ke liye "topic", cshr ke liye "category"
+  question: "",
+  options: ["", "", "", ""],
+  correctIndex: 0,
+  hint: "",
+  solution: "",
+  points: 5,
+};
+
+const EMPTY_CODING_FORM = {
+  title: "",
+  slug: "",
+  description: "",
+  difficulty: "easy",
+  hint: "",
+  explanation: "",
+  inputFormat: "",
+  constraints: "",
+  points: 10,
+  testCases: [{ input: "", expectedOutput: "", isHidden: false }],
+};
+
+const CSHR_CATEGORIES = ["DBMS", "OOPs", "Operating Systems", "Computer Networks", "SQL", "Data Structures", "Gen AI", "HR"];
 
 function AdminDashboard() {
   const [stats, setStats] = useState(null);
@@ -41,6 +74,15 @@ function AdminDashboard() {
   const [couponForm, setCouponForm] = useState(EMPTY_COUPON_FORM);
   const [couponMsg, setCouponMsg] = useState(null);
   const [couponSaving, setCouponSaving] = useState(false);
+
+  // ---------- TCS Prep state ----------
+  const [tcsSection, setTcsSection] = useState("aptitude"); // "aptitude" | "cshr" | "coding"
+  const [tcsQuestions, setTcsQuestions] = useState([]);
+  const [tcsLoading, setTcsLoading] = useState(false);
+  const [tcsError, setTcsError] = useState("");
+  const [tcsSaving, setTcsSaving] = useState(false);
+  const [mcqForm, setMcqForm] = useState(EMPTY_MCQ_FORM);
+  const [codingForm, setCodingForm] = useState(EMPTY_CODING_FORM);
 
   const navigate = useNavigate();
 
@@ -82,6 +124,14 @@ function AdminDashboard() {
       fetchCoupons();
     }
   }, [activeTab]);
+
+  // Fetch TCS questions jab "tcsprep" tab ya section badle
+  useEffect(() => {
+    if (activeTab === "tcsprep") {
+      loadTcsQuestions();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeTab, tcsSection]);
 
   const fetchCoupons = async () => {
     setCouponsLoading(true);
@@ -230,6 +280,140 @@ function AdminDashboard() {
     }
   };
 
+  // ---------- TCS Prep handlers ----------
+
+  const loadTcsQuestions = async () => {
+    setTcsLoading(true);
+    setTcsError("");
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${TCS_API_BASE}/tcs/admin/${tcsSection}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (data.success) setTcsQuestions(data.questions);
+      else setTcsError(data.message || "Could not load questions");
+    } catch (err) {
+      setTcsError("Could not connect to the server");
+    } finally {
+      setTcsLoading(false);
+    }
+  };
+
+  const handleMcqOptionChange = (i, value) => {
+    const newOptions = [...mcqForm.options];
+    newOptions[i] = value;
+    setMcqForm({ ...mcqForm, options: newOptions });
+  };
+
+  const handleMcqSubmit = async (e) => {
+    e.preventDefault();
+    setTcsError("");
+    if (mcqForm.options.some((o) => !o.trim())) {
+      setTcsError("Please fill all 4 options");
+      return;
+    }
+    setTcsSaving(true);
+    try {
+      const token = localStorage.getItem("token");
+      const body =
+        tcsSection === "aptitude"
+          ? { topic: mcqForm.groupValue, question: mcqForm.question, options: mcqForm.options, correctIndex: mcqForm.correctIndex, hint: mcqForm.hint, solution: mcqForm.solution, points: mcqForm.points }
+          : { category: mcqForm.groupValue, question: mcqForm.question, options: mcqForm.options, correctIndex: mcqForm.correctIndex, hint: mcqForm.hint, solution: mcqForm.solution, points: mcqForm.points };
+
+      const res = await fetch(`${TCS_API_BASE}/tcs/admin/${tcsSection}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setMcqForm(EMPTY_MCQ_FORM);
+        loadTcsQuestions();
+      } else {
+        setTcsError(data.message || "Could not save the question");
+      }
+    } catch (err) {
+      setTcsError("Could not connect to the server");
+    } finally {
+      setTcsSaving(false);
+    }
+  };
+
+  const handleCodingTestCaseChange = (i, field, value) => {
+    const newTestCases = [...codingForm.testCases];
+    newTestCases[i] = { ...newTestCases[i], [field]: value };
+    setCodingForm({ ...codingForm, testCases: newTestCases });
+  };
+
+  const addTestCaseRow = () => {
+    setCodingForm({
+      ...codingForm,
+      testCases: [...codingForm.testCases, { input: "", expectedOutput: "", isHidden: false }],
+    });
+  };
+
+  const removeTestCaseRow = (i) => {
+    setCodingForm({
+      ...codingForm,
+      testCases: codingForm.testCases.filter((_, idx) => idx !== i),
+    });
+  };
+
+  const handleCodingSubmit = async (e) => {
+    e.preventDefault();
+    setTcsError("");
+    if (codingForm.testCases.some((tc) => !tc.input.trim() && !tc.expectedOutput.trim())) {
+      setTcsError("Please fill in at least the input/output for every test case row (or remove empty ones)");
+      return;
+    }
+    setTcsSaving(true);
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${TCS_API_BASE}/tcs/admin/coding`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(codingForm),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setCodingForm(EMPTY_CODING_FORM);
+        loadTcsQuestions();
+      } else {
+        setTcsError(data.message || "Could not save the question");
+      }
+    } catch (err) {
+      setTcsError("Could not connect to the server");
+    } finally {
+      setTcsSaving(false);
+    }
+  };
+
+  const handleDeleteTcsQuestion = async (id) => {
+    if (!window.confirm("Delete this question?")) return;
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${TCS_API_BASE}/tcs/admin/${tcsSection}/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (data.success) {
+        setTcsQuestions((qs) => qs.filter((q) => q._id !== id));
+      } else {
+        setTcsError(data.message || "Could not delete the question");
+      }
+    } catch (err) {
+      setTcsError("Could not connect to the server");
+    }
+  };
+
   if (loading) return <div className="admin-loading">⏳ Loading...</div>;
 
   return (
@@ -273,7 +457,7 @@ function AdminDashboard() {
 
       {/* Tabs */}
       <div style={{ display: "flex", gap: "12px", margin: "24px 0 16px", flexWrap: "wrap" }}>
-        {["sales", "tracking", "grant", "coupons"].map(tab => (
+        {["sales", "tracking", "grant", "coupons", "tcsprep"].map(tab => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
@@ -287,6 +471,7 @@ function AdminDashboard() {
             {tab === "tracking" && "🔗 Tracking Links"}
             {tab === "grant" && "🎁 Grant Access"}
             {tab === "coupons" && "🎟️ Coupons"}
+            {tab === "tcsprep" && "🎯 TCS Prep"}
           </button>
         ))}
       </div>
@@ -702,8 +887,213 @@ function AdminDashboard() {
         </div>
       )}
 
+      {/* TCS Prep Tab */}
+      {activeTab === "tcsprep" && (
+        <div style={{ padding: "0 0 40px" }}>
+
+          {/* Section switcher */}
+          <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
+            {["aptitude", "cshr", "coding"].map((sec) => (
+              <button
+                key={sec}
+                onClick={() => setTcsSection(sec)}
+                style={{
+                  padding: "8px 18px", borderRadius: "8px", border: "1px solid #334155",
+                  background: tcsSection === sec ? "#22c55e" : "#1e293b",
+                  color: "white", fontWeight: "600", cursor: "pointer"
+                }}
+              >
+                {sec === "aptitude" && "🧮 Aptitude"}
+                {sec === "cshr" && "🧠 CS + HR + GenAI"}
+                {sec === "coding" && "💻 Coding"}
+              </button>
+            ))}
+          </div>
+
+          {tcsError && (
+            <div style={{ background: "#450a0a", color: "#f87171", padding: "10px 16px", borderRadius: "8px", marginBottom: "16px" }}>
+              {tcsError}
+            </div>
+          )}
+
+          {/* ---------- Aptitude / CS+HR (MCQ) form ---------- */}
+            {tcsSection === "aptitude" && <AdminTcsAptitude apiBase={TCS_API_BASE} />}
+{tcsSection === "cshr" && <AdminTcsCsHr apiBase={TCS_API_BASE} />}
+
+          {/* ---------- Coding form ---------- */}
+          {tcsSection === "coding" && (
+            <form
+              onSubmit={handleCodingSubmit}
+              style={{
+                background: "#1e293b", borderRadius: "12px", padding: "24px",
+                marginBottom: "24px", maxWidth: "720px", display: "flex",
+                flexDirection: "column", gap: "14px"
+              }}
+            >
+              <h2 style={{ color: "white", margin: 0 }}>Add New Coding Question</h2>
+
+              <div>
+                <label style={labelStyle}>Title</label>
+                <input value={codingForm.title} onChange={e => setCodingForm({ ...codingForm, title: e.target.value })} required style={fieldStyle} />
+              </div>
+
+              <div>
+                <label style={labelStyle}>Slug (unique, e.g. "two-sum")</label>
+                <input value={codingForm.slug} onChange={e => setCodingForm({ ...codingForm, slug: e.target.value })} required style={fieldStyle} />
+              </div>
+
+              <div>
+                <label style={labelStyle}>Description</label>
+                <textarea value={codingForm.description} onChange={e => setCodingForm({ ...codingForm, description: e.target.value })} required rows={3} style={fieldStyle} />
+              </div>
+
+              <div>
+                <label style={labelStyle}>Difficulty</label>
+                <select value={codingForm.difficulty} onChange={e => setCodingForm({ ...codingForm, difficulty: e.target.value })} style={fieldStyle}>
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+              </div>
+
+              <div>
+                <label style={labelStyle}>Input Format</label>
+                <textarea value={codingForm.inputFormat} onChange={e => setCodingForm({ ...codingForm, inputFormat: e.target.value })} rows={2} style={fieldStyle} />
+              </div>
+
+              <div>
+                <label style={labelStyle}>Constraints</label>
+                <textarea value={codingForm.constraints} onChange={e => setCodingForm({ ...codingForm, constraints: e.target.value })} rows={2} style={fieldStyle} />
+              </div>
+
+              <div>
+                <label style={labelStyle}>Hint (optional)</label>
+                <input value={codingForm.hint} onChange={e => setCodingForm({ ...codingForm, hint: e.target.value })} style={fieldStyle} />
+              </div>
+
+              <div>
+                <label style={labelStyle}>Explanation (shown after all test cases pass)</label>
+                <textarea value={codingForm.explanation} onChange={e => setCodingForm({ ...codingForm, explanation: e.target.value })} rows={2} style={fieldStyle} />
+              </div>
+
+              <div>
+                <label style={labelStyle}>Points</label>
+                <input type="number" value={codingForm.points} onChange={e => setCodingForm({ ...codingForm, points: Number(e.target.value) })} min={1} style={fieldStyle} />
+              </div>
+
+              <div>
+                <label style={{ ...labelStyle, marginBottom: "10px" }}>Test Cases</label>
+                {codingForm.testCases.map((tc, i) => (
+                  <div key={i} style={{ background: "#0f172a", borderRadius: "8px", padding: "12px", marginBottom: "10px", display: "flex", flexDirection: "column", gap: "8px" }}>
+                    <textarea
+                      placeholder="Input"
+                      value={tc.input}
+                      onChange={e => handleCodingTestCaseChange(i, "input", e.target.value)}
+                      rows={2}
+                      style={fieldStyle}
+                    />
+                    <textarea
+                      placeholder="Expected Output"
+                      value={tc.expectedOutput}
+                      onChange={e => handleCodingTestCaseChange(i, "expectedOutput", e.target.value)}
+                      rows={2}
+                      style={fieldStyle}
+                    />
+                    <label style={{ display: "flex", alignItems: "center", gap: "8px", color: "#94a3b8", fontSize: "13px" }}>
+                      <input
+                        type="checkbox"
+                        checked={tc.isHidden}
+                        onChange={e => handleCodingTestCaseChange(i, "isHidden", e.target.checked)}
+                      />
+                      Hidden (not shown to students as a sample)
+                    </label>
+                    {codingForm.testCases.length > 1 && (
+                      <button type="button" onClick={() => removeTestCaseRow(i)} style={{ alignSelf: "flex-start", background: "none", border: "none", color: "#f87171", cursor: "pointer", fontSize: "13px" }}>
+                        Remove this test case
+                      </button>
+                    )}
+                  </div>
+                ))}
+                <button type="button" onClick={addTestCaseRow} style={{ padding: "8px 14px", borderRadius: "6px", border: "1px solid #334155", background: "transparent", color: "white", cursor: "pointer", fontSize: "13px" }}>
+                  + Add Another Test Case
+                </button>
+              </div>
+
+              <button
+                type="submit"
+                disabled={tcsSaving}
+                style={{
+                  padding: "12px", borderRadius: "8px", border: "none",
+                  background: tcsSaving ? "#334155" : "#22c55e",
+                  color: "white", fontWeight: "700", fontSize: "15px",
+                  cursor: tcsSaving ? "not-allowed" : "pointer"
+                }}
+              >
+                {tcsSaving ? "Saving..." : "Add Question"}
+              </button>
+            </form>
+          )}
+
+          {/* ---------- Existing questions list ---------- */}
+         <div style={{ background: "#1e293b", borderRadius: "12px",   padding: "24px", maxWidth: "760px", display: (tcsSection === "aptitude" || tcsSection === "cshr") ? "none" : "block" }}>
+            <h2 style={{ color: "white", marginBottom: "16px" }}>
+              Existing {tcsSection === "aptitude" ? "Aptitude" : tcsSection === "cshr" ? "CS + HR + GenAI" : "Coding"} Questions ({tcsQuestions.length})
+            </h2>
+            {tcsLoading ? (
+              <p className="admin-empty">⏳ Loading...</p>
+            ) : tcsQuestions.length > 0 ? (
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {tcsQuestions.map((q) => (
+                  <div
+                    key={q._id}
+                    style={{
+                      border: "1px solid #334155", borderRadius: "8px", padding: "12px 16px",
+                      display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "12px"
+                    }}
+                  >
+                    <div>
+                      <span style={{ fontSize: "12px", color: "#94a3b8" }}>
+                        {q.topic || q.category || q.difficulty}
+                      </span>
+                      <p style={{ margin: "4px 0", color: "white" }}>{q.question || q.title}</p>
+                      {q.options && (
+                        <p style={{ margin: 0, fontSize: "13px", color: "#4ade80" }}>
+                          Correct: {q.options[q.correctIndex]}
+                        </p>
+                      )}
+                    </div>
+                    <button
+                      onClick={() => handleDeleteTcsQuestion(q._id)}
+                      style={{
+                        padding: "6px 12px", borderRadius: "6px", border: "1px solid #ef4444",
+                        background: "transparent", color: "#ef4444", cursor: "pointer",
+                        whiteSpace: "nowrap", fontSize: "13px"
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="admin-empty">No questions yet — add one above!</p>
+            )}
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
+
+const fieldStyle = {
+  width: "100%", padding: "10px 12px", borderRadius: "8px",
+  background: "#0f172a", border: "1px solid #334155",
+  color: "white", fontSize: "14px",
+};
+
+const labelStyle = {
+  color: "#94a3b8", fontSize: "13px", display: "block", marginBottom: "8px",
+};
 
 export default AdminDashboard;
