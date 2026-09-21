@@ -477,23 +477,32 @@
   pointer-events: auto;
 }
 
-/* 4) OVERLAP FIX — final version, ab actual TcsLayout.jsx dekhne ke baad.
-      .tcs-bar ek normal <header> hai (koi sticky/fixed CSS nahi), isliye
-      wo structurally hero ke sath kabhi overlap nahi kar sakta — dono
-      normal document flow mein stacked hain. Sirf bahar wale
-      "SYNTAX ERROR" black header (jo TcsLayout ke bahar, App.jsx mein hai)
-      ke liye clearance chahiye — uski typical height 56 se 70px hoti hai. */
+/* 4) OVERLAP FIX — DEFINITIVE.
+      Root cause mil gaya: kahin site mein ek GLOBAL rule hai jo <header> tag
+      ko sticky/fixed bana raha hai (App-level navbar ke liye likha gaya
+      hoga). Chunki TcsLayout.jsx mein bhi <header className="tcs-bar">
+      use hua hai, wo bhi accidentally sticky ban raha hai. Class selector
+      tag selector se zyada specific hota hai, lekin agar wo global rule
+      !important use kar raha hai (ya iska parent zyada specific hai), to
+      humein bhi !important se hi jeetna padega. */
 .tcs-bar {
-  position: relative;
+  position: relative !important;
+  top: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  right: auto !important;
   z-index: 5;
   background: #fff !important;
 }
+
+/* Ab .tcs-bar normal flow mein hai, isliye poori badi padding ki zaroorat
+   nahi — sirf bahar wale black "SYNTAX ERROR" header ke liye clearance. */
 .tcs {
-  padding-top: 120px !important;
+  padding-top: 70px !important;
 }
 @media (max-width: 640px) {
   .tcs {
-    padding-top: max(120px, env(safe-area-inset-top, 0px) + 120px) !important;
+    padding-top: max(64px, env(safe-area-inset-top, 0px) + 64px) !important;
   }
 }
 
