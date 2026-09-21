@@ -21,9 +21,6 @@ const notesPdfMap = {
   "Operating System": "notes/oprating system interview question.pdf",
 };
 
-// TODO: production me deploy karte waqt yahan backend ka live URL daalo
-const API_BASE = "https://syntax-error-1xds.vercel.app";
-
 function DashboardPage() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
