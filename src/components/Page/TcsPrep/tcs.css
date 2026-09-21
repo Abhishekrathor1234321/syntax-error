@@ -439,3 +439,79 @@
     margin-left: 0 !important;
   }
 }
+
+
+/* =========================================================
+   TCS Prep - FRONTPAGE FIXES (button click + header link + overlap safety-net)
+   tcs.css ke sabse NEECHE paste karo. Kuch delete nahi kiya gaya,
+   ye sirf purane rules ko override karta hai (cascade ki wajah se).
+   ========================================================= */
+
+/* 1) "Start Practicing" ko sirf HEADER se hatao (JSX chhue bina).
+      Hero aur final-CTA wale "Start practicing" buttons waise hi dikhte rahenge,
+      kyunki wo .tcs-nav ke andar nahi hain. Agar header ka link kisi
+      alag text/href se hai to hume batana, selector adjust kar denge. */
+.tcs-nav a[href="/tcs-prep/start"] {
+  display: none !important;
+}
+
+/* 2) "Coming soon" marquee sirf decorative hai — kabhi kabhi absolute-positioned
+      strips clicks ko "intercept" kar lete hain. Ye pakka kar do ki ye kabhi
+      kisi button ke upar click na roke. */
+.soon-strip,
+.soon-track {
+  pointer-events: none !important;
+}
+
+/* 3) Hero ka "Start practicing" button hamesha sabse upar aur clickable rahe,
+      chahe koi decorative overlay/gradient uske upar kyun na render ho jaaye. */
+.tcs .hero-actions,
+.tcs .hero-actions .btn {
+  position: relative;
+  z-index: 5;
+  pointer-events: auto;
+}
+.tcs .final-in .btn {
+  position: relative;
+  z-index: 5;
+  pointer-events: auto;
+}
+
+/* 4) OVERLAP SAFETY-NET — sab screens (mobile + tablet + desktop) ke liye.
+      Bahar wala "SYNTAX ERROR" header agar fixed/sticky hai, to uske neeche
+      hamesha itni clearance rakho ki content kabhi uske peeche na chadhe.
+      Ye generous values hain — agar zyada/kam gap lage to sirf yahi numbers
+      (110px / 90px / 76px) adjust karne honge. */
+.tcs {
+  padding-top: 76px !important;
+}
+.tcs .hero {
+  position: relative;
+  z-index: 1;
+}
+.tcs-bar {
+  position: relative;
+  z-index: 25;
+  background: #fff !important;
+}
+
+@media (max-width: 900px) {
+  .tcs {
+    padding-top: 90px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .tcs {
+    padding-top: max(110px, env(safe-area-inset-top, 0px) + 110px) !important;
+  }
+  .tcs .hero {
+    padding-top: 24px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .tcs {
+    padding-top: 120px !important;
+  }
+}
