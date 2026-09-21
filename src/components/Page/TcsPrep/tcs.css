@@ -493,7 +493,7 @@
 }
 @media (max-width: 640px) {
   .tcs {
-    padding-top: max(56px, env(safe-area-inset-top, 0px) + 56px) !important;
+    padding-top: max(120px, env(safe-area-inset-top, 0px) + 120px) !important;
   }
 }
 
