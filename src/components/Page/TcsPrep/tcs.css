@@ -477,41 +477,49 @@
   pointer-events: auto;
 }
 
-/* 4) OVERLAP SAFETY-NET — sab screens (mobile + tablet + desktop) ke liye.
-      Bahar wala "SYNTAX ERROR" header agar fixed/sticky hai, to uske neeche
-      hamesha itni clearance rakho ki content kabhi uske peeche na chadhe.
-      Ye generous values hain — agar zyada/kam gap lage to sirf yahi numbers
-      (110px / 90px / 76px) adjust karne honge. */
-.tcs {
-  padding-top: 76px !important;
+/* 4) ASLI OVERLAP FIX.
+      "TCS NQT Prep" wala safed bar (.tcs-bar) JSX mein inline style se
+      fixed/sticky kiya gaya lagta hai — isliye wo scroll na hoke hero text
+      ke upar chadh raha tha. Inline style ko normal CSS override nahi kar
+      sakta, isliye yahan !important zaroori hai. Ab ye bar normal document
+      flow mein aayega, jisse overlap kabhi ho hi nahi sakta, chahe koi bhi
+      screen size ho. */
+.tcs-bar {
+  position: relative !important;
+  top: auto !important;
+  bottom: auto !important;
+  z-index: 25;
+  background: #fff !important;
 }
 .tcs .hero {
   position: relative;
   z-index: 1;
 }
-.tcs-bar {
-  position: relative;
-  z-index: 25;
-  background: #fff !important;
-}
 
-@media (max-width: 900px) {
-  .tcs {
-    padding-top: 90px !important;
-  }
+/* Sirf bahar wale "SYNTAX ERROR" black header ke liye clearance (agar wo
+   fixed hai). Ab .tcs-bar khud flow mein hai, isliye bade numbers nahi
+   chahiye — bas itna ki black bar ke peeche na chhupe. */
+.tcs {
+  padding-top: 64px !important;
 }
-
 @media (max-width: 640px) {
   .tcs {
-    padding-top: max(110px, env(safe-area-inset-top, 0px) + 110px) !important;
-  }
-  .tcs .hero {
-    padding-top: 24px !important;
+    padding-top: max(56px, env(safe-area-inset-top, 0px) + 56px) !important;
   }
 }
 
-@media (max-width: 380px) {
-  .tcs {
-    padding-top: 120px !important;
+/* 5) Burger (☰) hata ke uski jagah seedha "Leaderboard" text dikhao —
+      sabhi screen sizes par (mobile pe bhi hamburger menu me chhupega nahi). */
+.tcs-burger {
+  display: none !important;
+}
+.tcs-nav {
+  display: flex !important;
+}
+@media (max-width: 640px) {
+  .tcs-nav {
+    display: flex !important;
+    width: auto !important;
+    justify-content: flex-end !important;
   }
 }
