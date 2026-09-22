@@ -26,41 +26,68 @@ export default function TcsLeaderboard() {
   const [myRank, setMyRank] = useState(null);
 const [myUser, setMyUser] = useState(null);
 
-  useEffect(() => {
+ useEffect(() => {
   setLoading(true);
   setError("");
 
-  // Current logged-in user
-  let currentUserId = "";
+  const token = localStorage.getItem("token");
 
-  try {
-    const storedUser = localStorage.getItem("user");
-    const parsedUser = storedUser ? JSON.parse(storedUser) : null;
+  // Load Top 10 leaderboard
+  const leaderboardRequest = fetch(
+    `${API_BASE}/tcs/leaderboard?category=${activeTab}`
+  ).then((res) => res.json());
 
-    currentUserId =
-      parsedUser?._id ||
-      parsedUser?.id ||
-      parsedUser?.userId ||
-      "";
-  } catch (error) {
-    console.error("Unable to read user from localStorage:", error);
-  }
+  // Load current user's rank/stats
+  const statsRequest = token
+    ? fetch(`${API_BASE}/tcs/my-stats`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((res) => res.json())
+    : Promise.resolve({ success: false });
 
-  const url =
-    `${API_BASE}/tcs/leaderboard?category=${activeTab}` +
-    (currentUserId
-      ? `&userId=${encodeURIComponent(currentUserId)}`
-      : "");
+  Promise.all([leaderboardRequest, statsRequest])
+    .then(([leaderboardData, statsData]) => {
+      if (!leaderboardData.success) {
+        setError(
+          leaderboardData.message || "Leaderboard load nahi ho paaya"
+        );
+        setLoading(false);
+        return;
+      }
 
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.success) {
-        setLeaderboard(data.leaderboard || []);
-        setMyUser(data.currentUser || null);
-        setMyRank(data.currentUser?.rank || null);
+      // Top 10
+      setLeaderboard(leaderboardData.leaderboard || []);
+
+      // Current user's rank
+      if (statsData.success && statsData.stats) {
+        const stats = statsData.stats;
+
+        let rank = null;
+        let points = 0;
+
+        if (activeTab === "overall") {
+          rank = stats.overallRank;
+          points = stats.points || 0;
+        } else if (activeTab === "coding") {
+          rank = stats.codingRank;
+          points = stats.codingPoints || 0;
+        } else if (activeTab === "aptitude") {
+          rank = stats.aptitudeRank;
+          points = stats.aptitudePoints || 0;
+        } else if (activeTab === "cshr") {
+          rank = stats.csHrRank;
+          points = stats.csHrPoints || 0;
+        }
+
+        setMyRank(rank);
+        setMyUser({
+          name: stats.name,
+          points,
+        });
       } else {
-        setError(data.message || "Leaderboard load nahi ho paaya");
+        setMyRank(null);
+        setMyUser(null);
       }
 
       setLoading(false);
