@@ -3,8 +3,7 @@ import { useSearchParams } from "react-router-dom";
 // TODO: production me deploy karte waqt yahan backend ka live URL daalo
 const API_BASE = "https://syntax-error-1xds.vercel.app";
 
-const [myRank, setMyRank] = useState(null);
-const [myUser, setMyUser] = useState(null);
+
 
 const TABS = [
   { key: "overall", label: "Overall" },
@@ -23,6 +22,9 @@ export default function TcsLeaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const [myRank, setMyRank] = useState(null);
+const [myUser, setMyUser] = useState(null);
 
   useEffect(() => {
   setLoading(true);
