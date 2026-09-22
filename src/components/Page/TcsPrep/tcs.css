@@ -596,8 +596,14 @@
 }
 
 /* TCS NQT Prep header - sticky on all devices */
+/* TCS NQT Prep header - FIXED/STICKY */
+.tcs {
+  overflow-x: clip !important;
+}
+
 .tcs .tcs-bar {
   position: sticky !important;
   top: 0 !important;
-  z-index: 50 !important;
+  width: 100% !important;
+  z-index: 9999 !important;
 }
