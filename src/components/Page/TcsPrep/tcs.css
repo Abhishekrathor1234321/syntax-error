@@ -545,3 +545,19 @@
     padding: 6px 13px;
   }
 }
+
+
+/* ---------- Hero spacing fix for tablet + mobile ---------- */
+/* Laptop view ko bilkul touch nahi karta */
+@media (max-width: 1024px) {
+  .tcs .hero {
+    padding-top: 90px !important;
+  }
+}
+
+/* Small mobile par thoda aur comfortable spacing */
+@media (max-width: 640px) {
+  .tcs .hero {
+    padding-top: 100px !important;
+  }
+}
