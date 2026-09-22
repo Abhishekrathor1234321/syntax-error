@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-
 // TODO: production me deploy karte waqt yahan backend ka live URL daalo
 const API_BASE = "https://syntax-error-1xds.vercel.app";
+
+const [myRank, setMyRank] = useState(null);
+const [myUser, setMyUser] = useState(null);
 
 const TABS = [
   { key: "overall", label: "Overall" },
@@ -23,23 +25,49 @@ export default function TcsLeaderboard() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    setLoading(true);
-    setError("");
-    fetch(`${API_BASE}/tcs/leaderboard?category=${activeTab}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          setLeaderboard(data.leaderboard);
-        } else {
-          setError(data.message || "Leaderboard load nahi ho paaya");
-        }
-        setLoading(false);
-      })
-      .catch(() => {
-        setError("Server se connect nahi ho paya");
-        setLoading(false);
-      });
-  }, [activeTab]);
+  setLoading(true);
+  setError("");
+
+  // Current logged-in user
+  let currentUserId = "";
+
+  try {
+    const storedUser = localStorage.getItem("user");
+    const parsedUser = storedUser ? JSON.parse(storedUser) : null;
+
+    currentUserId =
+      parsedUser?._id ||
+      parsedUser?.id ||
+      parsedUser?.userId ||
+      "";
+  } catch (error) {
+    console.error("Unable to read user from localStorage:", error);
+  }
+
+  const url =
+    `${API_BASE}/tcs/leaderboard?category=${activeTab}` +
+    (currentUserId
+      ? `&userId=${encodeURIComponent(currentUserId)}`
+      : "");
+
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.success) {
+        setLeaderboard(data.leaderboard || []);
+        setMyUser(data.currentUser || null);
+        setMyRank(data.currentUser?.rank || null);
+      } else {
+        setError(data.message || "Leaderboard load nahi ho paaya");
+      }
+
+      setLoading(false);
+    })
+    .catch(() => {
+      setError("Server se connect nahi ho paya");
+      setLoading(false);
+    });
+}, [activeTab]);
 
   return (
     <div className="tcslb-wrap">
@@ -112,6 +140,33 @@ export default function TcsLeaderboard() {
           color: #94a3b8;
         }
         .tcslb-error { color: #ef4444; }
+         
+        .tcslb-my-rank {
+  margin-top: 16px;
+}
+
+.tcslb-my-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748b;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tcslb-my-rank .tcslb-row {
+  border: 1px solid #f9a8d4;
+  border-radius: 12px;
+  background: #fff1f2;
+}
+
+.tcslb-row.me {
+  background: #fff1f2;
+}
+
+
+
+
 
         @media (max-width: 480px) {
           .tcslb-row { grid-template-columns: 40px 1fr 70px; padding: 10px 12px; }
@@ -146,22 +201,62 @@ export default function TcsLeaderboard() {
         <p className="tcslb-empty">No one has scored any points here yet — be the first!</p>
       )}
 
-      {!loading && leaderboard.length > 0 && (
-        <div className="tcslb-card">
-          <div className="tcslb-row head">
-            <span>Rank</span>
-            <span>Name</span>
-            <span className="tcslb-points">Points</span>
-          </div>
-          {leaderboard.map((row) => (
-            <div className="tcslb-row" key={row.rank}>
-              <span className="tcslb-rank">{MEDALS[row.rank - 1] || `#${row.rank}`}</span>
-              <span className="tcslb-name">{row.name}</span>
-              <span className="tcslb-points">{row.points}</span>
-            </div>
-          ))}
+     {!loading && leaderboard.length > 0 && (
+  <>
+    {/* TOP 10 LEADERBOARD */}
+    <div className="tcslb-card">
+      <div className="tcslb-row head">
+        <span>Rank</span>
+        <span>Name</span>
+        <span className="tcslb-points">Points</span>
+      </div>
+
+      {leaderboard.map((row) => (
+        <div
+          className={`tcslb-row ${
+            myRank === row.rank ? "me" : ""
+          }`}
+          key={row.rank}
+        >
+          <span className="tcslb-rank">
+            {MEDALS[row.rank - 1] || `#${row.rank}`}
+          </span>
+
+          <span className="tcslb-name">
+            {row.name}
+          </span>
+
+          <span className="tcslb-points">
+            {row.points}
+          </span>
         </div>
-      )}
+      ))}
+    </div>
+
+    {/* CURRENT USER RANK - ONLY IF OUTSIDE TOP 10 */}
+    {myRank > 10 && myUser && (
+      <div className="tcslb-my-rank">
+        <div className="tcslb-my-title">
+          Your Current Rank
+        </div>
+
+        <div className="tcslb-row me">
+          <span className="tcslb-rank">
+            #{myRank}
+          </span>
+
+          <span className="tcslb-name">
+            {myUser.name}
+          </span>
+
+          <span className="tcslb-points">
+            {myUser.points}
+          </span>
+        </div>
+      </div>
+    )}
+  </>
+)}
     </div>
   );
 }

@@ -533,30 +533,85 @@ const LEADERBOARD_FIELDS = {
   aptitude: "tcsPrep.aptitudePoints",
   cshr: "tcsPrep.csHrPoints",
 };
-
 router.get("/leaderboard", async (req, res) => {
   try {
-    const category = LEADERBOARD_FIELDS[req.query.category] ? req.query.category : "overall";
+    const category =
+      LEADERBOARD_FIELDS[req.query.category]
+        ? req.query.category
+        : "overall";
+
     const field = LEADERBOARD_FIELDS[category];
 
+    // ================================
+    // TOP 10 LEADERBOARD
+    // ================================
     const users = await UserModel.find({ [field]: { $gt: 0 } })
       .sort({ [field]: -1 })
-      .limit(50)
+      .limit(10)
       .select(`name ${field}`);
 
     const leaderboard = users.map((u, i) => {
       const obj = u.toObject();
-      const points = field.split(".").reduce((o, k) => (o ? o[k] : undefined), obj) || 0;
-      return { rank: i + 1, name: u.name, points };
+
+      const points =
+        field
+          .split(".")
+          .reduce((o, k) => (o ? o[k] : undefined), obj) || 0;
+
+      return {
+        rank: i + 1,
+        name: u.name,
+        points,
+      };
     });
 
-    res.json({ success: true, category, leaderboard });
+    // ================================
+    // CURRENT USER RANK
+    // ================================
+    let currentUser = null;
+
+    // Frontend se userId bheja gaya ho to
+    if (req.query.userId) {
+      const user = await UserModel.findById(req.query.userId)
+        .select(`name ${field}`);
+
+      if (user) {
+        const obj = user.toObject();
+
+        const points =
+          field
+            .split(".")
+            .reduce((o, k) => (o ? o[k] : undefined), obj) || 0;
+
+        // Current user's actual rank
+        const usersAbove = await UserModel.countDocuments({
+          [field]: { $gt: points },
+        });
+
+        const rank = usersAbove + 1;
+
+        currentUser = {
+          rank,
+          name: user.name,
+          points,
+        };
+      }
+    }
+
+    res.json({
+      success: true,
+      category,
+      leaderboard,
+      currentUser,
+    });
   } catch (err) {
     console.error("Error in /tcs/leaderboard:", err);
-    res.status(500).json({ success: false, message: "Server error" });
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
   }
 });
-
 // Aptitude sections (Quant / Reasoning / Verbal) + bulk import
 require("./TcsAptitudeExtras")(router, { ensureAuthenticated, ensureAdmin });
 require("./TcsCsHrExtras")(router, { ensureAuthenticated, ensureAdmin });  
