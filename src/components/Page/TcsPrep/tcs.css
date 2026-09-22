@@ -588,6 +588,9 @@
     padding-bottom: 80px !important;
     overflow: visible !important;
   }
+    .tcs .hero + .block {
+    padding-top: 80px !important;
+  }
 
  
 }
