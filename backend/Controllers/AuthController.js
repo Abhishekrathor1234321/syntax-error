@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
+const resend = new Resend(process.env.RESEND_API_KEY);
 const UserModel = require("../Models/User");
 
 // OTP Store (temporary)
@@ -14,55 +15,99 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS
   }
 });
-
-// Send OTP
 const sendOtp = async (req, res) => {
   try {
     const { email } = req.body;
+
     if (!email) {
-      return res.status(400).json({ success: false, message: "Email is required" });
+      return res.status(400).json({
+        success: false,
+        message: "Email is required"
+      });
     }
 
     // Generate 6 digit OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    
-    // Store OTP with 10 min expiry
+
+    // Store OTP with 10 minute expiry
     otpStore[email] = {
       otp,
       expiresAt: Date.now() + 10 * 60 * 1000
     };
 
-    // Send Email
-    await transporter.sendMail({
-      from: `"Syntax Error" <${process.env.EMAIL_USER}>`,
-      to: email,
-      subject: "Your Login OTP — Syntax Error",
+    // Send OTP using Resend
+    const { data, error } = await resend.emails.send({
+      from: 'Syntax Error <noreply@syntaxerrorr.com>',
+      to: [email],
+      subject: 'Your Login OTP — Syntax Error',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 480px; margin: 0 auto; background: #0f172a; color: white; border-radius: 16px; padding: 32px;">
-          <h2 style="color: #22c55e; margin-bottom: 8px;">Syntax Error</h2>
-          <p style="color: #94a3b8; margin-bottom: 24px;">Your one-time login code</p>
           
+          <h2 style="color: #22c55e; margin-bottom: 8px;">
+            Syntax Error
+          </h2>
+
+          <p style="color: #94a3b8; margin-bottom: 24px;">
+            Your one-time login code
+          </p>
+
           <div style="background: #1e293b; border-radius: 12px; padding: 24px; text-align: center; margin-bottom: 24px;">
-            <p style="color: #94a3b8; font-size: 14px; margin-bottom: 8px;">Your OTP Code</p>
-            <h1 style="color: #22c55e; font-size: 42px; letter-spacing: 8px; margin: 0;">${otp}</h1>
+            
+            <p style="color: #94a3b8; font-size: 14px; margin-bottom: 8px;">
+              Your OTP Code
+            </p>
+
+            <h1 style="color: #22c55e; font-size: 42px; letter-spacing: 8px; margin: 0;">
+              ${otp}
+            </h1>
+
           </div>
-          
-          <p style="color: #64748b; font-size: 13px;">This code expires in <strong style="color: #94a3b8;">10 minutes</strong>.</p>
-          <p style="color: #64748b; font-size: 13px;">If you didn't request this, please ignore this email.</p>
-          
+
+          <p style="color: #64748b; font-size: 13px;">
+            This code expires in 
+            <strong style="color: #94a3b8;">10 minutes</strong>.
+          </p>
+
+          <p style="color: #64748b; font-size: 13px;">
+            If you didn't request this, please ignore this email.
+          </p>
+
           <hr style="border: none; border-top: 1px solid #1e293b; margin: 24px 0;">
-          <p style="color: #475569; font-size: 12px;">© 2026 Syntax Error. All rights reserved.</p>
+
+          <p style="color: #475569; font-size: 12px;">
+            © 2026 Syntax Error. All rights reserved.
+          </p>
+
         </div>
       `
     });
 
-    res.status(200).json({ success: true, message: "OTP sent successfully!" });
+    // Check Resend error
+    if (error) {
+      console.error("RESEND ERROR:", error);
+
+      return res.status(500).json({
+        success: false,
+        message: error.message || "Failed to send OTP"
+      });
+    }
+
+    console.log("RESEND SUCCESS:", data);
+
+    return res.status(200).json({
+      success: true,
+      message: "OTP sent successfully!"
+    });
+
   } catch (err) {
     console.error("OTP send error:", err);
-    res.status(500).json({ success: false, message: "Failed to send OTP" });
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to send OTP"
+    });
   }
 };
-
 // Verify OTP
 const verifyOtp = async (req, res) => {
   try {
