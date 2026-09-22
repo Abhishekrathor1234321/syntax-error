@@ -592,7 +592,7 @@
   .tcs .hero-grid {
     display: flex !important;
     flex-direction: column !important;
-    gap: 40px !important;
+    gap: 70px !important;
     height: auto !important;
     min-height: 0 !important;
   }
@@ -600,7 +600,7 @@
   .tcs .glance {
     position: relative !important;
     width: 100% !important;
-    margin: 0 0 50px 0 !important;
+    margin: 0 !important;
     z-index: 2 !important;
   }
 
