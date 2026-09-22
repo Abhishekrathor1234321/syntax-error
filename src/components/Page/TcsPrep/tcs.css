@@ -558,6 +558,6 @@
 /* Small mobile par thoda aur comfortable spacing */
 @media (max-width: 640px) {
   .tcs .hero {
-    padding-top: 300px !important;
+    padding-top: 250px !important;
   }
 }
