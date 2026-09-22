@@ -551,7 +551,7 @@
 /* Laptop view ko bilkul touch nahi karta */
 @media (max-width: 1024px) {
   .tcs .hero {
-    padding-top: 150px !important;
+    padding-top: 200px !important;
   }
 }
 
