@@ -5,6 +5,7 @@ const otpStore = {};
 
 const sendOtp = async (req, res) => {
   try {
+    console.log("🔥 NEW OTP CODE IS RUNNING");
     const { email } = req.body;
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
