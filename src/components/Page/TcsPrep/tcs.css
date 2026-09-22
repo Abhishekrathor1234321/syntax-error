@@ -551,13 +551,30 @@
 /* Laptop view ko bilkul touch nahi karta */
 @media (max-width: 1024px) {
   .tcs .hero {
-    padding-top: 90px !important;
+    padding-top: 150px !important;
   }
 }
 
-/* Small mobile par thoda aur comfortable spacing */
+/* ---------- Mobile Hero Title - Attractive ---------- */
 @media (max-width: 640px) {
-  .tcs .hero {
-    padding-top: 250px !important;
+  .tcs .hero h1 {
+    font-size: clamp(2.1rem, 10vw, 3rem) !important;
+    line-height: 1.08 !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.04em !important;
+
+    background: linear-gradient(
+      135deg,
+      #0b7d4e 0%,
+      #10221b 45%,
+      #0b7d4e 100%
+    );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    text-shadow: 0 4px 18px rgba(11, 125, 78, 0.12);
   }
 }
+
