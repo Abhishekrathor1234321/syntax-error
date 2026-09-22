@@ -7,14 +7,7 @@ const UserModel = require("../Models/User");
 // OTP Store (temporary)
 const otpStore = {};
 
-// Email Transporter
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-});
+
 const sendOtp = async (req, res) => {
   try {
     const { email } = req.body;
