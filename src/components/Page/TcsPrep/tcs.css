@@ -589,24 +589,5 @@
     overflow: visible !important;
   }
 
-  .tcs .hero-grid {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 70px !important;
-    height: auto !important;
-    min-height: 0 !important;
-  }
-
-  .tcs .glance {
-    position: relative !important;
-    width: 100% !important;
-    margin: 0 !important;
-    z-index: 2 !important;
-  }
-
-  .tcs .block {
-    position: relative !important;
-    z-index: 3 !important;
-    margin-top: 0 !important;
-  }
+ 
 }
