@@ -600,7 +600,7 @@
   .tcs .glance {
     position: relative !important;
     width: 100% !important;
-    margin: 0 !important;
+    margin: 0 0 70px 0 !important;
     z-index: 2 !important;
   }
 
