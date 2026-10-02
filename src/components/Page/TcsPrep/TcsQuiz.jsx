@@ -59,6 +59,10 @@ export default function TcsQuiz({ type }) {
   const [activeQuestions, setActiveQuestions] = useState([]); // selected topic ke questions
   const [index, setIndex] = useState(0);
 
+  const [showResumeModal, setShowResumeModal] = useState(false);
+const [resumeIndex, setResumeIndex] = useState(0);
+
+
   const [selected, setSelected] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -97,17 +101,68 @@ export default function TcsQuiz({ type }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type]);
 
-  // Available topics/categories nikalo fetched questions se (jaise "Verbal Ability", "Reasoning Ability")
-  const topics = Array.from(new Set(questions.map((q) => q[config.groupField]).filter(Boolean)));
+  // Get the group/topic value consistently for both Aptitude and CS + HR + GenAI.
+  // Aptitude uses section; CSHR normally uses category, with safe fallbacks.
+  const getGroupValue = (q) => {
+    const value =
+      type === "aptitude"
+        ? q.section || TOPIC_TO_SECTION[q.topic] || q.topic
+        : q.category || q.topic || q.section;
 
-  const handleSelectTopic = (topic) => {
-    setSelectedTopic(topic);
-    setActiveQuestions(questions.filter((q) => q[config.groupField] === topic));
-    setIndex(0);
-    setSessionPoints(0);
-    setSessionCorrect(0);
+    return String(value || "").trim();
   };
 
+  // Available topics/categories nikalo fetched questions se.
+  const topics = Array.from(
+    new Set(questions.map(getGroupValue).filter(Boolean))
+  );
+
+  const handleSelectTopic = (topic) => {
+    const normalizedTopic = String(topic || "").trim();
+
+    const topicQuestions = questions.filter(
+      (q) => getGroupValue(q) === normalizedTopic
+    );
+
+    console.log("📚 Selected Topic:", normalizedTopic);
+    console.log("📚 Questions Found:", topicQuestions.length);
+
+    // Never enter the quiz with an empty question list.
+    if (topicQuestions.length === 0) {
+      setError(`No questions found for ${normalizedTopic}`);
+      return;
+    }
+
+    const progressKey = `tcs_progress_${type}_${normalizedTopic}`;
+
+    const savedIndex = Number(
+      localStorage.getItem(progressKey) || 0
+    );
+
+    setSelectedTopic(normalizedTopic);
+    setActiveQuestions(topicQuestions);
+    setSelected(null);
+    setSubmitted(false);
+    setResult(null);
+    setSessionPoints(0);
+    setSessionCorrect(0);
+    setError("");
+
+    // No previous progress
+    if (
+      savedIndex <= 0 ||
+      savedIndex >= topicQuestions.length
+    ) {
+      setIndex(0);
+      setResumeIndex(0);
+      setShowResumeModal(false);
+      return;
+    }
+
+    // Previous progress found
+    setResumeIndex(savedIndex);
+    setShowResumeModal(true);
+  };
   const currentQuestion = activeQuestions[index];
 
   const submitAnswer = useCallback(
@@ -124,12 +179,37 @@ export default function TcsQuiz({ type }) {
           body: JSON.stringify({ selectedIndex: chosenIndex }),
         });
         const data = await res.json();
-        if (data.success) {
-          setResult(data);
-          setSubmitted(true);
-          setSessionPoints((p) => p + (data.pointsAwarded || 0));
-          if (data.isCorrect) setSessionCorrect((c) => c + 1);
-        } else {
+     if (data.success) {
+  setResult(data);
+  setSubmitted(true);
+
+  setSessionPoints(
+    (p) => p + (data.pointsAwarded || 0)
+  );
+
+  if (data.isCorrect) {
+    setSessionCorrect((c) => c + 1);
+  }
+
+  // Save next question as progress
+  const progressKey =
+    `tcs_progress_${type}_${selectedTopic}`;
+
+  const nextIndex = index + 1;
+
+  if (nextIndex < activeQuestions.length) {
+    localStorage.setItem(
+      progressKey,
+      String(nextIndex)
+    );
+  } else {
+    // Topic completed
+    localStorage.setItem(
+      progressKey,
+      String(activeQuestions.length)
+    );
+  }
+}else {
           setError(data.message || "Submit nahi ho paya");
         }
       } catch {
@@ -138,7 +218,15 @@ export default function TcsQuiz({ type }) {
         setSubmitting(false);
       }
     },
-    [currentQuestion, submitted, token, type]
+    [
+  currentQuestion,
+  submitted,
+  token,
+  type,
+  selectedTopic,
+  index,
+  activeQuestions.length,
+]
   );
 
   // Timer — question badalte hi reset, submit hote hi ruk jaata hai
@@ -187,7 +275,7 @@ export default function TcsQuiz({ type }) {
     return (
       <div className="tcs-wrap" style={{ padding: "3rem 0", maxWidth: 640 }}>
         <h1>{config.title}</h1>
-        <p style={{ color: "#94a3b8" }}>Ek topic choose karo practice shuru karne ke liye.</p>
+        <p style={{ color: "#94a3b8" }}>Choose a topic to start practicing.</p>
         <Link to={`/tcs-prep/leaderboard?type=${type}`} style={{ fontSize: "0.9rem" }}>
           🏆 View {config.title} Leaderboard →
         </Link>
@@ -218,6 +306,89 @@ export default function TcsQuiz({ type }) {
     );
   }
 
+  if (showResumeModal) {
+  return (
+    <div
+      className="tcs-wrap"
+      style={{
+        minHeight: "70vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "3rem 0",
+      }}
+    >
+      <div
+        className="card"
+        style={{
+          width: "100%",
+          maxWidth: "520px",
+          padding: "2rem",
+          textAlign: "center",
+        }}
+      >
+        <h2 style={{ marginBottom: "10px" }}>
+          Continue Practice 🚀
+        </h2>
+
+        <p style={{ color: "#94a3b8", marginBottom: "8px" }}>
+          You have already attempted{" "}
+          <b>{resumeIndex}</b> questions in{" "}
+          <b>{selectedTopic}</b>.
+        </p>
+
+        <p
+          style={{
+            color: "#94a3b8",
+            marginBottom: "1.5rem",
+          }}
+        >
+          Where would you like to continue?
+        </p>
+
+        <div
+          style={{
+            display: "flex",
+            gap: "12px",
+            justifyContent: "center",
+            flexWrap: "wrap",
+          }}
+        >
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              setIndex(resumeIndex);
+              setShowResumeModal(false);
+            }}
+          >
+            Continue from Question {resumeIndex + 1} →
+          </button>
+
+          <button
+            className="btn"
+            onClick={() => {
+              const progressKey =
+                `tcs_progress_${type}_${selectedTopic}`;
+
+              localStorage.removeItem(progressKey);
+
+              setIndex(0);
+              setSelected(null);
+              setSubmitted(false);
+              setResult(null);
+              setShowResumeModal(false);
+              setSessionPoints(0);
+              setSessionCorrect(0);
+            }}
+          >
+            Start Again
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
   // Saare questions ho gaye — summary dikhao
   if (index >= activeQuestions.length) {
     return (
@@ -234,7 +405,35 @@ export default function TcsQuiz({ type }) {
           <Link to={`/tcs-prep/leaderboard?type=${type}`} className="btn">
             View {config.title} Leaderboard
           </Link>
-          <button className="btn" onClick={() => handleSelectTopic(selectedTopic)}>
+          <button
+            type="button"
+            onClick={() => {
+              const progressKey =
+                `tcs_progress_${type}_${selectedTopic}`;
+
+              localStorage.removeItem(progressKey);
+
+              setIndex(0);
+              setSelected(null);
+              setSubmitted(false);
+              setResult(null);
+              setError("");
+              setShowResumeModal(false);
+              setSessionPoints(0);
+              setSessionCorrect(0);
+            }}
+            style={{
+              marginTop: "8px",
+              padding: "12px 20px",
+              border: "1px solid #334155",
+              borderRadius: "10px",
+              background: "#ffffff",
+              color: "#0f172a",
+              fontSize: "16px",
+              fontWeight: 600,
+              cursor: "pointer",
+            }}
+          >
             Restart this topic
           </button>
         </div>
@@ -344,7 +543,16 @@ export default function TcsQuiz({ type }) {
         )}
 
         {error && <p style={{ color: "#f87171", marginTop: "10px" }}>{error}</p>}
+
+    
       </div>
     </div>
+
+
+
+
   );
 }
+
+
+

@@ -1,0 +1,1573 @@
+/* =========================================================
+   CODING LIST PAGE
+   ========================================================= */
+
+.coding-list-page {
+  display: grid;
+
+  grid-template-columns:
+    240px
+    minmax(0, 1fr);
+
+  width: 100%;
+
+  /*
+    TcsHeader:
+    Main navbar 60px
+    TCS header 68px
+    Total = 128px
+  */
+  height: calc(100vh - 128px);
+
+  min-height: 0;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(34, 197, 94, 0.06),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(59, 130, 246, 0.06),
+      transparent 30%
+    ),
+    #080d18;
+
+  color: #e2e8f0;
+
+  box-sizing: border-box;
+
+  overflow: hidden !important;
+}
+
+
+/* =========================================================
+   LEFT TOPICS
+   INDEPENDENT SCROLL
+   ========================================================= */
+
+.coding-sidebar {
+  width: 240px;
+
+  height: 100%;
+
+  min-height: 0;
+
+  margin: 0;
+  padding: 24px 14px;
+
+  background:
+    rgba(7, 12, 23, 0.98);
+
+  border-right:
+    1px solid rgba(148, 163, 184, 0.13);
+
+  box-sizing: border-box;
+
+  overflow-y: auto !important;
+
+  overflow-x: hidden !important;
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    #334155
+    transparent;
+}
+
+
+.coding-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.coding-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.coding-sidebar::-webkit-scrollbar-thumb {
+  background: #334155;
+
+  border-radius: 999px;
+}
+
+
+/* =========================================================
+   SIDEBAR TITLE
+   ========================================================= */
+
+.coding-sidebar-title {
+  margin:
+    0 0 12px;
+
+  padding: 0;
+
+  color: #94a3b8 !important;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.1em;
+
+  line-height: 1.2;
+
+  text-transform: uppercase;
+}
+
+
+.coding-difficulty-title {
+  margin-top: 26px;
+}
+
+
+/* =========================================================
+   TOPIC BUTTON
+   ========================================================= */
+
+.coding-topic-btn {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  width: 100%;
+
+  min-height: 42px;
+
+  margin:
+    0 0 3px;
+
+  padding:
+    0 10px;
+
+  color: #cbd5e1 !important;
+
+  background: transparent;
+
+  border: none;
+
+  border-radius: 9px;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  line-height: 1.2;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.coding-topic-btn:hover {
+  color: #f8fafc !important;
+
+  background:
+    rgba(148, 163, 184, 0.07);
+
+  transform:
+    translateX(2px);
+}
+
+
+.coding-topic-btn.active {
+  color: #22c55e !important;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(34, 197, 94, 0.15),
+      rgba(34, 197, 94, 0.04)
+    );
+
+  box-shadow:
+    inset 3px 0 0 #22c55e;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   TOPIC COUNT
+   ========================================================= */
+
+.coding-topic-count {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-width: 24px;
+
+  height: 24px;
+
+  padding: 0 6px;
+
+  color: #94a3b8;
+
+  background:
+    rgba(148, 163, 184, 0.08);
+
+  border-radius: 999px;
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   DIFFICULTY
+   ========================================================= */
+
+.coding-difficulty-row {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  width: 100%;
+}
+
+
+.coding-diff-chip {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  height: 36px;
+
+  padding: 0 12px;
+
+  color: #94a3b8;
+
+  background:
+    rgba(15, 23, 42, 0.65);
+
+  border:
+    1px solid #243044;
+
+  border-radius: 999px;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  text-transform: lowercase;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.coding-diff-chip:hover {
+  transform:
+    translateY(-1px);
+
+  border-color: #475569;
+
+  color: #e2e8f0;
+}
+
+
+.coding-diff-chip.active {
+  color: #f8fafc;
+
+  background:
+    rgba(148, 163, 184, 0.13);
+
+  border-color:
+    #475569;
+}
+
+
+.coding-diff-chip.active.diff-easy {
+  color: #4ade80;
+
+  background:
+    rgba(34, 197, 94, 0.12);
+
+  border-color:
+    rgba(34, 197, 94, 0.4);
+}
+
+
+.coding-diff-chip.active.diff-medium {
+  color: #facc15;
+
+  background:
+    rgba(234, 179, 8, 0.12);
+
+  border-color:
+    rgba(234, 179, 8, 0.4);
+}
+
+
+.coding-diff-chip.active.diff-hard {
+  color: #f87171;
+
+  background:
+    rgba(239, 68, 68, 0.12);
+
+  border-color:
+    rgba(239, 68, 68, 0.4);
+}
+
+
+/* =========================================================
+   RIGHT QUESTIONS
+   INDEPENDENT SCROLL
+   ========================================================= */
+
+.coding-question-list {
+  width: 100%;
+
+  height: 100%;
+
+  min-width: 0;
+
+  min-height: 0;
+
+  margin: 0;
+
+  padding:
+    28px 36px 50px;
+
+  box-sizing: border-box;
+
+  overflow-y: auto !important;
+
+  overflow-x: hidden !important;
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    #334155
+    transparent;
+}
+
+
+.coding-question-list::-webkit-scrollbar {
+  width: 7px;
+}
+
+.coding-question-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.coding-question-list::-webkit-scrollbar-thumb {
+  background: #334155;
+
+  border-radius: 999px;
+}
+
+
+/* =========================================================
+   HEADING
+   ========================================================= */
+
+.coding-heading-row {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  width: 100%;
+
+  gap: 20px;
+
+  margin:
+    0 0 18px;
+
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+
+.coding-heading {
+  display: block;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+
+  color: #f8fafc !important;
+
+  font-size: 32px;
+
+  font-weight: 800;
+
+  line-height: 1.2;
+
+  letter-spacing: -0.025em;
+
+  opacity: 1 !important;
+
+  visibility: visible !important;
+
+  text-shadow:
+    0 1px 8px rgba(255, 255, 255, 0.04);
+}
+
+
+.coding-heading-sub {
+  color: #94a3b8 !important;
+
+  font-weight: 500;
+
+  font-size: 0.72em;
+}
+
+
+/* =========================================================
+   QUESTION COUNT
+   ========================================================= */
+
+.coding-question-total {
+  flex-shrink: 0;
+
+  color: #e2e8f0 !important;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  line-height: 1.2;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   MUTED
+   ========================================================= */
+
+.coding-muted {
+  margin: 0;
+
+  color: #94a3b8 !important;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+
+.coding-loading {
+  padding:
+    30px 0;
+
+  color: #94a3b8 !important;
+
+  font-size: 14px;
+}
+
+
+.coding-empty {
+  padding:
+    20px 0;
+}
+
+
+/* =========================================================
+   QUESTION CARDS
+   ========================================================= */
+
+.coding-question-cards {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 16px;
+
+  width: 100%;
+
+  margin: 0;
+
+  padding: 0;
+}
+
+
+.coding-question-card {
+  position: relative;
+
+  width: 100%;
+
+  min-width: 0;
+
+  flex-shrink: 0;
+
+  margin: 0;
+
+  padding:
+    20px 24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(17, 27, 46, 0.98),
+      rgba(10, 18, 33, 0.98)
+    );
+
+  border:
+    1px solid rgba(148, 163, 184, 0.14);
+
+  border-radius: 16px;
+
+  box-sizing: border-box;
+
+  cursor: pointer;
+
+  outline: none;
+
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0
+      rgba(255, 255, 255, 0.025);
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.coding-question-card:hover {
+  transform:
+    translateY(-2px);
+
+  border-color:
+    rgba(34, 197, 94, 0.35);
+
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.22),
+    0 0 0 1px
+      rgba(34, 197, 94, 0.04);
+}
+
+
+.coding-question-card:focus-visible {
+  border-color:
+    rgba(59, 130, 246, 0.65);
+
+  box-shadow:
+    0 0 0 3px
+      rgba(59, 130, 246, 0.12);
+}
+
+
+/* =========================================================
+   QUESTION TOP
+   ========================================================= */
+
+.coding-question-card-top {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  width: 100%;
+
+  margin:
+    0 0 10px;
+
+  padding: 0;
+}
+
+
+.coding-question-title-wrap {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  min-width: 0;
+}
+
+
+.coding-question-title {
+  display: block;
+
+  overflow: hidden;
+
+  color: #f1f5f9 !important;
+
+  font-size: 18px;
+
+  font-weight: 750;
+
+  line-height: 1.35;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   COMPLETION ICON
+   ========================================================= */
+
+.coding-complete-icon,
+.coding-pending-icon {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 28px;
+
+  height: 28px;
+
+  border-radius: 50%;
+
+  box-sizing: border-box;
+}
+
+
+.coding-complete-icon {
+  color: #ffffff !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      #22c55e,
+      #16a34a
+    );
+
+  font-size: 16px;
+
+  font-weight: 900;
+
+  box-shadow:
+    0 0 0 3px
+      rgba(34, 197, 94, 0.10),
+    0 0 18px
+      rgba(34, 197, 94, 0.25);
+}
+
+
+.coding-pending-icon {
+  color: #64748b !important;
+
+  border:
+    1.5px solid #64748b;
+
+  font-size: 17px;
+}
+
+
+/* =========================================================
+   DIFFICULTY TAG
+   ========================================================= */
+
+.coding-diff-tag {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  padding:
+    6px 11px;
+
+  border:
+    1px solid transparent;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+
+  font-weight: 750;
+
+  line-height: 1;
+
+  text-transform: capitalize;
+}
+
+
+.coding-diff-tag.diff-easy {
+  color: #4ade80 !important;
+
+  background:
+    rgba(34, 197, 94, 0.10);
+
+  border-color:
+    rgba(34, 197, 94, 0.25);
+}
+
+
+.coding-diff-tag.diff-medium {
+  color: #facc15 !important;
+
+  background:
+    rgba(234, 179, 8, 0.10);
+
+  border-color:
+    rgba(234, 179, 8, 0.25);
+}
+
+
+.coding-diff-tag.diff-hard {
+  color: #f87171 !important;
+
+  background:
+    rgba(239, 68, 68, 0.10);
+
+  border-color:
+    rgba(239, 68, 68, 0.25);
+}
+
+
+/* =========================================================
+   QUESTION BOTTOM
+   ========================================================= */
+
+.coding-question-card-bottom {
+  display: flex;
+
+  align-items: center;
+
+  width: 100%;
+
+  gap: 12px;
+
+  margin: 0;
+
+  padding: 0;
+
+  color: #64748b;
+
+  font-size: 14px;
+
+  line-height: 1.3;
+}
+
+
+.coding-question-topic {
+  color: #94a3b8 !important;
+
+  white-space: nowrap;
+}
+
+
+.coding-question-points {
+  margin-left: auto;
+
+  color: #cbd5e1 !important;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+
+.coding-done-label {
+  flex-shrink: 0;
+
+  padding:
+    5px 10px;
+
+  color: #4ade80 !important;
+
+  background:
+    rgba(34, 197, 94, 0.08);
+
+  border:
+    1px solid rgba(34, 197, 94, 0.2);
+
+  border-radius: 999px;
+
+  font-size: 11px;
+
+  font-weight: 750;
+
+  line-height: 1;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .coding-list-page {
+    display: flex;
+
+    flex-direction: column;
+
+    width: 100%;
+
+    height: auto;
+
+    min-height:
+      calc(100vh - 122px);
+
+    overflow: visible !important;
+  }
+
+
+  .coding-sidebar {
+    width: 100%;
+
+    height: auto;
+
+    min-height: 0;
+
+    padding:
+      16px 18px;
+
+    border-right: none;
+
+    border-bottom:
+      1px solid
+      rgba(148, 163, 184, 0.13);
+
+    overflow: visible !important;
+  }
+
+
+  .coding-question-list {
+    width: 100%;
+
+    height: auto;
+
+    min-height: 0;
+
+    padding:
+      22px 20px 40px;
+
+    overflow: visible !important;
+  }
+
+
+  .coding-heading {
+    font-size: 28px;
+  }
+
+
+  .coding-question-title {
+    font-size: 17px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 640px) {
+
+  .coding-list-page {
+    min-height:
+      calc(100vh - 124px);
+  }
+
+
+  .coding-sidebar {
+    padding:
+      14px 12px;
+  }
+
+
+  .coding-sidebar-title {
+    font-size: 11px;
+  }
+
+
+  .coding-topic-btn {
+    min-height: 40px;
+
+    font-size: 13px;
+  }
+
+
+  .coding-diff-chip {
+    height: 34px;
+
+    padding:
+      0 11px;
+
+    font-size: 11px;
+  }
+
+
+  .coding-question-list {
+    padding:
+      18px 12px 35px;
+  }
+
+
+  .coding-heading-row {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    margin-bottom: 16px;
+  }
+
+
+  .coding-heading {
+    font-size: 25px;
+  }
+
+
+  .coding-question-total {
+    font-size: 13px;
+  }
+
+
+  .coding-question-card {
+    padding:
+      17px 15px;
+
+    border-radius: 14px;
+  }
+
+
+  .coding-question-card-top {
+    align-items: flex-start;
+
+    gap: 10px;
+  }
+
+
+  .coding-question-title-wrap {
+    gap: 9px;
+  }
+
+
+  .coding-question-title {
+    font-size: 15px;
+
+    white-space: normal;
+  }
+
+
+  .coding-complete-icon,
+  .coding-pending-icon {
+    width: 25px;
+
+    height: 25px;
+  }
+
+
+  .coding-diff-tag {
+    padding:
+      5px 9px;
+
+    font-size: 10px;
+  }
+
+
+  .coding-question-card-bottom {
+    font-size: 12px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+  .coding-sidebar {
+    padding:
+      12px 9px;
+  }
+
+
+  .coding-question-list {
+    padding:
+      16px 9px 30px;
+  }
+
+
+  .coding-heading {
+    font-size: 23px;
+  }
+
+
+  .coding-question-card {
+    padding:
+      15px 13px;
+  }
+
+
+  .coding-question-title {
+    font-size: 14px;
+  }
+
+
+  .coding-question-points {
+    font-size: 11px;
+  }
+}
+
+
+/* =========================================================
+   IMPORTANT CLEANUP
+   ========================================================= */
+
+/*
+  Coding page MUST NOT have its own TCS header.
+
+  These old classes are intentionally neutralized
+  in case old CSS is still loaded somewhere.
+*/
+
+.coding-tcs-header-wrap,
+.coding-tcs-bar,
+.coding-tcs-bar-inner,
+.coding-tcs-left,
+.coding-tcs-back,
+.coding-tcs-brand,
+.coding-tcs-free,
+.coding-tcs-nav,
+.coding-tcs-leaderboard {
+  display: none !important;
+}
+
+
+/* =========================================================
+   FINAL CODING PAGE LAYOUT FIX
+   ========================================================= */
+
+/* Main coding area starts exactly after common TCS header */
+.coding-list-page {
+  display: grid !important;
+  grid-template-columns: 240px minmax(0, 1fr) !important;
+
+  width: 100% !important;
+  height: calc(100vh - 128px) !important;
+  min-height: 0 !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  box-sizing: border-box !important;
+
+  overflow: hidden !important;
+
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(34, 197, 94, 0.06),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 20%,
+      rgba(59, 130, 246, 0.06),
+      transparent 30%
+    ),
+    #080d18 !important;
+}
+
+
+/* =========================================================
+   LEFT TOPICS
+   ========================================================= */
+
+.coding-sidebar {
+  grid-column: 1 !important;
+
+  width: 240px !important;
+  height: 100% !important;
+  min-height: 0 !important;
+
+  margin: 0 !important;
+
+  padding: 24px 14px !important;
+
+  box-sizing: border-box !important;
+
+  position: relative !important;
+  top: auto !important;
+
+  align-self: stretch !important;
+
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+
+  background: #080d18 !important;
+
+  border-right:
+    1px solid rgba(148, 163, 184, 0.14) !important;
+
+  border-bottom: none !important;
+
+  scrollbar-width: thin;
+  scrollbar-color: #334155 transparent;
+}
+
+
+.coding-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.coding-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.coding-sidebar::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 999px;
+}
+
+
+/* =========================================================
+   SIDEBAR TEXT — FORCE VISIBILITY
+   ========================================================= */
+
+.coding-sidebar-title {
+  display: block !important;
+
+  color: #94a3b8 !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+
+  margin: 0 0 12px !important;
+
+  font-size: 12px !important;
+  font-weight: 800 !important;
+
+  letter-spacing: 0.1em !important;
+
+  text-transform: uppercase !important;
+}
+
+
+.coding-topic-btn {
+  color: #cbd5e1 !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+
+.coding-topic-btn span {
+  color: inherit !important;
+}
+
+
+.coding-topic-btn:hover {
+  color: #ffffff !important;
+}
+
+
+.coding-topic-btn.active {
+  color: #22c55e !important;
+}
+
+
+.coding-topic-count {
+  color: #94a3b8 !important;
+
+  opacity: 1 !important;
+}
+
+
+/* =========================================================
+   RIGHT QUESTIONS
+   ========================================================= */
+
+.coding-question-list {
+  grid-column: 2 !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  min-width: 0 !important;
+  min-height: 0 !important;
+
+  margin: 0 !important;
+
+  padding: 28px 36px 50px !important;
+
+  box-sizing: border-box !important;
+
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+
+  max-width: none !important;
+
+  scrollbar-width: thin;
+  scrollbar-color: #334155 transparent;
+}
+
+
+.coding-question-list::-webkit-scrollbar {
+  width: 7px;
+}
+
+.coding-question-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.coding-question-list::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 999px;
+}
+
+
+/* =========================================================
+   ALL QUESTIONS — FORCE VISIBLE
+   ========================================================= */
+
+.coding-heading-row {
+  display: flex !important;
+
+  align-items: center !important;
+  justify-content: space-between !important;
+
+  width: 100% !important;
+
+  margin: 0 0 20px !important;
+  padding: 0 !important;
+
+  box-sizing: border-box !important;
+}
+
+
+.coding-heading {
+  display: block !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  color: #ffffff !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+
+  font-size: 32px !important;
+  font-weight: 800 !important;
+
+  line-height: 1.25 !important;
+
+  letter-spacing: -0.02em !important;
+
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+
+.coding-heading-sub {
+  color: #94a3b8 !important;
+
+  opacity: 1 !important;
+
+  -webkit-text-fill-color: #94a3b8 !important;
+}
+
+
+.coding-question-total {
+  display: block !important;
+
+  color: #cbd5e1 !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+
+  font-size: 15px !important;
+  font-weight: 600 !important;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   QUESTION CARDS — FORCE VISIBILITY
+   ========================================================= */
+
+.coding-question-cards {
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  gap: 16px !important;
+
+  width: 100% !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+
+.coding-question-card {
+  display: block !important;
+
+  width: 100% !important;
+
+  min-width: 0 !important;
+
+  flex-shrink: 0 !important;
+
+  box-sizing: border-box !important;
+
+  color: #e2e8f0 !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+
+.coding-question-title {
+  color: #f8fafc !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+
+  -webkit-text-fill-color: #f8fafc !important;
+}
+
+
+.coding-question-topic {
+  color: #94a3b8 !important;
+
+  opacity: 1 !important;
+}
+
+
+.coding-question-points {
+  color: #cbd5e1 !important;
+
+  opacity: 1 !important;
+}
+
+
+/* =========================================================
+   LOADING / EMPTY TEXT
+   ========================================================= */
+
+.coding-loading,
+.coding-muted,
+.coding-empty {
+  color: #cbd5e1 !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+
+/* =========================================================
+   COMPLETED
+   ========================================================= */
+
+.coding-done-label {
+  color: #4ade80 !important;
+
+  opacity: 1 !important;
+}
+
+
+/* =========================================================
+   DESKTOP — NO BODY-STYLE EXTRA GAP
+   ========================================================= */
+
+@media (min-width: 901px) {
+
+  .coding-list-page {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  .coding-sidebar {
+    padding-top: 24px !important;
+  }
+
+  .coding-question-list {
+    padding-top: 28px !important;
+  }
+}
+
+
+/* =========================================================
+   TABLET / MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .coding-list-page {
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    height: auto !important;
+
+    min-height: calc(100vh - 122px) !important;
+
+    overflow: visible !important;
+  }
+
+  .coding-sidebar {
+    width: 100% !important;
+
+    height: auto !important;
+
+    max-height: none !important;
+
+    overflow: visible !important;
+
+    border-right: none !important;
+
+    border-bottom:
+      1px solid rgba(148, 163, 184, 0.14) !important;
+  }
+
+  .coding-question-list {
+    width: 100% !important;
+
+    height: auto !important;
+
+    overflow: visible !important;
+
+    padding: 22px 20px 40px !important;
+  }
+
+  .coding-heading {
+    font-size: 28px !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 640px) {
+
+  .coding-sidebar {
+    padding: 14px 12px !important;
+  }
+
+  .coding-question-list {
+    padding: 18px 12px 35px !important;
+  }
+
+  .coding-heading-row {
+    align-items: flex-start !important;
+
+    flex-direction: column !important;
+
+    gap: 6px !important;
+  }
+
+  .coding-heading {
+    font-size: 25px !important;
+  }
+
+  .coding-question-total {
+    font-size: 13px !important;
+  }
+}
+
+/* Final top-gap adjustment */
+.coding-list-page {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Desktop */
+@media (min-width: 901px) {
+  .coding-list-page {
+    height: calc(100vh - 128px) !important;
+    transform: translateY(-135px);
+  }
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .coding-list-page {
+    transform: translateY(-95px);
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .coding-list-page {
+    transform: translateY(-70px);
+  }
+}
+
+/* FORCE SIDEBAR HEADINGS VISIBLE */
+.coding-sidebar .coding-sidebar-title,
+.coding-sidebar h2.coding-sidebar-title {
+  display: block !important;
+
+  color: #f8fafc !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+
+  font-size: 13px !important;
+  font-weight: 700 !important;
+
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+
+  margin: 0 0 10px !important;
+}
+
+/* Difficulty heading */
+.coding-sidebar .coding-difficulty-title {
+  display: block !important;
+
+  color: #f8fafc !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+
+  margin-top: 8px !important;
+  margin-bottom: 10px !important;
+}
+
+/* Space between Topics and Difficulty */
+.coding-sidebar .coding-difficulty-title {
+  margin-top: 22px !important;
+  margin-bottom: 20px !important;
+}

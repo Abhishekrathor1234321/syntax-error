@@ -17,20 +17,20 @@ async function validateAndApplyCoupon(couponCode, courseTitle, originalAmount, u
     const coupon = await CouponModel.findOne({ code: couponCode.toUpperCase() });
 
     if (!coupon) throw new Error('Invalid coupon code');
-    if (!coupon.isActive) throw new Error('Ye coupon abhi active nahi hai');
-    if (new Date() > new Date(coupon.expiryDate)) throw new Error('Coupon expire ho chuka hai');
+    if (!coupon.isActive) throw new Error('This coupon is not active yet');
+    if (new Date() > new Date(coupon.expiryDate)) throw new Error('The coupon has expired');
 
     if (coupon.applicableTo === 'specific' && !coupon.courseTitles.includes(courseTitle)) {
-        throw new Error('Ye coupon is course par apply nahi hota');
+        throw new Error('This coupon is not applicable to this course');
     }
 
     if (coupon.usageLimit !== null && coupon.usedCount >= coupon.usageLimit) {
-        throw new Error('Coupon ki usage limit khatam ho chuki hai');
+        throw new Error('The coupon usage limit has been reached');
     }
 
     const userUsage = coupon.usedBy.find((u) => u.email === userEmail);
     if (userUsage && userUsage.count >= coupon.perUserLimit) {
-        throw new Error('Aap is coupon ko already use kar chuke hain');
+        throw new Error('You have already used this coupon');
     }
 
     let discountAmount = (originalAmount * coupon.discountValue) / 100;

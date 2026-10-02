@@ -3,11 +3,18 @@ import { useNavigate } from "react-router-dom";
 import CheckoutModal from "../CheckoutModal";
 import "./TCSCourseDetail.css";
 
+const WHATSAPP_NUMBER =
+  import.meta.env.VITE_WHATSAPP_NUMBER || "919232169325";
+
+const WHATSAPP_MESSAGE =
+  "Hi, I have some doubts regarding the TCS Complete Placement Course. Can you please help me?";
+
 function TCSCourseDetail() {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState(null);
   const [showCheckout, setShowCheckout] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
+  const [offerTimeLeft, setOfferTimeLeft] = useState(30 * 60);
 
   const refCode =
     new URLSearchParams(window.location.search).get("ref") ||
@@ -24,6 +31,34 @@ function TCSCourseDetail() {
       setShowCheckout(true);
     }
   }, []);
+
+  useEffect(() => {
+  const STORAGE_KEY = "tcs_offer_deadline";
+  const now = Date.now();
+
+  let deadline = Number(localStorage.getItem(STORAGE_KEY));
+
+  // First visit → 30 minute countdown start
+  if (!deadline || deadline <= now) {
+    deadline = now + 30 * 60 * 1000;
+    localStorage.setItem(STORAGE_KEY, String(deadline));
+  }
+
+  const updateTimer = () => {
+    const remaining = Math.max(
+      0,
+      Math.floor((deadline - Date.now()) / 1000)
+    );
+
+    setOfferTimeLeft(remaining);
+  };
+
+  updateTimer();
+
+  const timer = setInterval(updateTimer, 1000);
+
+  return () => clearInterval(timer);
+}, []);
 
   const handleEnrollClick = () => {
     const token = localStorage.getItem("token");
@@ -140,7 +175,7 @@ const pollInterval = setInterval(async () => {
 setTimeout(() => clearInterval(pollInterval), 30000);
 
 } catch (err) {
-  alert("Payment error!");
+  alert("Your session has expired. Please logout and login again, then try the payment again!");
 }
 };
   // ── Curriculum tabs ──
@@ -277,6 +312,16 @@ setTimeout(() => clearInterval(pollInterval), 30000);
     { num: "40", suffix: "h+", label: "Course Content" },
   ];
 
+  // ⏳ Offer countdown display values
+const offerMinutes = Math.floor(offerTimeLeft / 60);
+
+const offerSeconds = offerTimeLeft % 60;
+
+const formattedOfferTime =
+  `${String(offerMinutes).padStart(2, "0")}:${String(
+    offerSeconds
+  ).padStart(2, "0")}`;
+
   return (
     <div className="cd-wrapper tcs-wrapper">
       {/* Checkout Modal */}
@@ -336,15 +381,31 @@ setTimeout(() => clearInterval(pollInterval), 30000);
             </div>
 
             {/* Price */}
-            <div className="tcs-price-card">
-              <span className="cd-price-label">LIFETIME ACCESS — ALL 5 MODULES</span>
-              <div className="cd-price-row">
-                <span className="tcs-price">₹999</span>
-                <span className="cd-price-og">₹9999</span>
-                <span className="tcs-discount-badge">90% OFF</span>
-              </div>
-            </div>
+           <div className="cd-price-row tcs-price-row-enhanced">
+  <div className="tcs-price-main">
+    <span className="tcs-price">₹999</span>
+    <span className="cd-price-og">₹9999</span>
+  </div>
 
+  <div className="tcs-offer-badge">
+    <span className="tcs-offer-fire">🔥</span>
+    <span>90% OFF</span>
+  </div>
+
+  <div
+    className={`tcs-countdown ${
+      offerTimeLeft <= 60 ? "tcs-countdown-danger" : ""
+    }`}
+  >
+    <span className="tcs-countdown-label">
+      OFFER ENDS IN
+    </span>
+
+    <span className="tcs-countdown-time">
+      {offerTimeLeft > 0 ? formattedOfferTime : "00:00"}
+    </span>
+  </div>
+</div>
             <button className="tcs-enroll-btn" onClick={handleEnrollClick}>
               Enroll Now →
             </button>
@@ -648,6 +709,153 @@ setTimeout(() => clearInterval(pollInterval), 30000);
         {/* RIGHT SIDEBAR — hidden via CSS */}
         <aside className="cd-right-col" />
       </div>
+
+      {/* Floating WhatsApp Support */}
+      <a
+        href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+          WHATSAPP_MESSAGE
+        )}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="tcs-whatsapp-float"
+        aria-label="Chat with us on WhatsApp"
+      >
+        <span className="tcs-whatsapp-icon">
+          <svg
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path d="M20.52 3.48A11.87 11.87 0 0 0 12.05 0C5.48 0 .13 5.35.13 11.92c0 2.1.55 4.15 1.6 5.96L0 24l6.26-1.64a11.9 11.9 0 0 0 5.79 1.48h.01c6.57 0 11.92-5.35 11.92-11.92 0-3.18-1.24-6.17-3.46-8.44ZM12.06 21.8a9.88 9.88 0 0 1-5.04-1.38l-.36-.21-3.72.98.99-3.63-.23-.37a9.88 9.88 0 1 1 8.36 4.61Zm5.42-7.4c-.3-.15-1.77-.87-2.05-.97-.28-.1-.48-.15-.69.15-.2.3-.79.97-.97 1.17-.18.2-.36.23-.66.08-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.36.45-.54.15-.18.2-.3.3-.5.1-.2.05-.38-.03-.53-.08-.15-.69-1.66-.94-2.28-.25-.6-.5-.52-.69-.53h-.59c-.2 0-.53.08-.81.38-.28.3-1.06 1.04-1.06 2.54s1.09 2.95 1.24 3.15c.15.2 2.14 3.27 5.19 4.58.73.31 1.3.5 1.74.64.73.23 1.4.2 1.93.12.59-.09 1.77-.72 2.02-1.42.25-.69.25-1.29.18-1.42-.08-.13-.28-.2-.58-.35Z" />
+          </svg>
+        </span>
+
+        <span>Have doubts? Chat now</span>
+      </a>
+
+      <style>{`
+        .tcs-whatsapp-float {
+          position: fixed;
+          right: clamp(12px, 2vw, 32px);
+          bottom: max(16px, env(safe-area-inset-bottom));
+          z-index: 9999;
+
+          display: inline-flex;
+          align-items: center;
+          gap: 12px;
+
+          min-height: 56px;
+          padding: 7px 24px 7px 8px;
+
+          border-radius: 999px;
+          background: linear-gradient(135deg, #22c55e 0%, #0f9f87 100%);
+          color: #fff;
+          text-decoration: none;
+
+          font-size: clamp(14px, 1.15vw, 18px);
+          font-weight: 700;
+          line-height: 1;
+
+          box-shadow:
+            0 10px 28px rgba(16, 185, 129, 0.25),
+            0 4px 14px rgba(0, 0, 0, 0.18);
+
+          transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+
+          box-sizing: border-box;
+          white-space: nowrap;
+        }
+
+        .tcs-whatsapp-float:hover {
+          transform: translateY(-3px);
+          box-shadow:
+            0 14px 34px rgba(16, 185, 129, 0.34),
+            0 6px 18px rgba(0, 0, 0, 0.22);
+        }
+
+        .tcs-whatsapp-float:active {
+          transform: translateY(-1px);
+        }
+
+        .tcs-whatsapp-float:focus-visible {
+          outline: 3px solid rgba(255, 255, 255, 0.9);
+          outline-offset: 3px;
+        }
+
+        .tcs-whatsapp-icon {
+          width: 42px;
+          height: 42px;
+          min-width: 42px;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.14);
+          border: 1px solid rgba(255, 255, 255, 0.18);
+
+          box-sizing: border-box;
+        }
+
+        .tcs-whatsapp-icon svg {
+          display: block;
+          width: 24px;
+          height: 24px;
+        }
+
+        @media (max-width: 600px) {
+          .tcs-whatsapp-float {
+            right: 14px;
+            bottom: max(14px, env(safe-area-inset-bottom));
+
+            min-height: 50px;
+            padding: 6px 16px 6px 7px;
+
+            gap: 9px;
+            font-size: 14px;
+          }
+
+          .tcs-whatsapp-icon {
+            width: 38px;
+            height: 38px;
+            min-width: 38px;
+          }
+
+          .tcs-whatsapp-icon svg {
+            width: 21px;
+            height: 21px;
+          }
+        }
+
+        @media (max-width: 380px) {
+          .tcs-whatsapp-float {
+            right: 10px;
+            bottom: max(10px, env(safe-area-inset-bottom));
+
+            min-height: 46px;
+            padding: 5px 12px 5px 6px;
+
+            gap: 7px;
+            font-size: 13px;
+          }
+
+          .tcs-whatsapp-icon {
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+          }
+
+          .tcs-whatsapp-icon svg {
+            width: 20px;
+            height: 20px;
+          }
+        }
+      `}</style>
     </div>
   );
 }

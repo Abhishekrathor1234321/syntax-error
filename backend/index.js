@@ -5,7 +5,7 @@ const connectDB = require('./Models/db'); // ← change
 const CouponRouter = require('./Routes/CouponRouter');
 
 const TcsRouter = require('./Routes/TcsRouter');
-
+const CodingRouter = require('./Routes/CodingRouter');
 
 const app = express();
 const bodyParser = require('body-parser');
@@ -44,8 +44,17 @@ app.get('/ping', (req, res) => {
 
 // ← har request se pehle DB connect karo
 app.use(async (req, res, next) => {
-    await connectDB();
-    next();
+    try {
+        await connectDB();
+        next();
+    } catch (err) {
+        console.error("❌ Database middleware error:", err.message);
+
+        return res.status(503).json({
+            success: false,
+            message: "Database connection unavailable",
+        });
+    }
 });
 
 app.use('/auth', AuthRouter);
@@ -57,7 +66,19 @@ app.use('/otp', OtpRouter);
 app.use('/coupons', CouponRouter);
 
 app.use('/tcs', TcsRouter);
+app.use('/coding', CodingRouter);
 
-app.listen(PORT, () => {
-    console.log(`Server is running on ${PORT}`)
-});
+// Start server only after MongoDB connection is ready
+const startServer = async () => {
+    try {
+        await connectDB();
+
+        app.listen(PORT, () => {
+            console.log(`Server is running on ${PORT}`);
+        });
+    } catch (err) {
+        console.error("❌ Server startup failed:", err.message);
+    }
+};
+
+startServer();

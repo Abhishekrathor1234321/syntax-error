@@ -172,3 +172,143 @@
   background: white;
   color: #0b1220;
 }
+
+
+/* =====================================================
+   TCS NQT - SPECIAL NAVBAR CTA
+   ===================================================== */
+
+.tcs-nqt-nav-link {
+  position: relative;
+
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+
+  padding: 9px 16px !important;
+
+  color: #ffffff !important;
+
+  background: linear-gradient(
+    135deg,
+    #2563eb 0%,
+    #7c3aed 55%,
+    #a855f7 100%
+  ) !important;
+
+  border: 1px solid rgba(167, 139, 250, 0.8);
+
+  border-radius: 9px !important;
+
+  font-weight: 700 !important;
+
+  box-shadow:
+    0 0 10px rgba(99, 102, 241, 0.35),
+    0 0 24px rgba(139, 92, 246, 0.15);
+
+  overflow: visible;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+/* Shine effect */
+.tcs-nqt-nav-link::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: -80%;
+
+  width: 50%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+
+  animation: tcsNqtShine 3.5s infinite;
+}
+
+@keyframes tcsNqtShine {
+  0% {
+    left: -80%;
+  }
+
+  35%,
+  100% {
+    left: 140%;
+  }
+}
+
+/* Hover */
+.tcs-nqt-nav-link:hover {
+  color: #ffffff !important;
+
+  transform: translateY(-2px) scale(1.02);
+
+  filter: brightness(1.12);
+
+  box-shadow:
+    0 0 14px rgba(99, 102, 241, 0.55),
+    0 0 32px rgba(139, 92, 246, 0.3);
+}
+
+/* Active TCS page */
+.tcs-nqt-nav-link[href="/tcs-prep"] {
+  color: #ffffff !important;
+
+  box-shadow:
+    0 0 14px rgba(59, 130, 246, 0.5),
+    0 0 30px rgba(139, 92, 246, 0.25);
+}
+
+
+/* TCS NQT - NEW Badge */
+
+.tcs-nqt-badge {
+  position: absolute;
+
+  top: -8px;
+  right: -8px;
+
+  padding: 2px 6px;
+
+  background: #22c55e;
+  color: #052e16;
+
+  border: 2px solid #000000;
+  border-radius: 999px;
+
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+
+  line-height: 1.2;
+  white-space: nowrap;
+
+  box-shadow:
+    0 0 10px rgba(34, 197, 94, 0.45);
+
+  z-index: 5;
+
+  animation: tcsNewPulse 2s ease-in-out infinite;
+}
+
+@keyframes tcsNewPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+}

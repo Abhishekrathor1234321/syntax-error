@@ -41,6 +41,8 @@ import TcsStart from "./components/Page/TcsPrep/TcsStart";
 import TcsQuiz from "./components/Page/TcsPrep/TcsQuiz";
 
 import TcsLeaderboard from "./components/Page/TcsPrep/TcsLeaderboard";
+import CodingListPage from "./components/Page/Coding/CodingListPage";
+import CodingSolvePage from "./components/Page/Coding/CodingSolvePage";
 
 
 // ✅ Admin Route — sirf tumhara email personally
@@ -90,6 +92,42 @@ function App() {
 </Route>
 
 
+{/* =====================================================
+    CODING PAGES WITH TCS LAYOUT
+   ===================================================== */}
+
+<Route element={<TcsLayout />}>
+  <Route
+    path="/coding"
+    element={
+      <PrivateRoute>
+        <CodingListPage />
+      </PrivateRoute>
+    }
+  />
+
+  <Route
+  path="/tcs-prep/coding"
+  element={
+    <PrivateRoute>
+      <CodingListPage />
+    </PrivateRoute>
+  }
+/>
+
+  <Route
+    path="/coding/:slug"
+    element={
+      <PrivateRoute>
+        <CodingSolvePage />
+      </PrivateRoute>
+    }
+  />
+
+  
+</Route>
+
+
         <Route path="/login" element={<AuthPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsConditions />} />
@@ -103,6 +141,12 @@ function App() {
         <Route path="/challenge" element={<ChallengePage />} />
         <Route path="/challenge/schedule" element={<ChallengeSchedule />} />
         <Route path="/challenge/day/:day" element={<ChallengeDay />} />
+
+      
+        {/* <Route path="/coding/:slug" element={<PrivateRoute><CodingSolvePage /></PrivateRoute>} /> */}
+
+
+
 
         {/* Protected Routes — Login required */}
         <Route path="/notes" element={<PrivateRoute><NotesPage /></PrivateRoute>} />

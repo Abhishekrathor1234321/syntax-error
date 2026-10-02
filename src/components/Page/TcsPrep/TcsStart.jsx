@@ -6,9 +6,29 @@ import "./tcs.css";
 const API_BASE = "https://syntax-error-1xds.vercel.app";
 
 const categories = [
-  { key: "coding", label: "Coding", desc: "Real coding problems, tested against hidden test cases.", comingSoon: true },
-  { key: "aptitude", label: "Aptitude", desc: "Numerical, Verbal, and Reasoning MCQs." },
-  { key: "cshr", label: "CS + HR + GenAI", desc: "Concept questions and interview prep." },
+  {
+    key: "coding",
+    label: "Coding",
+    desc: "Real coding problems, tested against hidden test cases.",
+    // comingSoon: true,
+  },
+  {
+    key: "aptitude",
+    label: "Aptitude",
+    desc: "Numerical, Verbal, and Reasoning MCQs.",
+  },
+  {
+    key: "cshr",
+    label: "CS + HR + GenAI",
+    desc: "Concept questions and interview prep.",
+  },
+  {
+    key: "mock-test",
+    label: "Mock Test",
+    desc: "Full-length placement test with a real exam experience.",
+    comingSoon: true,
+    mockTest: true,
+  },
 ];
 
 export default function TcsStart() {
@@ -98,7 +118,7 @@ export default function TcsStart() {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Apna naam likho"
+          placeholder="Insert Your Name"
           style={{ width: "100%", padding: "10px", margin: "12px 0", fontSize: "1rem", borderRadius: "8px", border: "1px solid #334155" }}
         />
         {error && <p style={{ color: "#f87171" }}>{error}</p>}
@@ -115,48 +135,117 @@ export default function TcsStart() {
       <p>Choose a category to start practicing.</p>
       {error && <p style={{ color: "#f87171" }}>{error}</p>}
       <div className="inside-grid" style={{ marginTop: "2rem" }}>
-        {categories.map((c) =>
- c.comingSoon ? (
-  <div
-    key={c.key}
-    className="card"
-    aria-disabled="true"
-    style={{
-      position: "relative",
-      overflow: "hidden",
-      cursor: "not-allowed",
-      pointerEvents: "none",
-      color: "inherit",
-    }}
-  >
-    <div className="soon-strip">
-      <div className="soon-track">
-        {Array.from({ length: 12 }).map((_, i) => (
-          <span key={i}> COMING SOON</span>
-        ))}
-      </div>
-    </div>
-
-    <div style={{ opacity: 0.55, paddingTop: 26 }}>
-      <h3>{c.label}</h3>
-      <p>{c.desc}</p>
+  {categories.map((c) =>
+    c.mockTest ? (
+     <div
+  key={c.key}
+  className="card mock-test-card"
+  aria-disabled="true"
+  style={{
+    position: "relative",
+    overflow: "hidden",
+    cursor: "default",
+    pointerEvents: "none",
+    color: "inherit",
+  }}
+>
+  <div className="soon-strip">
+    <div className="soon-track">
+      {Array.from({ length: 12 }).map((_, i) => (
+        <span key={i}> COMING SOON</span>
+      ))}
     </div>
   </div>
-) : (
-  /* yahan aapka purana <Link ...> wala block jaisa hai waisa hi rehne do */
 
-    <Link
-      key={c.key}
-      to={`/tcs-prep/${c.key}`}
-      className="card"
-      style={{ textDecoration: "none", color: "inherit" }}
-    >
-      <h3>{c.label}</h3>
-      <p>{c.desc}</p>
-    </Link>
-  )
-)}
+  <div className="mock-test-content">
+  <div className="mock-test-header">
+    <h3>Mock Test</h3>
+
+    <span className="mock-test-duration">
+      ⏱️ 190 Minutes
+    </span>
+  </div>
+
+  <p>
+    Practice a full-length placement test in a real exam-like environment.
+  </p>
+</div>
+</div>
+    ) : c.comingSoon ? (
+      <div
+        key={c.key}
+        className="card"
+        aria-disabled="true"
+        style={{
+          position: "relative",
+          overflow: "hidden",
+          cursor: "not-allowed",
+          pointerEvents: "none",
+          color: "inherit",
+        }}
+      >
+        <div className="soon-strip">
+          <div className="soon-track">
+            {Array.from({ length: 12 }).map((_, i) => (
+              <span key={i}> COMING SOON</span>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ opacity: 0.55, paddingTop: 26 }}>
+          <h3>{c.label}</h3>
+          <p>{c.desc}</p>
+        </div>
       </div>
+    ) : (
+      <Link
+        key={c.key}
+        to={`/tcs-prep/${c.key}`}
+        className="card"
+        style={{
+          textDecoration: "none",
+          color: "inherit",
+        }}
+      >
+        <h3>{c.label}</h3>
+        <p>{c.desc}</p>
+      </Link>
+    )
+  )}
+</div>
+
+    
+
+{/* ---------- PREVIOUS YEAR PAPERS ---------- */}
+<section className="previous-papers-section">
+  <div className="previous-papers-card">
+
+    <div className="previous-papers-icon">
+      📚
+    </div>
+
+    <div className="previous-papers-content">
+      <h2>Previous Year Papers</h2>
+      <p>
+        Practice previous year papers and get familiar with the
+        exam pattern and question types.
+      </p>
+    </div>
+
+    <a
+      href="https://drive.google.com/drive/folders/1LbeXYEZckuTTA7Op7uoWWdc1iAB3SaZv"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="previous-papers-btn"
+    >
+      View All Previous Year Papers
+      <span>↗</span>
+    </a>
+
+  </div>
+</section>
+
+
     </div>
   );
 }

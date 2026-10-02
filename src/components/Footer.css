@@ -100,3 +100,127 @@ padding:40px 16px 20px 16px;
   background: #229ED9;
   color: white;
 }
+
+.footer-socials {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.footer-social-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  transition: transform 0.25s ease, background 0.25s ease;
+  box-sizing: border-box;
+}
+
+.footer-social-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.footer-social-btn:hover {
+  transform: translateY(-4px) scale(1.05);
+}
+
+/* Instagram */
+.footer-social-btn.instagram {
+  color: #e1306c;
+  background: rgba(225, 48, 108, 0.10);
+}
+
+.footer-social-btn.instagram:hover {
+  background: rgba(225, 48, 108, 0.22);
+}
+
+.footer-social-btn.instagram svg rect {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.footer-social-btn.instagram svg circle {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.footer-social-btn.instagram svg .fill-dot {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* Telegram */
+.footer-social-btn.telegram {
+  color: #229ed9;
+  background: rgba(34, 158, 217, 0.10);
+}
+
+.footer-social-btn.telegram:hover {
+  background: rgba(34, 158, 217, 0.22);
+}
+
+.footer-social-btn.telegram svg path:first-child {
+  fill: currentColor;
+}
+
+.footer-social-btn.telegram .telegram-detail {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* LinkedIn */
+.footer-social-btn.linkedin {
+  color: #0a66c2;
+  background: rgba(10, 102, 194, 0.10);
+}
+
+.footer-social-btn.linkedin:hover {
+  background: rgba(10, 102, 194, 0.22);
+}
+
+/* YouTube */
+.footer-social-btn.youtube {
+  color: #ff0000;
+  background: rgba(255, 0, 0, 0.10);
+}
+
+.footer-social-btn.youtube:hover {
+  background: rgba(255, 0, 0, 0.22);
+}
+
+.footer-social-btn.youtube svg path:first-child {
+  fill: currentColor;
+}
+
+.footer-social-btn.youtube .youtube-play {
+  fill: #fff;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .footer-socials {
+    gap: 10px;
+  }
+
+  .footer-social-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .footer-social-btn svg {
+    width: 19px;
+    height: 19px;
+  }
+}

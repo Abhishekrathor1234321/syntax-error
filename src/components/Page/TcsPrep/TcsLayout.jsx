@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import "./tcs.css";
-
+import TcsHeader from "./TcsHeader";
 const FONT_URL =
   "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap";
 
@@ -49,53 +49,7 @@ export default function TcsLayout() {
 
   return (
     <div className="tcs">
-      <header className="tcs-bar">
-        <div className="tcs-wrap tcs-bar-in">
-          <div className="tcs-left">
-            {showBack && (
-              <button
-                type="button"
-                className="tcs-back"
-                onClick={handleBack}
-                aria-label="Go back"
-              >
-                ← Back
-              </button>
-            )}
-            <Link to="/tcs-prep" className="tcs-brand">
-              TCS NQT Prep
-              <span className="tcs-free">Free</span>
-            </Link>
-          </div>
-
-          {/* Sirf mobile par dikhta hai (CSS se) */}
-          <button
-            type="button"
-            className="tcs-burger"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((o) => !o)}
-          >
-            {menuOpen ? "✕" : "☰"}
-          </button>
-
-          <nav
-            className={`tcs-nav${menuOpen ? " open" : ""}`}
-            aria-label="TCS NQT Prep"
-          >
-            <Link to="/tcs-prep/leaderboard" onClick={closeMenu}>
-              Leaderboard
-            </Link>
-            <Link
-              to="/tcs-prep/start"
-              className="tcs-nav-cta"
-              onClick={closeMenu}
-            >
-              Start practicing
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <TcsHeader />
       <Outlet />
     </div>
   );

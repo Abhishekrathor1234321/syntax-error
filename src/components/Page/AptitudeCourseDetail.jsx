@@ -79,7 +79,7 @@ function AptitudeCourseDetail() {
       const rzp = new window.Razorpay(options);
       rzp.open();
     } catch (err) {
-      alert("Payment error!");
+      alert("Your session has expired. Please logout and login again, then try the payment again!");
     }
   };
 

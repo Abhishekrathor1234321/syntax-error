@@ -1,17 +1,18 @@
 const mongoose = require("mongoose");
 
 /*
-  Ek coding question ka structure.
-  - difficulty: "easy" | "medium" | "hard" (isi se points decide honge: 10 / 20 / 30)
-  - testCases: hidden test cases jinke against code check hoga
-  - hint: chhota sa hint, without giving away full solution
-  - solution: full reference solution, jo "Show Answer" pe dikhega
+  Structure of a single coding question.
+  - topic: "Arrays" | "Strings" | "LinkedList" | etc. (used for sidebar filtering)
+  - difficulty: "easy" | "medium" | "hard" (decides points: 10 / 20 / 30)
+  - testCases: hidden test cases used to validate the submitted code
+  - hint: a small hint, without giving away the full solution
+  - solution: full reference solution, shown on "Show Answer"
 */
 const testCaseSchema = new mongoose.Schema(
   {
     input: { type: String, required: true },
     expectedOutput: { type: String, required: true },
-    isHidden: { type: Boolean, default: true }, // false wale "Run" ke liye sample dikhte hain
+    isHidden: { type: Boolean, default: true }, // false ones are shown as sample tests on "Run"
   },
   { _id: false }
 );
@@ -20,6 +21,11 @@ const codingQuestionSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
     slug: { type: String, required: true, unique: true },
+
+    // used to group questions by topic in the sidebar
+    // (kept as a plain string, not an enum, so new topics can be added without a schema change)
+    topic: { type: String, required: true, trim: true },
+
     difficulty: { type: String, enum: ["easy", "medium", "hard"], required: true },
     points: { type: Number, required: true }, // easy:10, medium:20, hard:30
     tags: [{ type: String }], // e.g. ["Arrays", "Two Pointers"]
@@ -27,8 +33,13 @@ const codingQuestionSchema = new mongoose.Schema(
     inputFormat: { type: String },
     outputFormat: { type: String },
     constraints: { type: String },
-    sampleInput: { type: String },
-    sampleOutput: { type: String },
+   samples: [
+  {
+    input: { type: String, required: true },
+    output: { type: String, required: true },
+    explanation: { type: String, default: "" },
+  },
+],
     hint: { type: String },
     solution: {
       explanation: { type: String },
@@ -44,29 +55,33 @@ const codingQuestionSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// index for fast filtering by topic + difficulty
+codingQuestionSchema.index({ topic: 1, difficulty: 1 });
+
 module.exports = mongoose.models.CodingQuestion || mongoose.model("CodingQuestion", codingQuestionSchema);
 
 /* ------------------------------------------------------------------ */
-/*  SAMPLE DATA — seed script me use karo, ya directly DB me insert karo */
+/*  SAMPLE DATA — use in a seed script, or insert directly into the DB */
 /* ------------------------------------------------------------------ */
 module.exports.sampleCodingQuestions = [
   {
     title: "Two Sum",
     slug: "two-sum",
+    topic: "Arrays",
     difficulty: "easy",
     points: 10,
     tags: ["Arrays", "Hashing"],
     description:
-      "Ek array of integers nums aur ek integer target diya hai. Do aise indices dhoondo jinke numbers ka sum target ke barabar ho. Har input ka bilkul ek hi valid answer hoga.",
-    inputFormat: "Pehli line: n (array size) aur target, space se separated.\nDoosri line: n integers, space se separated.",
-    outputFormat: "Do indices (0-based), space se separated.",
+      "You are given an array of integers nums and an integer target. Find two indices such that the numbers at those indices add up to target. Each input has exactly one valid answer.",
+    inputFormat: "First line: n (array size) and target, space separated.\nSecond line: n integers, space separated.",
+    outputFormat: "Two indices (0-based), space separated.",
     constraints: "2 <= n <= 10^4",
     sampleInput: "4 9\n2 7 11 15",
     sampleOutput: "0 1",
-    hint: "Har number ko dekhte hue check karo ki (target - current number) pehle dekha hua hai ya nahi. Ek hashmap me index store karte chalo.",
+    hint: "As you go through each number, check whether (target - current number) has already been seen. Keep storing numbers and their indices in a hashmap.",
     solution: {
       explanation:
-        "Ek hashmap banao jisme number -> index store ho. Har number ke liye dekho ki complement (target - num) hashmap me hai ya nahi. Agar hai to answer mil gaya, warna current number ko hashmap me daal do. Yeh O(n) time me ho jata hai.",
+        "Build a hashmap that stores number -> index. For each number, check whether its complement (target - num) already exists in the hashmap. If it does, you have your answer; otherwise, add the current number to the hashmap. This runs in O(n) time.",
       code: {
         java: "import java.util.*;\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int n = sc.nextInt(), target = sc.nextInt();\n    int[] nums = new int[n];\n    for (int i = 0; i < n; i++) nums[i] = sc.nextInt();\n    Map<Integer, Integer> seen = new HashMap<>();\n    for (int i = 0; i < n; i++) {\n      int need = target - nums[i];\n      if (seen.containsKey(need)) {\n        System.out.println(seen.get(need) + \" \" + i);\n        return;\n      }\n      seen.put(nums[i], i);\n    }\n  }\n}",
         python:
@@ -83,19 +98,21 @@ module.exports.sampleCodingQuestions = [
   {
     title: "Reverse Words in a String",
     slug: "reverse-words-in-a-string",
+    topic: "Strings",
     difficulty: "easy",
     points: 10,
     tags: ["Strings"],
     description:
-      "Ek sentence diya hai jisme words space se separated hain. Words ka order reverse karke print karo. Extra spaces ko ignore karo.",
-    inputFormat: "Ek line: sentence.",
-    outputFormat: "Reversed order ka sentence, single space separated.",
+      "You are given a sentence made up of words separated by spaces. Print the words in reverse order. Ignore any extra spaces.",
+    inputFormat: "One line: the sentence.",
+    outputFormat: "The words in reverse order, separated by a single space.",
     constraints: "1 <= length <= 10^4",
     sampleInput: "the sky is blue",
     sampleOutput: "blue is sky the",
-    hint: "String ko space se split karo, resulting list ko reverse karo, phir join kar do.",
+    hint: "Split the string by spaces, reverse the resulting list, then join it back together.",
     solution: {
-      explanation: "Split karke words ka array/list banao, usse reverse karo, phir single space se join karke print karo. Multiple/leading/trailing spaces handle karne ke liye split ke baad empty strings hata do.",
+      explanation:
+        "Split the sentence into an array/list of words, reverse it, then join it back with a single space and print it. To handle multiple/leading/trailing spaces, drop any empty strings produced by the split.",
       code: {
         java: "import java.util.*;\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    String line = sc.nextLine().trim();\n    String[] words = line.split(\"\\\\s+\");\n    Collections.reverse(Arrays.asList(words));\n    System.out.println(String.join(\" \", words));\n  }\n}",
         python: "words = input().split()\nprint(' '.join(reversed(words)))",
@@ -110,20 +127,21 @@ module.exports.sampleCodingQuestions = [
   {
     title: "Longest Substring Without Repeating Characters",
     slug: "longest-substring-without-repeating",
+    topic: "Strings",
     difficulty: "medium",
     points: 20,
     tags: ["Sliding Window", "Strings"],
     description:
-      "Ek string diya hai. Sabse lambi substring ki length nikaalo jisme koi character repeat na ho.",
-    inputFormat: "Ek line: string s.",
-    outputFormat: "Ek integer: sabse lambi unique-character substring ki length.",
+      "You are given a string. Find the length of the longest substring that does not contain any repeating characters.",
+    inputFormat: "One line: string s.",
+    outputFormat: "One integer: the length of the longest substring with unique characters.",
     constraints: "0 <= length <= 5 * 10^4",
     sampleInput: "abcabcbb",
     sampleOutput: "3",
-    hint: "Sliding window use karo. Ek set/map me current window ke characters rakho, jab repeat mile to window ka left end aage badhao jab tak repeat hata na jaye.",
+    hint: "Use a sliding window. Keep the characters of the current window in a set/map; when a repeat is found, move the window's left end forward until the repeat is removed.",
     solution: {
       explanation:
-        "Do pointers (left, right) se sliding window banao. Ek HashSet me current window ke characters store karo. Jaise hi right pointer par koi character repeat ho, left pointer ko tab tak aage badhao jab tak duplicate hat na jaye. Har step par window size (right-left+1) se max length update karte raho.",
+        "Use two pointers (left, right) to form a sliding window. Store the characters of the current window in a HashSet. As soon as the character at the right pointer repeats, move the left pointer forward until the duplicate is removed. At every step, update the max length using the window size (right - left + 1).",
       code: {
         java: "import java.util.*;\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    String s = sc.nextLine();\n    Set<Character> set = new HashSet<>();\n    int left = 0, max = 0;\n    for (int right = 0; right < s.length(); right++) {\n      while (set.contains(s.charAt(right))) {\n        set.remove(s.charAt(left));\n        left++;\n      }\n      set.add(s.charAt(right));\n      max = Math.max(max, right - left + 1);\n    }\n    System.out.println(max);\n  }\n}",
         python:
@@ -140,25 +158,26 @@ module.exports.sampleCodingQuestions = [
   {
     title: "Group Anagrams",
     slug: "group-anagrams",
+    topic: "Strings",
     difficulty: "medium",
     points: 20,
     tags: ["Hashing", "Strings"],
     description:
-      "Strings ka ek array diya hai. Un strings ko groups me daalo jo ek dusre ke anagram hain (same letters, different order).",
-    inputFormat: "Pehli line: n.\nDoosri line: n strings space se separated.",
-    outputFormat: "Har group ek line par, strings comma se separated, groups kisi bhi order me ho sakte hain.",
+      "You are given an array of strings. Group the strings that are anagrams of each other (same letters, different order).",
+    inputFormat: "First line: n.\nSecond line: n strings, space separated.",
+    outputFormat: "Each group on its own line, strings comma separated. Groups can be in any order.",
     constraints: "1 <= n <= 10^4",
     sampleInput: "6\neat tea tan ate nat bat",
     sampleOutput: "eat,tea,ate\ntan,nat\nbat",
-    hint: "Har string ko sort karke ek 'key' bana lo. Same key wali strings ek hi group me aayengi. HashMap<key, List<String>> use karo.",
+    hint: "Sort the characters of each string to build a 'key'. Strings with the same key belong to the same group. Use a HashMap<key, List<String>>.",
     solution: {
       explanation:
-        "Har word ke characters ko sort karke uska sorted version key ki tarah use karo (jaise 'eat' -> 'aet'). HashMap<String, List<String>> me is key ke against original words ko group karte jao. Aakhir me map ki saari values print kar do.",
+        "Sort the characters of each word to get a key (e.g. 'eat' -> 'aet'). Use a HashMap<String, List<String>> to group the original words under this key. Finally, print all the values of the map.",
       code: {
-        java: "// sorted-string ko key bana kar HashMap<String, List<String>> me group karo",
+        java: "// group by sorted-string key using HashMap<String, List<String>>",
         python:
           "n = int(input())\nwords = input().split()\nfrom collections import defaultdict\ngroups = defaultdict(list)\nfor w in words:\n    key = ''.join(sorted(w))\n    groups[key].append(w)\nfor g in groups.values():\n    print(','.join(g))",
-        cpp: "// sorted string ko key bana kar map<string, vector<string>> me group karo",
+        cpp: "// group by sorted-string key using map<string, vector<string>>",
       },
     },
     testCases: [
@@ -168,20 +187,21 @@ module.exports.sampleCodingQuestions = [
   {
     title: "Trapping Rain Water",
     slug: "trapping-rain-water",
+    topic: "Two Pointers",
     difficulty: "hard",
     points: 30,
     tags: ["Two Pointers", "Dynamic Programming"],
     description:
-      "Non-negative integers ka ek array diya hai jo elevation map represent karta hai, har bar ki width 1 hai. Baarish ke baad kitna paani trap ho sakta hai, woh nikaalo.",
-    inputFormat: "Pehli line: n.\nDoosri line: n integers (heights).",
-    outputFormat: "Ek integer: total trapped water.",
+      "You are given an array of non-negative integers representing an elevation map, where each bar has a width of 1. Find out how much water it can trap after raining.",
+    inputFormat: "First line: n.\nSecond line: n integers (heights).",
+    outputFormat: "One integer: total trapped water.",
     constraints: "1 <= n <= 2 * 10^4",
     sampleInput: "12\n0 1 0 2 1 0 1 3 2 1 2 1",
     sampleOutput: "6",
-    hint: "Har index par trapped water = min(leftMax, rightMax) - height[i], agar yeh positive ho. Do pointers (left, right) se O(n) me solve ho sakta hai bina extra array ke.",
+    hint: "At each index, trapped water = min(leftMax, rightMax) - height[i], if that value is positive. This can be solved in O(n) using two pointers (left, right) without an extra array.",
     solution: {
       explanation:
-        "Two-pointer approach: left aur right pointer se shuru karo, leftMax aur rightMax track karo. Jo side chhota hai usi ko process karo, kyunki us side ka water sirf apne max se limited hota hai. Har step par water += currentMax - height[pointer].",
+        "Two-pointer approach: start with a left and right pointer, and track leftMax and rightMax. Always process whichever side is smaller, since that side's water is limited only by its own max. At every step, add water += currentMax - height[pointer].",
       code: {
         java: "// two-pointer approach with leftMax, rightMax",
         python:

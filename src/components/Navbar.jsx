@@ -10,6 +10,13 @@ const navLinks = [
   { label: "Roadmap", path: "/roadmap" },
   { label: "Practice", path: "/Practice" },
   { label: "Courses", path: "/courses" },
+
+   // TCS NQT Prep
+  {
+    label: "TCS NQT",
+    path: "/tcs-prep",
+    highlight: true,
+  },
 ];
 
 const WHATSAPP_LINK = "https://whatsapp.com/channel/0029VazMK0J30LKTGQxCyi40";
@@ -49,19 +56,33 @@ function Navbar({ showJobsPopup, setShowJobsPopup }) {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-3">
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                to={link.path}
-                className={`px-4 py-2 text-sm rounded-md ${
-                  location.pathname === link.path
-                    ? "bg-blue-500/20 text-blue-400"
-                    : "text-gray-400 hover:text-white"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+         {navLinks.map((link) => (
+  <Link
+    key={link.label}
+    to={link.path}
+    className={`px-4 py-2 text-sm rounded-md ${
+      link.highlight
+        ? "tcs-nqt-nav-link"
+        : location.pathname === link.path
+          ? "bg-blue-500/20 text-blue-400"
+          : "text-gray-400 hover:text-white"
+    }`}
+  >
+    {link.highlight ? (
+      <>
+        <span className="tcs-nqt-text">
+          TCS NQT
+        </span>
+
+        <span className="tcs-nqt-badge">
+          NEW
+        </span>
+      </>
+    ) : (
+      link.label
+    )}
+  </Link>
+))}
 
             {user ? (
               <>
@@ -147,20 +168,34 @@ function Navbar({ showJobsPopup, setShowJobsPopup }) {
               className="md:hidden border-t bg-black"
             >
               <div className="flex flex-col p-4 gap-2">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.label}
-                    to={link.path}
-                    onClick={() => setMobileOpen(false)}
-                    className={`px-4 py-2 rounded-md text-sm ${
-                      location.pathname === link.path
-                        ? "bg-blue-500/20 text-blue-400"
-                        : "text-gray-400 hover:text-white"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+             {navLinks.map((link) => (
+  <Link
+    key={link.label}
+    to={link.path}
+    onClick={() => setMobileOpen(false)}
+    className={`px-4 py-2 text-sm rounded-md ${
+      link.highlight
+        ? "tcs-nqt-nav-link"
+        : location.pathname === link.path
+          ? "bg-blue-500/20 text-blue-400"
+          : "text-gray-400 hover:text-white"
+    }`}
+  >
+    {link.highlight ? (
+      <>
+        <span className="tcs-nqt-text">
+          TCS NQT
+        </span>
+
+        <span className="tcs-nqt-badge">
+          NEW
+        </span>
+      </>
+    ) : (
+      link.label
+    )}
+  </Link>
+))}
 
                 {user ? (
                   <div className="flex flex-col gap-2">
