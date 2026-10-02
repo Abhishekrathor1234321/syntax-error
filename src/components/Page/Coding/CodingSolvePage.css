@@ -1105,3 +1105,50 @@
     display: block !important;
     text-shadow: 0 0 12px rgba(74, 222, 128, 0.25) !important;
 }
+
+/* =========================================================
+   MOBILE MONACO EDITOR FIX
+   ========================================================= */
+
+.solve-editor-wrapper {
+  position: relative !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .solve-right {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+  }
+
+  .solve-editor-wrapper {
+    width: 100% !important;
+    height: 420px !important;
+    min-height: 420px !important;
+    max-height: 420px !important;
+    display: block !important;
+    position: relative !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  .solve-editor-wrapper .monaco-editor,
+  .solve-editor-wrapper .monaco-editor-background,
+  .solve-editor-wrapper .monaco-editor .overflow-guard {
+    max-width: 100% !important;
+  }
+}
+
+/* Small phones */
+@media (max-width: 400px) {
+  .solve-editor-wrapper {
+    height: 380px !important;
+    min-height: 380px !important;
+    max-height: 380px !important;
+  }
+}
