@@ -1262,3 +1262,50 @@
     max-height: 420px !important;
   }
 }
+
+/* =========================================================
+   FIX - RESTORE MONACO EDITOR ON MOBILE
+   ========================================================= */
+
+.solve-editor-wrapper {
+  position: relative !important;
+  width: 100% !important;
+  height: 420px !important;
+  min-height: 420px !important;
+  max-height: none !important;
+  flex: none !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* Monaco must fill the wrapper */
+.solve-editor-wrapper > div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .solve-right {
+    width: 100% !important;
+    padding: 0.75rem !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+  }
+
+  .solve-editor-wrapper {
+    width: 100% !important;
+    height: 420px !important;
+    min-height: 420px !important;
+    flex: none !important;
+    overflow: hidden !important;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 400px) {
+  .solve-editor-wrapper {
+    height: 380px !important;
+    min-height: 380px !important;
+  }
+}
