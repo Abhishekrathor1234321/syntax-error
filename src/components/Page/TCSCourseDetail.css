@@ -726,3 +726,54 @@
     font-size: 15px;
   }
 }
+
+
+
+/* =========================================================
+   TCS TIMER BELOW PRICE
+   ========================================================= */
+
+.tcs-price-row-enhanced {
+  margin-bottom: 14px;
+}
+
+.tcs-countdown {
+  width: fit-content;
+  margin: 0 auto 18px;
+  justify-content: center;
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+  .tcs-countdown {
+    width: calc(100% - 24px);
+    max-width: 360px;
+    margin: 4px auto 18px;
+    box-sizing: border-box;
+    justify-content: center;
+  }
+
+  .tcs-countdown-label {
+    font-size: 10px;
+  }
+
+  .tcs-countdown-time {
+    font-size: 17px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+  .tcs-countdown {
+    width: calc(100% - 20px);
+    padding: 8px 10px;
+  }
+
+  .tcs-countdown-label {
+    font-size: 9px;
+  }
+
+  .tcs-countdown-time {
+    font-size: 15px;
+  }
+}

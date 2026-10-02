@@ -381,7 +381,8 @@ const formattedOfferTime =
             </div>
 
             {/* Price */}
-           <div className="cd-price-row tcs-price-row-enhanced">
+       <div className="cd-price-row tcs-price-row-enhanced">
+
   <div className="tcs-price-main">
     <span className="tcs-price">₹999</span>
     <span className="cd-price-og">₹9999</span>
@@ -392,23 +393,26 @@ const formattedOfferTime =
     <span>90% OFF</span>
   </div>
 
-  <div
-    className={`tcs-countdown ${
-      offerTimeLeft <= 60 ? "tcs-countdown-danger" : ""
-    }`}
-  >
-    <span className="tcs-countdown-label">
-      OFFER ENDS IN
-    </span>
-
-    <span className="tcs-countdown-time">
-      {offerTimeLeft > 0 ? formattedOfferTime : "00:00"}
-    </span>
-  </div>
 </div>
-            <button className="tcs-enroll-btn" onClick={handleEnrollClick}>
-              Enroll Now →
-            </button>
+
+{/* Offer Timer */}
+<div
+  className={`tcs-countdown ${
+    offerTimeLeft <= 60 ? "tcs-countdown-danger" : ""
+  }`}
+>
+  <span className="tcs-countdown-label">
+    OFFER ENDS IN
+  </span>
+
+  <span className="tcs-countdown-time">
+    {offerTimeLeft > 0 ? formattedOfferTime : "00:00"}
+  </span>
+</div>
+
+<button className="tcs-enroll-btn" onClick={handleEnrollClick}>
+  Enroll Now →
+</button>
 
             {/* Video */}
             <div className="cd-preview-video">
