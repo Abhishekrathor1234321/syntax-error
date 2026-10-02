@@ -379,23 +379,29 @@ const formattedOfferTime =
                 </span>
               ))}
             </div>
+{/* PREMIUM OFFER CARD */}
+<div className="tcs-offer-card">
 
-            {/* Price */}
-       <div className="cd-price-row tcs-price-row-enhanced">
+  <span className="tcs-offer-card-label">
+    LIMITED SEATS
+  </span>
 
   <div className="tcs-price-main">
     <span className="tcs-price">₹999</span>
-    <span className="cd-price-og">₹9999</span>
-  </div>
 
-  <div className="tcs-offer-badge">
-    <span className="tcs-offer-fire">🔥</span>
-    <span>90% OFF</span>
+    <span className="cd-price-og">
+      ₹9999
+    </span>
+
+    <div className="tcs-offer-badge">
+      <span className="tcs-offer-fire">🔥</span>
+      <span>90% OFF</span>
+    </div>
   </div>
 
 </div>
 
-{/* Offer Timer */}
+{/* OFFER TIMER — OUTSIDE CARD */}
 <div
   className={`tcs-countdown ${
     offerTimeLeft <= 60 ? "tcs-countdown-danger" : ""
@@ -410,38 +416,43 @@ const formattedOfferTime =
   </span>
 </div>
 
-<button className="tcs-enroll-btn" onClick={handleEnrollClick}>
+{/* ENROLL BUTTON */}
+<button
+  className="tcs-enroll-btn"
+  onClick={handleEnrollClick}
+>
   Enroll Now →
 </button>
 
-            {/* Video */}
-            <div className="cd-preview-video">
-              <p className="cd-preview-label">🎬 Course Preview</p>
-              <div className="cd-video-wrapper tcs-video-wrapper">
-                <iframe
-                  src="https://www.youtube.com/embed/zBQ6qV_tJL0"
-                  title="TCS Course Preview"
-                  allowFullScreen
-                />
-              </div>
-              
+{/* COURSE PREVIEW */}
+<div className="cd-preview-video">
+  <p className="cd-preview-label">
+    🎬 Course Preview
+  </p>
 
+  <div className="cd-video-wrapper tcs-video-wrapper">
+    <iframe
+      src="https://www.youtube.com/embed/zBQ6qV_tJL0"
+      title="TCS Course Preview"
+      allowFullScreen
+    />
+  </div>
+</div>
 
-            </div>
+{/* COURSE INSIGHTS */}
+<div className="cd-preview-video">
+  <p className="cd-preview-label">
+    🎬 Course Insights
+  </p>
 
-              {/* Video */}
-            <div className="cd-preview-video">
-              <p className="cd-preview-label">🎬 Course Insights</p>
-              <div className="cd-video-wrapper tcs-video-wrapper">
-                <iframe
-                  src="https://www.youtube.com/embed/oghvHFbxcG8"
-                  title="TCS Course Insights"
-                  allowFullScreen
-                />
-              </div>
-              
-            </div>
-
+  <div className="cd-video-wrapper tcs-video-wrapper">
+    <iframe
+      src="https://www.youtube.com/embed/oghvHFbxcG8"
+      title="TCS Course Insights"
+      allowFullScreen
+    />
+  </div>
+</div>
 
             
           </div>
