@@ -762,29 +762,49 @@ async function loadQuestionAndProgress() {
 
 
         <div className="solve-editor-wrapper">
+<Editor
+  height="100%"
+  width="100%"
+  language={
+    LANGUAGES.find(
+      (l) => l.value === language
+    ).monaco
+  }
+  value={code}
+  onChange={(value) =>
+    setCode(value ?? "")
+  }
+  theme="vs-dark"
+  options={{
+    fontSize: 14,
 
-          <Editor
-            height="100%"
-            language={
-              LANGUAGES.find(
-                (l) =>
-                  l.value === language
-              ).monaco
-            }
-            value={code}
-            onChange={(value) =>
-              setCode(value ?? "")
-            }
-            theme="vs-dark"
-            options={{
-              fontSize: 14,
-              minimap: {
-                enabled: false,
-              },
-              scrollBeyondLastLine: false,
-            }}
-          />
+    minimap: {
+      enabled: false,
+    },
 
+    scrollBeyondLastLine: false,
+
+    automaticLayout: true,
+
+    wordWrap: "off",
+
+    padding: {
+      top: 12,
+      bottom: 12,
+    },
+
+    scrollbar: {
+      vertical: "auto",
+      horizontal: "auto",
+    },
+
+    lineNumbers: "on",
+
+    renderLineHighlight: "line",
+
+    smoothScrolling: true,
+  }}
+/>
         </div>
 
 

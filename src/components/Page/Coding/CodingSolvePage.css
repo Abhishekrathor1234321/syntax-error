@@ -1152,3 +1152,113 @@
     max-height: 380px !important;
   }
 }
+
+
+/* =========================================================
+   FINAL MOBILE MONACO EDITOR FIX
+   ========================================================= */
+
+.solve-editor-wrapper {
+  position: relative !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+/* Monaco itself */
+.solve-editor-wrapper .monaco-editor,
+.solve-editor-wrapper .monaco-editor .overflow-guard {
+  width: 100% !important;
+}
+
+
+/* TABLET + MOBILE */
+
+@media (max-width: 900px) {
+
+  .solve-right {
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .solve-editor-wrapper {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    height: 500px !important;
+    min-height: 500px !important;
+
+    display: block !important;
+
+    position: relative !important;
+
+    overflow: hidden !important;
+
+    box-sizing: border-box !important;
+  }
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .solve-right {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    padding: 10px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: visible !important;
+  }
+
+  .solve-editor-wrapper {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    height: 460px !important;
+    min-height: 460px !important;
+    max-height: 460px !important;
+
+    margin: 0 !important;
+
+    display: block !important;
+
+    position: relative !important;
+
+    overflow: hidden !important;
+
+    border-radius: 12px !important;
+
+    box-sizing: border-box !important;
+  }
+
+  .solve-editor-wrapper .monaco-editor {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .solve-editor-wrapper .monaco-editor .overflow-guard {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+
+/* SMALL PHONE */
+
+@media (max-width: 400px) {
+
+  .solve-right {
+    padding: 8px !important;
+  }
+
+  .solve-editor-wrapper {
+    height: 420px !important;
+    min-height: 420px !important;
+    max-height: 420px !important;
+  }
+}
