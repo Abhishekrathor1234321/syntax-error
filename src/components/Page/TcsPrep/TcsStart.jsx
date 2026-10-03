@@ -10,7 +10,7 @@ const categories = [
     key: "coding",
     label: "Coding",
     desc: "Real coding problems, tested against hidden test cases.",
-    // comingSoon: true,
+     comingSoon: true,
   },
   {
     key: "aptitude",
