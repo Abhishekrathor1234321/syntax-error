@@ -31,7 +31,7 @@ async function evaluateSubmission({
     execution = await createExecutionContainer({
       code,
       language,
-      memoryLimit: 128000,
+     memoryLimit: 512000,
     });
 
     /*

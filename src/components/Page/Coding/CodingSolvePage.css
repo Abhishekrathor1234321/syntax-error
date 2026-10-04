@@ -767,11 +767,12 @@
   }
 
   .solve-right {
-    height: 100%;
-    min-height: 0;
-    overflow: hidden;
-    box-sizing: border-box;
-  }
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
 
 }
 

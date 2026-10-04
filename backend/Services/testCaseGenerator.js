@@ -1216,7 +1216,7 @@ async function generateTestCases(
                 })),
 
                 cpuTimeLimit: 2,
-                memoryLimit: 128000,
+                memoryLimit: 512000,
             });
 
             console.log(
