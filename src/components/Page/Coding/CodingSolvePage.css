@@ -1310,3 +1310,65 @@
     min-height: 380px !important;
   }
 }
+
+
+
+/* =========================================================
+   FINAL FIX - LEFT & RIGHT INDEPENDENT SCROLL
+   ========================================================= */
+
+@media (min-width: 901px) {
+
+  .solve-page {
+    display: flex !important;
+    width: 100% !important;
+    height: calc(100vh - 50px) !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* LEFT - independent scroll */
+  .solve-left {
+    flex: 0 0 44% !important;
+    width: 44% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  /* RIGHT - independent scroll */
+  .solve-right {
+    flex: 1 1 56% !important;
+    width: 56% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    min-width: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+
+    /* Important for flex scrolling */
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Editor should not force the whole right panel height */
+  .solve-editor-wrapper {
+    flex: 0 0 420px !important;
+    min-height: 420px !important;
+    max-height: 420px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .solve-actions {
+    flex-shrink: 0 !important;
+  }
+
+  .solve-result {
+    flex-shrink: 0 !important;
+    margin-bottom: 2rem !important;
+  }
+}
