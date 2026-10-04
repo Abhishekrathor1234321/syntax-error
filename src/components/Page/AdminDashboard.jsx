@@ -11,8 +11,7 @@ const COURSES = [
   "The Complete TCS NQT Course 2026",
 ];
 
-const API_BASE = "https://syntax-error-1xds.vercel.app";
-
+const API_BASE =  "https://api.syntaxerrorr.com";
 // TCS Prep routes abhi sirf local backend pe hain — jab production me deploy
 // karo, isko production URL se badal dena (ya API_BASE hi use kar lena agar
 // tab tak TCS routes bhi wahi deploy ho chuke hon).
