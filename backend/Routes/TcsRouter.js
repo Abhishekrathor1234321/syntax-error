@@ -545,25 +545,38 @@ router.get("/leaderboard", async (req, res) => {
     // ================================
     // TOP 10 LEADERBOARD
     // ================================
-    const users = await UserModel.find({ [field]: { $gt: 0 } })
-      .sort({ [field]: -1 })
-      .limit(10)
-      .select(`name ${field}`);
+    const users = await UserModel.aggregate([
+  {
+    $addFields: {
+      leaderboardPoints: {
+        $ifNull: [`$${field}`, 0],
+      },
+    },
+  },
+  {
+    $sort: {
+      leaderboardPoints: -1,
+      createdAt: 1,
+    },
+  },
+  {
+    $limit: 10,
+  },
+  {
+    $project: {
+      _id: 0,
+      name: 1,
+      points: "$leaderboardPoints",
+    },
+  },
+]);
 
-    const leaderboard = users.map((u, i) => {
-      const obj = u.toObject();
+const leaderboard = users.map((u, i) => ({
+  rank: i + 1,
+  name: u.name,
+  points: u.points,
+}));
 
-      const points =
-        field
-          .split(".")
-          .reduce((o, k) => (o ? o[k] : undefined), obj) || 0;
-
-      return {
-        rank: i + 1,
-        name: u.name,
-        points,
-      };
-    });
 
     // ================================
     // CURRENT USER RANK
@@ -584,11 +597,19 @@ router.get("/leaderboard", async (req, res) => {
             .reduce((o, k) => (o ? o[k] : undefined), obj) || 0;
 
         // Current user's actual rank
-        const usersAbove = await UserModel.countDocuments({
-          [field]: { $gt: points },
-        });
+      const usersAbove = await UserModel.countDocuments({
+  $or: [
+    {
+      [field]: { $gt: points },
+    },
+    {
+      [field]: points,
+      createdAt: { $lt: user.createdAt },
+    },
+  ],
+});
 
-        const rank = usersAbove + 1;
+const rank = usersAbove + 1;
 
         currentUser = {
           rank,
