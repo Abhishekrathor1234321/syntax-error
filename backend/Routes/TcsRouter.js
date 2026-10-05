@@ -494,47 +494,52 @@ router.get("/my-stats", ensureAuthenticated, async (req, res) => {
     }
     const tcsPrep = user.tcsPrep || {};
 
-   const [codingAhead, aptitudeAhead, csHrAhead, overallAhead] =
+  const getRankCount = async (field, points) => {
+  return UserModel.countDocuments({
+    $or: [
+      {
+        [field]: { $gt: points },
+      },
+      {
+        $and: [
+          {
+            $expr: {
+              $eq: [
+                { $ifNull: [`$${field}`, 0] },
+                points,
+              ],
+            },
+          },
+          {
+            createdAt: { $lt: user.createdAt },
+          },
+        ],
+      },
+    ],
+  });
+};
+
+const [codingAhead, aptitudeAhead, csHrAhead, overallAhead] =
   await Promise.all([
-    UserModel.countDocuments({
-      $or: [
-        { "tcsPrep.codingPoints": { $gt: tcsPrep.codingPoints || 0 } },
-        {
-          "tcsPrep.codingPoints": tcsPrep.codingPoints || 0,
-          createdAt: { $lt: user.createdAt },
-        },
-      ],
-    }),
+    getRankCount(
+      "tcsPrep.codingPoints",
+      tcsPrep.codingPoints || 0
+    ),
 
-    UserModel.countDocuments({
-      $or: [
-        { "tcsPrep.aptitudePoints": { $gt: tcsPrep.aptitudePoints || 0 } },
-        {
-          "tcsPrep.aptitudePoints": tcsPrep.aptitudePoints || 0,
-          createdAt: { $lt: user.createdAt },
-        },
-      ],
-    }),
+    getRankCount(
+      "tcsPrep.aptitudePoints",
+      tcsPrep.aptitudePoints || 0
+    ),
 
-    UserModel.countDocuments({
-      $or: [
-        { "tcsPrep.csHrPoints": { $gt: tcsPrep.csHrPoints || 0 } },
-        {
-          "tcsPrep.csHrPoints": tcsPrep.csHrPoints || 0,
-          createdAt: { $lt: user.createdAt },
-        },
-      ],
-    }),
+    getRankCount(
+      "tcsPrep.csHrPoints",
+      tcsPrep.csHrPoints || 0
+    ),
 
-    UserModel.countDocuments({
-      $or: [
-        { "tcsPrep.points": { $gt: tcsPrep.points || 0 } },
-        {
-          "tcsPrep.points": tcsPrep.points || 0,
-          createdAt: { $lt: user.createdAt },
-        },
-      ],
-    }),
+    getRankCount(
+      "tcsPrep.points",
+      tcsPrep.points || 0
+    ),
   ]);
 
     res.json({
