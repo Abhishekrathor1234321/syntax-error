@@ -494,7 +494,7 @@ router.get("/my-stats", ensureAuthenticated, async (req, res) => {
     }
     const tcsPrep = user.tcsPrep || {};
 
-  const getRankCount = async (field, points) => {
+ const getRankCount = async (field, points) => {
   return UserModel.countDocuments({
     $or: [
       {
@@ -511,7 +511,7 @@ router.get("/my-stats", ensureAuthenticated, async (req, res) => {
             },
           },
           {
-            createdAt: { $lt: user.createdAt },
+            _id: { $lt: user._id },
           },
         ],
       },
@@ -595,10 +595,10 @@ router.get("/leaderboard", async (req, res) => {
     },
   },
   {
-    $sort: {
-      leaderboardPoints: -1,
-      createdAt: 1,
-    },
+   $sort: {
+  leaderboardPoints: -1,
+  _id: 1,
+},
   },
   {
     $limit: 10,
@@ -643,10 +643,11 @@ const leaderboard = users.map((u, i) => ({
     {
       [field]: { $gt: points },
     },
+    
     {
-      [field]: points,
-      createdAt: { $lt: user.createdAt },
-    },
+  [field]: points,
+  _id: { $lt: user._id },
+},
   ],
 });
 
