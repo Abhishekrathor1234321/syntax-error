@@ -28,10 +28,10 @@ async function validateAndApplyCoupon(couponCode, courseTitle, originalAmount, u
         throw new Error('The coupon usage limit has been reached');
     }
 
-    const userUsage = coupon.usedBy.find((u) => u.email === userEmail);
-    if (userUsage && userUsage.count >= coupon.perUserLimit) {
-        throw new Error('You have already used this coupon');
-    }
+    // const userUsage = coupon.usedBy.find((u) => u.email === userEmail);
+    // if (userUsage && userUsage.count >= coupon.perUserLimit) {
+    //     throw new Error('You have already used this coupon');
+    // }
 
     let discountAmount = (originalAmount * coupon.discountValue) / 100;
     if (discountAmount > originalAmount) discountAmount = originalAmount;
