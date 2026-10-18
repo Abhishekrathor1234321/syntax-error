@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import CheckoutModal from "../CheckoutModal";
 import { GraduationCap, Star, Clock, ExternalLink, Tag, Users, Globe } from "lucide-react";
 import PageLayout from "../PageLayout";
+import OfferPopup from "./OfferPopup";
 
 const courses = [
   { 
@@ -52,6 +53,40 @@ const courses = [
     detailLink: "/course-detail/tcs2026",
     useRazorpay: true  
   },
+
+  // ✅ NEW — Data Analytics Course
+  { 
+    title: "Data Analytics Placement Ready Course With Projects", 
+    instructor: "Shreyank Jawai", 
+    rating: "New", 
+    students: "New", 
+    duration: "20 Lectures", 
+    price: "₹499", 
+    amount: 499,
+    language: "English", 
+    tags: ["Excel", "SQL", "Python", "Pandas", "NumPy", "Data Cleaning", "Data Visualization", "Dashboards", "Real-World Projects"], 
+    badge: "🔥 New", 
+    btnLabel: "Enroll Now",
+    detailLink: "/course-detail/data-analytics",
+    useRazorpay: true
+  },
+
+  // ✅ NEW — CS Fundamentals + GenAI Course
+  { 
+    title: "CS Fundamentals + GenAI Placement Ready Course", 
+    instructor: "Karina Sharma [Infosys-DSE]", 
+    rating: "New", 
+    students: "New", 
+    duration: "8 Lectures", 
+    price: "₹299", 
+    amount: 299,
+    language: "English", 
+    tags: ["DBMS", "OOPs", "Generative AI", "Operating System", "Computer Networks", "Interview Questions"], 
+    badge: "🔥 New", 
+    btnLabel: "Enroll Now",
+    detailLink: "/course-detail/cs-genai",
+    useRazorpay: true
+  },
 ];
 
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.05 } } };
@@ -62,6 +97,11 @@ const CoursesPage = () => {
   const navigate = useNavigate();
   const [showCheckout, setShowCheckout] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
+
+  // ✅ Referral tracking — URL (?ref=) ya detail page se saved code
+  const refCode = new URLSearchParams(window.location.search).get("ref") ||
+    sessionStorage.getItem("courseRef") || "";
+  if (refCode) sessionStorage.setItem("courseRef", refCode);
 
   // ↓ couponCode ab modal se yahan aayega
   const handleRazorpayPayment = async ({ name, email, phone, finalAmount, couponCode }) => {
@@ -74,7 +114,8 @@ const CoursesPage = () => {
         body: JSON.stringify({
          amount: selectedCourse.amount,
           courseTitle: selectedCourse.title,
-          couponCode: couponCode || null   // ← NEW
+          couponCode: couponCode || null,  // ← NEW
+          ref: refCode                     // ✅ referral
         })
       });
       const data = await res.json();
@@ -100,7 +141,8 @@ const CoursesPage = () => {
               ...response, 
               courseTitle: selectedCourse.title,
               amount: finalAmount,             // ← Actual paid amount
-              couponCode: couponCode || null   // ← NEW (usage count ke liye)
+              couponCode: couponCode || null,  // ← NEW (usage count ke liye)
+              ref: refCode                     // ✅ referral
             })
           });
           const verifyData = await verifyRes.json();
@@ -127,6 +169,9 @@ const CoursesPage = () => {
 
   return (
     <section id="courses">
+
+      {/* 🎁 Dynamic offer popup — admin dashboard se control hota hai */}
+      <OfferPopup />
 
       {showCheckout && selectedCourse && (
         <CheckoutModal

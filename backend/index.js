@@ -17,7 +17,7 @@ const UserRouter = require('./Routes/UserRouter');
 const PaymentRouter = require('./Routes/PaymentRouter');
 const AdminRouter = require('./Routes/AdminRouter');
 const OtpRouter = require('./Routes/OtpRouter'); // ← upar le aao
-
+const OfferRouter = require('./Routes/OfferRouter');  
 
 const challengeRoutes = require('./Routes/ChallengeRouter');
 app.use('/challenge', challengeRoutes);
@@ -64,6 +64,7 @@ app.use('/payment', PaymentRouter);
 app.use('/admin', AdminRouter);
 app.use('/otp', OtpRouter);
 app.use('/coupons', CouponRouter);
+app.use('/offer', OfferRouter);    
 
 app.use('/tcs', TcsRouter);
 app.use('/coding', CodingRouter);

@@ -99,7 +99,7 @@ const courseData = {
   lectures: [
     { id: 41, title: "Graph — Part 1", videoId: "UJb_VA7v3JM", duration: "" },
     { id: 42, title: "Graph — Part 2", videoId: "bBIAjKD2lmc", duration: "" },
-    { id: 43, title: "Graph — Part 3", videoId: "MHCu5TyOHB",  duration: "" },
+    { id: 43, title: "Graph — Part 3", videoId: "MHCu5TyOHBQ",  duration: "" },
     { id: 44, title: "Graph — Part 4", videoId: "gI-q_1pAg8w", duration: "" },
   ]
 },

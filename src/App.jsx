@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useParams } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import HeroSection from "./components/HeroSection";
@@ -45,6 +45,12 @@ import CodingListPage from "./components/Page/Coding/CodingListPage";
 import CodingSolvePage from "./components/Page/Coding/CodingSolvePage";
 
 
+import DataAnalyticsCourseDetail from "./components/Page/Dataanalyticscoursedetail";
+import DataAnalyticsCoursePage from "./components/Page/Dataanalyticscoursepage";
+
+import CSGenAICourseDetail from "./components/Page/CSGenAICourseDetail";
+import CSGenAICoursePage from "./components/Page/CSGenAICoursePage";
+
 // ✅ Admin Route — sirf tumhara email personally
 const AdminRoute = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -54,6 +60,22 @@ const AdminRoute = ({ children }) => {
   if (!token) return <Navigate to="/login" />;
   if (email !== ADMIN_EMAIL) return <Navigate to="/" />;
   return children;
+};
+
+// ✅ /course/:courseTitle — course title ke hisaab se sahi player page kholta hai
+// Naya course add karna ho to bas yahan ek aur `if` add karo
+const CoursePageSwitcher = () => {
+  const { courseTitle } = useParams();
+  const title = decodeURIComponent(courseTitle);
+
+  if (title === "Data Analytics Placement Ready Course With Projects")
+    return <DataAnalyticsCoursePage />;
+
+  if (title === "CS Fundamentals + GenAI Placement Ready Course")
+    return <CSGenAICoursePage />;
+
+  // Default — purana Aptitude course (pehle jaisa hi)
+  return <AptitudeCoursePage />;
 };
 
 function App() {
@@ -90,7 +112,6 @@ function App() {
  <Route path="cshr" element={<TcsQuiz type="cshr" />} />
  <Route path="leaderboard" element={<TcsLeaderboard />} />
 </Route>
-
 
 {/* =====================================================
     CODING PAGES WITH TCS LAYOUT
@@ -138,6 +159,10 @@ function App() {
         <Route path="/course-detail/tcs2026" element={<TCSCourseDetail />} />
         {/* <Route path="/course-detail/tcs-pyq-2026" element={<TCSPYQCourseDetail />} /> */}
 
+        {/* ✅ NEW — Data Analytics & CS Fundamentals + GenAI course detail pages */}
+        <Route path="/course-detail/data-analytics" element={<DataAnalyticsCourseDetail />} />
+        <Route path="/course-detail/cs-genai" element={<CSGenAICourseDetail />} />
+
         <Route path="/challenge" element={<ChallengePage />} />
         <Route path="/challenge/schedule" element={<ChallengeSchedule />} />
         <Route path="/challenge/day/:day" element={<ChallengeDay />} />
@@ -154,7 +179,10 @@ function App() {
         <Route path="/courses" element={<PrivateRoute><CoursesPage /></PrivateRoute>} />
         <Route path="/practice" element={<PrivateRoute><PracticePage /></PrivateRoute>} />
         <Route path="/dashboard" element={<PrivateRoute><DashboardPage /></PrivateRoute>} />
-        <Route path="/course/:courseTitle" element={<PrivateRoute><AptitudeCoursePage /></PrivateRoute>} />
+
+        {/* ✅ Aptitude + Data Analytics + CS/GenAI — ek hi route, title ke hisaab se page */}
+        <Route path="/course/:courseTitle" element={<PrivateRoute><CoursePageSwitcher /></PrivateRoute>} />
+
         <Route path="/admin" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
 
         <Route path="/dsa-course/:courseTitle" element={<PrivateRoute><DSACoursePage /></PrivateRoute>} />

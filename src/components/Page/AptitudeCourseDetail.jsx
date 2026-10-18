@@ -33,7 +33,7 @@ function AptitudeCourseDetail() {
     setShowCheckout(true);
   };
 
-  const handleProceedPayment = async ({ name, email, phone, finalAmount }) => {
+  const handleProceedPayment = async ({ name, email, phone, finalAmount, couponCode }) => {
     const token = localStorage.getItem("token");
     if (!token) {
       sessionStorage.setItem("redirectAfterLogin", "/course-detail/aptitude");
@@ -64,6 +64,7 @@ function AptitudeCourseDetail() {
             body: JSON.stringify({
               ...response,
               courseTitle: "Complete Aptitude Course 2026",
+               couponCode: couponCode || null,  
               amount: finalAmount,
               ref: refCode
             })

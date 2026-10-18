@@ -71,7 +71,7 @@ function TCSCourseDetail() {
     setShowCheckout(true);
   };
 
-  const handleProceed = async ({ name, email, phone, finalAmount }) => {
+  const handleProceedPayment = async ({ name, email, phone, finalAmount, couponCode }) => {
     const token = localStorage.getItem("token");
     if (!token) {
       sessionStorage.setItem("redirectAfterLogin", "/course-detail/tcs2026");
@@ -131,6 +131,7 @@ function TCSCourseDetail() {
           ...response,
           courseTitle: "The Complete TCS NQT Course 2026",
           amount: finalAmount,
+          couponCode: couponCode || null,  
           ref: refCode,
         }),
       }

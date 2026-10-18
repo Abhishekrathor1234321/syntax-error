@@ -4,14 +4,36 @@ import "./AdminDashboard.css";
 import AdminTcsAptitude from "./AdminTcsAptitude";
 import AdminTcsCsHr from "./AdminTcsCsHr";
 import AdminTcsCoding from "./AdminTcsCoding";
+import AdminOfferControl from "./AdminOfferControl"; // ✅ NEW — Offer popup control
 
 const COURSES = [
   "The Complete Data Structure & Algorithm Course 2026",
   "Complete Aptitude Course 2026",
   "The Complete TCS NQT Course 2026",
+  // ✅ NEW courses
+  "Data Analytics Placement Ready Course With Projects",
+  "CS Fundamentals + GenAI Placement Ready Course",
 ];
 
-const API_BASE =  "https://api.syntaxerrorr.com";
+// ✅ NEW — Tracking links ke liye sabhi courses ke detail page paths
+const TRACKING_PAGES = [
+  { label: "DSA Course", path: "course-detail/dsa" },
+  { label: "Aptitude Course", path: "course-detail/aptitude" },
+  { label: "TCS NQT Course", path: "course-detail/tcs2026" },
+  { label: "Data Analytics Course", path: "course-detail/data-analytics" },
+  { label: "CS Fundamentals + GenAI Course", path: "course-detail/cs-genai" },
+];
+
+// ✅ NEW — Sales tab me "per course" price dikhane ke liye
+const COURSE_PRICES = {
+  "The Complete Data Structure & Algorithm Course 2026": 299,
+  "Complete Aptitude Course 2026": 199,
+  "The Complete TCS NQT Course 2026": 999,
+  "Data Analytics Placement Ready Course With Projects": 499,
+  "CS Fundamentals + GenAI Placement Ready Course": 299,
+};
+
+   const API_BASE =  "https://api.syntaxerrorr.com";
 // TCS Prep routes abhi sirf local backend pe hain — jab production me deploy
 // karo, isko production URL se badal dena (ya API_BASE hi use kar lena agar
 // tab tak TCS routes bhi wahi deploy ho chuke hon).
@@ -419,6 +441,9 @@ useEffect(() => {
 
   if (loading) return <div className="admin-loading">⏳ Loading...</div>;
 
+  // ✅ NEW — Buyers table me "Ref" column tabhi dikhao jab backend ref bhej raha ho
+  const showRefColumn = selectedCourse?.buyers?.some((b) => b.ref);
+
   return (
     <div className="admin-wrapper">
 
@@ -460,7 +485,7 @@ useEffect(() => {
 
       {/* Tabs */}
       <div style={{ display: "flex", gap: "12px", margin: "24px 0 16px", flexWrap: "wrap" }}>
-        {["sales", "tracking", "grant", "coupons", "tcsprep"].map(tab => (
+       {["sales", "tracking", "grant", "coupons", "offer", "tcsprep"].map(tab => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
@@ -474,6 +499,7 @@ useEffect(() => {
             {tab === "tracking" && "🔗 Tracking Links"}
             {tab === "grant" && "🎁 Grant Access"}
             {tab === "coupons" && "🎟️ Coupons"}
+            {tab === "offer" && "🎉 Offer Popup"}
             {tab === "tcsprep" && "🎯 TCS Prep"}
           </button>
         ))}
@@ -493,7 +519,7 @@ useEffect(() => {
                 <h4>{course.title}</h4>
                 <div className="admin-course-meta">
                   <span>👥 {course.totalPurchases} purchases</span>
-                  <span>💰 ₹{course.title.includes("Aptitude") ? 99 : 299} per course</span>
+                  <span>💰 ₹{COURSE_PRICES[course.title] ?? 299} per course</span>
                   <span>💵 Total: ₹{course.buyers.reduce((sum, buyer) => sum + (buyer.amount || 0), 0)}</span>
                 </div>
                 <div className="admin-course-bar">
@@ -512,7 +538,11 @@ useEffect(() => {
             {selectedCourse?.buyers?.length > 0 ? (
               <table className="admin-table">
                 <thead>
-                  <tr><th>#</th><th>Name</th><th>Email</th><th>Amount</th><th>Date</th></tr>
+                  <tr>
+                    <th>#</th><th>Name</th><th>Email</th><th>Amount</th>
+                    {showRefColumn && <th>Ref</th>}
+                    <th>Date</th>
+                  </tr>
                 </thead>
                 <tbody>
                   {[...selectedCourse.buyers]
@@ -523,6 +553,9 @@ useEffect(() => {
                       <td>{buyer.name}</td>
                       <td>{buyer.email}</td>
                       <td style={{ color: '#4ade80', fontWeight: '600' }}>₹{buyer.amount || 0}</td>
+                      {showRefColumn && (
+                        <td style={{ color: "#3b82f6", fontWeight: "600" }}>{buyer.ref || "—"}</td>
+                      )}
                       <td>{new Date(buyer.purchasedAt).toLocaleString('en-IN', {
                         day: '2-digit', month: 'short', year: 'numeric',
                         hour: '2-digit', minute: '2-digit', hour12: true
@@ -563,8 +596,9 @@ useEffect(() => {
                   color: "white", fontSize: "14px"
                 }}
               >
-                <option value="course-detail/dsa">DSA Course</option>
-                <option value="course-detail/aptitude">Aptitude Course</option>
+                {TRACKING_PAGES.map((p) => (
+                  <option key={p.path} value={p.path}>{p.label}</option>
+                ))}
               </select>
             </div>
             {newRefName && (
@@ -593,31 +627,53 @@ useEffect(() => {
 
           <div style={{ background: "#1e293b", borderRadius: "12px", padding: "24px" }}>
             <h2 style={{ color: "white", marginBottom: "16px" }}>📊 Link Performance</h2>
+
+            {/* ✅ NEW — Copy button kis course ka link banaye, yahan se choose karo */}
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap", marginBottom: "16px" }}>
+              <span style={{ color: "#94a3b8", fontSize: "13px" }}>Copy karne par link is course ka banega:</span>
+              <select
+                value={selectedPage}
+                onChange={e => setSelectedPage(e.target.value)}
+                style={{
+                  padding: "8px 12px", borderRadius: "8px",
+                  background: "#0f172a", border: "1px solid #334155",
+                  color: "white", fontSize: "13px"
+                }}
+              >
+                {TRACKING_PAGES.map((p) => (
+                  <option key={p.path} value={p.path}>{p.label}</option>
+                ))}
+              </select>
+            </div>
+
             {refStats && refStats.length > 0 ? (
               <table className="admin-table">
                 <thead>
                   <tr><th>#</th><th>Link / Source</th><th>Registrations</th><th>Copy Link</th></tr>
                 </thead>
                 <tbody>
-                  {[...refStats].sort((a, b) => b.count - a.count).map((item, i) => (
-                    <tr key={i}>
-                      <td>{i + 1}</td>
-                      <td style={{ color: "#3b82f6", fontWeight: "600" }}>{item._id}</td>
-                      <td>{item.count}</td>
-                      <td>
-                        <button
-                          onClick={() => copyLink(`https://syntaxerrorr.com/course-detail/dsa?ref=${item._id}`)}
-                          style={{
-                            padding: "4px 10px", borderRadius: "4px",
-                            background: "#334155", border: "none",
-                            color: "white", fontSize: "11px", cursor: "pointer"
-                          }}
-                        >
-                          {copiedLink.includes(item._id) ? "✅ Copied!" : "Copy"}
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                  {[...refStats].sort((a, b) => b.count - a.count).map((item, i) => {
+                    const rowLink = `https://syntaxerrorr.com/${selectedPage}?ref=${item._id}`;
+                    return (
+                      <tr key={i}>
+                        <td>{i + 1}</td>
+                        <td style={{ color: "#3b82f6", fontWeight: "600" }}>{item._id}</td>
+                        <td>{item.count}</td>
+                        <td>
+                          <button
+                            onClick={() => copyLink(rowLink)}
+                            style={{
+                              padding: "4px 10px", borderRadius: "4px",
+                              background: "#334155", border: "none",
+                              color: "white", fontSize: "11px", cursor: "pointer"
+                            }}
+                          >
+                            {copiedLink === rowLink ? "✅ Copied!" : "Copy"}
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             ) : (
@@ -887,6 +943,13 @@ useEffect(() => {
               <p className="admin-empty">Abhi koi coupon nahi bana — upar se bana lo!</p>
             )}
           </div>
+        </div>
+      )}
+
+      {/* ✅ NEW — Offer Popup Tab */}
+      {activeTab === "offer" && (
+        <div style={{ padding: "0 0 40px" }}>
+          <AdminOfferControl apiBase={API_BASE} />
         </div>
       )}
 

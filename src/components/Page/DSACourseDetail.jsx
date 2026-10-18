@@ -33,7 +33,7 @@ function DSACourseDetail() {
     setShowCheckout(true);
   };
 
-  const handleProceed = async ({ name, email, phone, finalAmount }) => {
+  const handleProceedPayment = async ({ name, email, phone, finalAmount, couponCode }) => {
     const token = localStorage.getItem("token");
     if (!token) {
       sessionStorage.setItem("redirectAfterLogin", "/course-detail/dsa");
@@ -72,6 +72,7 @@ function DSACourseDetail() {
             body: JSON.stringify({
               ...response,
               courseTitle: "The Complete Data Structure & Algorithm Course 2026",
+              couponCode: couponCode || null,  
               amount: finalAmount,
               ref: refCode
             })
