@@ -51,7 +51,6 @@ import DataAnalyticsCoursePage from "./components/Page/Dataanalyticscoursepage";
 import CSGenAICourseDetail from "./components/Page/Csgenaicoursedetail";
 import CSGenAICoursePage from "./components/Page/Csgenaicoursepage";
 
-import AdminOfferControl from "./Adminoffercontrol";
 // ✅ Admin Route — sirf tumhara email personally
 const AdminRoute = ({ children }) => {
   const token = localStorage.getItem("token");
