@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import CheckoutModal from "../CheckoutModal";
 import { GraduationCap, Star, Clock, ExternalLink, Tag, Users, Globe } from "lucide-react";
 import PageLayout from "../PageLayout";
-import OfferPopup from "./OfferPopup";
+import OfferPopup from "./Offerpopup";
 
 const courses = [
   { 

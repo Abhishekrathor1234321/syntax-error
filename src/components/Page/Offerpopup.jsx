@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import "./OfferPopup.css";
-
+import "./Offerpopup.css";
 
 const API = "https://syntax-error-1xds.vercel.app";
 /**

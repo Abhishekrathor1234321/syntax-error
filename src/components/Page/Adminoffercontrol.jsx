@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./OfferPopup.css";
+import "./Offerpopup.css";
 
 // AdminDashboard se apiBase prop milta hai; na mile to ye default use hoga
 const DEFAULT_API = "https://syntax-error-1xds.vercel.app";
