@@ -48,8 +48,8 @@ import CodingSolvePage from "./components/Page/Coding/CodingSolvePage";
 import DataAnalyticsCourseDetail from "./components/Page/Dataanalyticscoursedetail";
 import DataAnalyticsCoursePage from "./components/Page/Dataanalyticscoursepage";
 
-import CSGenAICourseDetail from "./components/Page/CSGenAICourseDetail";
-import CSGenAICoursePage from "./components/Page/CSGenAICoursePage";
+import CSGenAICourseDetail from "./components/Page/Csgenaicoursedetail";
+import CSGenAICoursePage from "./components/Page/Csgenaicoursepage";
 
 // ✅ Admin Route — sirf tumhara email personally
 const AdminRoute = ({ children }) => {
