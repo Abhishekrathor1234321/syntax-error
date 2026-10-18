@@ -8,6 +8,23 @@ import OfferPopup from "./Offerpopup";
 
 const courses = [
   { 
+    title: "The Complete TCS NQT Course 2026", 
+    instructor: "Abhishek Rathor & Karina Sharma", 
+    rating: 5.0, 
+    students: "100+", 
+    duration: "40 hours+", 
+    price: "₹999*", 
+    amount: 999,
+    language: "English", 
+    tags: ["DSA","Aptitude","CS Fundamental","GenAI","InterviewQuestion","HR Question" ],
+    badge: "⚡ Most Popular", 
+    btnLabel: "Enroll Now",
+    detailLink: "/course-detail/tcs2026",
+    useRazorpay: true  
+  },
+ 
+ 
+  { 
     title: "The Complete Data Structure & Algorithm Course 2026", 
     instructor: "Abhishek Rathor [Founder/DSA-Mentor]", 
     rating: 5.0, 
@@ -22,6 +39,22 @@ const courses = [
     detailLink: "/course-detail/dsa",
     // NOTE: coupons ab backend se validate honge, yahan kuch likhne ki zarurat nahi
     useRazorpay: true 
+  },
+
+   { 
+    title: "Data Analytics Placement Ready Course With Projects", 
+    instructor: "Shreyank Jawai", 
+    rating: "New", 
+    students: "New", 
+    duration: "20 Lectures", 
+    price: "₹499", 
+    amount: 499,
+    language: "English", 
+    tags: ["Excel", "SQL", "Python", "Pandas", "NumPy", "Data Cleaning", "Data Visualization", "Dashboards", "Real-World Projects"], 
+    badge: "🔥 New", 
+    btnLabel: "Enroll Now",
+    detailLink: "/course-detail/data-analytics",
+    useRazorpay: true
   },
   { 
     title: "Complete Aptitude Course 2026", 
@@ -38,38 +71,9 @@ const courses = [
     detailLink: "/course-detail/aptitude",
     useRazorpay: true
   },
-  { 
-    title: "The Complete TCS NQT Course 2026", 
-    instructor: "Abhishek Rathor & Karina Sharma", 
-    rating: 5.0, 
-    students: "100+", 
-    duration: "40 hours+", 
-    price: "₹999*", 
-    amount: 999,
-    language: "English", 
-    tags: ["DSA","Aptitude","CS Fundamental","GenAI","InterviewQuestion","HR Question" ],
-    badge: "⚡ Most Popular", 
-    btnLabel: "Enroll Now",
-    detailLink: "/course-detail/tcs2026",
-    useRazorpay: true  
-  },
 
   // ✅ NEW — Data Analytics Course
-  { 
-    title: "Data Analytics Placement Ready Course With Projects", 
-    instructor: "Shreyank Jawai", 
-    rating: "New", 
-    students: "New", 
-    duration: "20 Lectures", 
-    price: "₹499", 
-    amount: 499,
-    language: "English", 
-    tags: ["Excel", "SQL", "Python", "Pandas", "NumPy", "Data Cleaning", "Data Visualization", "Dashboards", "Real-World Projects"], 
-    badge: "🔥 New", 
-    btnLabel: "Enroll Now",
-    detailLink: "/course-detail/data-analytics",
-    useRazorpay: true
-  },
+ 
 
   // ✅ NEW — CS Fundamentals + GenAI Course
   { 
