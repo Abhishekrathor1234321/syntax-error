@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./CoursePage.css";
 
 // 👈 Apna Google Drive notes folder link yahan daalna
-const CS_GENAI_NOTES_LINK = "";
+const CS_GENAI_NOTES_LINK = "https://drive.google.com/drive/folders/1zhHprNVY1votGLBSrlEO8cYXHAdEiM1f";
 
 // 👈 Har lecture ke videoId me YouTube video ID (ya full link) daalna
 // Khali chhodoge to "Video Coming Soon" dikhega
@@ -15,34 +15,34 @@ const courseData = {
       {
         title: "🗄️ Section 1 — DBMS",
         lectures: [
-          { id: 1, title: "DBMS — Part 1", videoId: "", duration: "" },
-          { id: 2, title: "DBMS — Part 2", videoId: "", duration: "" },
+          { id: 1, title: "DBMS — Part 1", videoId: "-AVkAFCB9yE", duration: "" },
+          { id: 2, title: "DBMS — Part 2", videoId: "qOylUHEdOzc", duration: "" },
         ]
       },
       {
         title: "🧩 Section 2 — OOPs Concepts",
         lectures: [
-          { id: 3, title: "OOPs — Part 1", videoId: "", duration: "" },
-          { id: 4, title: "OOPs — Part 2", videoId: "", duration: "" },
+          { id: 3, title: "OOPs — Part 1", videoId: "AmXCxd5N9UQ", duration: "" },
+          { id: 4, title: "OOPs — Part 2", videoId: "y48-cjrDey0", duration: "" },
         ]
       },
       {
         title: "🤖 Section 3 — Generative AI",
         lectures: [
-          { id: 5, title: "Generative AI — Part 1", videoId: "", duration: "" },
-          { id: 6, title: "Generative AI — Part 2", videoId: "", duration: "" },
+          { id: 5, title: "Generative AI — Part 1", videoId: "_I4_dIZjcRs", duration: "" },
+          { id: 6, title: "Generative AI — Part 2", videoId: "tWfAdclOGc4", duration: "" },
         ]
       },
       {
         title: "🧠 Section 4 — Operating System",
         lectures: [
-          { id: 7, title: "Operating System", videoId: "", duration: "" },
+          { id: 7, title: "Operating System", videoId: "bnPBSrle5sU", duration: "" },
         ]
       },
       {
         title: "🚀 Section 5 — Computer Network",
         lectures: [
-          { id: 8, title: "Computer Network", videoId: "", duration: "" },
+          { id: 8, title: "Computer Network", videoId: "u1Kfzud_aPY", duration: "" },
         ]
       }
     ]
