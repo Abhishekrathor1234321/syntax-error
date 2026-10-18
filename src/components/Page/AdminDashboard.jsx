@@ -4,7 +4,7 @@ import "./AdminDashboard.css";
 import AdminTcsAptitude from "./AdminTcsAptitude";
 import AdminTcsCsHr from "./AdminTcsCsHr";
 import AdminTcsCoding from "./AdminTcsCoding";
-import AdminOfferControl from "./AdminOfferControl"; // ✅ NEW — Offer popup control
+import AdminOfferControl from "./Adminoffercontrol";
 
 const COURSES = [
   "The Complete Data Structure & Algorithm Course 2026",
