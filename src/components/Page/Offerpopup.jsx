@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./Offerpopup.css";
 
-const API = "https://api.syntaxerrorr.com";
+const API = "https://syntax-error-1xds.vercel.app";
 /**
  * Courses page ka offer popup.
  * Sab kuch (name, coupon code, discount %, ON/OFF) backend se aata hai:

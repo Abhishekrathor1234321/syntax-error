@@ -949,7 +949,7 @@ useEffect(() => {
       {/* ✅ NEW — Offer Popup Tab */}
       {activeTab === "offer" && (
         <div style={{ padding: "0 0 40px" }}>
-          <AdminOfferControl apiBase={API_BASE} />
+         <AdminOfferControl apiBase="https://syntax-error-1xds.vercel.app" />
         </div>
       )}
 
