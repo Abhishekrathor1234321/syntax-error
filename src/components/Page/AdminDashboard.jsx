@@ -11,6 +11,7 @@ const COURSES = [
   "Complete Aptitude Course 2026",
   "The Complete TCS NQT Course 2026",
   // ✅ NEW courses
+   "The Complete Infosys Course 2026",
   "Data Analytics Placement Ready Course With Projects",
   "CS Fundamentals + GenAI Placement Ready Course",
 ];
@@ -20,6 +21,7 @@ const TRACKING_PAGES = [
   { label: "DSA Course", path: "course-detail/dsa" },
   { label: "Aptitude Course", path: "course-detail/aptitude" },
   { label: "TCS NQT Course", path: "course-detail/tcs2026" },
+   { label: "Infosys Course", path: "course-detail/infosys-2026" },
   { label: "Data Analytics Course", path: "course-detail/data-analytics" },
   { label: "CS Fundamentals + GenAI Course", path: "course-detail/cs-genai" },
 ];
@@ -29,6 +31,7 @@ const COURSE_PRICES = {
   "The Complete Data Structure & Algorithm Course 2026": 299,
   "Complete Aptitude Course 2026": 199,
   "The Complete TCS NQT Course 2026": 999,
+   "The Complete Infosys Course 2026": 999,
   "Data Analytics Placement Ready Course With Projects": 499,
   "CS Fundamentals + GenAI Placement Ready Course": 299,
 };

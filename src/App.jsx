@@ -51,6 +51,11 @@ import DataAnalyticsCoursePage from "./components/Page/Dataanalyticscoursepage";
 import CSGenAICourseDetail from "./components/Page/Csgenaicoursedetail";
 import CSGenAICoursePage from "./components/Page/Csgenaicoursepage";
 
+
+
+import InfosysCoursePage from "./components/Page/Infosyscoursepage";
+import InfosysCourseDetail from "./components/Page/Infosyscoursedetail";
+
 // ✅ Admin Route — sirf tumhara email personally
 const AdminRoute = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -112,6 +117,10 @@ function App() {
  <Route path="cshr" element={<TcsQuiz type="cshr" />} />
  <Route path="leaderboard" element={<TcsLeaderboard />} />
 </Route>
+
+
+
+
 
 {/* =====================================================
     CODING PAGES WITH TCS LAYOUT
@@ -193,6 +202,10 @@ function App() {
         {/* ✅ TCS PYQ Practice Course */}
         {/* <Route path="/tcs-practice/:courseTitle" element={<PrivateRoute><TCSCoursePracticePage /></PrivateRoute>} /> */}
 
+       {/* ✅ Infosys Complete Course */}
+<Route path="/infosys-course/:courseTitle" element={<PrivateRoute><InfosysCoursePage /></PrivateRoute>} />
+
+<Route path="/course-detail/infosys-2026" element={<InfosysCourseDetail />} />
       </Routes>
       <Footer />
     </div>

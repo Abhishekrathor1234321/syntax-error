@@ -296,6 +296,10 @@ function DashboardPage() {
    else if (course.title === "TCS PYQ Practice — DSA + Aptitude 2026") {
     navigate(`/tcs-practice/${encodeURIComponent(course.title)}`);
   } 
+
+  else if (course.title === "The Complete Infosys Course 2026") {
+  navigate(`/infosys-course/${encodeURIComponent(course.title)}`);
+}
   else {
     navigate(`/course/${encodeURIComponent(course.title)}`);
   }

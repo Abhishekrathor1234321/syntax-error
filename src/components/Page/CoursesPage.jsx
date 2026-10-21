@@ -22,6 +22,23 @@ const courses = [
     detailLink: "/course-detail/tcs2026",
     useRazorpay: true  
   },
+
+
+  {
+  title: "The Complete Infosys Course 2026",
+  instructor: "Abhishek Rathor & Karina Sharma",
+  rating: 5.0,
+  students: "100+",
+  duration: "50 hours+",
+  price: "₹999*",
+  amount: 999,
+  language: "English",
+  tags: ["DSA", "Aptitude", "CS Fundamental", "GenAI", "InterviewQuestion", "HR Question"],
+  badge: "🔥 New",
+  btnLabel: "Enroll Now",
+  detailLink: "/course-detail/infosys-2026",
+  useRazorpay: true,
+},
  
  
   { 
