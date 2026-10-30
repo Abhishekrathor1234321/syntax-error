@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
 const navLinks = [
+   { label: "Live DSA", path: "/live-dsa" },
   { label: "Home", path: "/" },
   { label: "Notes", path: "/notes" },
   { label: "Roadmap", path: "/roadmap" },
@@ -19,7 +20,7 @@ const navLinks = [
   },
 ];
 
-const WHATSAPP_LINK = "https://whatsapp.com/channel/0029VazMK0J30LKTGQxCyi40";
+const WHATSAPP_LINK = "https://whatsapp.com/channel/0029Vb83otN1SWsvTKibxi1d";
 const ADMIN_EMAIL = "abhishekrathor7447@gmail.com";
 
 function Navbar({ showJobsPopup, setShowJobsPopup }) {

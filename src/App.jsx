@@ -56,6 +56,9 @@ import CSGenAICoursePage from "./components/Page/Csgenaicoursepage";
 import InfosysCoursePage from "./components/Page/Infosyscoursepage";
 import InfosysCourseDetail from "./components/Page/Infosyscoursedetail";
 
+
+import LiveDSA from "./components/Page/LiveDSA/LiveDSA";
+
 // ✅ Admin Route — sirf tumhara email personally
 const AdminRoute = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -175,7 +178,7 @@ function App() {
         <Route path="/challenge" element={<ChallengePage />} />
         <Route path="/challenge/schedule" element={<ChallengeSchedule />} />
         <Route path="/challenge/day/:day" element={<ChallengeDay />} />
-
+        <Route path="/live-dsa" element={<LiveDSA />} />
       
         {/* <Route path="/coding/:slug" element={<PrivateRoute><CodingSolvePage /></PrivateRoute>} /> */}
 

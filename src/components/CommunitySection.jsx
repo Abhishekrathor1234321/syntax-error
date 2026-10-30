@@ -10,12 +10,12 @@ return ( <section className="community">
   <div className="stats">
 
     <div className="stat-card">
-      <h2>270K+</h2>
+      <h2>350K+</h2>
       <p>Followers</p>
     </div>
 
     <div className="stat-card">
-      <h2>350k+</h2>
+      <h2>600k+</h2>
       <p>Community Members</p>
     </div>
 

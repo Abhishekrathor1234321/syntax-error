@@ -30,7 +30,7 @@ function HeroSection() {
             Follow on Instagram
           </a>
           <a
-            href="https://whatsapp.com/channel/0029VazMK0J30LKTGQxCyi40"
+            href="https://whatsapp.com/channel/0029Vb83otN1SWsvTKibxi1d"
             target="_blank"
             rel="noreferrer"
             className="explore-btn"
