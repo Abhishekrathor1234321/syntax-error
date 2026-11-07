@@ -34,12 +34,11 @@ const ensureAuthenticated = (req, res, next) => {
 
     } catch (err) {
         console.error("❌ JWT error:", err.message);
-
-        return res.status(403)
-            .json({
-                message:
-                    'Unauthorized, JWT token wrong or expired. Please log out from this website and log in again.'
-            });
+        return res.status(403).json({
+            code: 'SESSION_EXPIRED',
+            message:
+                'Unauthorized, JWT token wrong or expired. Please log out from this website and log in again.'
+        });
     }
 };
 
