@@ -59,6 +59,9 @@ import InfosysCourseDetail from "./components/Page/Infosyscoursedetail";
 
 import LiveDSA from "./components/Page/LiveDSA/LiveDSA";
 
+
+import SessionExpiredModal from './components/SessionExpiredModal';
+
 // ✅ Admin Route — sirf tumhara email personally
 const AdminRoute = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -92,6 +95,7 @@ function App() {
   return (
     <div className="app">
       <Navbar showJobsPopup={showJobsPopup} setShowJobsPopup={setShowJobsPopup} />
+      <SessionExpiredModal />
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={
